@@ -16,6 +16,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -25,8 +26,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.dialogs.FilteredTree;
+import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.forms.DetailsPart;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.MasterDetailsBlock;
@@ -41,6 +43,7 @@ import com.devepos.adt.tools.base.AdtToolsBasePlugin;
 import com.devepos.adt.tools.base.IGeneralWorkbenchImages;
 import com.devepos.adt.tools.base.ui.StylerFactory;
 import com.devepos.adt.tools.base.ui.tree.ITreeNode;
+import com.devepos.adt.tools.base.ui.tree.PrefixedAsteriskFilteredTree;
 import com.devepos.adt.tools.base.util.IModificationListener;
 
 /**
@@ -52,7 +55,7 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 
 	private final AbapTagModel model;
 	private Section masterSection;
-	private Tree tagsTree;
+	private FilteredTree tagsTree;
 	private TreeViewer treeViewer;
 
 	public AbapTagMasterDetailsBlock(final AbapTagModel model) {
@@ -98,13 +101,13 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(client);
 		toolkit.paintBordersFor(client);
 
-		this.tagsTree = toolkit.createTree(client, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+		this.tagsTree = createFilteredTree(client);
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(this.tagsTree);
 		// register observables
 		ISideEffect.create(() -> this.model.isValid(), this.tagsTree::setEnabled);
 
 		final Composite buttonComposite = toolkit.createComposite(client);
-		GridLayoutFactory.swtDefaults().margins(2, 2).applyTo(buttonComposite);
+		GridLayoutFactory.swtDefaults().margins(2, 28).applyTo(buttonComposite);
 		GridDataFactory.fillDefaults().align(SWT.BEGINNING, SWT.BEGINNING).applyTo(buttonComposite);
 
 		final Button addButton = toolkit.createButton(buttonComposite, "&Add", SWT.PUSH); //$NON-NLS-1$
@@ -131,14 +134,14 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 
 		this.masterSection.setClient(client);
 
-		final SectionPart spart = new SectionPart(this.masterSection);
-		managedForm.addPart(spart);
+		final SectionPart sectionPart = new SectionPart(this.masterSection);
+		managedForm.addPart(sectionPart);
 
-		this.treeViewer = new TreeViewer(this.tagsTree);
+		this.treeViewer = this.tagsTree.getViewer();
 		this.treeViewer.setContentProvider(new TreeContentProvicder());
 		this.treeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new TreeViewerLabelProvider()));
 		this.treeViewer.addSelectionChangedListener(event -> {
-			managedForm.fireSelectionChanged(spart, event.getSelection());
+			managedForm.fireSelectionChanged(sectionPart, event.getSelection());
 		});
 		this.treeViewer.setInput(this.model);
 
@@ -229,6 +232,44 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 		toolBarManager.update(true);
 
 		section.setTextClient(toolbar);
+	}
+
+	/*
+	 * Creates the filtered tree for the display of the fields of a database entity
+	 */
+	private FilteredTree createFilteredTree(final Composite parent) {
+		final FilteredTree tree = new PrefixedAsteriskFilteredTree(parent,
+			SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER, createPatternFilter()) {
+			@Override
+			protected void textChanged() {
+				super.textChanged();
+				Display.getDefault().timerExec(500, (Runnable) () -> {
+					if (this.filterText != null && this.filterText.getText().length() == 0) {
+						getViewer().expandAll();
+					}
+				});
+			}
+		};
+		return tree;
+	}
+
+	/*
+	 * Creates the pattern filter which will be used for filtering the field tree
+	 */
+	private PatternFilter createPatternFilter() {
+		return new PatternFilter() {
+			@Override
+			protected boolean isLeafMatch(final Viewer viewer, final Object element) {
+				if (element instanceof ITag) {
+					final ITag tag = (ITag) element;
+					return wordMatches(tag.getName());
+				}
+				final DelegatingStyledCellLabelProvider labelProvider = (DelegatingStyledCellLabelProvider) AbapTagMasterDetailsBlock.this.treeViewer
+					.getLabelProvider();
+				final String labelText = labelProvider.getStyledStringProvider().getStyledText(element).getString();
+				return wordMatches(labelText);
+			}
+		};
 	}
 
 	private class TreeContentProvicder implements ITreeContentProvider {
