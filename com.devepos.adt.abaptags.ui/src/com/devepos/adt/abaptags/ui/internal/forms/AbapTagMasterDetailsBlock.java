@@ -1,16 +1,20 @@
 package com.devepos.adt.abaptags.ui.internal.forms;
 
 import org.eclipse.core.databinding.observable.sideeffect.ISideEffect;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -24,8 +28,11 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.PatternFilter;
@@ -37,12 +44,13 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 import com.devepos.adt.abaptags.ITag;
+import com.devepos.adt.abaptags.ITags;
 import com.devepos.adt.abaptags.ui.AbapTagsUIPlugin;
+import com.devepos.adt.abaptags.ui.internal.messages.Messages;
 import com.devepos.adt.abaptags.ui.internal.util.IImages;
 import com.devepos.adt.tools.base.AdtToolsBasePlugin;
 import com.devepos.adt.tools.base.IGeneralWorkbenchImages;
 import com.devepos.adt.tools.base.ui.StylerFactory;
-import com.devepos.adt.tools.base.ui.tree.ITreeNode;
 import com.devepos.adt.tools.base.ui.tree.PrefixedAsteriskFilteredTree;
 import com.devepos.adt.tools.base.util.IModificationListener;
 
@@ -57,6 +65,7 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 	private Section masterSection;
 	private FilteredTree tagsTree;
 	private TreeViewer treeViewer;
+	private IModificationListener<ITag> modListener;
 
 	public AbapTagMasterDetailsBlock(final AbapTagModel model) {
 		this.model = model;
@@ -66,6 +75,31 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 	public void createContent(final IManagedForm managedForm) {
 		super.createContent(managedForm);
 		this.detailsPart.setPageProvider(new AbapTagDetailsPageProvider(this));
+
+		// register menus
+		final MenuManager popupMenuManager = new MenuManager();
+		final IMenuListener listener = mng -> fillContextMenu(mng);
+		popupMenuManager.addMenuListener(listener);
+		popupMenuManager.setRemoveAllWhenShown(true);
+		final Control tree = this.treeViewer.getControl();
+		final Menu menu = popupMenuManager.createContextMenu(tree);
+		tree.setMenu(menu);
+	}
+
+	private void fillContextMenu(final IMenuManager mng) {
+		if (!this.model.isEditMode()) {
+			return; // currently there are no actions for read only mode
+		}
+		final IStructuredSelection sel = (IStructuredSelection) this.treeViewer.getSelection();
+		if (sel.isEmpty()) {
+			return;
+		}
+
+		if (sel.size() == 1) {
+			final ITag selectedTag = (ITag) sel.getFirstElement();
+			mng.add(new AddChildTag(selectedTag));
+		}
+		mng.add(new RemoveTagAction());
 	}
 
 	@Override
@@ -92,8 +126,8 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 	protected void createMasterPart(final IManagedForm managedForm, final Composite parent) {
 		final FormToolkit toolkit = managedForm.getToolkit();
 		this.masterSection = toolkit.createSection(parent, Section.DESCRIPTION | Section.TITLE_BAR);
-		this.masterSection.setText("Tags");
-		this.masterSection.setDescription("Overview of all tags in the current project");
+		this.masterSection.setText(Messages.AbapTagMasterDetailsBlock_MasterSectionTitle_xtit);
+		this.masterSection.setDescription(Messages.AbapTagMasterDetailsBlock_MasterSectionDescription_xmsg);
 		createSectionToolbar(this.masterSection, toolkit);
 
 		final Composite client = toolkit.createComposite(this.masterSection, SWT.WRAP);
@@ -110,23 +144,24 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 		GridLayoutFactory.swtDefaults().margins(2, 28).applyTo(buttonComposite);
 		GridDataFactory.fillDefaults().align(SWT.BEGINNING, SWT.BEGINNING).applyTo(buttonComposite);
 
-		final Button addButton = toolkit.createButton(buttonComposite, "&Add", SWT.PUSH); //$NON-NLS-1$
+		final Button addButton = toolkit.createButton(buttonComposite, Messages.AbapTagMasterDetailsBlock_AddAction_xbut, SWT.PUSH); 
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).applyTo(addButton);
 		addButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				final ITag newTag = AbapTagMasterDetailsBlock.this.model.addNewTag();
+				final ITag newTag = AbapTagMasterDetailsBlock.this.model.addNewTag(null);
 				AbapTagMasterDetailsBlock.this.treeViewer.setSelection(new StructuredSelection(newTag), true);
 			}
 		});
 		// register observables
 		ISideEffect.create(() -> this.model.isValid() && this.model.isEditMode(), addButton::setEnabled);
 
-		final Button removeButton = toolkit.createButton(buttonComposite, "&Remove", SWT.PUSH); //$NON-NLS-1$
+		final Button removeButton = toolkit.createButton(buttonComposite, Messages.AbapTagMasterDetailsBlock_RemoveAction_xbut, SWT.PUSH); 
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).applyTo(removeButton);
 		removeButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
+				removeTags();
 			}
 		});
 		// register observables
@@ -145,7 +180,7 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 		});
 		this.treeViewer.setInput(this.model);
 
-		this.model.addModificationListener(new IModificationListener<ITag>() {
+		this.modListener = new IModificationListener<ITag>() {
 
 			@Override
 			public void modified(final ITag entry, final ModificationKind modificationKind) {
@@ -155,7 +190,16 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 			@Override
 			public void modified(final ModificationKind kind) {
 				AbapTagMasterDetailsBlock.this.treeViewer.refresh();
+				AbapTagMasterDetailsBlock.this.treeViewer.expandAll();
 			}
+		};
+		this.model.addModificationListener(this.modListener);
+		// Dispose of listener when form is disposed
+		managedForm.getForm().addDisposeListener(e -> {
+			if (this.modListener != null && this.model != null) {
+				this.model.removeModificationListener(this.modListener);
+			}
+			this.modListener = null;
 		});
 
 	}
@@ -166,37 +210,32 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 
 	@Override
 	protected void createToolBarActions(final IManagedForm managedForm) {
-		final Action refreshAction = new Action("Refresh",
+		final Action refreshAction = new Action(Messages.AbapTagMasterDetailsBlock_RefreshAction_xtol,
 			AdtToolsBasePlugin.getDefault().getImageDescriptor(IGeneralWorkbenchImages.REFRESH)) {
 			@Override
 			public void run() {
+				AbapTagMasterDetailsBlock.this.model.refreshTags();
 			}
 		};
-		final Action editAction = new Action("Edit",
+		final Action editAction = new Action(Messages.AbapTagMasterDetailsBlock_EditAction_xtol,
 			AdtToolsBasePlugin.getDefault().getImageDescriptor(IGeneralWorkbenchImages.EDIT_ACTION)) {
 			@Override
 			public void run() {
-				AbapTagMasterDetailsBlock.this.model.setEditMode(true);
+				AbapTagMasterDetailsBlock.this.model.editTags();
 			}
 		};
-		final Action saveAction = new Action("Save",
-			AdtToolsBasePlugin.getDefault().getImageDescriptor(IGeneralWorkbenchImages.SAVE_ACTION)) {
+		final Action saveAction = new Action(Messages.AbapTagMasterDetailsBlock_SaveAction_xtol,
+			PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ETOOL_SAVE_EDIT)) {
 			@Override
 			public void run() {
-				AbapTagMasterDetailsBlock.this.model.setEditMode(false);
+				AbapTagMasterDetailsBlock.this.model.saveTags();
 			}
 		};
-		final Action unlockAction = new Action("Unlock Data",
-			AdtToolsBasePlugin.getDefault().getImageDescriptor(IGeneralWorkbenchImages.UNLOCK_ACTION)) {
+		final Action unlockAction = new Action(Messages.AbapTagMasterDetailsBlock_CancelAction_xtol,
+			PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_TOOL_UNDO)) {
 			@Override
 			public void run() {
-				if (AbapTagMasterDetailsBlock.this.model.hasModelChanged()) {
-					if (!MessageDialog.openQuestion(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Unlock?",
-						"There are changed data in the model\nAre you sure want to discard the changes?")) {
-						return;
-					}
-				}
-				AbapTagMasterDetailsBlock.this.model.setEditMode(false);
+				AbapTagMasterDetailsBlock.this.model.unlock(true);
 			}
 		};
 		ISideEffect.create(() -> this.model.isValid() && this.model.isEditMode(), saveAction::setEnabled);
@@ -221,10 +260,11 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 		final Cursor handCursor = Display.getCurrent().getSystemCursor(SWT.CURSOR_HAND);
 		toolbar.setCursor(handCursor);
 
-		final IAction collapseAllAction = new Action("Collapse all",
+		final IAction collapseAllAction = new Action(Messages.AbapTagMasterDetailsBlock_CollapseAll_xtol,
 			AdtToolsBasePlugin.getDefault().getImageDescriptor(IGeneralWorkbenchImages.COLLAPSE_ALL)) {
 			@Override
 			public void run() {
+				AbapTagMasterDetailsBlock.this.treeViewer.collapseAll();
 			}
 		};
 		toolBarManager.add(collapseAllAction);
@@ -272,6 +312,45 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 		};
 	}
 
+	private void removeTags() {
+		final IStructuredSelection sel = this.treeViewer.getStructuredSelection();
+		if (sel.isEmpty()) {
+			return;
+		}
+		for (final Object selected : sel) {
+			this.model.removeTag((ITag) selected);
+		}
+
+		this.treeViewer.refresh();
+	}
+
+	private class AddChildTag extends Action {
+		private final ITag tag;
+
+		public AddChildTag(final ITag tag) {
+			super(Messages.AbapTagMasterDetailsBlock_NewChildTagAction_xlbl, PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJ_ADD));
+			this.tag = tag;
+		}
+
+		@Override
+		public void run() {
+			final ITag newTag = AbapTagMasterDetailsBlock.this.model.addNewTag(this.tag);
+			AbapTagMasterDetailsBlock.this.treeViewer.expandToLevel(this.tag, 1);
+			AbapTagMasterDetailsBlock.this.treeViewer.setSelection(new StructuredSelection(newTag), true);
+		}
+	}
+
+	private class RemoveTagAction extends Action {
+		public RemoveTagAction() {
+			super(Messages.AbapTagMasterDetailsBlock_RemoveAction_xlbl, PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
+		}
+
+		@Override
+		public void run() {
+			removeTags();
+		}
+	}
+
 	private class TreeContentProvicder implements ITreeContentProvider {
 
 		@Override
@@ -285,21 +364,32 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 		@Override
 		public Object[] getChildren(final Object parentElement) {
 			if (parentElement instanceof ITag) {
-				return ((ITag) parentElement).getChildTag().toArray();
+				return ((ITag) parentElement).getChildTags().toArray();
 			}
 			return null;
 		}
 
 		@Override
 		public Object getParent(final Object element) {
-			return element instanceof ITreeNode ? ((ITreeNode) element).getParent() : null;
+			if (!(element instanceof ITag)) {
+				return null;
+			}
+			final ITag tag = (ITag) element;
+			final EObject container = tag.eContainer();
+			if (container == null || container instanceof ITags) {
+				return null;
+			} else if (container instanceof ITag) {
+				return container;
+			} else {
+				return null;
+			}
 		}
 
 		@Override
 		public boolean hasChildren(final Object element) {
 			if (element instanceof ITag) {
 				final ITag tag = (ITag) element;
-				return tag.getChildTag().size() > 0;
+				return tag.getChildTags().size() > 0;
 			}
 			return false;
 		}

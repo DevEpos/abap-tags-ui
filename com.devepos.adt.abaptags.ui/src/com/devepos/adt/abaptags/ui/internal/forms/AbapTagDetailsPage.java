@@ -22,9 +22,11 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 import com.devepos.adt.abaptags.ITag;
+import com.devepos.adt.abaptags.ui.internal.messages.Messages;
 import com.sap.adt.util.ui.SWTUtil;
 
 public class AbapTagDetailsPage implements IDetailsPage {
+	private static final String NO_VALUE = "-"; //$NON-NLS-1$
 	private IManagedForm managedForm;
 	private ITag currentTag;
 	private final IMasterSection masterSection;
@@ -90,36 +92,36 @@ public class AbapTagDetailsPage implements IDetailsPage {
 		this.notifyOfModifications = this.currentTag.validate().getSeverity() != IStatus.OK;
 		final String name = this.currentTag.getName();
 
-		this.nameText.setText(name != null ? name : "");
+		this.nameText.setText(name != null ? name : ""); //$NON-NLS-1$
 
 		final String description = this.currentTag.getDescription();
-		this.descriptionText.setText(description != null ? description : "");
+		this.descriptionText.setText(description != null ? description : ""); //$NON-NLS-1$
 
 		final String createdDateTime = this.currentTag.getCreatedDateTime();
 		try {
 			this.createdDateTimeLabel.setText(createdDateTime != null && !createdDateTime.isBlank()
 				? LocalDateTime.parse(createdDateTime, DateTimeFormatter.ISO_DATE_TIME)
-					.format(DateTimeFormatter.ofPattern("EEEE, MMMM d, uuuu, hh:mm:ss", Locale.ENGLISH))
-				: "");
+					.format(DateTimeFormatter.ofPattern("EEEE, MMMM d, uuuu, hh:mm:ss", Locale.ENGLISH)) //$NON-NLS-1$
+				: NO_VALUE);
 		} catch (final DateTimeParseException exc) {
-			this.createdDateTimeLabel.setText("");
+			this.createdDateTimeLabel.setText(NO_VALUE);
 		}
 
 		final String createdBy = this.currentTag.getCreatedBy();
-		this.createdByLabel.setText(createdBy != null ? createdBy : "");
+		this.createdByLabel.setText(createdBy != null && !createdBy.isBlank() ? createdBy : NO_VALUE);
 
 		final String changedDateTime = this.currentTag.getChangedDateTime();
 		try {
 			this.changedDateTimeLabel.setText(changedDateTime != null && !changedDateTime.isBlank()
 				? LocalDateTime.parse(changedDateTime, DateTimeFormatter.ISO_DATE_TIME)
-					.format(DateTimeFormatter.ofPattern("EEEE, MMMM d, uuuu, hh:mm:ss", Locale.ENGLISH))
-				: "");
+					.format(DateTimeFormatter.ofPattern("EEEE, MMMM d, uuuu, hh:mm:ss", Locale.ENGLISH)) //$NON-NLS-1$
+				: NO_VALUE);
 		} catch (final DateTimeParseException exc) {
-			this.changedDateTimeLabel.setText("");
+			this.changedDateTimeLabel.setText(NO_VALUE);
 		}
 
 		final String changedBy = this.currentTag.getChangedBy();
-		this.changedByLabel.setText(changedBy != null ? changedBy : "");
+		this.changedByLabel.setText(changedBy != null && !changedBy.isBlank() ? changedBy : NO_VALUE);
 
 		this.notifyOfModifications = true;
 	}
@@ -135,7 +137,9 @@ public class AbapTagDetailsPage implements IDetailsPage {
 			this.detailsComposite.setVisible(false);
 		}
 		refresh();
-		setFocus();
+		if (this.currentTag != null && this.currentTag.getName().isBlank()) {
+			setFocus();
+		}
 	}
 
 	@Override
@@ -149,15 +153,15 @@ public class AbapTagDetailsPage implements IDetailsPage {
 
 		section.marginWidth = 10;
 		section.clientVerticalSpacing = 6;
-		section.setText("Tag Details");
-		section.setDescription("Sets the properties of the selected Tag");
+		section.setText(Messages.AbapTagDetailsPage_DetailsSectionTitle_xtit);
+		section.setDescription(Messages.AbapTagDetailsPage_DetailsSectionDescription_xmsg);
 
 		final Composite client = toolkit.createComposite(section);
 		GridLayoutFactory.swtDefaults().margins(0, 0).numColumns(2).applyTo(client);
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(client);
 
 		final Label nameLabel = new Label(client, SWT.NONE);
-		nameLabel.setText("Name:");
+		nameLabel.setText(Messages.AbapTagDetailsPage_NameInput_xlbl);
 		SWTUtil.setMandatory(nameLabel, true);
 		GridDataFactory.fillDefaults().align(SWT.BEGINNING, SWT.CENTER).applyTo(nameLabel);
 
@@ -171,7 +175,7 @@ public class AbapTagDetailsPage implements IDetailsPage {
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(this.nameText);
 
 		final Label descriptionLabel = new Label(client, SWT.NONE);
-		descriptionLabel.setText("Description:");
+		descriptionLabel.setText(Messages.AbapTagDetailsPage_DescriptionInput_xlbl);
 
 		GridDataFactory.fillDefaults().align(SWT.BEGINNING, SWT.BEGINNING).applyTo(descriptionLabel);
 
@@ -204,22 +208,22 @@ public class AbapTagDetailsPage implements IDetailsPage {
 	 */
 	private void createAdminDataFields(final Composite client) {
 		final Label createdDateTimeLabel = new Label(client, SWT.NONE);
-		createdDateTimeLabel.setText("Created On:");
+		createdDateTimeLabel.setText(Messages.AbapTagDetailsPage_CreatedOnLabel_xlbl);
 		this.createdDateTimeLabel = new Label(client, SWT.NONE);
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, false).applyTo(this.createdDateTimeLabel);
 
 		final Label createdByLabel = new Label(client, SWT.NONE);
-		createdByLabel.setText("Created By:");
+		createdByLabel.setText(Messages.AbapTagDetailsPage_CreatedByLabel_xlbl);
 		this.createdByLabel = new Label(client, SWT.NONE);
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, false).applyTo(this.createdByLabel);
 
 		final Label changedDateTimeLabel = new Label(client, SWT.NONE);
-		changedDateTimeLabel.setText("Last Changed on:");
+		changedDateTimeLabel.setText(Messages.AbapTagDetailsPage_ChangedOnLabel_xlbl);
 		this.changedDateTimeLabel = new Label(client, SWT.NONE);
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, false).applyTo(this.changedDateTimeLabel);
 
 		final Label changedByLabel = new Label(client, SWT.NONE);
-		changedByLabel.setText("Last Changed By:");
+		changedByLabel.setText(Messages.AbapTagDetailsPage_ChangedByLabel_xlbl);
 		this.changedByLabel = new Label(client, SWT.NONE);
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, false).applyTo(this.changedByLabel);
 	}

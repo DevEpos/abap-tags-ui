@@ -48,6 +48,8 @@ public class AbapTagsUIPlugin extends AbstractAdtUIPlugin {
 	@Override
 	protected void initializeImageRegistry(final ImageRegistry reg) {
 		registerImage(reg, IImages.TAGS, "icons/tagDark.png");
+		registerImage(reg, IImages.GLOBE, "icons/globe.png");
+		registerImage(reg, IImages.USER, "icons/User.png");
 	}
 
 }

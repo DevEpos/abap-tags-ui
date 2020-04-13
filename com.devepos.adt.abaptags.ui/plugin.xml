@@ -17,12 +17,21 @@
                optional="true">
          </commandParameter>
       </command>
+      <command
+            categoryId="com.devepos.adt.abaptags.ui.general.commands.category"
+            id="com.devepos.adt.abaptags.ui.command.manageObjectTags"
+            name="%command.manageObjectTags.label">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
             class="com.devepos.adt.abaptags.ui.internal.handlers.ManageTagsHandler"
             commandId="com.devepos.adt.abaptags.ui.command.manageTags">
+      </handler>
+      <handler
+            class="com.devepos.adt.abaptags.ui.internal.handlers.ManageObjectTagsHandler"
+            commandId="com.devepos.adt.abaptags.ui.command.manageObjectTags">
       </handler>
     </extension>
    <extension
@@ -42,6 +51,12 @@
                      name="com.devepos.adt.abaptags.ui.commandParams.globalTags"
                      value="true">
                </parameter>
+               <visibleWhen
+                     checkEnabled="false">
+                  <reference
+                        definitionId="com.sap.adt.tools.core.ui.toolsActive">
+                  </reference>
+               </visibleWhen>
             </command>
          </toolbar>
       </menuContribution>
@@ -69,6 +84,63 @@
             </parameter>
          </command>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?endof=group.open">
+         <command
+               commandId="com.devepos.adt.abaptags.ui.command.manageObjectTags"
+               icon="icons/tagDark.png"
+               label="%command.manageObjectTags.label"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        operator="and">
+                     <adapt
+                           type="com.devepos.adt.tools.base.adtobject.IAdtObject">
+                        <test
+                              property="com.devepos.adt.abaptags.ui.features.abaptagsAvailable">
+                        </test>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:#EditorContext?after=group.open">
+         <command
+               commandId="com.devepos.adt.abaptags.ui.command.manageObjectTags"
+               icon="icons/tagDark.png"
+               label="%command.manageObjectTags.label"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeEditorInput">
+                  <adapt
+                        type="com.devepos.adt.tools.base.adtobject.IAdtObject">
+                     <test
+                           property="com.devepos.adt.abaptags.ui.features.abaptagsAvailable">
+                     </test>
+                  </adapt>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="com.devepos.adt.abaptags.ui.internal.propertytester.FeatureTester"
+            id="com.devepos.adt.abaptags.ui.ProjectFeatureTester"
+            namespace="com.devepos.adt.abaptags.ui.features"
+            properties="abaptagsAvailable"
+            type="com.devepos.adt.tools.base.adtobject.IAdtObject">
+      </propertyTester>
    </extension>
 
 </plugin>
