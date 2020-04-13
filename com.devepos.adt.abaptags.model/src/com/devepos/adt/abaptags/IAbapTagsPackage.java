@@ -131,13 +131,13 @@ public interface IAbapTagsPackage extends EPackage {
 	int TAG__DESCRIPTION = 2;
 
 	/**
-	 * The feature id for the '<em><b>Child Tag</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Child Tags</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CHILD_TAG = 3;
+	int TAG__CHILD_TAGS = 3;
 
 	/**
 	 * The feature id for the '<em><b>Is Root</b></em>' attribute.
@@ -194,22 +194,13 @@ public interface IAbapTagsPackage extends EPackage {
 	int TAG__CHANGED_DATE_TIME = 9;
 
 	/**
-	 * The feature id for the '<em><b>Parent Tag</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TAG__PARENT_TAG = 10;
-
-	/**
 	 * The feature id for the '<em><b>Tagged Object Count</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__TAGGED_OBJECT_COUNT = 11;
+	int TAG__TAGGED_OBJECT_COUNT = 10;
 
 	/**
 	 * The feature id for the '<em><b>Changed</b></em>' attribute.
@@ -218,7 +209,16 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CHANGED = 12;
+	int TAG__CHANGED = 11;
+
+	/**
+	 * The feature id for the '<em><b>Parent Tag Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG__PARENT_TAG_ID = 12;
 
 	/**
 	 * The number of structural features of the '<em>Tag</em>' class.
@@ -340,13 +340,13 @@ public interface IAbapTagsPackage extends EPackage {
 	int ABAP_OBJECT_WITH_TAGS__OBJECT_TYPE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Tag</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Tags</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABAP_OBJECT_WITH_TAGS__TAG = 2;
+	int ABAP_OBJECT_WITH_TAGS__TAGS = 2;
 
 	/**
 	 * The number of structural features of the '<em>Abap Object With Tags</em>' class.
@@ -377,13 +377,13 @@ public interface IAbapTagsPackage extends EPackage {
 	int ABAP_OBJECTS_WITH_TAGS = 4;
 
 	/**
-	 * The feature id for the '<em><b>Abap Object With Tags</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Abap Objects With Tags</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABAP_OBJECTS_WITH_TAGS__ABAP_OBJECT_WITH_TAGS = 0;
+	int ABAP_OBJECTS_WITH_TAGS__ABAP_OBJECTS_WITH_TAGS = 0;
 
 	/**
 	 * The number of structural features of the '<em>Abap Objects With Tags</em>' class.
@@ -414,13 +414,13 @@ public interface IAbapTagsPackage extends EPackage {
 	int ABAP_OBJECTS_WITH_TAG = 5;
 
 	/**
-	 * The feature id for the '<em><b>Abap Object With Tag</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Abap Objects With Tag</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABAP_OBJECTS_WITH_TAG__ABAP_OBJECT_WITH_TAG = 0;
+	int ABAP_OBJECTS_WITH_TAG__ABAP_OBJECTS_WITH_TAG = 0;
 
 	/**
 	 * The number of structural features of the '<em>Abap Objects With Tag</em>' class.
@@ -506,15 +506,15 @@ public interface IAbapTagsPackage extends EPackage {
 	EAttribute getTag_Description();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.abaptags.ITag#getChildTag <em>Child Tag</em>}'.
+	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.abaptags.ITag#getChildTags <em>Child Tags</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Child Tag</em>'.
-	 * @see com.devepos.adt.abaptags.ITag#getChildTag()
+	 * @return the meta object for the containment reference list '<em>Child Tags</em>'.
+	 * @see com.devepos.adt.abaptags.ITag#getChildTags()
 	 * @see #getTag()
 	 * @generated
 	 */
-	EReference getTag_ChildTag();
+	EReference getTag_ChildTags();
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITag#isIsRoot <em>Is Root</em>}'.
@@ -583,17 +583,6 @@ public interface IAbapTagsPackage extends EPackage {
 	EAttribute getTag_ChangedDateTime();
 
 	/**
-	 * Returns the meta object for the reference '{@link com.devepos.adt.abaptags.ITag#getParentTag <em>Parent Tag</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Parent Tag</em>'.
-	 * @see com.devepos.adt.abaptags.ITag#getParentTag()
-	 * @see #getTag()
-	 * @generated
-	 */
-	EReference getTag_ParentTag();
-
-	/**
 	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITag#getTaggedObjectCount <em>Tagged Object Count</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -614,6 +603,17 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTag_Changed();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITag#getParentTagId <em>Parent Tag Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Parent Tag Id</em>'.
+	 * @see com.devepos.adt.abaptags.ITag#getParentTagId()
+	 * @see #getTag()
+	 * @generated
+	 */
+	EAttribute getTag_ParentTagId();
 
 	/**
 	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.IAbapObjectWithTag <em>Abap Object With Tag</em>}'.
@@ -713,15 +713,15 @@ public interface IAbapTagsPackage extends EPackage {
 	EAttribute getAbapObjectWithTags_ObjectType();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.abaptags.IAbapObjectWithTags#getTag <em>Tag</em>}'.
+	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.abaptags.IAbapObjectWithTags#getTags <em>Tags</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Tag</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectWithTags#getTag()
+	 * @return the meta object for the containment reference list '<em>Tags</em>'.
+	 * @see com.devepos.adt.abaptags.IAbapObjectWithTags#getTags()
 	 * @see #getAbapObjectWithTags()
 	 * @generated
 	 */
-	EReference getAbapObjectWithTags_Tag();
+	EReference getAbapObjectWithTags_Tags();
 
 	/**
 	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.IAbapObjectsWithTags <em>Abap Objects With Tags</em>}'.
@@ -734,15 +734,15 @@ public interface IAbapTagsPackage extends EPackage {
 	EClass getAbapObjectsWithTags();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.abaptags.IAbapObjectsWithTags#getAbapObjectWithTags <em>Abap Object With Tags</em>}'.
+	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.abaptags.IAbapObjectsWithTags#getAbapObjectsWithTags <em>Abap Objects With Tags</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Abap Object With Tags</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectsWithTags#getAbapObjectWithTags()
+	 * @return the meta object for the containment reference list '<em>Abap Objects With Tags</em>'.
+	 * @see com.devepos.adt.abaptags.IAbapObjectsWithTags#getAbapObjectsWithTags()
 	 * @see #getAbapObjectsWithTags()
 	 * @generated
 	 */
-	EReference getAbapObjectsWithTags_AbapObjectWithTags();
+	EReference getAbapObjectsWithTags_AbapObjectsWithTags();
 
 	/**
 	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.IAbapObjectsWithTag <em>Abap Objects With Tag</em>}'.
@@ -755,15 +755,15 @@ public interface IAbapTagsPackage extends EPackage {
 	EClass getAbapObjectsWithTag();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.abaptags.IAbapObjectsWithTag#getAbapObjectWithTag <em>Abap Object With Tag</em>}'.
+	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.abaptags.IAbapObjectsWithTag#getAbapObjectsWithTag <em>Abap Objects With Tag</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Abap Object With Tag</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectsWithTag#getAbapObjectWithTag()
+	 * @return the meta object for the containment reference list '<em>Abap Objects With Tag</em>'.
+	 * @see com.devepos.adt.abaptags.IAbapObjectsWithTag#getAbapObjectsWithTag()
 	 * @see #getAbapObjectsWithTag()
 	 * @generated
 	 */
-	EReference getAbapObjectsWithTag_AbapObjectWithTag();
+	EReference getAbapObjectsWithTag_AbapObjectsWithTag();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -841,12 +841,12 @@ public interface IAbapTagsPackage extends EPackage {
 		EAttribute TAG__DESCRIPTION = eINSTANCE.getTag_Description();
 
 		/**
-		 * The meta object literal for the '<em><b>Child Tag</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Child Tags</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TAG__CHILD_TAG = eINSTANCE.getTag_ChildTag();
+		EReference TAG__CHILD_TAGS = eINSTANCE.getTag_ChildTags();
 
 		/**
 		 * The meta object literal for the '<em><b>Is Root</b></em>' attribute feature.
@@ -897,14 +897,6 @@ public interface IAbapTagsPackage extends EPackage {
 		EAttribute TAG__CHANGED_DATE_TIME = eINSTANCE.getTag_ChangedDateTime();
 
 		/**
-		 * The meta object literal for the '<em><b>Parent Tag</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TAG__PARENT_TAG = eINSTANCE.getTag_ParentTag();
-
-		/**
 		 * The meta object literal for the '<em><b>Tagged Object Count</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -919,6 +911,14 @@ public interface IAbapTagsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TAG__CHANGED = eINSTANCE.getTag_Changed();
+
+		/**
+		 * The meta object literal for the '<em><b>Parent Tag Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAG__PARENT_TAG_ID = eINSTANCE.getTag_ParentTagId();
 
 		/**
 		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.AbapObjectWithTag <em>Abap Object With Tag</em>}' class.
@@ -997,12 +997,12 @@ public interface IAbapTagsPackage extends EPackage {
 		EAttribute ABAP_OBJECT_WITH_TAGS__OBJECT_TYPE = eINSTANCE.getAbapObjectWithTags_ObjectType();
 
 		/**
-		 * The meta object literal for the '<em><b>Tag</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Tags</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ABAP_OBJECT_WITH_TAGS__TAG = eINSTANCE.getAbapObjectWithTags_Tag();
+		EReference ABAP_OBJECT_WITH_TAGS__TAGS = eINSTANCE.getAbapObjectWithTags_Tags();
 
 		/**
 		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.AbapObjectsWithTags <em>Abap Objects With Tags</em>}' class.
@@ -1015,12 +1015,12 @@ public interface IAbapTagsPackage extends EPackage {
 		EClass ABAP_OBJECTS_WITH_TAGS = eINSTANCE.getAbapObjectsWithTags();
 
 		/**
-		 * The meta object literal for the '<em><b>Abap Object With Tags</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Abap Objects With Tags</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ABAP_OBJECTS_WITH_TAGS__ABAP_OBJECT_WITH_TAGS = eINSTANCE.getAbapObjectsWithTags_AbapObjectWithTags();
+		EReference ABAP_OBJECTS_WITH_TAGS__ABAP_OBJECTS_WITH_TAGS = eINSTANCE.getAbapObjectsWithTags_AbapObjectsWithTags();
 
 		/**
 		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.AbapObjectsWithTag <em>Abap Objects With Tag</em>}' class.
@@ -1033,12 +1033,12 @@ public interface IAbapTagsPackage extends EPackage {
 		EClass ABAP_OBJECTS_WITH_TAG = eINSTANCE.getAbapObjectsWithTag();
 
 		/**
-		 * The meta object literal for the '<em><b>Abap Object With Tag</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Abap Objects With Tag</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ABAP_OBJECTS_WITH_TAG__ABAP_OBJECT_WITH_TAG = eINSTANCE.getAbapObjectsWithTag_AbapObjectWithTag();
+		EReference ABAP_OBJECTS_WITH_TAG__ABAP_OBJECTS_WITH_TAG = eINSTANCE.getAbapObjectsWithTag_AbapObjectsWithTag();
 
 	}
 

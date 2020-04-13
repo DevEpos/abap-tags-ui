@@ -17,16 +17,16 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link com.devepos.adt.abaptags.ITag#getId <em>Id</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#getName <em>Name</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#getDescription <em>Description</em>}</li>
- *   <li>{@link com.devepos.adt.abaptags.ITag#getChildTag <em>Child Tag</em>}</li>
+ *   <li>{@link com.devepos.adt.abaptags.ITag#getChildTags <em>Child Tags</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#isIsRoot <em>Is Root</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#getOwner <em>Owner</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#getCreatedBy <em>Created By</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#getCreatedDateTime <em>Created Date Time</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#getChangedBy <em>Changed By</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#getChangedDateTime <em>Changed Date Time</em>}</li>
- *   <li>{@link com.devepos.adt.abaptags.ITag#getParentTag <em>Parent Tag</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#getTaggedObjectCount <em>Tagged Object Count</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#isChanged <em>Changed</em>}</li>
+ *   <li>{@link com.devepos.adt.abaptags.ITag#getParentTagId <em>Parent Tag Id</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.abaptags.IAbapTagsPackage#getTag()
@@ -108,16 +108,17 @@ public interface ITag extends EObject {
 	void setDescription(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Child Tag</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Child Tags</b></em>' containment reference list.
 	 * The list contents are of type {@link com.devepos.adt.abaptags.ITag}.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @return the value of the '<em>Child Tag</em>' containment reference list.
-	 * @see com.devepos.adt.abaptags.IAbapTagsPackage#getTag_ChildTag()
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Child Tags</em>' containment reference list.
+	 * @see com.devepos.adt.abaptags.IAbapTagsPackage#getTag_ChildTags()
 	 * @model containment="true"
 	 *        extendedMetaData="kind='element' name='tag' namespace='##targetNamespace'"
 	 * @generated
 	 */
-	EList<ITag> getChildTag();
+	EList<ITag> getChildTags();
 
 	/**
 	 * Returns the value of the '<em><b>Is Root</b></em>' attribute. <!--
@@ -255,29 +256,6 @@ public interface ITag extends EObject {
 	void setChangedDateTime(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Parent Tag</b></em>' reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @return    the value of the '<em>Parent Tag</em>' reference.
-	 * @see       #setParentTag(ITag)
-	 * @see       com.devepos.adt.abaptags.IAbapTagsPackage#getTag_ParentTag()
-	 * @model     transient="true"
-	 * @generated
-	 */
-	ITag getParentTag();
-
-	/**
-	 * Sets the value of the '{@link com.devepos.adt.abaptags.ITag#getParentTag
-	 * <em>Parent Tag</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
-	 *
-	 * @param     value the new value of the '<em>Parent Tag</em>' reference.
-	 * @see             #getParentTag()
-	 * @generated
-	 */
-	void setParentTag(ITag value);
-
-	/**
 	 * Returns the value of the '<em><b>Tagged Object Count</b></em>' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return the value of the '<em>Tagged Object Count</em>' attribute.
@@ -305,7 +283,7 @@ public interface ITag extends EObject {
 	 * @return the value of the '<em>Changed</em>' attribute.
 	 * @see #setChanged(boolean)
 	 * @see com.devepos.adt.abaptags.IAbapTagsPackage#getTag_Changed()
-	 * @model transient="true"
+	 * @model extendedMetaData="kind='attribute' name='changed' namespace='##targetNamespace'"
 	 * @generated
 	 */
 	boolean isChanged();
@@ -319,5 +297,27 @@ public interface ITag extends EObject {
 	 * @generated
 	 */
 	void setChanged(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Parent Tag Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parent Tag Id</em>' attribute.
+	 * @see #setParentTagId(String)
+	 * @see com.devepos.adt.abaptags.IAbapTagsPackage#getTag_ParentTagId()
+	 * @model extendedMetaData="kind='attribute' name='parentTagId' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	String getParentTagId();
+
+	/**
+	 * Sets the value of the '{@link com.devepos.adt.abaptags.ITag#getParentTagId <em>Parent Tag Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Parent Tag Id</em>' attribute.
+	 * @see #getParentTagId()
+	 * @generated
+	 */
+	void setParentTagId(String value);
 
 } // ITag

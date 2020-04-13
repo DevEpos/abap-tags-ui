@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.devepos.adt.abaptags.IAbapObjectsWithTags#getAbapObjectWithTags <em>Abap Object With Tags</em>}</li>
+ *   <li>{@link com.devepos.adt.abaptags.IAbapObjectsWithTags#getAbapObjectsWithTags <em>Abap Objects With Tags</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.abaptags.IAbapTagsPackage#getAbapObjectsWithTags()
@@ -24,16 +24,16 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface IAbapObjectsWithTags extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Abap Object With Tags</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Abap Objects With Tags</b></em>' containment reference list.
 	 * The list contents are of type {@link com.devepos.adt.abaptags.IAbapObjectWithTags}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Abap Object With Tags</em>' containment reference list.
-	 * @see com.devepos.adt.abaptags.IAbapTagsPackage#getAbapObjectsWithTags_AbapObjectWithTags()
+	 * @return the value of the '<em>Abap Objects With Tags</em>' containment reference list.
+	 * @see com.devepos.adt.abaptags.IAbapTagsPackage#getAbapObjectsWithTags_AbapObjectsWithTags()
 	 * @model containment="true" required="true"
 	 *        extendedMetaData="kind='element' name='abapObjectWithTags' namespace='##targetNamespace'"
 	 * @generated
 	 */
-	EList<IAbapObjectWithTags> getAbapObjectWithTags();
+	EList<IAbapObjectWithTags> getAbapObjectsWithTags();
 
 } // IAbapObjectsWithTags

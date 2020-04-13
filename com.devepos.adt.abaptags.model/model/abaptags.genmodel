@@ -15,16 +15,16 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/description"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//Tag/childTag"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//Tag/childTags"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/isRoot"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/owner"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/createdBy"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/createdDateTime"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/changedBy"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/changedDateTime"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference abaptags.ecore#//Tag/parentTag"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/taggedObjectCount"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/changed"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/parentTagId"/>
     </genClasses>
     <genClasses ecoreClass="abaptags.ecore#//AbapObjectWithTag">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AbapObjectWithTag/objectName"/>
@@ -36,13 +36,13 @@
     <genClasses ecoreClass="abaptags.ecore#//AbapObjectWithTags">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AbapObjectWithTags/objectName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AbapObjectWithTags/objectType"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//AbapObjectWithTags/tag"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//AbapObjectWithTags/tags"/>
     </genClasses>
     <genClasses ecoreClass="abaptags.ecore#//AbapObjectsWithTags">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//AbapObjectsWithTags/abapObjectWithTags"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//AbapObjectsWithTags/abapObjectsWithTags"/>
     </genClasses>
     <genClasses ecoreClass="abaptags.ecore#//AbapObjectsWithTag">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//AbapObjectsWithTag/abapObjectWithTag"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//AbapObjectsWithTag/abapObjectsWithTag"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

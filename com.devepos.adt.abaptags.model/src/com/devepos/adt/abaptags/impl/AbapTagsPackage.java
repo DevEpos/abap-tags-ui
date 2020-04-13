@@ -194,7 +194,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getTag_ChildTag() {
+	public EReference getTag_ChildTags() {
 		return (EReference)tagEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -264,18 +264,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getTag_ParentTag() {
-		return (EReference)tagEClass.getEStructuralFeatures().get(10);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EAttribute getTag_TaggedObjectCount() {
-		return (EAttribute)tagEClass.getEStructuralFeatures().get(11);
+		return (EAttribute)tagEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -285,6 +275,16 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 */
 	@Override
 	public EAttribute getTag_Changed() {
+		return (EAttribute)tagEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTag_ParentTagId() {
 		return (EAttribute)tagEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -384,7 +384,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getAbapObjectWithTags_Tag() {
+	public EReference getAbapObjectWithTags_Tags() {
 		return (EReference)abapObjectWithTagsEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -404,7 +404,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getAbapObjectsWithTags_AbapObjectWithTags() {
+	public EReference getAbapObjectsWithTags_AbapObjectsWithTags() {
 		return (EReference)abapObjectsWithTagsEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -424,7 +424,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getAbapObjectsWithTag_AbapObjectWithTag() {
+	public EReference getAbapObjectsWithTag_AbapObjectsWithTag() {
 		return (EReference)abapObjectsWithTagEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -464,16 +464,16 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		createEAttribute(tagEClass, TAG__ID);
 		createEAttribute(tagEClass, TAG__NAME);
 		createEAttribute(tagEClass, TAG__DESCRIPTION);
-		createEReference(tagEClass, TAG__CHILD_TAG);
+		createEReference(tagEClass, TAG__CHILD_TAGS);
 		createEAttribute(tagEClass, TAG__IS_ROOT);
 		createEAttribute(tagEClass, TAG__OWNER);
 		createEAttribute(tagEClass, TAG__CREATED_BY);
 		createEAttribute(tagEClass, TAG__CREATED_DATE_TIME);
 		createEAttribute(tagEClass, TAG__CHANGED_BY);
 		createEAttribute(tagEClass, TAG__CHANGED_DATE_TIME);
-		createEReference(tagEClass, TAG__PARENT_TAG);
 		createEAttribute(tagEClass, TAG__TAGGED_OBJECT_COUNT);
 		createEAttribute(tagEClass, TAG__CHANGED);
+		createEAttribute(tagEClass, TAG__PARENT_TAG_ID);
 
 		abapObjectWithTagEClass = createEClass(ABAP_OBJECT_WITH_TAG);
 		createEAttribute(abapObjectWithTagEClass, ABAP_OBJECT_WITH_TAG__OBJECT_NAME);
@@ -485,13 +485,13 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		abapObjectWithTagsEClass = createEClass(ABAP_OBJECT_WITH_TAGS);
 		createEAttribute(abapObjectWithTagsEClass, ABAP_OBJECT_WITH_TAGS__OBJECT_NAME);
 		createEAttribute(abapObjectWithTagsEClass, ABAP_OBJECT_WITH_TAGS__OBJECT_TYPE);
-		createEReference(abapObjectWithTagsEClass, ABAP_OBJECT_WITH_TAGS__TAG);
+		createEReference(abapObjectWithTagsEClass, ABAP_OBJECT_WITH_TAGS__TAGS);
 
 		abapObjectsWithTagsEClass = createEClass(ABAP_OBJECTS_WITH_TAGS);
-		createEReference(abapObjectsWithTagsEClass, ABAP_OBJECTS_WITH_TAGS__ABAP_OBJECT_WITH_TAGS);
+		createEReference(abapObjectsWithTagsEClass, ABAP_OBJECTS_WITH_TAGS__ABAP_OBJECTS_WITH_TAGS);
 
 		abapObjectsWithTagEClass = createEClass(ABAP_OBJECTS_WITH_TAG);
-		createEReference(abapObjectsWithTagEClass, ABAP_OBJECTS_WITH_TAG__ABAP_OBJECT_WITH_TAG);
+		createEReference(abapObjectsWithTagEClass, ABAP_OBJECTS_WITH_TAG__ABAP_OBJECTS_WITH_TAG);
 	}
 
 	/**
@@ -531,16 +531,16 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		initEAttribute(getTag_Id(), ecorePackage.getEString(), "id", null, 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_Name(), ecorePackage.getEString(), "name", "", 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_Description(), ecorePackage.getEString(), "description", "", 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTag_ChildTag(), this.getTag(), null, "childTag", null, 0, -1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTag_ChildTags(), this.getTag(), null, "childTags", null, 0, -1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_IsRoot(), ecorePackage.getEBoolean(), "isRoot", null, 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_Owner(), ecorePackage.getEString(), "owner", "", 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_CreatedBy(), ecorePackage.getEString(), "createdBy", "", 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_CreatedDateTime(), ecorePackage.getEString(), "createdDateTime", "", 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_ChangedBy(), ecorePackage.getEString(), "changedBy", "", 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_ChangedDateTime(), ecorePackage.getEString(), "changedDateTime", "", 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTag_ParentTag(), this.getTag(), null, "parentTag", null, 0, 1, ITag.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_TaggedObjectCount(), ecorePackage.getEInt(), "taggedObjectCount", null, 0, 1, ITag.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTag_Changed(), ecorePackage.getEBoolean(), "changed", null, 0, 1, ITag.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTag_Changed(), ecorePackage.getEBoolean(), "changed", null, 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTag_ParentTagId(), ecorePackage.getEString(), "parentTagId", null, 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(abapObjectWithTagEClass, IAbapObjectWithTag.class, "AbapObjectWithTag", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAbapObjectWithTag_ObjectName(), ecorePackage.getEString(), "objectName", null, 0, 1, IAbapObjectWithTag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -552,13 +552,13 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		initEClass(abapObjectWithTagsEClass, IAbapObjectWithTags.class, "AbapObjectWithTags", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAbapObjectWithTags_ObjectName(), ecorePackage.getEString(), "objectName", null, 0, 1, IAbapObjectWithTags.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAbapObjectWithTags_ObjectType(), ecorePackage.getEString(), "objectType", null, 0, 1, IAbapObjectWithTags.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAbapObjectWithTags_Tag(), this.getTag(), null, "tag", null, 0, -1, IAbapObjectWithTags.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbapObjectWithTags_Tags(), this.getTag(), null, "tags", null, 0, -1, IAbapObjectWithTags.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(abapObjectsWithTagsEClass, IAbapObjectsWithTags.class, "AbapObjectsWithTags", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAbapObjectsWithTags_AbapObjectWithTags(), this.getAbapObjectWithTags(), null, "abapObjectWithTags", null, 1, -1, IAbapObjectsWithTags.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbapObjectsWithTags_AbapObjectsWithTags(), this.getAbapObjectWithTags(), null, "abapObjectsWithTags", null, 1, -1, IAbapObjectsWithTags.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(abapObjectsWithTagEClass, IAbapObjectsWithTag.class, "AbapObjectsWithTag", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAbapObjectsWithTag_AbapObjectWithTag(), this.getAbapObjectWithTag(), null, "abapObjectWithTag", null, 1, -1, IAbapObjectsWithTag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbapObjectsWithTag_AbapObjectsWithTag(), this.getAbapObjectWithTag(), null, "abapObjectsWithTag", null, 1, -1, IAbapObjectsWithTag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -623,7 +623,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 			   "namespace", "##targetNamespace"
 		   });
 		addAnnotation
-		  (getTag_ChildTag(),
+		  (getTag_ChildTags(),
 		   source,
 		   new String[] {
 			   "kind", "element",
@@ -684,6 +684,22 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		   new String[] {
 			   "kind", "attribute",
 			   "name", "taggedObjectCount",
+			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
+		  (getTag_Changed(),
+		   source,
+		   new String[] {
+			   "kind", "attribute",
+			   "name", "changed",
+			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
+		  (getTag_ParentTagId(),
+		   source,
+		   new String[] {
+			   "kind", "attribute",
+			   "name", "parentTagId",
 			   "namespace", "##targetNamespace"
 		   });
 		addAnnotation
@@ -757,7 +773,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 			   "namespace", "##targetNamespace"
 		   });
 		addAnnotation
-		  (getAbapObjectWithTags_Tag(),
+		  (getAbapObjectWithTags_Tags(),
 		   source,
 		   new String[] {
 			   "kind", "element",
@@ -772,7 +788,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 			   "name", "abapObjectsWithTags"
 		   });
 		addAnnotation
-		  (getAbapObjectsWithTags_AbapObjectWithTags(),
+		  (getAbapObjectsWithTags_AbapObjectsWithTags(),
 		   source,
 		   new String[] {
 			   "kind", "element",
@@ -787,7 +803,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 			   "name", "abapObjectsWithTag"
 		   });
 		addAnnotation
-		  (getAbapObjectsWithTag_AbapObjectWithTag(),
+		  (getAbapObjectsWithTag_AbapObjectsWithTag(),
 		   source,
 		   new String[] {
 			   "kind", "element",

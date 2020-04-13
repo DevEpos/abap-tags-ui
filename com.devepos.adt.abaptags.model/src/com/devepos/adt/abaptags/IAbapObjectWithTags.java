@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link com.devepos.adt.abaptags.IAbapObjectWithTags#getObjectName <em>Object Name</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.IAbapObjectWithTags#getObjectType <em>Object Type</em>}</li>
- *   <li>{@link com.devepos.adt.abaptags.IAbapObjectWithTags#getTag <em>Tag</em>}</li>
+ *   <li>{@link com.devepos.adt.abaptags.IAbapObjectWithTags#getTags <em>Tags</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.abaptags.IAbapTagsPackage#getAbapObjectWithTags()
@@ -70,16 +70,16 @@ public interface IAbapObjectWithTags extends EObject {
 	void setObjectType(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Tag</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Tags</b></em>' containment reference list.
 	 * The list contents are of type {@link com.devepos.adt.abaptags.ITag}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Tag</em>' containment reference list.
-	 * @see com.devepos.adt.abaptags.IAbapTagsPackage#getAbapObjectWithTags_Tag()
+	 * @return the value of the '<em>Tags</em>' containment reference list.
+	 * @see com.devepos.adt.abaptags.IAbapTagsPackage#getAbapObjectWithTags_Tags()
 	 * @model containment="true"
 	 *        extendedMetaData="kind='element' name='tag' namespace='##targetNamespace'"
 	 * @generated
 	 */
-	EList<ITag> getTag();
+	EList<ITag> getTags();
 
 } // IAbapObjectWithTags

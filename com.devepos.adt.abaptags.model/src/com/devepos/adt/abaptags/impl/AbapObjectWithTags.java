@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link com.devepos.adt.abaptags.impl.AbapObjectWithTags#getObjectName <em>Object Name</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.impl.AbapObjectWithTags#getObjectType <em>Object Type</em>}</li>
- *   <li>{@link com.devepos.adt.abaptags.impl.AbapObjectWithTags#getTag <em>Tag</em>}</li>
+ *   <li>{@link com.devepos.adt.abaptags.impl.AbapObjectWithTags#getTags <em>Tags</em>}</li>
  * </ul>
  *
  * @generated
@@ -79,14 +79,14 @@ public class AbapObjectWithTags extends MinimalEObjectImpl.Container implements 
 	protected String objectType = OBJECT_TYPE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getTag() <em>Tag</em>}' containment reference list.
+	 * The cached value of the '{@link #getTags() <em>Tags</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTag()
+	 * @see #getTags()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ITag> tag;
+	protected EList<ITag> tags;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -159,11 +159,11 @@ public class AbapObjectWithTags extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public EList<ITag> getTag() {
-		if (tag == null) {
-			tag = new EObjectContainmentEList<ITag>(ITag.class, this, IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS__TAG);
+	public EList<ITag> getTags() {
+		if (tags == null) {
+			tags = new EObjectContainmentEList<ITag>(ITag.class, this, IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS__TAGS);
 		}
-		return tag;
+		return tags;
 	}
 
 	/**
@@ -174,8 +174,8 @@ public class AbapObjectWithTags extends MinimalEObjectImpl.Container implements 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS__TAG:
-				return ((InternalEList<?>)getTag()).basicRemove(otherEnd, msgs);
+			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS__TAGS:
+				return ((InternalEList<?>)getTags()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -192,8 +192,8 @@ public class AbapObjectWithTags extends MinimalEObjectImpl.Container implements 
 				return getObjectName();
 			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS__OBJECT_TYPE:
 				return getObjectType();
-			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS__TAG:
-				return getTag();
+			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS__TAGS:
+				return getTags();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -213,9 +213,9 @@ public class AbapObjectWithTags extends MinimalEObjectImpl.Container implements 
 			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS__OBJECT_TYPE:
 				setObjectType((String)newValue);
 				return;
-			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS__TAG:
-				getTag().clear();
-				getTag().addAll((Collection<? extends ITag>)newValue);
+			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS__TAGS:
+				getTags().clear();
+				getTags().addAll((Collection<? extends ITag>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -235,8 +235,8 @@ public class AbapObjectWithTags extends MinimalEObjectImpl.Container implements 
 			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS__OBJECT_TYPE:
 				setObjectType(OBJECT_TYPE_EDEFAULT);
 				return;
-			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS__TAG:
-				getTag().clear();
+			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS__TAGS:
+				getTags().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -254,8 +254,8 @@ public class AbapObjectWithTags extends MinimalEObjectImpl.Container implements 
 				return OBJECT_NAME_EDEFAULT == null ? objectName != null : !OBJECT_NAME_EDEFAULT.equals(objectName);
 			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS__OBJECT_TYPE:
 				return OBJECT_TYPE_EDEFAULT == null ? objectType != null : !OBJECT_TYPE_EDEFAULT.equals(objectType);
-			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS__TAG:
-				return tag != null && !tag.isEmpty();
+			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS__TAGS:
+				return tags != null && !tags.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

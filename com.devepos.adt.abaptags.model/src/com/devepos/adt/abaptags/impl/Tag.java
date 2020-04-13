@@ -31,16 +31,16 @@ import com.devepos.adt.abaptags.model.internal.messages.Messages;
  *   <li>{@link com.devepos.adt.abaptags.impl.Tag#getId <em>Id</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.impl.Tag#getName <em>Name</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.impl.Tag#getDescription <em>Description</em>}</li>
- *   <li>{@link com.devepos.adt.abaptags.impl.Tag#getChildTag <em>Child Tag</em>}</li>
+ *   <li>{@link com.devepos.adt.abaptags.impl.Tag#getChildTags <em>Child Tags</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.impl.Tag#isIsRoot <em>Is Root</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.impl.Tag#getOwner <em>Owner</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.impl.Tag#getCreatedBy <em>Created By</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.impl.Tag#getCreatedDateTime <em>Created Date Time</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.impl.Tag#getChangedBy <em>Changed By</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.impl.Tag#getChangedDateTime <em>Changed Date Time</em>}</li>
- *   <li>{@link com.devepos.adt.abaptags.impl.Tag#getParentTag <em>Parent Tag</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.impl.Tag#getTaggedObjectCount <em>Tagged Object Count</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.impl.Tag#isChanged <em>Changed</em>}</li>
+ *   <li>{@link com.devepos.adt.abaptags.impl.Tag#getParentTagId <em>Parent Tag Id</em>}</li>
  * </ul>
  *
  * @generated
@@ -105,13 +105,14 @@ public class Tag extends MinimalEObjectImpl.Container implements ITag {
 	protected String description = DESCRIPTION_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getChildTag() <em>Child Tag</em>}' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @see #getChildTag()
+	 * The cached value of the '{@link #getChildTags() <em>Child Tags</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getChildTags()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ITag> childTag;
+	protected EList<ITag> childTags;
 
 	/**
 	 * The default value of the '{@link #isIsRoot() <em>Is Root</em>}' attribute.
@@ -224,15 +225,6 @@ public class Tag extends MinimalEObjectImpl.Container implements ITag {
 	protected String changedDateTime = CHANGED_DATE_TIME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getParentTag() <em>Parent Tag</em>}' reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @see #getParentTag()
-	 * @generated
-	 * @ordered
-	 */
-	protected ITag parentTag;
-
-	/**
 	 * The default value of the '{@link #getTaggedObjectCount() <em>Tagged Object Count</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getTaggedObjectCount()
@@ -269,6 +261,26 @@ public class Tag extends MinimalEObjectImpl.Container implements ITag {
 	 * @ordered
 	 */
 	protected boolean changed = CHANGED_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getParentTagId() <em>Parent Tag Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getParentTagId()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PARENT_TAG_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getParentTagId() <em>Parent Tag Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getParentTagId()
+	 * @generated
+	 * @ordered
+	 */
+	protected String parentTagId = PARENT_TAG_ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -359,15 +371,16 @@ public class Tag extends MinimalEObjectImpl.Container implements ITag {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public EList<ITag> getChildTag() {
-		if (childTag == null) {
-			childTag = new EObjectContainmentEList<ITag>(ITag.class, this, IAbapTagsPackage.TAG__CHILD_TAG);
+	public EList<ITag> getChildTags() {
+		if (childTags == null) {
+			childTags = new EObjectContainmentEList<ITag>(ITag.class, this, IAbapTagsPackage.TAG__CHILD_TAGS);
 		}
-		return childTag;
+		return childTags;
 	}
 
 	/**
@@ -501,27 +514,6 @@ public class Tag extends MinimalEObjectImpl.Container implements ITag {
 	 * @generated
 	 */
 	@Override
-	public ITag getParentTag() {
-		return parentTag;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setParentTag(ITag newParentTag) {
-		ITag oldParentTag = parentTag;
-		parentTag = newParentTag;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__PARENT_TAG, oldParentTag, parentTag));
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public int getTaggedObjectCount() {
 		return taggedObjectCount;
 	}
@@ -562,14 +554,37 @@ public class Tag extends MinimalEObjectImpl.Container implements ITag {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getParentTagId() {
+		return parentTagId;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setParentTagId(String newParentTagId) {
+		String oldParentTagId = parentTagId;
+		parentTagId = newParentTagId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__PARENT_TAG_ID, oldParentTagId, parentTagId));
+	}
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case IAbapTagsPackage.TAG__CHILD_TAG:
-				return ((InternalEList<?>)getChildTag()).basicRemove(otherEnd, msgs);
+			case IAbapTagsPackage.TAG__CHILD_TAGS:
+				return ((InternalEList<?>)getChildTags()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -587,8 +602,8 @@ public class Tag extends MinimalEObjectImpl.Container implements ITag {
 				return getName();
 			case IAbapTagsPackage.TAG__DESCRIPTION:
 				return getDescription();
-			case IAbapTagsPackage.TAG__CHILD_TAG:
-				return getChildTag();
+			case IAbapTagsPackage.TAG__CHILD_TAGS:
+				return getChildTags();
 			case IAbapTagsPackage.TAG__IS_ROOT:
 				return isIsRoot();
 			case IAbapTagsPackage.TAG__OWNER:
@@ -601,12 +616,12 @@ public class Tag extends MinimalEObjectImpl.Container implements ITag {
 				return getChangedBy();
 			case IAbapTagsPackage.TAG__CHANGED_DATE_TIME:
 				return getChangedDateTime();
-			case IAbapTagsPackage.TAG__PARENT_TAG:
-				return getParentTag();
 			case IAbapTagsPackage.TAG__TAGGED_OBJECT_COUNT:
 				return getTaggedObjectCount();
 			case IAbapTagsPackage.TAG__CHANGED:
 				return isChanged();
+			case IAbapTagsPackage.TAG__PARENT_TAG_ID:
+				return getParentTagId();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -628,9 +643,9 @@ public class Tag extends MinimalEObjectImpl.Container implements ITag {
 			case IAbapTagsPackage.TAG__DESCRIPTION:
 				setDescription((String)newValue);
 				return;
-			case IAbapTagsPackage.TAG__CHILD_TAG:
-				getChildTag().clear();
-				getChildTag().addAll((Collection<? extends ITag>)newValue);
+			case IAbapTagsPackage.TAG__CHILD_TAGS:
+				getChildTags().clear();
+				getChildTags().addAll((Collection<? extends ITag>)newValue);
 				return;
 			case IAbapTagsPackage.TAG__IS_ROOT:
 				setIsRoot((Boolean)newValue);
@@ -650,14 +665,14 @@ public class Tag extends MinimalEObjectImpl.Container implements ITag {
 			case IAbapTagsPackage.TAG__CHANGED_DATE_TIME:
 				setChangedDateTime((String)newValue);
 				return;
-			case IAbapTagsPackage.TAG__PARENT_TAG:
-				setParentTag((ITag)newValue);
-				return;
 			case IAbapTagsPackage.TAG__TAGGED_OBJECT_COUNT:
 				setTaggedObjectCount((Integer)newValue);
 				return;
 			case IAbapTagsPackage.TAG__CHANGED:
 				setChanged((Boolean)newValue);
+				return;
+			case IAbapTagsPackage.TAG__PARENT_TAG_ID:
+				setParentTagId((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -679,8 +694,8 @@ public class Tag extends MinimalEObjectImpl.Container implements ITag {
 			case IAbapTagsPackage.TAG__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
-			case IAbapTagsPackage.TAG__CHILD_TAG:
-				getChildTag().clear();
+			case IAbapTagsPackage.TAG__CHILD_TAGS:
+				getChildTags().clear();
 				return;
 			case IAbapTagsPackage.TAG__IS_ROOT:
 				setIsRoot(IS_ROOT_EDEFAULT);
@@ -700,14 +715,14 @@ public class Tag extends MinimalEObjectImpl.Container implements ITag {
 			case IAbapTagsPackage.TAG__CHANGED_DATE_TIME:
 				setChangedDateTime(CHANGED_DATE_TIME_EDEFAULT);
 				return;
-			case IAbapTagsPackage.TAG__PARENT_TAG:
-				setParentTag((ITag)null);
-				return;
 			case IAbapTagsPackage.TAG__TAGGED_OBJECT_COUNT:
 				setTaggedObjectCount(TAGGED_OBJECT_COUNT_EDEFAULT);
 				return;
 			case IAbapTagsPackage.TAG__CHANGED:
 				setChanged(CHANGED_EDEFAULT);
+				return;
+			case IAbapTagsPackage.TAG__PARENT_TAG_ID:
+				setParentTagId(PARENT_TAG_ID_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -726,8 +741,8 @@ public class Tag extends MinimalEObjectImpl.Container implements ITag {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case IAbapTagsPackage.TAG__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case IAbapTagsPackage.TAG__CHILD_TAG:
-				return childTag != null && !childTag.isEmpty();
+			case IAbapTagsPackage.TAG__CHILD_TAGS:
+				return childTags != null && !childTags.isEmpty();
 			case IAbapTagsPackage.TAG__IS_ROOT:
 				return isRoot != IS_ROOT_EDEFAULT;
 			case IAbapTagsPackage.TAG__OWNER:
@@ -740,12 +755,12 @@ public class Tag extends MinimalEObjectImpl.Container implements ITag {
 				return CHANGED_BY_EDEFAULT == null ? changedBy != null : !CHANGED_BY_EDEFAULT.equals(changedBy);
 			case IAbapTagsPackage.TAG__CHANGED_DATE_TIME:
 				return CHANGED_DATE_TIME_EDEFAULT == null ? changedDateTime != null : !CHANGED_DATE_TIME_EDEFAULT.equals(changedDateTime);
-			case IAbapTagsPackage.TAG__PARENT_TAG:
-				return parentTag != null;
 			case IAbapTagsPackage.TAG__TAGGED_OBJECT_COUNT:
 				return taggedObjectCount != TAGGED_OBJECT_COUNT_EDEFAULT;
 			case IAbapTagsPackage.TAG__CHANGED:
 				return changed != CHANGED_EDEFAULT;
+			case IAbapTagsPackage.TAG__PARENT_TAG_ID:
+				return PARENT_TAG_ID_EDEFAULT == null ? parentTagId != null : !PARENT_TAG_ID_EDEFAULT.equals(parentTagId);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -781,6 +796,8 @@ public class Tag extends MinimalEObjectImpl.Container implements ITag {
 		result.append(taggedObjectCount);
 		result.append(", changed: ");
 		result.append(changed);
+		result.append(", parentTagId: ");
+		result.append(parentTagId);
 		result.append(')');
 		return result.toString();
 	}
