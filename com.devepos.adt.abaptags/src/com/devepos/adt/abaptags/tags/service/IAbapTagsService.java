@@ -1,5 +1,7 @@
 package com.devepos.adt.abaptags.tags.service;
 
+import org.eclipse.core.runtime.IStatus;
+
 import com.devepos.adt.abaptags.ITags;
 
 /**
@@ -9,13 +11,24 @@ import com.devepos.adt.abaptags.ITags;
  */
 public interface IAbapTagsService {
 	/**
-	 * Creates new tags
-	 *
-	 * @param tags          tags to be saved
-	 * @param destinationId destination of ABAP Project
-	 * @param globalTags    if <code>true</code> global tags will be created
+	 * Returns {@code true} if the ABAP Tags feature is available at the given
+	 * destination
+	 * 
+	 * @param  destinationId the destination of an ABAP Project
+	 * @return               {@code true} if the ABAP Tags feature is available at
+	 *                       the given destination
 	 */
-	void createTags(ITags tags, final String destinationId, final boolean globalTags);
+	boolean isTagsFeatureAvailable(String destinationId);
+
+	/**
+	 * Creates/updates tags
+	 *
+	 * @param  tags          tags to be saved
+	 * @param  destinationId destination of ABAP Project
+	 * @param  globalTags    if <code>true</code> global tags will be created
+	 * @return               the status of the update operation
+	 */
+	IStatus updateTags(ITags tags, final String destinationId, final boolean globalTags);
 
 	/**
 	 * Reads ABAP Tags for the given destination ID
@@ -28,21 +41,21 @@ public interface IAbapTagsService {
 	/**
 	 * Deletes the given Tags
 	 *
-	 * @param tags          the tags to be deleted
-	 * @param destinationId destination of ABAP Project
-	 * @param globalTags    if <code>true</code> global tags will be deleted
+	 * @param  tags          the tags to be deleted
+	 * @param  destinationId destination of ABAP Project
+	 * @param  globalTags    if <code>true</code> global tags will be deleted
+	 * @return               the status of the delete operation
 	 */
-	void deleteTags(ITags tags, final String destinationId, final boolean globalTags);
+	IStatus deleteTags(ITags tags, final String destinationId, final boolean globalTags);
 
 	/**
 	 * Locks the tags
 	 *
-	 * @param  destinationId          destination of ABAP Project
-	 * @param  globalTags             if <code>true</code> global tags will be
-	 *                                locked
-	 * @throws TagsNotLockedException thrown if tags could not be locked
+	 * @param  destinationId destination of ABAP Project
+	 * @param  globalTags    if <code>true</code> global tags will be locked
+	 * @return               the status of the lock operation
 	 */
-	void lockTags(final String destinationId, final boolean globalTags) throws TagsNotLockedException;
+	IStatus lockTags(final String destinationId, final boolean globalTags);
 
 	/**
 	 * Unlocks the tags
