@@ -9,7 +9,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated abaptags -->
       <package
-            uri="https://www.devepos.com/adt/atm"
+            uri="http://www.devepos.com/adt/atm"
             class="com.devepos.adt.abaptags.IAbapTagsPackage"
             genModel="model/abaptags.genmodel"/>
    </extension>

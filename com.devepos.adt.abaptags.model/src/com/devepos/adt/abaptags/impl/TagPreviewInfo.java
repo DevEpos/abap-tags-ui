@@ -4,8 +4,9 @@ package com.devepos.adt.abaptags.impl;
 
 import com.devepos.adt.abaptags.IAbapTagsPackage;
 import com.devepos.adt.abaptags.ITag;
-import com.devepos.adt.abaptags.ITags;
+import com.devepos.adt.abaptags.ITagPreviewInfo;
 
+import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -22,18 +23,19 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Tags</b></em>'.
+ * An implementation of the model object '<em><b>Tag Preview Info</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.devepos.adt.abaptags.impl.Tags#getTags <em>Tags</em>}</li>
+ *   <li>{@link com.devepos.adt.abaptags.impl.TagPreviewInfo#getTags <em>Tags</em>}</li>
+ *   <li>{@link com.devepos.adt.abaptags.impl.TagPreviewInfo#getAdtObjectRefs <em>Adt Object Refs</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class Tags extends MinimalEObjectImpl.Container implements ITags {
+public class TagPreviewInfo extends MinimalEObjectImpl.Container implements ITagPreviewInfo {
 	/**
 	 * The cached value of the '{@link #getTags() <em>Tags</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -43,12 +45,23 @@ public class Tags extends MinimalEObjectImpl.Container implements ITags {
 	 * @ordered
 	 */
 	protected EList<ITag> tags;
+
+	/**
+	 * The cached value of the '{@link #getAdtObjectRefs() <em>Adt Object Refs</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAdtObjectRefs()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<IAdtObjRef> adtObjectRefs;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Tags() {
+	protected TagPreviewInfo() {
 		super();
 	}
 
@@ -59,7 +72,7 @@ public class Tags extends MinimalEObjectImpl.Container implements ITags {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return IAbapTagsPackage.Literals.TAGS;
+		return IAbapTagsPackage.Literals.TAG_PREVIEW_INFO;
 	}
 
 	/**
@@ -70,7 +83,7 @@ public class Tags extends MinimalEObjectImpl.Container implements ITags {
 	@Override
 	public EList<ITag> getTags() {
 		if (tags == null) {
-			tags = new EObjectContainmentEList<ITag>(ITag.class, this, IAbapTagsPackage.TAGS__TAGS);
+			tags = new EObjectContainmentEList<ITag>(ITag.class, this, IAbapTagsPackage.TAG_PREVIEW_INFO__TAGS);
 		}
 		return tags;
 	}
@@ -81,10 +94,25 @@ public class Tags extends MinimalEObjectImpl.Container implements ITags {
 	 * @generated
 	 */
 	@Override
+	public EList<IAdtObjRef> getAdtObjectRefs() {
+		if (adtObjectRefs == null) {
+			adtObjectRefs = new EObjectContainmentEList<IAdtObjRef>(IAdtObjRef.class, this, IAbapTagsPackage.TAG_PREVIEW_INFO__ADT_OBJECT_REFS);
+		}
+		return adtObjectRefs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case IAbapTagsPackage.TAGS__TAGS:
+			case IAbapTagsPackage.TAG_PREVIEW_INFO__TAGS:
 				return ((InternalEList<?>)getTags()).basicRemove(otherEnd, msgs);
+			case IAbapTagsPackage.TAG_PREVIEW_INFO__ADT_OBJECT_REFS:
+				return ((InternalEList<?>)getAdtObjectRefs()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -97,8 +125,10 @@ public class Tags extends MinimalEObjectImpl.Container implements ITags {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case IAbapTagsPackage.TAGS__TAGS:
+			case IAbapTagsPackage.TAG_PREVIEW_INFO__TAGS:
 				return getTags();
+			case IAbapTagsPackage.TAG_PREVIEW_INFO__ADT_OBJECT_REFS:
+				return getAdtObjectRefs();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -112,9 +142,13 @@ public class Tags extends MinimalEObjectImpl.Container implements ITags {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case IAbapTagsPackage.TAGS__TAGS:
+			case IAbapTagsPackage.TAG_PREVIEW_INFO__TAGS:
 				getTags().clear();
 				getTags().addAll((Collection<? extends ITag>)newValue);
+				return;
+			case IAbapTagsPackage.TAG_PREVIEW_INFO__ADT_OBJECT_REFS:
+				getAdtObjectRefs().clear();
+				getAdtObjectRefs().addAll((Collection<? extends IAdtObjRef>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -128,8 +162,11 @@ public class Tags extends MinimalEObjectImpl.Container implements ITags {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case IAbapTagsPackage.TAGS__TAGS:
+			case IAbapTagsPackage.TAG_PREVIEW_INFO__TAGS:
 				getTags().clear();
+				return;
+			case IAbapTagsPackage.TAG_PREVIEW_INFO__ADT_OBJECT_REFS:
+				getAdtObjectRefs().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -143,10 +180,12 @@ public class Tags extends MinimalEObjectImpl.Container implements ITags {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case IAbapTagsPackage.TAGS__TAGS:
+			case IAbapTagsPackage.TAG_PREVIEW_INFO__TAGS:
 				return tags != null && !tags.isEmpty();
+			case IAbapTagsPackage.TAG_PREVIEW_INFO__ADT_OBJECT_REFS:
+				return adtObjectRefs != null && !adtObjectRefs.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //Tags
+} //TagPreviewInfo

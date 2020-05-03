@@ -8,15 +8,14 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Package</b> for the model.
- * It contains accessors for the meta objects to represent
+ * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains
+ * accessors for the meta objects to represent
  * <ul>
- *   <li>each class,</li>
- *   <li>each feature of each class,</li>
- *   <li>each operation of each class,</li>
- *   <li>each enum,</li>
- *   <li>and each data type</li>
+ * <li>each class,</li>
+ * <li>each feature of each class,</li>
+ * <li>each operation of each class,</li>
+ * <li>each enum,</li>
+ * <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
  * @see com.devepos.adt.abaptags.IAbapTagsFactory
@@ -26,77 +25,81 @@ import org.eclipse.emf.ecore.EReference;
 public interface IAbapTagsPackage extends EPackage {
 	/**
 	 * The package name.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	String eNAME = "abaptags";
 
 	/**
 	 * The package namespace URI.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "https://www.devepos.com/adt/atm";
+	String eNS_URI = "http://www.devepos.com/adt/atm";
 
 	/**
 	 * The package namespace name.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	String eNS_PREFIX = "atm";
 
 	/**
 	 * The singleton instance of the package.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * @generated
 	 */
 	IAbapTagsPackage eINSTANCE = com.devepos.adt.abaptags.impl.AbapTagsPackage.init();
 
 	/**
-	 * The meta object id for the '{@link com.devepos.adt.abaptags.impl.Tags <em>Tags</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see com.devepos.adt.abaptags.impl.Tags
-	 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTags()
+	 * The meta object id for the '{@link com.devepos.adt.abaptags.impl.TagBase <em>Tag Base</em>}' class.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see com.devepos.adt.abaptags.impl.TagBase
+	 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTagBase()
 	 * @generated
 	 */
-	int TAGS = 0;
+	int TAG_BASE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Tags</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TAGS__TAGS = 0;
+	int TAG_BASE__ID = 0;
 
 	/**
-	 * The number of structural features of the '<em>Tags</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TAGS_FEATURE_COUNT = 1;
+	int TAG_BASE__NAME = 1;
 
 	/**
-	 * The number of operations of the '<em>Tags</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Tag Base</em>' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TAGS_OPERATION_COUNT = 0;
+	int TAG_BASE_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Tag Base</em>' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TAG_BASE_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link com.devepos.adt.abaptags.impl.Tag <em>Tag</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see com.devepos.adt.abaptags.impl.Tag
 	 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTag()
 	 * @generated
@@ -105,129 +108,128 @@ public interface IAbapTagsPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__ID = 0;
+	int TAG__ID = TAG_BASE__ID;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__NAME = 1;
+	int TAG__NAME = TAG_BASE__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Description</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Description</b></em>' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__DESCRIPTION = 2;
+	int TAG__DESCRIPTION = TAG_BASE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Child Tags</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CHILD_TAGS = 3;
+	int TAG__CHILD_TAGS = TAG_BASE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Is Root</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Is Root</b></em>' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__IS_ROOT = 4;
+	int TAG__IS_ROOT = TAG_BASE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__OWNER = 5;
+	int TAG__OWNER = TAG_BASE_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Created By</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Created By</b></em>' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CREATED_BY = 6;
+	int TAG__CREATED_BY = TAG_BASE_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Created Date Time</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Created Date Time</b></em>' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CREATED_DATE_TIME = 7;
+	int TAG__CREATED_DATE_TIME = TAG_BASE_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Changed By</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Changed By</b></em>' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CHANGED_BY = 8;
+	int TAG__CHANGED_BY = TAG_BASE_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Changed Date Time</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Changed Date Time</b></em>' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CHANGED_DATE_TIME = 9;
+	int TAG__CHANGED_DATE_TIME = TAG_BASE_FEATURE_COUNT + 7;
 
 	/**
-	 * The feature id for the '<em><b>Tagged Object Count</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Tagged Object Count</b></em>' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__TAGGED_OBJECT_COUNT = 10;
+	int TAG__TAGGED_OBJECT_COUNT = TAG_BASE_FEATURE_COUNT + 8;
 
 	/**
-	 * The feature id for the '<em><b>Changed</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Changed</b></em>' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CHANGED = 11;
+	int TAG__CHANGED = TAG_BASE_FEATURE_COUNT + 9;
 
 	/**
-	 * The feature id for the '<em><b>Parent Tag Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Parent Tag Id</b></em>' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__PARENT_TAG_ID = 12;
+	int TAG__PARENT_TAG_ID = TAG_BASE_FEATURE_COUNT + 10;
 
 	/**
-	 * The number of structural features of the '<em>Tag</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Tag</em>' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TAG_FEATURE_COUNT = 13;
+	int TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 11;
 
 	/**
 	 * The number of operations of the '<em>Tag</em>' class.
@@ -236,236 +238,273 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG_OPERATION_COUNT = 0;
+	int TAG_OPERATION_COUNT = TAG_BASE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link com.devepos.adt.abaptags.impl.AbapObjectWithTag <em>Abap Object With Tag</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see com.devepos.adt.abaptags.impl.AbapObjectWithTag
-	 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getAbapObjectWithTag()
+	 * The meta object id for the '{@link com.devepos.adt.abaptags.impl.AdtObjectTag
+	 * <em>Adt Object Tag</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @see       com.devepos.adt.abaptags.impl.AdtObjectTag
+	 * @see       com.devepos.adt.abaptags.impl.AbapTagsPackage#getAdtObjectTag()
 	 * @generated
 	 */
-	int ABAP_OBJECT_WITH_TAG = 2;
+	int ADT_OBJECT_TAG = 2;
 
 	/**
-	 * The feature id for the '<em><b>Object Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABAP_OBJECT_WITH_TAG__OBJECT_NAME = 0;
-
-	/**
-	 * The feature id for the '<em><b>Object Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABAP_OBJECT_WITH_TAG__OBJECT_TYPE = 1;
+	int ADT_OBJECT_TAG__ID = TAG_BASE__ID;
 
 	/**
-	 * The feature id for the '<em><b>Parent Object Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABAP_OBJECT_WITH_TAG__PARENT_OBJECT_NAME = 2;
+	int ADT_OBJECT_TAG__NAME = TAG_BASE__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Parent Object Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Parent Object Name</b></em>' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int ABAP_OBJECT_WITH_TAG__PARENT_OBJECT_TYPE = 3;
+	int ADT_OBJECT_TAG__PARENT_OBJECT_NAME = TAG_BASE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Tag Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Parent Object Type</b></em>' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int ABAP_OBJECT_WITH_TAG__TAG_ID = 4;
+	int ADT_OBJECT_TAG__PARENT_OBJECT_TYPE = TAG_BASE_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Abap Object With Tag</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Parent Object Uri</b></em>' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int ABAP_OBJECT_WITH_TAG_FEATURE_COUNT = 5;
+	int ADT_OBJECT_TAG__PARENT_OBJECT_URI = TAG_BASE_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of operations of the '<em>Abap Object With Tag</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Adt Object Tag</em>' class.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABAP_OBJECT_WITH_TAG_OPERATION_COUNT = 0;
+	int ADT_OBJECT_TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link com.devepos.adt.abaptags.impl.AbapObjectWithTags <em>Abap Object With Tags</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see com.devepos.adt.abaptags.impl.AbapObjectWithTags
-	 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getAbapObjectWithTags()
-	 * @generated
-	 */
-	int ABAP_OBJECT_WITH_TAGS = 3;
-
-	/**
-	 * The feature id for the '<em><b>Object Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The number of operations of the '<em>Adt Object Tag</em>' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int ABAP_OBJECT_WITH_TAGS__OBJECT_NAME = 0;
+	int ADT_OBJECT_TAG_OPERATION_COUNT = TAG_BASE_OPERATION_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Object Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The meta object id for the '{@link com.devepos.adt.abaptags.impl.TagList <em>Tag List</em>}' class.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see com.devepos.adt.abaptags.impl.TagList
+	 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTagList()
 	 * @generated
-	 * @ordered
 	 */
-	int ABAP_OBJECT_WITH_TAGS__OBJECT_TYPE = 1;
+	int TAG_LIST = 3;
 
 	/**
 	 * The feature id for the '<em><b>Tags</b></em>' containment reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG_LIST__TAGS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Tag List</em>' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TAG_LIST_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Tag List</em>' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TAG_LIST_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link com.devepos.adt.abaptags.impl.TagPreviewInfo <em>Tag Preview Info</em>}' class.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see com.devepos.adt.abaptags.impl.TagPreviewInfo
+	 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTagPreviewInfo()
+	 * @generated
+	 */
+	int TAG_PREVIEW_INFO = 4;
+
+	/**
+	 * The feature id for the '<em><b>Tags</b></em>' containment reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG_PREVIEW_INFO__TAGS = 0;
+
+	/**
+	 * The feature id for the '<em><b>Adt Object Refs</b></em>' reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TAG_PREVIEW_INFO__ADT_OBJECT_REFS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Tag Preview Info</em>' class.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG_PREVIEW_INFO_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Tag Preview Info</em>' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TAG_PREVIEW_INFO_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link com.devepos.adt.abaptags.impl.TaggedObject <em>Tagged Object</em>}' class.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see com.devepos.adt.abaptags.impl.TaggedObject
+	 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTaggedObject()
+	 * @generated
+	 */
+	int TAGGED_OBJECT = 5;
+
+	/**
+	 * The feature id for the '<em><b>Object Ref</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABAP_OBJECT_WITH_TAGS__TAGS = 2;
+	int TAGGED_OBJECT__OBJECT_REF = 0;
 
 	/**
-	 * The number of structural features of the '<em>Abap Object With Tags</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Tags</b></em>' containment reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABAP_OBJECT_WITH_TAGS_FEATURE_COUNT = 3;
+	int TAGGED_OBJECT__TAGS = 1;
 
 	/**
-	 * The number of operations of the '<em>Abap Object With Tags</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Tagged Object</em>' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int ABAP_OBJECT_WITH_TAGS_OPERATION_COUNT = 0;
+	int TAGGED_OBJECT_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link com.devepos.adt.abaptags.impl.AbapObjectsWithTags <em>Abap Objects With Tags</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see com.devepos.adt.abaptags.impl.AbapObjectsWithTags
-	 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getAbapObjectsWithTags()
+	 * The number of operations of the '<em>Tagged Object</em>' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 * @ordered
+	 */
+	int TAGGED_OBJECT_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link com.devepos.adt.abaptags.impl.TaggedObjectList <em>Tagged Object List</em>}' class.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see com.devepos.adt.abaptags.impl.TaggedObjectList
+	 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTaggedObjectList()
 	 * @generated
 	 */
-	int ABAP_OBJECTS_WITH_TAGS = 4;
+	int TAGGED_OBJECT_LIST = 6;
 
 	/**
-	 * The feature id for the '<em><b>Abap Objects With Tags</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Tagged Objects</b></em>' containment reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABAP_OBJECTS_WITH_TAGS__ABAP_OBJECTS_WITH_TAGS = 0;
+	int TAGGED_OBJECT_LIST__TAGGED_OBJECTS = 0;
 
 	/**
-	 * The number of structural features of the '<em>Abap Objects With Tags</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Tagged Object List</em>' class.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABAP_OBJECTS_WITH_TAGS_FEATURE_COUNT = 1;
+	int TAGGED_OBJECT_LIST_FEATURE_COUNT = 1;
 
 	/**
-	 * The number of operations of the '<em>Abap Objects With Tags</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The number of operations of the '<em>Tagged Object List</em>' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int ABAP_OBJECTS_WITH_TAGS_OPERATION_COUNT = 0;
+	int TAGGED_OBJECT_LIST_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link com.devepos.adt.abaptags.impl.AbapObjectsWithTag <em>Abap Objects With Tag</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see com.devepos.adt.abaptags.impl.AbapObjectsWithTag
-	 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getAbapObjectsWithTag()
+	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.ITagBase <em>Tag Base</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Tag Base</em>'.
+	 * @see com.devepos.adt.abaptags.ITagBase
 	 * @generated
 	 */
-	int ABAP_OBJECTS_WITH_TAG = 5;
+	EClass getTagBase();
 
 	/**
-	 * The feature id for the '<em><b>Abap Objects With Tag</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the meta object for the attribute
+	 * '{@link com.devepos.adt.abaptags.ITagBase#getId <em>Id</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return    the meta object for the attribute '<em>Id</em>'.
+	 * @see       com.devepos.adt.abaptags.ITagBase#getId()
+	 * @see       #getTagBase()
 	 * @generated
-	 * @ordered
 	 */
-	int ABAP_OBJECTS_WITH_TAG__ABAP_OBJECTS_WITH_TAG = 0;
+	EAttribute getTagBase_Id();
 
 	/**
-	 * The number of structural features of the '<em>Abap Objects With Tag</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABAP_OBJECTS_WITH_TAG_FEATURE_COUNT = 1;
-
-	/**
-	 * The number of operations of the '<em>Abap Objects With Tag</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABAP_OBJECTS_WITH_TAG_OPERATION_COUNT = 0;
-
-
-	/**
-	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.ITags <em>Tags</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Tags</em>'.
-	 * @see com.devepos.adt.abaptags.ITags
+	 * Returns the meta object for the attribute
+	 * '{@link com.devepos.adt.abaptags.ITagBase#getName <em>Name</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return    the meta object for the attribute '<em>Name</em>'.
+	 * @see       com.devepos.adt.abaptags.ITagBase#getName()
+	 * @see       #getTagBase()
 	 * @generated
 	 */
-	EClass getTags();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.abaptags.ITags#getTags <em>Tags</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Tags</em>'.
-	 * @see com.devepos.adt.abaptags.ITags#getTags()
-	 * @see #getTags()
-	 * @generated
-	 */
-	EReference getTags_Tags();
+	EAttribute getTagBase_Name();
 
 	/**
 	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.ITag <em>Tag</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Tag</em>'.
 	 * @see com.devepos.adt.abaptags.ITag
 	 * @generated
@@ -473,31 +512,8 @@ public interface IAbapTagsPackage extends EPackage {
 	EClass getTag();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITag#getId <em>Id</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Id</em>'.
-	 * @see com.devepos.adt.abaptags.ITag#getId()
-	 * @see #getTag()
-	 * @generated
-	 */
-	EAttribute getTag_Id();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITag#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see com.devepos.adt.abaptags.ITag#getName()
-	 * @see #getTag()
-	 * @generated
-	 */
-	EAttribute getTag_Name();
-
-	/**
 	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITag#getDescription <em>Description</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Description</em>'.
 	 * @see com.devepos.adt.abaptags.ITag#getDescription()
 	 * @see #getTag()
@@ -507,8 +523,7 @@ public interface IAbapTagsPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.abaptags.ITag#getChildTags <em>Child Tags</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Child Tags</em>'.
 	 * @see com.devepos.adt.abaptags.ITag#getChildTags()
 	 * @see #getTag()
@@ -517,31 +532,32 @@ public interface IAbapTagsPackage extends EPackage {
 	EReference getTag_ChildTags();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITag#isIsRoot <em>Is Root</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Root</em>'.
-	 * @see com.devepos.adt.abaptags.ITag#isIsRoot()
-	 * @see #getTag()
+	 * Returns the meta object for the attribute
+	 * '{@link com.devepos.adt.abaptags.ITag#isIsRoot <em>Is Root</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return    the meta object for the attribute '<em>Is Root</em>'.
+	 * @see       com.devepos.adt.abaptags.ITag#isIsRoot()
+	 * @see       #getTag()
 	 * @generated
 	 */
 	EAttribute getTag_IsRoot();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITag#getOwner <em>Owner</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Owner</em>'.
-	 * @see com.devepos.adt.abaptags.ITag#getOwner()
-	 * @see #getTag()
+	 * Returns the meta object for the attribute
+	 * '{@link com.devepos.adt.abaptags.ITag#getOwner <em>Owner</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return    the meta object for the attribute '<em>Owner</em>'.
+	 * @see       com.devepos.adt.abaptags.ITag#getOwner()
+	 * @see       #getTag()
 	 * @generated
 	 */
 	EAttribute getTag_Owner();
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITag#getCreatedBy <em>Created By</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Created By</em>'.
 	 * @see com.devepos.adt.abaptags.ITag#getCreatedBy()
 	 * @see #getTag()
@@ -551,8 +567,7 @@ public interface IAbapTagsPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITag#getCreatedDateTime <em>Created Date Time</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Created Date Time</em>'.
 	 * @see com.devepos.adt.abaptags.ITag#getCreatedDateTime()
 	 * @see #getTag()
@@ -562,8 +577,7 @@ public interface IAbapTagsPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITag#getChangedBy <em>Changed By</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Changed By</em>'.
 	 * @see com.devepos.adt.abaptags.ITag#getChangedBy()
 	 * @see #getTag()
@@ -573,8 +587,7 @@ public interface IAbapTagsPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITag#getChangedDateTime <em>Changed Date Time</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Changed Date Time</em>'.
 	 * @see com.devepos.adt.abaptags.ITag#getChangedDateTime()
 	 * @see #getTag()
@@ -584,8 +597,7 @@ public interface IAbapTagsPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITag#getTaggedObjectCount <em>Tagged Object Count</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Tagged Object Count</em>'.
 	 * @see com.devepos.adt.abaptags.ITag#getTaggedObjectCount()
 	 * @see #getTag()
@@ -594,20 +606,20 @@ public interface IAbapTagsPackage extends EPackage {
 	EAttribute getTag_TaggedObjectCount();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITag#isChanged <em>Changed</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Changed</em>'.
-	 * @see com.devepos.adt.abaptags.ITag#isChanged()
-	 * @see #getTag()
+	 * Returns the meta object for the attribute
+	 * '{@link com.devepos.adt.abaptags.ITag#isChanged <em>Changed</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return    the meta object for the attribute '<em>Changed</em>'.
+	 * @see       com.devepos.adt.abaptags.ITag#isChanged()
+	 * @see       #getTag()
 	 * @generated
 	 */
 	EAttribute getTag_Changed();
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITag#getParentTagId <em>Parent Tag Id</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Parent Tag Id</em>'.
 	 * @see com.devepos.adt.abaptags.ITag#getParentTagId()
 	 * @see #getTag()
@@ -616,200 +628,198 @@ public interface IAbapTagsPackage extends EPackage {
 	EAttribute getTag_ParentTagId();
 
 	/**
-	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.IAbapObjectWithTag <em>Abap Object With Tag</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Abap Object With Tag</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectWithTag
+	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.IAdtObjectTag <em>Adt Object Tag</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Adt Object Tag</em>'.
+	 * @see com.devepos.adt.abaptags.IAdtObjectTag
 	 * @generated
 	 */
-	EClass getAbapObjectWithTag();
+	EClass getAdtObjectTag();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.IAbapObjectWithTag#getObjectName <em>Object Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Object Name</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectWithTag#getObjectName()
-	 * @see #getAbapObjectWithTag()
-	 * @generated
-	 */
-	EAttribute getAbapObjectWithTag_ObjectName();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.IAbapObjectWithTag#getObjectType <em>Object Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Object Type</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectWithTag#getObjectType()
-	 * @see #getAbapObjectWithTag()
-	 * @generated
-	 */
-	EAttribute getAbapObjectWithTag_ObjectType();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.IAbapObjectWithTag#getParentObjectName <em>Parent Object Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentObjectName <em>Parent Object Name</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Parent Object Name</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectWithTag#getParentObjectName()
-	 * @see #getAbapObjectWithTag()
+	 * @see com.devepos.adt.abaptags.IAdtObjectTag#getParentObjectName()
+	 * @see #getAdtObjectTag()
 	 * @generated
 	 */
-	EAttribute getAbapObjectWithTag_ParentObjectName();
+	EAttribute getAdtObjectTag_ParentObjectName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.IAbapObjectWithTag#getParentObjectType <em>Parent Object Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentObjectType <em>Parent Object Type</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Parent Object Type</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectWithTag#getParentObjectType()
-	 * @see #getAbapObjectWithTag()
+	 * @see com.devepos.adt.abaptags.IAdtObjectTag#getParentObjectType()
+	 * @see #getAdtObjectTag()
 	 * @generated
 	 */
-	EAttribute getAbapObjectWithTag_ParentObjectType();
+	EAttribute getAdtObjectTag_ParentObjectType();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.IAbapObjectWithTag#getTagId <em>Tag Id</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Tag Id</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectWithTag#getTagId()
-	 * @see #getAbapObjectWithTag()
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentObjectUri <em>Parent Object Uri</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Parent Object Uri</em>'.
+	 * @see com.devepos.adt.abaptags.IAdtObjectTag#getParentObjectUri()
+	 * @see #getAdtObjectTag()
 	 * @generated
 	 */
-	EAttribute getAbapObjectWithTag_TagId();
+	EAttribute getAdtObjectTag_ParentObjectUri();
 
 	/**
-	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.IAbapObjectWithTags <em>Abap Object With Tags</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Abap Object With Tags</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectWithTags
+	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.ITagList <em>Tag List</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Tag List</em>'.
+	 * @see com.devepos.adt.abaptags.ITagList
 	 * @generated
 	 */
-	EClass getAbapObjectWithTags();
+	EClass getTagList();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.IAbapObjectWithTags#getObjectName <em>Object Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Object Name</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectWithTags#getObjectName()
-	 * @see #getAbapObjectWithTags()
+	 * Returns the meta object for the containment reference list
+	 * '{@link com.devepos.adt.abaptags.ITagList#getTags <em>Tags</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return    the meta object for the containment reference list
+	 *            '<em>Tags</em>'.
+	 * @see       com.devepos.adt.abaptags.ITagList#getTags()
+	 * @see       #getTagList()
 	 * @generated
 	 */
-	EAttribute getAbapObjectWithTags_ObjectName();
+	EReference getTagList_Tags();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.IAbapObjectWithTags#getObjectType <em>Object Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Object Type</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectWithTags#getObjectType()
-	 * @see #getAbapObjectWithTags()
+	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.ITagPreviewInfo <em>Tag Preview Info</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Tag Preview Info</em>'.
+	 * @see com.devepos.adt.abaptags.ITagPreviewInfo
 	 * @generated
 	 */
-	EAttribute getAbapObjectWithTags_ObjectType();
+	EClass getTagPreviewInfo();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.abaptags.IAbapObjectWithTags#getTags <em>Tags</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.abaptags.ITagPreviewInfo#getTags <em>Tags</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Tags</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectWithTags#getTags()
-	 * @see #getAbapObjectWithTags()
+	 * @see com.devepos.adt.abaptags.ITagPreviewInfo#getTags()
+	 * @see #getTagPreviewInfo()
 	 * @generated
 	 */
-	EReference getAbapObjectWithTags_Tags();
+	EReference getTagPreviewInfo_Tags();
 
 	/**
-	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.IAbapObjectsWithTags <em>Abap Objects With Tags</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Abap Objects With Tags</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectsWithTags
+	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.abaptags.ITagPreviewInfo#getAdtObjectRefs <em>Adt Object Refs</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Adt Object Refs</em>'.
+	 * @see com.devepos.adt.abaptags.ITagPreviewInfo#getAdtObjectRefs()
+	 * @see #getTagPreviewInfo()
 	 * @generated
 	 */
-	EClass getAbapObjectsWithTags();
+	EReference getTagPreviewInfo_AdtObjectRefs();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.abaptags.IAbapObjectsWithTags#getAbapObjectsWithTags <em>Abap Objects With Tags</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Abap Objects With Tags</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectsWithTags#getAbapObjectsWithTags()
-	 * @see #getAbapObjectsWithTags()
+	 * Returns the meta object for class
+	 * '{@link com.devepos.adt.abaptags.ITaggedObject <em>Tagged Object</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return    the meta object for class '<em>Tagged Object</em>'.
+	 * @see       com.devepos.adt.abaptags.ITaggedObject
 	 * @generated
 	 */
-	EReference getAbapObjectsWithTags_AbapObjectsWithTags();
+	EClass getTaggedObject();
 
 	/**
-	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.IAbapObjectsWithTag <em>Abap Objects With Tag</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Abap Objects With Tag</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectsWithTag
+	 * Returns the meta object for the containment reference list
+	 * '{@link com.devepos.adt.abaptags.ITaggedObject#getTags <em>Tags</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return    the meta object for the containment reference list
+	 *            '<em>Tags</em>'.
+	 * @see       com.devepos.adt.abaptags.ITaggedObject#getTags()
+	 * @see       #getTaggedObject()
 	 * @generated
 	 */
-	EClass getAbapObjectsWithTag();
+	EReference getTaggedObject_Tags();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.abaptags.IAbapObjectsWithTag#getAbapObjectsWithTag <em>Abap Objects With Tag</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.devepos.adt.abaptags.ITaggedObject#getObjectRef <em>Object Ref</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Abap Objects With Tag</em>'.
-	 * @see com.devepos.adt.abaptags.IAbapObjectsWithTag#getAbapObjectsWithTag()
-	 * @see #getAbapObjectsWithTag()
+	 * @return the meta object for the containment reference '<em>Object Ref</em>'.
+	 * @see com.devepos.adt.abaptags.ITaggedObject#getObjectRef()
+	 * @see #getTaggedObject()
 	 * @generated
 	 */
-	EReference getAbapObjectsWithTag_AbapObjectsWithTag();
+	EReference getTaggedObject_ObjectRef();
 
 	/**
-	 * Returns the factory that creates the instances of the model.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the factory that creates the instances of the model.
+	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.ITaggedObjectList <em>Tagged Object List</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Tagged Object List</em>'.
+	 * @see com.devepos.adt.abaptags.ITaggedObjectList
+	 * @generated
+	 */
+	EClass getTaggedObjectList();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.abaptags.ITaggedObjectList#getTaggedObjects <em>Tagged Objects</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Tagged Objects</em>'.
+	 * @see com.devepos.adt.abaptags.ITaggedObjectList#getTaggedObjects()
+	 * @see #getTaggedObjectList()
+	 * @generated
+	 */
+	EReference getTaggedObjectList_TaggedObjects();
+
+	/**
+	 * Returns the factory that creates the instances of the model. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return    the factory that creates the instances of the model.
 	 * @generated
 	 */
 	IAbapTagsFactory getAbapTagsFactory();
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * Defines literals for the meta objects that represent
+	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
 	 * <ul>
-	 *   <li>each class,</li>
-	 *   <li>each feature of each class,</li>
-	 *   <li>each operation of each class,</li>
-	 *   <li>each enum,</li>
-	 *   <li>and each data type</li>
+	 * <li>each class,</li>
+	 * <li>each feature of each class,</li>
+	 * <li>each operation of each class,</li>
+	 * <li>each enum,</li>
+	 * <li>and each data type</li>
 	 * </ul>
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.Tags <em>Tags</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see com.devepos.adt.abaptags.impl.Tags
-		 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTags()
+		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.TagBase <em>Tag Base</em>}' class.
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * @see com.devepos.adt.abaptags.impl.TagBase
+		 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTagBase()
 		 * @generated
 		 */
-		EClass TAGS = eINSTANCE.getTags();
+		EClass TAG_BASE = eINSTANCE.getTagBase();
 
 		/**
-		 * The meta object literal for the '<em><b>Tags</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
-		EReference TAGS__TAGS = eINSTANCE.getTags_Tags();
+		EAttribute TAG_BASE__ID = eINSTANCE.getTagBase_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAG_BASE__NAME = eINSTANCE.getTagBase_Name();
 
 		/**
 		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.Tag <em>Tag</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @see com.devepos.adt.abaptags.impl.Tag
 		 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTag()
 		 * @generated
@@ -817,229 +827,191 @@ public interface IAbapTagsPackage extends EPackage {
 		EClass TAG = eINSTANCE.getTag();
 
 		/**
-		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TAG__ID = eINSTANCE.getTag_Id();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TAG__NAME = eINSTANCE.getTag_Name();
-
-		/**
 		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute TAG__DESCRIPTION = eINSTANCE.getTag_Description();
 
 		/**
 		 * The meta object literal for the '<em><b>Child Tags</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference TAG__CHILD_TAGS = eINSTANCE.getTag_ChildTags();
 
 		/**
 		 * The meta object literal for the '<em><b>Is Root</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute TAG__IS_ROOT = eINSTANCE.getTag_IsRoot();
 
 		/**
 		 * The meta object literal for the '<em><b>Owner</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute TAG__OWNER = eINSTANCE.getTag_Owner();
 
 		/**
 		 * The meta object literal for the '<em><b>Created By</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute TAG__CREATED_BY = eINSTANCE.getTag_CreatedBy();
 
 		/**
 		 * The meta object literal for the '<em><b>Created Date Time</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute TAG__CREATED_DATE_TIME = eINSTANCE.getTag_CreatedDateTime();
 
 		/**
 		 * The meta object literal for the '<em><b>Changed By</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute TAG__CHANGED_BY = eINSTANCE.getTag_ChangedBy();
 
 		/**
 		 * The meta object literal for the '<em><b>Changed Date Time</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute TAG__CHANGED_DATE_TIME = eINSTANCE.getTag_ChangedDateTime();
 
 		/**
 		 * The meta object literal for the '<em><b>Tagged Object Count</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute TAG__TAGGED_OBJECT_COUNT = eINSTANCE.getTag_TaggedObjectCount();
 
 		/**
 		 * The meta object literal for the '<em><b>Changed</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute TAG__CHANGED = eINSTANCE.getTag_Changed();
 
 		/**
 		 * The meta object literal for the '<em><b>Parent Tag Id</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute TAG__PARENT_TAG_ID = eINSTANCE.getTag_ParentTagId();
 
 		/**
-		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.AbapObjectWithTag <em>Abap Object With Tag</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see com.devepos.adt.abaptags.impl.AbapObjectWithTag
-		 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getAbapObjectWithTag()
+		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.AdtObjectTag <em>Adt Object Tag</em>}' class.
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * @see com.devepos.adt.abaptags.impl.AdtObjectTag
+		 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getAdtObjectTag()
 		 * @generated
 		 */
-		EClass ABAP_OBJECT_WITH_TAG = eINSTANCE.getAbapObjectWithTag();
-
-		/**
-		 * The meta object literal for the '<em><b>Object Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ABAP_OBJECT_WITH_TAG__OBJECT_NAME = eINSTANCE.getAbapObjectWithTag_ObjectName();
-
-		/**
-		 * The meta object literal for the '<em><b>Object Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ABAP_OBJECT_WITH_TAG__OBJECT_TYPE = eINSTANCE.getAbapObjectWithTag_ObjectType();
+		EClass ADT_OBJECT_TAG = eINSTANCE.getAdtObjectTag();
 
 		/**
 		 * The meta object literal for the '<em><b>Parent Object Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ABAP_OBJECT_WITH_TAG__PARENT_OBJECT_NAME = eINSTANCE.getAbapObjectWithTag_ParentObjectName();
+		EAttribute ADT_OBJECT_TAG__PARENT_OBJECT_NAME = eINSTANCE.getAdtObjectTag_ParentObjectName();
 
 		/**
 		 * The meta object literal for the '<em><b>Parent Object Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ABAP_OBJECT_WITH_TAG__PARENT_OBJECT_TYPE = eINSTANCE.getAbapObjectWithTag_ParentObjectType();
+		EAttribute ADT_OBJECT_TAG__PARENT_OBJECT_TYPE = eINSTANCE.getAdtObjectTag_ParentObjectType();
 
 		/**
-		 * The meta object literal for the '<em><b>Tag Id</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Parent Object Uri</b></em>' attribute feature.
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ABAP_OBJECT_WITH_TAG__TAG_ID = eINSTANCE.getAbapObjectWithTag_TagId();
+		EAttribute ADT_OBJECT_TAG__PARENT_OBJECT_URI = eINSTANCE.getAdtObjectTag_ParentObjectUri();
 
 		/**
-		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.AbapObjectWithTags <em>Abap Object With Tags</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see com.devepos.adt.abaptags.impl.AbapObjectWithTags
-		 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getAbapObjectWithTags()
+		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.TagList <em>Tag List</em>}' class.
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * @see com.devepos.adt.abaptags.impl.TagList
+		 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTagList()
 		 * @generated
 		 */
-		EClass ABAP_OBJECT_WITH_TAGS = eINSTANCE.getAbapObjectWithTags();
-
-		/**
-		 * The meta object literal for the '<em><b>Object Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ABAP_OBJECT_WITH_TAGS__OBJECT_NAME = eINSTANCE.getAbapObjectWithTags_ObjectName();
-
-		/**
-		 * The meta object literal for the '<em><b>Object Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ABAP_OBJECT_WITH_TAGS__OBJECT_TYPE = eINSTANCE.getAbapObjectWithTags_ObjectType();
+		EClass TAG_LIST = eINSTANCE.getTagList();
 
 		/**
 		 * The meta object literal for the '<em><b>Tags</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ABAP_OBJECT_WITH_TAGS__TAGS = eINSTANCE.getAbapObjectWithTags_Tags();
+		EReference TAG_LIST__TAGS = eINSTANCE.getTagList_Tags();
 
 		/**
-		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.AbapObjectsWithTags <em>Abap Objects With Tags</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see com.devepos.adt.abaptags.impl.AbapObjectsWithTags
-		 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getAbapObjectsWithTags()
+		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.TagPreviewInfo <em>Tag Preview Info</em>}' class.
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * @see com.devepos.adt.abaptags.impl.TagPreviewInfo
+		 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTagPreviewInfo()
 		 * @generated
 		 */
-		EClass ABAP_OBJECTS_WITH_TAGS = eINSTANCE.getAbapObjectsWithTags();
+		EClass TAG_PREVIEW_INFO = eINSTANCE.getTagPreviewInfo();
 
 		/**
-		 * The meta object literal for the '<em><b>Abap Objects With Tags</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Tags</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ABAP_OBJECTS_WITH_TAGS__ABAP_OBJECTS_WITH_TAGS = eINSTANCE.getAbapObjectsWithTags_AbapObjectsWithTags();
+		EReference TAG_PREVIEW_INFO__TAGS = eINSTANCE.getTagPreviewInfo_Tags();
 
 		/**
-		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.AbapObjectsWithTag <em>Abap Objects With Tag</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see com.devepos.adt.abaptags.impl.AbapObjectsWithTag
-		 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getAbapObjectsWithTag()
+		 * The meta object literal for the '<em><b>Adt Object Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @generated
 		 */
-		EClass ABAP_OBJECTS_WITH_TAG = eINSTANCE.getAbapObjectsWithTag();
+		EReference TAG_PREVIEW_INFO__ADT_OBJECT_REFS = eINSTANCE.getTagPreviewInfo_AdtObjectRefs();
 
 		/**
-		 * The meta object literal for the '<em><b>Abap Objects With Tag</b></em>' containment reference list feature.
+		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.TaggedObject <em>Tagged Object</em>}' class.
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * @see com.devepos.adt.abaptags.impl.TaggedObject
+		 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTaggedObject()
+		 * @generated
+		 */
+		EClass TAGGED_OBJECT = eINSTANCE.getTaggedObject();
+
+		/**
+		 * The meta object literal for the '<em><b>Tags</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TAGGED_OBJECT__TAGS = eINSTANCE.getTaggedObject_Tags();
+
+		/**
+		 * The meta object literal for the '<em><b>Object Ref</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ABAP_OBJECTS_WITH_TAG__ABAP_OBJECTS_WITH_TAG = eINSTANCE.getAbapObjectsWithTag_AbapObjectsWithTag();
+		EReference TAGGED_OBJECT__OBJECT_REF = eINSTANCE.getTaggedObject_ObjectRef();
+
+		/**
+		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.TaggedObjectList <em>Tagged Object List</em>}' class.
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * @see com.devepos.adt.abaptags.impl.TaggedObjectList
+		 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTaggedObjectList()
+		 * @generated
+		 */
+		EClass TAGGED_OBJECT_LIST = eINSTANCE.getTaggedObjectList();
+
+		/**
+		 * The meta object literal for the '<em><b>Tagged Objects</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TAGGED_OBJECT_LIST__TAGGED_OBJECTS = eINSTANCE.getTaggedObjectList_TaggedObjects();
 
 	}
 
-} //IAbapTagsPackage
+} // IAbapTagsPackage

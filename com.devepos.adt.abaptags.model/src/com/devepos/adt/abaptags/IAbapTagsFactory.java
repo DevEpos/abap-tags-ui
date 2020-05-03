@@ -22,15 +22,6 @@ public interface IAbapTagsFactory extends EFactory {
 	IAbapTagsFactory eINSTANCE = com.devepos.adt.abaptags.impl.AbapTagsFactory.init();
 
 	/**
-	 * Returns a new object of class '<em>Tags</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Tags</em>'.
-	 * @generated
-	 */
-	ITags createTags();
-
-	/**
 	 * Returns a new object of class '<em>Tag</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -40,40 +31,49 @@ public interface IAbapTagsFactory extends EFactory {
 	ITag createTag();
 
 	/**
-	 * Returns a new object of class '<em>Abap Object With Tag</em>'.
+	 * Returns a new object of class '<em>Adt Object Tag</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Abap Object With Tag</em>'.
+	 * @return a new object of class '<em>Adt Object Tag</em>'.
 	 * @generated
 	 */
-	IAbapObjectWithTag createAbapObjectWithTag();
+	IAdtObjectTag createAdtObjectTag();
 
 	/**
-	 * Returns a new object of class '<em>Abap Object With Tags</em>'.
+	 * Returns a new object of class '<em>Tag List</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Abap Object With Tags</em>'.
+	 * @return a new object of class '<em>Tag List</em>'.
 	 * @generated
 	 */
-	IAbapObjectWithTags createAbapObjectWithTags();
+	ITagList createTagList();
 
 	/**
-	 * Returns a new object of class '<em>Abap Objects With Tags</em>'.
+	 * Returns a new object of class '<em>Tag Preview Info</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Abap Objects With Tags</em>'.
+	 * @return a new object of class '<em>Tag Preview Info</em>'.
 	 * @generated
 	 */
-	IAbapObjectsWithTags createAbapObjectsWithTags();
+	ITagPreviewInfo createTagPreviewInfo();
 
 	/**
-	 * Returns a new object of class '<em>Abap Objects With Tag</em>'.
+	 * Returns a new object of class '<em>Tagged Object</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Abap Objects With Tag</em>'.
+	 * @return a new object of class '<em>Tagged Object</em>'.
 	 * @generated
 	 */
-	IAbapObjectsWithTag createAbapObjectsWithTag();
+	ITaggedObject createTaggedObject();
+
+	/**
+	 * Returns a new object of class '<em>Tagged Object List</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Tagged Object List</em>'.
+	 * @generated
+	 */
+	ITaggedObjectList createTaggedObjectList();
 
 	/**
 	 * Returns the package supported by this factory.

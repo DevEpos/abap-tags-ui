@@ -3,7 +3,6 @@
 package com.devepos.adt.abaptags.util;
 
 import com.devepos.adt.abaptags.*;
-
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 
@@ -68,28 +67,32 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
 	protected AbapTagsSwitch<Adapter> modelSwitch =
 		new AbapTagsSwitch<Adapter>() {
 			@Override
-			public Adapter caseTags(ITags object) {
-				return createTagsAdapter();
+			public Adapter caseTagBase(ITagBase object) {
+				return createTagBaseAdapter();
 			}
 			@Override
 			public Adapter caseTag(ITag object) {
 				return createTagAdapter();
 			}
 			@Override
-			public Adapter caseAbapObjectWithTag(IAbapObjectWithTag object) {
-				return createAbapObjectWithTagAdapter();
+			public Adapter caseAdtObjectTag(IAdtObjectTag object) {
+				return createAdtObjectTagAdapter();
 			}
 			@Override
-			public Adapter caseAbapObjectWithTags(IAbapObjectWithTags object) {
-				return createAbapObjectWithTagsAdapter();
+			public Adapter caseTagList(ITagList object) {
+				return createTagListAdapter();
 			}
 			@Override
-			public Adapter caseAbapObjectsWithTags(IAbapObjectsWithTags object) {
-				return createAbapObjectsWithTagsAdapter();
+			public Adapter caseTagPreviewInfo(ITagPreviewInfo object) {
+				return createTagPreviewInfoAdapter();
 			}
 			@Override
-			public Adapter caseAbapObjectsWithTag(IAbapObjectsWithTag object) {
-				return createAbapObjectsWithTagAdapter();
+			public Adapter caseTaggedObject(ITaggedObject object) {
+				return createTaggedObjectAdapter();
+			}
+			@Override
+			public Adapter caseTaggedObjectList(ITaggedObjectList object) {
+				return createTaggedObjectListAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -112,16 +115,16 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.devepos.adt.abaptags.ITags <em>Tags</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.devepos.adt.abaptags.ITagBase <em>Tag Base</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see com.devepos.adt.abaptags.ITags
+	 * @see com.devepos.adt.abaptags.ITagBase
 	 * @generated
 	 */
-	public Adapter createTagsAdapter() {
+	public Adapter createTagBaseAdapter() {
 		return null;
 	}
 
@@ -140,58 +143,72 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.devepos.adt.abaptags.IAbapObjectWithTag <em>Abap Object With Tag</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.devepos.adt.abaptags.IAdtObjectTag <em>Adt Object Tag</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see com.devepos.adt.abaptags.IAbapObjectWithTag
+	 * @see com.devepos.adt.abaptags.IAdtObjectTag
 	 * @generated
 	 */
-	public Adapter createAbapObjectWithTagAdapter() {
+	public Adapter createAdtObjectTagAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.devepos.adt.abaptags.IAbapObjectWithTags <em>Abap Object With Tags</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.devepos.adt.abaptags.ITagList <em>Tag List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see com.devepos.adt.abaptags.IAbapObjectWithTags
+	 * @see com.devepos.adt.abaptags.ITagList
 	 * @generated
 	 */
-	public Adapter createAbapObjectWithTagsAdapter() {
+	public Adapter createTagListAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.devepos.adt.abaptags.IAbapObjectsWithTags <em>Abap Objects With Tags</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.devepos.adt.abaptags.ITagPreviewInfo <em>Tag Preview Info</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see com.devepos.adt.abaptags.IAbapObjectsWithTags
+	 * @see com.devepos.adt.abaptags.ITagPreviewInfo
 	 * @generated
 	 */
-	public Adapter createAbapObjectsWithTagsAdapter() {
+	public Adapter createTagPreviewInfoAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.devepos.adt.abaptags.IAbapObjectsWithTag <em>Abap Objects With Tag</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.devepos.adt.abaptags.ITaggedObject <em>Tagged Object</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see com.devepos.adt.abaptags.IAbapObjectsWithTag
+	 * @see com.devepos.adt.abaptags.ITaggedObject
 	 * @generated
 	 */
-	public Adapter createAbapObjectsWithTagAdapter() {
+	public Adapter createTaggedObjectAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.devepos.adt.abaptags.ITaggedObjectList <em>Tagged Object List</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.devepos.adt.abaptags.ITaggedObjectList
+	 * @generated
+	 */
+	public Adapter createTaggedObjectListAdapter() {
 		return null;
 	}
 

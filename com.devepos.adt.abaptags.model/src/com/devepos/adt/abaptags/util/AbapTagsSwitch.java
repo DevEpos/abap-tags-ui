@@ -3,7 +3,6 @@
 package com.devepos.adt.abaptags.util;
 
 import com.devepos.adt.abaptags.*;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -66,39 +65,47 @@ public class AbapTagsSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case IAbapTagsPackage.TAGS: {
-				ITags tags = (ITags)theEObject;
-				T result = caseTags(tags);
+			case IAbapTagsPackage.TAG_BASE: {
+				ITagBase tagBase = (ITagBase)theEObject;
+				T result = caseTagBase(tagBase);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case IAbapTagsPackage.TAG: {
 				ITag tag = (ITag)theEObject;
 				T result = caseTag(tag);
+				if (result == null) result = caseTagBase(tag);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAG: {
-				IAbapObjectWithTag abapObjectWithTag = (IAbapObjectWithTag)theEObject;
-				T result = caseAbapObjectWithTag(abapObjectWithTag);
+			case IAbapTagsPackage.ADT_OBJECT_TAG: {
+				IAdtObjectTag adtObjectTag = (IAdtObjectTag)theEObject;
+				T result = caseAdtObjectTag(adtObjectTag);
+				if (result == null) result = caseTagBase(adtObjectTag);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS: {
-				IAbapObjectWithTags abapObjectWithTags = (IAbapObjectWithTags)theEObject;
-				T result = caseAbapObjectWithTags(abapObjectWithTags);
+			case IAbapTagsPackage.TAG_LIST: {
+				ITagList tagList = (ITagList)theEObject;
+				T result = caseTagList(tagList);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case IAbapTagsPackage.ABAP_OBJECTS_WITH_TAGS: {
-				IAbapObjectsWithTags abapObjectsWithTags = (IAbapObjectsWithTags)theEObject;
-				T result = caseAbapObjectsWithTags(abapObjectsWithTags);
+			case IAbapTagsPackage.TAG_PREVIEW_INFO: {
+				ITagPreviewInfo tagPreviewInfo = (ITagPreviewInfo)theEObject;
+				T result = caseTagPreviewInfo(tagPreviewInfo);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case IAbapTagsPackage.ABAP_OBJECTS_WITH_TAG: {
-				IAbapObjectsWithTag abapObjectsWithTag = (IAbapObjectsWithTag)theEObject;
-				T result = caseAbapObjectsWithTag(abapObjectsWithTag);
+			case IAbapTagsPackage.TAGGED_OBJECT: {
+				ITaggedObject taggedObject = (ITaggedObject)theEObject;
+				T result = caseTaggedObject(taggedObject);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case IAbapTagsPackage.TAGGED_OBJECT_LIST: {
+				ITaggedObjectList taggedObjectList = (ITaggedObjectList)theEObject;
+				T result = caseTaggedObjectList(taggedObjectList);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -107,17 +114,17 @@ public class AbapTagsSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Tags</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Tag Base</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Tags</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Tag Base</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseTags(ITags object) {
+	public T caseTagBase(ITagBase object) {
 		return null;
 	}
 
@@ -137,62 +144,77 @@ public class AbapTagsSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Abap Object With Tag</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Adt Object Tag</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Abap Object With Tag</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Adt Object Tag</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseAbapObjectWithTag(IAbapObjectWithTag object) {
+	public T caseAdtObjectTag(IAdtObjectTag object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Abap Object With Tags</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Tag List</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Abap Object With Tags</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Tag List</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseAbapObjectWithTags(IAbapObjectWithTags object) {
+	public T caseTagList(ITagList object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Abap Objects With Tags</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Tag Preview Info</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Abap Objects With Tags</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Tag Preview Info</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseAbapObjectsWithTags(IAbapObjectsWithTags object) {
+	public T caseTagPreviewInfo(ITagPreviewInfo object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Abap Objects With Tag</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Tagged Object</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Abap Objects With Tag</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Tagged Object</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseAbapObjectsWithTag(IAbapObjectsWithTag object) {
+	public T caseTaggedObject(ITaggedObject object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Tagged Object List</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Tagged Object List</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTaggedObjectList(ITaggedObjectList object) {
 		return null;
 	}
 

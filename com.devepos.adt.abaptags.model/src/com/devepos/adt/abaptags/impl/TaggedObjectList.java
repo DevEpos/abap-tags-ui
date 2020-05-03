@@ -2,9 +2,9 @@
  */
 package com.devepos.adt.abaptags.impl;
 
-import com.devepos.adt.abaptags.IAbapObjectWithTag;
-import com.devepos.adt.abaptags.IAbapObjectsWithTag;
 import com.devepos.adt.abaptags.IAbapTagsPackage;
+import com.devepos.adt.abaptags.ITaggedObject;
+import com.devepos.adt.abaptags.ITaggedObjectList;
 
 import java.util.Collection;
 
@@ -22,33 +22,34 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Abap Objects With Tag</b></em>'.
+ * An implementation of the model object '<em><b>Tagged Object List</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.devepos.adt.abaptags.impl.AbapObjectsWithTag#getAbapObjectsWithTag <em>Abap Objects With Tag</em>}</li>
+ *   <li>{@link com.devepos.adt.abaptags.impl.TaggedObjectList#getTaggedObjects <em>Tagged Objects</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class AbapObjectsWithTag extends MinimalEObjectImpl.Container implements IAbapObjectsWithTag {
+public class TaggedObjectList extends MinimalEObjectImpl.Container implements ITaggedObjectList {
 	/**
-	 * The cached value of the '{@link #getAbapObjectsWithTag() <em>Abap Objects With Tag</em>}' containment reference list.
+	 * The cached value of the '{@link #getTaggedObjects() <em>Tagged Objects</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAbapObjectsWithTag()
+	 * @see #getTaggedObjects()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<IAbapObjectWithTag> abapObjectsWithTag;
+	protected EList<ITaggedObject> taggedObjects;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected AbapObjectsWithTag() {
+	protected TaggedObjectList() {
 		super();
 	}
 
@@ -59,7 +60,7 @@ public class AbapObjectsWithTag extends MinimalEObjectImpl.Container implements 
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return IAbapTagsPackage.Literals.ABAP_OBJECTS_WITH_TAG;
+		return IAbapTagsPackage.Literals.TAGGED_OBJECT_LIST;
 	}
 
 	/**
@@ -68,11 +69,11 @@ public class AbapObjectsWithTag extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public EList<IAbapObjectWithTag> getAbapObjectsWithTag() {
-		if (abapObjectsWithTag == null) {
-			abapObjectsWithTag = new EObjectContainmentEList<IAbapObjectWithTag>(IAbapObjectWithTag.class, this, IAbapTagsPackage.ABAP_OBJECTS_WITH_TAG__ABAP_OBJECTS_WITH_TAG);
+	public EList<ITaggedObject> getTaggedObjects() {
+		if (taggedObjects == null) {
+			taggedObjects = new EObjectContainmentEList<ITaggedObject>(ITaggedObject.class, this, IAbapTagsPackage.TAGGED_OBJECT_LIST__TAGGED_OBJECTS);
 		}
-		return abapObjectsWithTag;
+		return taggedObjects;
 	}
 
 	/**
@@ -83,8 +84,8 @@ public class AbapObjectsWithTag extends MinimalEObjectImpl.Container implements 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case IAbapTagsPackage.ABAP_OBJECTS_WITH_TAG__ABAP_OBJECTS_WITH_TAG:
-				return ((InternalEList<?>)getAbapObjectsWithTag()).basicRemove(otherEnd, msgs);
+			case IAbapTagsPackage.TAGGED_OBJECT_LIST__TAGGED_OBJECTS:
+				return ((InternalEList<?>)getTaggedObjects()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -97,8 +98,8 @@ public class AbapObjectsWithTag extends MinimalEObjectImpl.Container implements 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case IAbapTagsPackage.ABAP_OBJECTS_WITH_TAG__ABAP_OBJECTS_WITH_TAG:
-				return getAbapObjectsWithTag();
+			case IAbapTagsPackage.TAGGED_OBJECT_LIST__TAGGED_OBJECTS:
+				return getTaggedObjects();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -112,9 +113,9 @@ public class AbapObjectsWithTag extends MinimalEObjectImpl.Container implements 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case IAbapTagsPackage.ABAP_OBJECTS_WITH_TAG__ABAP_OBJECTS_WITH_TAG:
-				getAbapObjectsWithTag().clear();
-				getAbapObjectsWithTag().addAll((Collection<? extends IAbapObjectWithTag>)newValue);
+			case IAbapTagsPackage.TAGGED_OBJECT_LIST__TAGGED_OBJECTS:
+				getTaggedObjects().clear();
+				getTaggedObjects().addAll((Collection<? extends ITaggedObject>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -128,8 +129,8 @@ public class AbapObjectsWithTag extends MinimalEObjectImpl.Container implements 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case IAbapTagsPackage.ABAP_OBJECTS_WITH_TAG__ABAP_OBJECTS_WITH_TAG:
-				getAbapObjectsWithTag().clear();
+			case IAbapTagsPackage.TAGGED_OBJECT_LIST__TAGGED_OBJECTS:
+				getTaggedObjects().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -143,10 +144,10 @@ public class AbapObjectsWithTag extends MinimalEObjectImpl.Container implements 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case IAbapTagsPackage.ABAP_OBJECTS_WITH_TAG__ABAP_OBJECTS_WITH_TAG:
-				return abapObjectsWithTag != null && !abapObjectsWithTag.isEmpty();
+			case IAbapTagsPackage.TAGGED_OBJECT_LIST__TAGGED_OBJECTS:
+				return taggedObjects != null && !taggedObjects.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //AbapObjectsWithTag
+} //TaggedObjectList

@@ -56,26 +56,15 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case IAbapTagsPackage.TAGS: return createTags();
 			case IAbapTagsPackage.TAG: return createTag();
-			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAG: return createAbapObjectWithTag();
-			case IAbapTagsPackage.ABAP_OBJECT_WITH_TAGS: return createAbapObjectWithTags();
-			case IAbapTagsPackage.ABAP_OBJECTS_WITH_TAGS: return createAbapObjectsWithTags();
-			case IAbapTagsPackage.ABAP_OBJECTS_WITH_TAG: return createAbapObjectsWithTag();
+			case IAbapTagsPackage.ADT_OBJECT_TAG: return createAdtObjectTag();
+			case IAbapTagsPackage.TAG_LIST: return createTagList();
+			case IAbapTagsPackage.TAG_PREVIEW_INFO: return createTagPreviewInfo();
+			case IAbapTagsPackage.TAGGED_OBJECT: return createTaggedObject();
+			case IAbapTagsPackage.TAGGED_OBJECT_LIST: return createTaggedObjectList();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ITags createTags() {
-		Tags tags = new Tags();
-		return tags;
 	}
 
 	/**
@@ -95,9 +84,9 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
 	 * @generated
 	 */
 	@Override
-	public IAbapObjectWithTag createAbapObjectWithTag() {
-		AbapObjectWithTag abapObjectWithTag = new AbapObjectWithTag();
-		return abapObjectWithTag;
+	public IAdtObjectTag createAdtObjectTag() {
+		AdtObjectTag adtObjectTag = new AdtObjectTag();
+		return adtObjectTag;
 	}
 
 	/**
@@ -106,9 +95,9 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
 	 * @generated
 	 */
 	@Override
-	public IAbapObjectWithTags createAbapObjectWithTags() {
-		AbapObjectWithTags abapObjectWithTags = new AbapObjectWithTags();
-		return abapObjectWithTags;
+	public ITagList createTagList() {
+		TagList tagList = new TagList();
+		return tagList;
 	}
 
 	/**
@@ -117,9 +106,9 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
 	 * @generated
 	 */
 	@Override
-	public IAbapObjectsWithTags createAbapObjectsWithTags() {
-		AbapObjectsWithTags abapObjectsWithTags = new AbapObjectsWithTags();
-		return abapObjectsWithTags;
+	public ITagPreviewInfo createTagPreviewInfo() {
+		TagPreviewInfo tagPreviewInfo = new TagPreviewInfo();
+		return tagPreviewInfo;
 	}
 
 	/**
@@ -128,9 +117,20 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
 	 * @generated
 	 */
 	@Override
-	public IAbapObjectsWithTag createAbapObjectsWithTag() {
-		AbapObjectsWithTag abapObjectsWithTag = new AbapObjectsWithTag();
-		return abapObjectsWithTag;
+	public ITaggedObject createTaggedObject() {
+		TaggedObject taggedObject = new TaggedObject();
+		return taggedObject;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ITaggedObjectList createTaggedObjectList() {
+		TaggedObjectList taggedObjectList = new TaggedObjectList();
+		return taggedObjectList;
 	}
 
 	/**

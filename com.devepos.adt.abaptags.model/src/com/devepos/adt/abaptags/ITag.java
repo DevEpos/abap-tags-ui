@@ -4,7 +4,6 @@ package com.devepos.adt.abaptags;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object
@@ -14,8 +13,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.devepos.adt.abaptags.ITag#getId <em>Id</em>}</li>
- *   <li>{@link com.devepos.adt.abaptags.ITag#getName <em>Name</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#getDescription <em>Description</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#getChildTags <em>Child Tags</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#isIsRoot <em>Is Root</em>}</li>
@@ -33,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model extendedMetaData="kind='elementOnly' name='tag'"
  * @generated
  */
-public interface ITag extends EObject {
+public interface ITag extends ITagBase {
 
 	/**
 	 * Validates this tag
@@ -41,48 +38,6 @@ public interface ITag extends EObject {
 	 * @return the status of the validation
 	 */
 	IStatus validate();
-
-	/**
-	 * Returns the value of the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * @return the value of the '<em>Id</em>' attribute.
-	 * @see #setId(String)
-	 * @see com.devepos.adt.abaptags.IAbapTagsPackage#getTag_Id()
-	 * @model extendedMetaData="kind='attribute' name='id' namespace='##targetNamespace'"
-	 * @generated
-	 */
-	String getId();
-
-	/**
-	 * Sets the value of the '{@link com.devepos.adt.abaptags.ITag#getId <em>Id</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Id</em>' attribute.
-	 * @see #getId()
-	 * @generated
-	 */
-	void setId(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Name</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @return    the value of the '<em>Name</em>' attribute.
-	 * @see       #setName(String)
-	 * @see       com.devepos.adt.abaptags.IAbapTagsPackage#getTag_Name()
-	 * @model     extendedMetaData="kind='attribute' name='name'"
-	 * @generated
-	 */
-	String getName();
-
-	/**
-	 * Sets the value of the '{@link com.devepos.adt.abaptags.ITag#getName <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Name</em>' attribute.
-	 * @see #getName()
-	 * @generated
-	 */
-	void setName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Description</b></em>' attribute. <!--
