@@ -1,7 +1,6 @@
 package com.devepos.adt.abaptags.ui.internal.forms;
 
 import org.eclipse.core.databinding.observable.sideeffect.ISideEffect;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener;
@@ -12,20 +11,14 @@ import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
-import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
-import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Cursor;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -44,13 +37,11 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 import com.devepos.adt.abaptags.ITag;
-import com.devepos.adt.abaptags.ITags;
-import com.devepos.adt.abaptags.ui.AbapTagsUIPlugin;
 import com.devepos.adt.abaptags.ui.internal.messages.Messages;
-import com.devepos.adt.abaptags.ui.internal.util.IImages;
+import com.devepos.adt.abaptags.ui.internal.tree.TagLabelProvider;
+import com.devepos.adt.abaptags.ui.internal.tree.TagTreeContentProvider;
 import com.devepos.adt.tools.base.AdtToolsBasePlugin;
 import com.devepos.adt.tools.base.IGeneralWorkbenchImages;
-import com.devepos.adt.tools.base.ui.StylerFactory;
 import com.devepos.adt.tools.base.ui.tree.PrefixedAsteriskFilteredTree;
 import com.devepos.adt.tools.base.util.IModificationListener;
 
@@ -144,7 +135,8 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 		GridLayoutFactory.swtDefaults().margins(2, 28).applyTo(buttonComposite);
 		GridDataFactory.fillDefaults().align(SWT.BEGINNING, SWT.BEGINNING).applyTo(buttonComposite);
 
-		final Button addButton = toolkit.createButton(buttonComposite, Messages.AbapTagMasterDetailsBlock_AddAction_xbut, SWT.PUSH); 
+		final Button addButton = toolkit.createButton(buttonComposite, Messages.AbapTagMasterDetailsBlock_AddAction_xbut,
+			SWT.PUSH);
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).applyTo(addButton);
 		addButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -156,7 +148,8 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 		// register observables
 		ISideEffect.create(() -> this.model.isValid() && this.model.isEditMode(), addButton::setEnabled);
 
-		final Button removeButton = toolkit.createButton(buttonComposite, Messages.AbapTagMasterDetailsBlock_RemoveAction_xbut, SWT.PUSH); 
+		final Button removeButton = toolkit.createButton(buttonComposite, Messages.AbapTagMasterDetailsBlock_RemoveAction_xbut,
+			SWT.PUSH);
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).applyTo(removeButton);
 		removeButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -173,8 +166,8 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 		managedForm.addPart(sectionPart);
 
 		this.treeViewer = this.tagsTree.getViewer();
-		this.treeViewer.setContentProvider(new TreeContentProvicder());
-		this.treeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new TreeViewerLabelProvider()));
+		this.treeViewer.setContentProvider(new TagTreeContentProvider());
+		this.treeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new TagLabelProvider()));
 		this.treeViewer.addSelectionChangedListener(event -> {
 			managedForm.fireSelectionChanged(sectionPart, event.getSelection());
 		});
@@ -328,7 +321,8 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 		private final ITag tag;
 
 		public AddChildTag(final ITag tag) {
-			super(Messages.AbapTagMasterDetailsBlock_NewChildTagAction_xlbl, PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJ_ADD));
+			super(Messages.AbapTagMasterDetailsBlock_NewChildTagAction_xlbl,
+				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJ_ADD));
 			this.tag = tag;
 		}
 
@@ -342,94 +336,13 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 
 	private class RemoveTagAction extends Action {
 		public RemoveTagAction() {
-			super(Messages.AbapTagMasterDetailsBlock_RemoveAction_xlbl, PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
+			super(Messages.AbapTagMasterDetailsBlock_RemoveAction_xlbl,
+				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
 		}
 
 		@Override
 		public void run() {
 			removeTags();
-		}
-	}
-
-	private class TreeContentProvicder implements ITreeContentProvider {
-
-		@Override
-		public Object[] getElements(final Object inputElement) {
-			if (inputElement instanceof IModel) {
-				return ((AbapTagModel) inputElement).getContents();
-			}
-			return new Object[0];
-		}
-
-		@Override
-		public Object[] getChildren(final Object parentElement) {
-			if (parentElement instanceof ITag) {
-				return ((ITag) parentElement).getChildTags().toArray();
-			}
-			return null;
-		}
-
-		@Override
-		public Object getParent(final Object element) {
-			if (!(element instanceof ITag)) {
-				return null;
-			}
-			final ITag tag = (ITag) element;
-			final EObject container = tag.eContainer();
-			if (container == null || container instanceof ITags) {
-				return null;
-			} else if (container instanceof ITag) {
-				return container;
-			} else {
-				return null;
-			}
-		}
-
-		@Override
-		public boolean hasChildren(final Object element) {
-			if (element instanceof ITag) {
-				final ITag tag = (ITag) element;
-				return tag.getChildTags().size() > 0;
-			}
-			return false;
-		}
-
-	}
-
-	private class TreeViewerLabelProvider extends LabelProvider implements ILabelProvider, IStyledLabelProvider {
-
-		@Override
-		public String getText(final Object element) {
-			final ITag node = (ITag) element;
-			return node.getName();
-		}
-
-		@Override
-		public Image getImage(final Object element) {
-			if (element instanceof ITag) {
-				final ITag tag = (ITag) element;
-				if (tag.getId() == null || tag.getId().isBlank()) {
-					return AbapTagsUIPlugin.getDefault().getImage(IImages.TAGS, true);
-				} else {
-					return AbapTagsUIPlugin.getDefault().getImage(IImages.TAGS);
-				}
-			}
-			return null;
-		}
-
-		@Override
-		public StyledString getStyledText(final Object element) {
-			final StyledString text = new StyledString();
-			final ITag tagNode = (ITag) element;
-
-			if (tagNode.isChanged()) {
-				text.append(tagNode.getName(), StylerFactory.ITALIC_STYLER);
-			} else {
-				text.append(tagNode.getName());
-			}
-			text.append(" (" + tagNode.getTaggedObjectCount() + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
-
-			return text;
 		}
 	}
 

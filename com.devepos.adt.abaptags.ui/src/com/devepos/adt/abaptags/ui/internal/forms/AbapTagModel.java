@@ -19,7 +19,7 @@ import org.eclipse.ui.PlatformUI;
 import com.devepos.adt.abaptags.IAbapTagsFactory;
 import com.devepos.adt.abaptags.IAbapTagsPackage;
 import com.devepos.adt.abaptags.ITag;
-import com.devepos.adt.abaptags.ITags;
+import com.devepos.adt.abaptags.ITagList;
 import com.devepos.adt.abaptags.tags.service.AbapTagsServiceFactory;
 import com.devepos.adt.abaptags.tags.service.IAbapTagsService;
 import com.devepos.adt.abaptags.ui.internal.messages.Messages;
@@ -37,11 +37,11 @@ import com.devepos.adt.tools.base.util.IStatusView;
 public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 
 	private final IAbapProjectProvider projectProvider;
-	private ITags tags;
+	private ITagList tags;
 	private final IStatusView statusView;
 	private boolean modelChanged;
 	private final boolean globalTagsMode;
-	private ITags removedTags;
+	private ITagList removedTags;
 	private final List<IModificationListener<ITag>> modificationListener = new ArrayList<>();
 	private final WritableValue<Boolean> valid = new WritableValue<>(true, Boolean.class);
 	private final WritableValue<Boolean> editMode = new WritableValue<>(false, Boolean.class);
@@ -123,7 +123,7 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 
 				final IAbapTagsService tagsService = AbapTagsServiceFactory.createTagsService();
 				// read current tags from project
-				final ITags tags = tagsService.readTags(destinationId, AbapTagModel.this.globalTagsMode);
+				final ITagList tags = tagsService.readTags(destinationId, AbapTagModel.this.globalTagsMode);
 				updateTags(tags, false);
 
 				Display.getDefault().asyncExec(() -> {
@@ -160,7 +160,7 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 					}
 				}
 				// delete tags
-				final ITags remTags = getRemovedTags();
+				final ITagList remTags = getRemovedTags();
 				if (!remTags.getTags().isEmpty()) {
 					final IStatus deleteTagsStatus = tagsService.deleteTags(getRemovedTags(), destinationId,
 						AbapTagModel.this.globalTagsMode);
@@ -174,7 +174,7 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 				tagsService.unlockTags(destinationId, AbapTagModel.this.globalTagsMode);
 
 				// read current tags from project
-				final ITags tags = tagsService.readTags(destinationId, AbapTagModel.this.globalTagsMode);
+				final ITagList tags = tagsService.readTags(destinationId, AbapTagModel.this.globalTagsMode);
 				updateTags(tags, false);
 
 				// switch to edit mode
@@ -213,9 +213,9 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 		lockAndLoadTags();
 	}
 
-	public ITags getTags() {
+	public ITagList getTags() {
 		if (this.tags == null) {
-			this.tags = IAbapTagsFactory.eINSTANCE.createTags();
+			this.tags = IAbapTagsFactory.eINSTANCE.createTagList();
 			this.tags.eAdapters().add(new TagNotificationAdapter());
 		}
 		return this.tags;
@@ -252,8 +252,8 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 		if (container != null) {
 			if (container instanceof ITag) {
 				((ITag) container).getChildTags().remove(tag);
-			} else if (container instanceof ITags) {
-				((ITags) container).getTags().remove(tag);
+			} else if (container instanceof ITagList) {
+				((ITagList) container).getTags().remove(tag);
 			}
 		}
 		this.statusView.setViewStatus(Status.OK_STATUS);
@@ -261,7 +261,7 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 		if (tag.getId() == null || tag.getId().isBlank()) {
 			return;
 		}
-		final ITags remTags = getRemovedTags();
+		final ITagList remTags = getRemovedTags();
 		final ITag removedTag = IAbapTagsFactory.eINSTANCE.createTag();
 		removedTag.setId(tag.getId());
 		remTags.getTags().add(removedTag);
@@ -277,9 +277,9 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 		this.modificationListener.remove(listener);
 	}
 
-	private ITags getRemovedTags() {
+	private ITagList getRemovedTags() {
 		if (this.removedTags == null) {
-			this.removedTags = IAbapTagsFactory.eINSTANCE.createTags();
+			this.removedTags = IAbapTagsFactory.eINSTANCE.createTagList();
 		}
 		return this.removedTags;
 	}
@@ -309,7 +309,7 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 		}
 	}
 
-	private void updateTags(final ITags tags, final boolean registerNotifiers) {
+	private void updateTags(final ITagList tags, final boolean registerNotifiers) {
 		this.tags = tags;
 		this.removedTags = null;
 		if (this.tags != null && registerNotifiers) {
@@ -329,7 +329,7 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 					AbapTagModel.this.statusView.setViewStatus(lockStatus);
 				} else {
 					// read current tags from project
-					final ITags tags = tagsService.readTags(destinationId, AbapTagModel.this.globalTagsMode);
+					final ITagList tags = tagsService.readTags(destinationId, AbapTagModel.this.globalTagsMode);
 					updateTags(tags, true);
 
 					// switch to edit mode
@@ -357,7 +357,7 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 				final IAbapTagsService tagsService = AbapTagsServiceFactory.createTagsService();
 				tagsService.unlockTags(destinationId, AbapTagModel.this.globalTagsMode);
 				// read current tags from project
-				final ITags tags = tagsService.readTags(destinationId, AbapTagModel.this.globalTagsMode);
+				final ITagList tags = tagsService.readTags(destinationId, AbapTagModel.this.globalTagsMode);
 				updateTags(tags, false);
 
 				// switch to read only mode
