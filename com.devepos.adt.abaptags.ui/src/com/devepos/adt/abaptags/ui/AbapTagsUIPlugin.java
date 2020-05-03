@@ -12,7 +12,7 @@ import com.devepos.adt.tools.base.plugin.AbstractAdtUIPlugin;
 public class AbapTagsUIPlugin extends AbstractAdtUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "com.devepos.adt.abaptags.ui"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "com.devepos.adt.abaptags.ui"; // $NON-1$
 
 	// The shared instance
 	private static AbapTagsUIPlugin plugin;
@@ -47,9 +47,11 @@ public class AbapTagsUIPlugin extends AbstractAdtUIPlugin {
 
 	@Override
 	protected void initializeImageRegistry(final ImageRegistry reg) {
-		registerImage(reg, IImages.TAGS, "icons/tagDark.png");
-		registerImage(reg, IImages.GLOBE, "icons/globe.png");
+		registerImage(reg, IImages.TAG, "icons/Tag.png");
+		registerImage(reg, IImages.USER_TAG, "icons/UserTag.png");
+		registerImage(reg, IImages.GLOBE, "icons/Globe.png");
 		registerImage(reg, IImages.USER, "icons/User.png");
+		registerImage(reg, IImages.TAGS_WIZBAN_DEFAULT, "icons/wizard/TaggingWizard_Banner_default.png");
 	}
 
 }

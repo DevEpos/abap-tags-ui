@@ -8,9 +8,13 @@ package com.devepos.adt.abaptags.ui.internal.util;
 public interface IImages {
 
 	/**
-	 * Image id for Tags image
+	 * Image id for Tag image
 	 */
-	String TAGS = "IMG_TAGS";
+	String TAG = "IMG_TAG";
+	/**
+	 * Image id for User Tag image
+	 */
+	String USER_TAG = "IMG_USER_TAG";
 	/**
 	 * Id for Globe Image
 	 */
@@ -19,4 +23,8 @@ public interface IImages {
 	 * Id for User Image
 	 */
 	String USER = "IMG_USER";
+	/**
+	 * Default banner for Tagging wizard
+	 */
+	String TAGS_WIZBAN_DEFAULT = "IMG_TAGS_WIZBAN_DEFAULT";
 }
