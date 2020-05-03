@@ -1,8 +1,10 @@
 package com.devepos.adt.abaptags.tags.service;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 
-import com.devepos.adt.abaptags.ITags;
+import com.devepos.adt.abaptags.ITagList;
 
 /**
  * Public interface for ABAP Tags service
@@ -11,14 +13,14 @@ import com.devepos.adt.abaptags.ITags;
  */
 public interface IAbapTagsService {
 	/**
-	 * Returns {@code true} if the ABAP Tags feature is available at the given
-	 * destination
-	 * 
-	 * @param  destinationId the destination of an ABAP Project
-	 * @return               {@code true} if the ABAP Tags feature is available at
-	 *                       the given destination
+	 * Returns {@link Status#OK_STATUS} if the ABAP Tags feature is available at the
+	 * given project
+	 *
+	 * @param  project ABAP project
+	 * @return         Status with severity {@link IStatus#OK} if the ABAP Tags
+	 *                 feature is available at the given destination
 	 */
-	boolean isTagsFeatureAvailable(String destinationId);
+	IStatus testTagsFeatureAvailability(IProject project);
 
 	/**
 	 * Creates/updates tags
@@ -28,7 +30,7 @@ public interface IAbapTagsService {
 	 * @param  globalTags    if <code>true</code> global tags will be created
 	 * @return               the status of the update operation
 	 */
-	IStatus updateTags(ITags tags, final String destinationId, final boolean globalTags);
+	IStatus updateTags(ITagList tags, final String destinationId, final boolean globalTags);
 
 	/**
 	 * Reads ABAP Tags for the given destination ID
@@ -36,7 +38,7 @@ public interface IAbapTagsService {
 	 * @param destinationId destination of ABAP Project
 	 * @param globalTags    if <code>true</code> global tags will be read
 	 */
-	ITags readTags(final String destinationId, final boolean globalTags);
+	ITagList readTags(final String destinationId, final boolean globalTags);
 
 	/**
 	 * Deletes the given Tags
@@ -46,7 +48,7 @@ public interface IAbapTagsService {
 	 * @param  globalTags    if <code>true</code> global tags will be deleted
 	 * @return               the status of the delete operation
 	 */
-	IStatus deleteTags(ITags tags, final String destinationId, final boolean globalTags);
+	IStatus deleteTags(ITagList tags, final String destinationId, final boolean globalTags);
 
 	/**
 	 * Locks the tags
