@@ -19,8 +19,13 @@
       </command>
       <command
             categoryId="com.devepos.adt.abaptags.ui.general.commands.category"
-            id="com.devepos.adt.abaptags.ui.command.manageObjectTags"
-            name="%command.manageObjectTags.label">
+            id="com.devepos.adt.abaptags.ui.command.tagSelectedObjects"
+            name="%command.tagSelectedObjects.label">
+      </command>
+      <command
+            categoryId="com.devepos.adt.abaptags.ui.general.commands.category"
+            id="com.devepos.adt.abaptags.ui.command.tagObjects"
+            name="%command.tagObjects.label">
       </command>
    </extension>
    <extension
@@ -30,8 +35,12 @@
             commandId="com.devepos.adt.abaptags.ui.command.manageTags">
       </handler>
       <handler
-            class="com.devepos.adt.abaptags.ui.internal.handlers.ManageObjectTagsHandler"
-            commandId="com.devepos.adt.abaptags.ui.command.manageObjectTags">
+            class="com.devepos.adt.abaptags.ui.internal.handlers.AddTagsToSelectedObjectsHandler"
+            commandId="com.devepos.adt.abaptags.ui.command.tagSelectedObjects">
+      </handler>
+      <handler
+            class="com.devepos.adt.abaptags.ui.internal.handlers.AddTagsToObjectsHandler"
+            commandId="com.devepos.adt.abaptags.ui.command.tagObjects">
       </handler>
     </extension>
    <extension
@@ -44,7 +53,7 @@
                label="%toolbar.abaptags.label">
             <command
                   commandId="com.devepos.adt.abaptags.ui.command.manageTags"
-                  icon="icons/tagDark.png"
+                  icon="icons/Tag.png"
                   label="%command.manageGlobalTags.label"
                   style="pulldown">
                <parameter
@@ -65,8 +74,9 @@
             locationURI="menu:com.devepos.adt.abaptags.ui.command.manageTags">
          <command
                commandId="com.devepos.adt.abaptags.ui.command.manageTags"
-               icon="icons/globe.png"
+               icon="icons/Globe.png"
                label="%command.manageGlobalTags.label"
+               mnemonic="g"
                style="push">
             <parameter
                   name="com.devepos.adt.abaptags.ui.commandParams.globalTags"
@@ -83,14 +93,26 @@
                   value="false">
             </parameter>
          </command>
+         <separator
+               name="com.devepos.adt.abaptags.ui.separator1"
+               visible="true">
+         </separator>
+         <command
+               commandId="com.devepos.adt.abaptags.ui.command.tagObjects"
+               icon="icons/Tag.png"
+               label="%command.tagObjects.label"
+               mnemonic="a"
+               style="push">
+         </command>
       </menuContribution>
       <menuContribution
             allPopups="false"
             locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?endof=group.open">
          <command
-               commandId="com.devepos.adt.abaptags.ui.command.manageObjectTags"
-               icon="icons/tagDark.png"
-               label="%command.manageObjectTags.label"
+               commandId="com.devepos.adt.abaptags.ui.command.tagSelectedObjects"
+               icon="icons/Tag.png"
+               label="%command.tagObjects.label"
+               mnemonic="a"
                style="push">
             <visibleWhen
                   checkEnabled="false">
@@ -113,9 +135,10 @@
             allPopups="false"
             locationURI="popup:#EditorContext?after=group.open">
          <command
-               commandId="com.devepos.adt.abaptags.ui.command.manageObjectTags"
-               icon="icons/tagDark.png"
-               label="%command.manageObjectTags.label"
+               commandId="com.devepos.adt.abaptags.ui.command.tagSelectedObjects"
+               icon="icons/Tag.png"
+               label="%command.tagObjects.label"
+               mnemonic="a"
                style="push">
             <visibleWhen
                   checkEnabled="false">
