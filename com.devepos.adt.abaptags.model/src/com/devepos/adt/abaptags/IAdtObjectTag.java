@@ -15,6 +15,8 @@ package com.devepos.adt.abaptags;
  *   <li>{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentObjectName <em>Parent Object Name</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentObjectType <em>Parent Object Type</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentObjectUri <em>Parent Object Uri</em>}</li>
+ *   <li>{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentTagName <em>Parent Tag Name</em>}</li>
+ *   <li>{@link com.devepos.adt.abaptags.IAdtObjectTag#isUserTag <em>User Tag</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.abaptags.IAbapTagsPackage#getAdtObjectTag()
@@ -87,5 +89,49 @@ public interface IAdtObjectTag extends ITagBase {
 	 * @generated
 	 */
 	void setParentObjectUri(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Parent Tag Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parent Tag Name</em>' attribute.
+	 * @see #setParentTagName(String)
+	 * @see com.devepos.adt.abaptags.IAbapTagsPackage#getAdtObjectTag_ParentTagName()
+	 * @model transient="true"
+	 * @generated
+	 */
+	String getParentTagName();
+
+	/**
+	 * Sets the value of the '{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentTagName <em>Parent Tag Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Parent Tag Name</em>' attribute.
+	 * @see #getParentTagName()
+	 * @generated
+	 */
+	void setParentTagName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>User Tag</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>User Tag</em>' attribute.
+	 * @see #setUserTag(boolean)
+	 * @see com.devepos.adt.abaptags.IAbapTagsPackage#getAdtObjectTag_UserTag()
+	 * @model transient="true"
+	 * @generated
+	 */
+	boolean isUserTag();
+
+	/**
+	 * Sets the value of the '{@link com.devepos.adt.abaptags.IAdtObjectTag#isUserTag <em>User Tag</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>User Tag</em>' attribute.
+	 * @see #isUserTag()
+	 * @generated
+	 */
+	void setUserTag(boolean value);
 
 } // IAdtObjectTag

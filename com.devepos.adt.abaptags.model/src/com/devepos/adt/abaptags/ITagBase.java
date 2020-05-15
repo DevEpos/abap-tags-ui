@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link com.devepos.adt.abaptags.ITagBase#getId <em>Id</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITagBase#getName <em>Name</em>}</li>
+ *   <li>{@link com.devepos.adt.abaptags.ITagBase#getOwner <em>Owner</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.abaptags.IAbapTagsPackage#getTagBase()
@@ -68,5 +69,29 @@ public interface ITagBase extends EObject {
 	 * @generated
 	 */
 	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Owner</b></em>' attribute.
+	 * The default value is <code>""</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owner</em>' attribute.
+	 * @see #setOwner(String)
+	 * @see com.devepos.adt.abaptags.IAbapTagsPackage#getTagBase_Owner()
+	 * @model default=""
+	 *        extendedMetaData="kind='attribute' name='owner' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	String getOwner();
+
+	/**
+	 * Sets the value of the '{@link com.devepos.adt.abaptags.ITagBase#getOwner <em>Owner</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Owner</em>' attribute.
+	 * @see #getOwner()
+	 * @generated
+	 */
+	void setOwner(String value);
 
 } // ITagBase

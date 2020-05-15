@@ -80,13 +80,22 @@ public interface IAbapTagsPackage extends EPackage {
 	int TAG_BASE__NAME = 1;
 
 	/**
+	 * The feature id for the '<em><b>Owner</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG_BASE__OWNER = 2;
+
+	/**
 	 * The number of structural features of the '<em>Tag Base</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TAG_BASE_FEATURE_COUNT = 2;
+	int TAG_BASE_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Tag Base</em>' class. <!--
@@ -125,6 +134,15 @@ public interface IAbapTagsPackage extends EPackage {
 	int TAG__NAME = TAG_BASE__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Owner</b></em>' attribute.
+	 * <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG__OWNER = TAG_BASE__OWNER;
+
+	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -151,22 +169,13 @@ public interface IAbapTagsPackage extends EPackage {
 	int TAG__IS_ROOT = TAG_BASE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TAG__OWNER = TAG_BASE_FEATURE_COUNT + 3;
-
-	/**
 	 * The feature id for the '<em><b>Created By</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CREATED_BY = TAG_BASE_FEATURE_COUNT + 4;
+	int TAG__CREATED_BY = TAG_BASE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Created Date Time</b></em>' attribute. <!--
@@ -175,7 +184,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CREATED_DATE_TIME = TAG_BASE_FEATURE_COUNT + 5;
+	int TAG__CREATED_DATE_TIME = TAG_BASE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Changed By</b></em>' attribute. <!--
@@ -184,7 +193,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CHANGED_BY = TAG_BASE_FEATURE_COUNT + 6;
+	int TAG__CHANGED_BY = TAG_BASE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Changed Date Time</b></em>' attribute. <!--
@@ -193,7 +202,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CHANGED_DATE_TIME = TAG_BASE_FEATURE_COUNT + 7;
+	int TAG__CHANGED_DATE_TIME = TAG_BASE_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Tagged Object Count</b></em>' attribute. <!--
@@ -202,7 +211,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__TAGGED_OBJECT_COUNT = TAG_BASE_FEATURE_COUNT + 8;
+	int TAG__TAGGED_OBJECT_COUNT = TAG_BASE_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Changed</b></em>' attribute. <!--
@@ -211,7 +220,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CHANGED = TAG_BASE_FEATURE_COUNT + 9;
+	int TAG__CHANGED = TAG_BASE_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Parent Tag Id</b></em>' attribute. <!--
@@ -220,7 +229,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__PARENT_TAG_ID = TAG_BASE_FEATURE_COUNT + 10;
+	int TAG__PARENT_TAG_ID = TAG_BASE_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of structural features of the '<em>Tag</em>' class. <!--
@@ -229,7 +238,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 11;
+	int TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 10;
 
 	/**
 	 * The number of operations of the '<em>Tag</em>' class.
@@ -270,6 +279,15 @@ public interface IAbapTagsPackage extends EPackage {
 	int ADT_OBJECT_TAG__NAME = TAG_BASE__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Owner</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADT_OBJECT_TAG__OWNER = TAG_BASE__OWNER;
+
+	/**
 	 * The feature id for the '<em><b>Parent Object Name</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -297,12 +315,30 @@ public interface IAbapTagsPackage extends EPackage {
 	int ADT_OBJECT_TAG__PARENT_OBJECT_URI = TAG_BASE_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Parent Tag Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADT_OBJECT_TAG__PARENT_TAG_NAME = TAG_BASE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>User Tag</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADT_OBJECT_TAG__USER_TAG = TAG_BASE_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Adt Object Tag</em>' class.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ADT_OBJECT_TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 3;
+	int ADT_OBJECT_TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Adt Object Tag</em>' class. <!--
@@ -503,6 +539,17 @@ public interface IAbapTagsPackage extends EPackage {
 	EAttribute getTagBase_Name();
 
 	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITagBase#getOwner <em>Owner</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Owner</em>'.
+	 * @see com.devepos.adt.abaptags.ITagBase#getOwner()
+	 * @see #getTagBase()
+	 * @generated
+	 */
+	EAttribute getTagBase_Owner();
+
+	/**
 	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.ITag <em>Tag</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Tag</em>'.
@@ -542,18 +589,6 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTag_IsRoot();
-
-	/**
-	 * Returns the meta object for the attribute
-	 * '{@link com.devepos.adt.abaptags.ITag#getOwner <em>Owner</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return    the meta object for the attribute '<em>Owner</em>'.
-	 * @see       com.devepos.adt.abaptags.ITag#getOwner()
-	 * @see       #getTag()
-	 * @generated
-	 */
-	EAttribute getTag_Owner();
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITag#getCreatedBy <em>Created By</em>}'.
@@ -665,6 +700,28 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getAdtObjectTag_ParentObjectUri();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentTagName <em>Parent Tag Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Parent Tag Name</em>'.
+	 * @see com.devepos.adt.abaptags.IAdtObjectTag#getParentTagName()
+	 * @see #getAdtObjectTag()
+	 * @generated
+	 */
+	EAttribute getAdtObjectTag_ParentTagName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.IAdtObjectTag#isUserTag <em>User Tag</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>User Tag</em>'.
+	 * @see com.devepos.adt.abaptags.IAdtObjectTag#isUserTag()
+	 * @see #getAdtObjectTag()
+	 * @generated
+	 */
+	EAttribute getAdtObjectTag_UserTag();
 
 	/**
 	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.ITagList <em>Tag List</em>}'.
@@ -818,6 +875,14 @@ public interface IAbapTagsPackage extends EPackage {
 		EAttribute TAG_BASE__NAME = eINSTANCE.getTagBase_Name();
 
 		/**
+		 * The meta object literal for the '<em><b>Owner</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAG_BASE__OWNER = eINSTANCE.getTagBase_Owner();
+
+		/**
 		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.Tag <em>Tag</em>}' class.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * @see com.devepos.adt.abaptags.impl.Tag
@@ -846,13 +911,6 @@ public interface IAbapTagsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TAG__IS_ROOT = eINSTANCE.getTag_IsRoot();
-
-		/**
-		 * The meta object literal for the '<em><b>Owner</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TAG__OWNER = eINSTANCE.getTag_Owner();
 
 		/**
 		 * The meta object literal for the '<em><b>Created By</b></em>' attribute feature.
@@ -932,6 +990,22 @@ public interface IAbapTagsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ADT_OBJECT_TAG__PARENT_OBJECT_URI = eINSTANCE.getAdtObjectTag_ParentObjectUri();
+
+		/**
+		 * The meta object literal for the '<em><b>Parent Tag Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADT_OBJECT_TAG__PARENT_TAG_NAME = eINSTANCE.getAdtObjectTag_ParentTagName();
+
+		/**
+		 * The meta object literal for the '<em><b>User Tag</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADT_OBJECT_TAG__USER_TAG = eINSTANCE.getAdtObjectTag_UserTag();
 
 		/**
 		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.TagList <em>Tag List</em>}' class.

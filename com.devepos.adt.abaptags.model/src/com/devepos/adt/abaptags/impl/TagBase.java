@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link com.devepos.adt.abaptags.impl.TagBase#getId <em>Id</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.impl.TagBase#getName <em>Name</em>}</li>
+ *   <li>{@link com.devepos.adt.abaptags.impl.TagBase#getOwner <em>Owner</em>}</li>
  * </ul>
  *
  * @generated
@@ -66,6 +67,26 @@ public abstract class TagBase extends MinimalEObjectImpl.Container implements IT
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getOwner() <em>Owner</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwner()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String OWNER_EDEFAULT = "";
+
+	/**
+	 * The cached value of the '{@link #getOwner() <em>Owner</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwner()
+	 * @generated
+	 * @ordered
+	 */
+	protected String owner = OWNER_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -138,12 +159,37 @@ public abstract class TagBase extends MinimalEObjectImpl.Container implements IT
 	 * @generated
 	 */
 	@Override
+	public String getOwner() {
+		return owner;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setOwner(String newOwner) {
+		String oldOwner = owner;
+		owner = newOwner;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG_BASE__OWNER, oldOwner, owner));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case IAbapTagsPackage.TAG_BASE__ID:
 				return getId();
 			case IAbapTagsPackage.TAG_BASE__NAME:
 				return getName();
+			case IAbapTagsPackage.TAG_BASE__OWNER:
+				return getOwner();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -161,6 +207,9 @@ public abstract class TagBase extends MinimalEObjectImpl.Container implements IT
 				return;
 			case IAbapTagsPackage.TAG_BASE__NAME:
 				setName((String)newValue);
+				return;
+			case IAbapTagsPackage.TAG_BASE__OWNER:
+				setOwner((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -180,6 +229,9 @@ public abstract class TagBase extends MinimalEObjectImpl.Container implements IT
 			case IAbapTagsPackage.TAG_BASE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case IAbapTagsPackage.TAG_BASE__OWNER:
+				setOwner(OWNER_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -196,6 +248,8 @@ public abstract class TagBase extends MinimalEObjectImpl.Container implements IT
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case IAbapTagsPackage.TAG_BASE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case IAbapTagsPackage.TAG_BASE__OWNER:
+				return OWNER_EDEFAULT == null ? owner != null : !OWNER_EDEFAULT.equals(owner);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -214,6 +268,8 @@ public abstract class TagBase extends MinimalEObjectImpl.Container implements IT
 		result.append(id);
 		result.append(", name: ");
 		result.append(name);
+		result.append(", owner: ");
+		result.append(owner);
 		result.append(')');
 		return result.toString();
 	}

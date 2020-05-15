@@ -16,7 +16,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link com.devepos.adt.abaptags.ITag#getDescription <em>Description</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#getChildTags <em>Child Tags</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#isIsRoot <em>Is Root</em>}</li>
- *   <li>{@link com.devepos.adt.abaptags.ITag#getOwner <em>Owner</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#getCreatedBy <em>Created By</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#getCreatedDateTime <em>Created Date Time</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.ITag#getChangedBy <em>Changed By</em>}</li>
@@ -95,28 +94,6 @@ public interface ITag extends ITagBase {
 	 * @generated
 	 */
 	void setIsRoot(boolean value);
-
-	/**
-	 * Returns the value of the '<em><b>Owner</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @return    the value of the '<em>Owner</em>' attribute.
-	 * @see       #setOwner(String)
-	 * @see       com.devepos.adt.abaptags.IAbapTagsPackage#getTag_Owner()
-	 * @model     extendedMetaData="kind='attribute' name='owner'
-	 *            namespace='##targetNamespace'"
-	 * @generated
-	 */
-	String getOwner();
-
-	/**
-	 * Sets the value of the '{@link com.devepos.adt.abaptags.ITag#getOwner <em>Owner</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Owner</em>' attribute.
-	 * @see #getOwner()
-	 * @generated
-	 */
-	void setOwner(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Created By</b></em>' attribute. <!--

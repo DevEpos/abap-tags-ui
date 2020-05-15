@@ -14,12 +14,9 @@ Require-Bundle: org.eclipse.ui,
  com.devepos.adt.tools.base;visibility:=reexport,
  com.sap.adt.tools.core.base;visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: com.devepos.adt.abaptags,
- com.devepos.adt.abaptags.impl;
-  x-friends:="com.devepos.adt.abaptags.ui,
-   com.devepos.adt.abaptags",
- com.devepos.adt.abaptags.util;
-  x-friends:="com.devepos.adt.abaptags.ui,
-   com.devepos.adt.abaptags"
+Export-Package: com.devepos.adt.abaptags;x-friends:="com.devepos.adt.abaptags,com.devepos.adt.abaptags.ui",
+ com.devepos.adt.abaptags.impl;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.abaptags",
+ com.devepos.adt.abaptags.util;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.abaptags",
+ com.devepos.adt.abaptags.validation;x-friends:="com.devepos.adt.abaptags,com.devepos.adt.abaptags.ui"
 Automatic-Module-Name: com.devepos.adt.abaptags.model
 Bundle-ActivationPolicy: lazy

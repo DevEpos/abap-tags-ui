@@ -12,12 +12,12 @@
     <genClasses ecoreClass="abaptags.ecore#//TagBase">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TagBase/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TagBase/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TagBase/owner"/>
     </genClasses>
     <genClasses ecoreClass="abaptags.ecore#//Tag">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//Tag/childTags"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/isRoot"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/owner"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/createdBy"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/createdDateTime"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/changedBy"/>
@@ -30,6 +30,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/parentObjectName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/parentObjectType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/parentObjectUri"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/parentTagName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/userTag"/>
     </genClasses>
     <genClasses ecoreClass="abaptags.ecore#//TagList">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TagList/tags"/>
