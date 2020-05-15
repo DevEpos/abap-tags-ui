@@ -14,6 +14,7 @@ Require-Bundle: com.devepos.adt.abaptags.model,
  com.sap.adt.tools.core,
  com.sap.adt.tools.core.ui,
  com.sap.adt.util.ui,
+ com.sap.adt.destinations,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.core.databinding,
@@ -21,7 +22,9 @@ Require-Bundle: com.devepos.adt.abaptags.model,
  org.eclipse.core.databinding.property,
  org.eclipse.core.expressions,
  org.eclipse.jface.databinding,
- org.eclipse.ui
+ org.eclipse.ui,
+ org.eclipse.search,
+ org.eclipse.ui.navigator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: com.devepos.adt.abaptags.ui
 Bundle-ActivationPolicy: lazy

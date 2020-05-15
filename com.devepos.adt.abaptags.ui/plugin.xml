@@ -75,7 +75,7 @@
          <command
                commandId="com.devepos.adt.abaptags.ui.command.manageTags"
                icon="icons/Globe.png"
-               label="%command.manageGlobalTags.label"
+               label="%menu.cmd.manageGlobalTags.label"
                mnemonic="g"
                style="push">
             <parameter
@@ -86,7 +86,7 @@
          <command
                commandId="com.devepos.adt.abaptags.ui.command.manageTags"
                icon="icons/User.png"
-               label="%command.manageUserTags.label"
+               label="%menu.cmd.manageUserTags.label"
                style="push">
             <parameter
                   name="com.devepos.adt.abaptags.ui.commandParams.globalTags"
@@ -100,7 +100,7 @@
          <command
                commandId="com.devepos.adt.abaptags.ui.command.tagObjects"
                icon="icons/Tag.png"
-               label="%command.tagObjects.label"
+               label="%menu.cmd.tagObjects.label"
                mnemonic="a"
                style="push">
          </command>
@@ -111,7 +111,7 @@
          <command
                commandId="com.devepos.adt.abaptags.ui.command.tagSelectedObjects"
                icon="icons/Tag.png"
-               label="%command.tagObjects.label"
+               label="%menu.cmd.tagObjects.label"
                mnemonic="a"
                style="push">
             <visibleWhen
@@ -137,7 +137,7 @@
          <command
                commandId="com.devepos.adt.abaptags.ui.command.tagSelectedObjects"
                icon="icons/Tag.png"
-               label="%command.tagObjects.label"
+               label="%menu.cmd.tagObjects.label"
                mnemonic="a"
                style="push">
             <visibleWhen
@@ -164,6 +164,68 @@
             properties="abaptagsAvailable"
             type="com.devepos.adt.tools.base.adtobject.IAdtObject">
       </propertyTester>
+   </extension>
+   <extension
+         point="org.eclipse.search.searchResultViewPages">
+      <viewPage
+            class="com.devepos.adt.abaptags.ui.internal.search.TagSearchResultPage"
+            icon="icons/Tag.png"
+            id="com.devepos.adt.abaptags.ui.searchresultpage.tags"
+            searchResultClass="com.devepos.adt.abaptags.ui.internal.search.TagSearchResult">
+      </viewPage>
+   </extension>
+   <extension
+         point="org.eclipse.search.searchPages">
+      <page
+            class="com.devepos.adt.abaptags.ui.internal.search.TagSearchPage"
+            icon="icons/Tag.png"
+            id="com.devepos.adt.abaptags.ui.searchpage.tags"
+            label="%tag.searchpage.label"
+            tabPosition="1">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="com.devepos.adt.abaptags.ui.internal.tree.TagsTreeContentAndLabelProvider"
+            icon="icons/TagsFolder.png"
+            id="com.devepos.adt.abaptags.tags"
+            labelProvider="com.devepos.adt.abaptags.ui.internal.tree.TagsTreeContentAndLabelProvider"
+            name="ABAP Tags"
+            priority="highest">
+         <triggerPoints>
+            <or>
+               <and>
+                  <instanceof
+                        value="org.eclipse.core.resources.IProject">
+                  </instanceof>
+                  <test
+                        property="org.eclipse.core.resources.projectNature"
+                        value="com.sap.adt.abapnature">
+                  </test>
+               </and>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+               <instanceof
+                     value="com.devepos.adt.tools.base.ui.tree.ITreeNode">
+               </instanceof>
+            </or>
+         </possibleChildren>
+      </navigatorContent>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.viewer">
+      <viewerContentBinding
+            viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension
+                  pattern="com.devepos.adt.abaptags.tags">
+            </contentExtension>
+         </includes>
+      </viewerContentBinding>
    </extension>
 
 </plugin>

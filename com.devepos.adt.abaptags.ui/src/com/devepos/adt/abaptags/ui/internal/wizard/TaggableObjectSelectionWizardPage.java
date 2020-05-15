@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.PlatformUI;
 
-import com.devepos.adt.abaptags.tags.service.AbapTagsServiceFactory;
+import com.devepos.adt.abaptags.tags.AbapTagsServiceFactory;
 import com.devepos.adt.abaptags.ui.AbapTagsUIPlugin;
 import com.devepos.adt.abaptags.ui.internal.messages.Messages;
 import com.devepos.adt.tools.base.AdtToolsBasePlugin;
@@ -57,7 +57,6 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 	private final List<ObjectToBeTagged> objects = new ArrayList<>();
 	private final DataBindingContext dbc;
 	private TableViewer objectsViewer;
-	private final ITagObjectsWizardModel model;
 	private AggregateValidationStatus projectAggrValStatus;
 	private Button removeObjectsButton;
 	private Button selectObjectsButton;
@@ -68,14 +67,18 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 		OBJECTS
 	}
 
-	public TaggableObjectSelectionWizardPage(final ITagObjectsWizardModel model) {
+	public TaggableObjectSelectionWizardPage() {
 		super(PAGE_NAME);
 		setTitle(Messages.TaggableObjectSelectionWizardPage_Title_xtit);
 		setDescription(Messages.TaggableObjectSelectionWizardPage_Description_xmsg);
 		this.projectInput = new ProjectInput();
 		this.dbc = new DataBindingContext();
-		this.model = model;
 		this.typeRegistryUi = AbapCoreUi.getObjectTypeRegistry();
+	}
+
+	@Override
+	public ITagObjectsWizard getWizard() {
+		return (ITagObjectsWizard) super.getWizard();
 	}
 
 	@Override
@@ -83,7 +86,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 		final Composite root = new Composite(parent, SWT.NONE);
 		GridLayoutFactory.swtDefaults().applyTo(root);
 		this.projectInput.createControl(root);
-		this.projectInput.getProjectProvider().setProject(this.model.getProject());
+		this.projectInput.getProjectProvider().setProject(getWizard().getProject());
 		createObjectsList(root);
 		this.objectsViewer.setInput(this.objects);
 
@@ -103,7 +106,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 	@Override
 	public void setVisible(final boolean visible) {
 		if (visible && !isPageComplete()) {
-			this.model.completePreviousPage(this);
+			getWizard().completePreviousPage(this);
 		}
 		super.setVisible(visible);
 	}
@@ -111,8 +114,8 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 	@Override
 	public void completePage() {
 		// clear any available tag preview information, as it has to be reloaded
-		this.model.setCurrentTagPreviewInfo(null);
-		final List<IAdtObjRef> adtObjRefList = this.model.getSelectedObjects().getObjectReferences();
+		getWizard().setCurrentTagPreviewInfo(null);
+		final List<IAdtObjRef> adtObjRefList = getWizard().getSelectedObjects().getObjectReferences();
 		adtObjRefList.clear();
 		for (final ObjectToBeTagged objToBeTagged : this.objects) {
 			final IAdtObjectReference objRef = objToBeTagged.getRef();
@@ -136,7 +139,11 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 		this.objectsViewer.setContentProvider(new ArrayContentProvider());
 		this.objectsViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new AdtObjectLabelProvider()));
 
-		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(this.objectsViewer.getControl());
+		GridDataFactory.fillDefaults()
+			.align(SWT.FILL, SWT.FILL)
+			.grab(true, true)
+			.minSize(250, 300)
+			.applyTo(this.objectsViewer.getControl());
 
 		final Composite buttonComposite = new Composite(container, SWT.NONE);
 		GridLayoutFactory.swtDefaults().numColumns(1).margins(0, 0).extendedMargins(2, 2, 0, 2).applyTo(buttonComposite);
@@ -145,7 +152,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 		this.selectObjectsButton = new Button(buttonComposite, SWT.PUSH);
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).applyTo(this.selectObjectsButton);
 		this.selectObjectsButton.setText(Messages.TaggableObjectSelectionWizardPage_SelectObjects_xbut);
-		this.selectObjectsButton.setEnabled(this.model.getProject() != null);
+		this.selectObjectsButton.setEnabled(getWizard().getProject() != null);
 		this.selectObjectsButton.addSelectionListener(new SelectionAdapter() {
 			@SuppressWarnings("restriction")
 			@Override
@@ -153,7 +160,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 				final IAdtRepositorySearchServiceUIParameters parameters = AdtRepositorySearchServiceUIFactory
 					.createAdtRepositorySearchServiceUIParameters();
 				parameters.setTitle(Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit);
-				parameters.setFixedProject(TaggableObjectSelectionWizardPage.this.model.getProject());
+				parameters.setFixedProject(getWizard().getProject());
 				parameters.setDescriptionVisible(true);
 				final IAdtRepositorySearchServiceUIResult result = AdtRepositorySearchServiceUIFactory
 					.createAdtRepositorySearchServiceUI()
@@ -195,11 +202,11 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 		this.projectAggrValStatus.addValueChangeListener(e -> {
 			if (this.projectAggrValStatus.getValue().isOK()) {
 				final IProject newProject = this.projectInput.getProjectProvider().getProject();
-				final IProject oldProject = this.model.getProject();
+				final IProject oldProject = getWizard().getProject();
 				if (newProject != oldProject) {
 					this.objects.clear();
 					this.objectsViewer.refresh();
-					this.model.setProject(newProject);
+					getWizard().setProject(newProject);
 				}
 			}
 			validatePage(this.projectAggrValStatus.getValue(), ValidationSource.PROJECT);
@@ -315,7 +322,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 			final IAdtObjectReference ref = objectToBeTagged.getRef();
 
 			text.append(ref.getName());
-			text.append(" (" + ref.getDescription() + ")", StyledString.DECORATIONS_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
+			text.append(" " + ref.getDescription(), StyledString.DECORATIONS_STYLER); //$NON-NLS-1$
 
 			return text;
 		}

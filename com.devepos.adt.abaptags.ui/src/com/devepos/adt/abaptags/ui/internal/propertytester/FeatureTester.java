@@ -3,7 +3,7 @@ package com.devepos.adt.abaptags.ui.internal.propertytester;
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.core.resources.IProject;
 
-import com.devepos.adt.abaptags.tags.service.AbapTagsServiceFactory;
+import com.devepos.adt.abaptags.tags.AbapTagsServiceFactory;
 import com.devepos.adt.tools.base.adtobject.IAdtObject;
 
 public class FeatureTester extends PropertyTester {

@@ -142,6 +142,7 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				final ITag newTag = AbapTagMasterDetailsBlock.this.model.addNewTag(null);
+				newTag.setName("New Tag"); //$NON-NLS-1$
 				AbapTagMasterDetailsBlock.this.treeViewer.setSelection(new StructuredSelection(newTag), true);
 			}
 		});
@@ -329,6 +330,7 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 		@Override
 		public void run() {
 			final ITag newTag = AbapTagMasterDetailsBlock.this.model.addNewTag(this.tag);
+			newTag.setName("New Tag"); //$NON-NLS-1$
 			AbapTagMasterDetailsBlock.this.treeViewer.expandToLevel(this.tag, 1);
 			AbapTagMasterDetailsBlock.this.treeViewer.setSelection(new StructuredSelection(newTag), true);
 		}

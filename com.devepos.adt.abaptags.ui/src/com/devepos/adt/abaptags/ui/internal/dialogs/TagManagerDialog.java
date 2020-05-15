@@ -27,7 +27,7 @@ import org.eclipse.ui.forms.ManagedForm;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
-import com.devepos.adt.abaptags.internal.tags.service.AbapTagsUriDiscovery;
+import com.devepos.adt.abaptags.internal.tags.AbapTagsUriDiscovery;
 import com.devepos.adt.abaptags.ui.AbapTagsUIPlugin;
 import com.devepos.adt.abaptags.ui.internal.forms.AbapTagMasterDetailsBlock;
 import com.devepos.adt.abaptags.ui.internal.forms.AbapTagModel;

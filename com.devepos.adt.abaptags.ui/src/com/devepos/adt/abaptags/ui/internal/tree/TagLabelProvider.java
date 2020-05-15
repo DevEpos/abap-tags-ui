@@ -1,7 +1,6 @@
 package com.devepos.adt.abaptags.ui.internal.tree;
 
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
-import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.swt.graphics.Image;
@@ -10,8 +9,35 @@ import com.devepos.adt.abaptags.ITag;
 import com.devepos.adt.abaptags.ui.AbapTagsUIPlugin;
 import com.devepos.adt.abaptags.ui.internal.util.IImages;
 import com.devepos.adt.tools.base.ui.StylerFactory;
+import com.devepos.adt.tools.base.util.StringUtil;
 
-public class TagLabelProvider extends LabelProvider implements ILabelProvider, IStyledLabelProvider {
+/**
+ * Label Provider for Viewer which holds instances of type {@link ITag}
+ *
+ * @author stockbal
+ */
+public class TagLabelProvider extends LabelProvider implements IStyledLabelProvider {
+
+	private final boolean grayScaleImageForNewTags;
+
+	/**
+	 * Creates new Label Provider for Viewer which holds instances of type
+	 * {@link ITag}
+	 */
+	public TagLabelProvider() {
+		this(true);
+	}
+
+	/**
+	 * Creates new Label Provider for Viewer which holds instances of type
+	 * {@link ITag}
+	 *
+	 * @param grayScaleImageForNewTags apply's gray scale filter to image if the tag
+	 *                                 is new
+	 */
+	public TagLabelProvider(final boolean grayScaleImageForNewTags) {
+		this.grayScaleImageForNewTags = grayScaleImageForNewTags;
+	}
 
 	@Override
 	public String getText(final Object element) {
@@ -23,9 +49,9 @@ public class TagLabelProvider extends LabelProvider implements ILabelProvider, I
 	public Image getImage(final Object element) {
 		if (element instanceof ITag) {
 			final ITag tag = (ITag) element;
-			if (tag.getId() == null || tag.getId().isBlank()) {
+			if (StringUtil.isEmpty(tag.getId()) && this.grayScaleImageForNewTags) {
 				return AbapTagsUIPlugin.getDefault().getImage(IImages.TAG, true);
-			} else if (tag.getOwner() != null && !tag.getOwner().isBlank()) {
+			} else if (!StringUtil.isEmpty(tag.getOwner())) {
 				return AbapTagsUIPlugin.getDefault().getImage(IImages.USER_TAG);
 			} else {
 				return AbapTagsUIPlugin.getDefault().getImage(IImages.TAG);
@@ -44,7 +70,10 @@ public class TagLabelProvider extends LabelProvider implements ILabelProvider, I
 		} else {
 			text.append(tagNode.getName());
 		}
-		text.append(" (" + tagNode.getTaggedObjectCount() + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
+
+		if (!StringUtil.isEmpty(tagNode.getId())) {
+			text.append(" (" + tagNode.getTaggedObjectCount() + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
+		}
 
 		return text;
 	}

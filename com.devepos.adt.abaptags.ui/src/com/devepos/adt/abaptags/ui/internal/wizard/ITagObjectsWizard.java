@@ -3,32 +3,20 @@ package com.devepos.adt.abaptags.ui.internal.wizard;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jface.wizard.IWizard;
 
+import com.devepos.adt.abaptags.ITag;
 import com.devepos.adt.abaptags.ITagPreviewInfo;
-import com.devepos.adt.abaptags.ITaggedObject;
 import com.devepos.adt.abaptags.ITaggedObjectList;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRefList;
 import com.devepos.adt.tools.base.wizard.IBaseWizardPage;
-import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 /**
  * Model for the Tag Objects Wizard
  *
  * @author stockbal
  */
-public interface ITagObjectsWizardModel {
-
-	public enum TagWizardStatus {
-		NONE,
-		PENDING,
-		RAW_OBJECTS_SELECTED,
-		OBJECTS_SELECTED,
-		TAG_PREVIEW_LOADED,
-		TAG_SELECTION_PENDING,
-		TAGS_SELECTED,
-		PARENT_OBJECT_SELECTION_PENDING,
-		CAN_FINISH;
-	}
+public interface ITagObjectsWizard extends IWizard {
 
 	/**
 	 * Returns the current project
@@ -45,19 +33,6 @@ public interface ITagObjectsWizardModel {
 	void setProject(IProject project);
 
 	/**
-	 * Transforms the given list into {@link ITaggedObject tagged objects} and sets
-	 * them in the model
-	 *
-	 * @param adtObjectReferences list of ADT object references
-	 */
-	void setObjectsFromAdtObjRefs(List<IAdtObjectReference> adtObjectReferences);
-
-	/**
-	 * @param adtObjRefList
-	 */
-	void setObjectsFromAdtObjRefs(IAdtObjRefList adtObjRefList);
-
-	/**
 	 * Clears all objects from the tagged objects list
 	 */
 	void clearTaggedObjects();
@@ -68,6 +43,20 @@ public interface ITagObjectsWizardModel {
 	 * @return
 	 */
 	ITaggedObjectList getTaggedObjectList();
+
+	/**
+	 * Sets new list of selected tags
+	 *
+	 * @param tagList new list of selected tags
+	 */
+	void setSelectedTags(List<ITag> tags);
+
+	/**
+	 * Returns list of selected tags
+	 *
+	 * @return list of selected tags
+	 */
+	List<ITag> getSelectedTags();
 
 	/**
 	 * Returns the current tag preview info
@@ -84,13 +73,6 @@ public interface ITagObjectsWizardModel {
 	void setCurrentTagPreviewInfo(ITagPreviewInfo tagPreviewInfo);
 
 	/**
-	 * Sets the status of the wizard
-	 *
-	 * @param status the new wizard status
-	 */
-	void setStatus(TagWizardStatus status);
-
-	/**
 	 * Sets the {@code canFinish} flag in the wizard
 	 *
 	 * @param canFinish the {@code canFinish} flag in the wizard
@@ -98,18 +80,18 @@ public interface ITagObjectsWizardModel {
 	void setCanFinish(boolean canFinish);
 
 	/**
-	 * Retrieves the current wizard status
-	 *
-	 * @return the current wizard status
-	 */
-	TagWizardStatus getStatus();
-
-	/**
 	 * Returns list of the the currently selected objects
 	 *
 	 * @return list of the the currently selected objects
 	 */
 	IAdtObjRefList getSelectedObjects();
+
+	/**
+	 * Sets the selectionObjects property
+	 *
+	 * @param selectedObjects the selectionObjects property
+	 */
+	void setSelectedObjects(IAdtObjRefList selectedObjects);
 
 	/**
 	 * Call to bring the previous page of the given page to completion, so that the

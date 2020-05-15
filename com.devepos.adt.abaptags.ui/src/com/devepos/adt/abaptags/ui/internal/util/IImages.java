@@ -27,4 +27,13 @@ public interface IImages {
 	 * Default banner for Tagging wizard
 	 */
 	String TAGS_WIZBAN_DEFAULT = "IMG_TAGS_WIZBAN_DEFAULT";
+	/*
+	 * Image for Folder of Global Tags
+	 */
+	String GLOBAL_TAGS_FOLDER = "IMG_GLOBAL_TAGS_FOLDER";
+	/*
+	 * Image for Folder of User Tags
+	 */
+	String USER_TAGS_FOLDER = "IMG_USER_TAGS_FOLDER";
+
 }

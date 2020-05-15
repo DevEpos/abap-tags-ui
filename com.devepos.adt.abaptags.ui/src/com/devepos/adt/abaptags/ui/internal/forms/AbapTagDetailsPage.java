@@ -23,6 +23,7 @@ import org.eclipse.ui.forms.widgets.Section;
 
 import com.devepos.adt.abaptags.ITag;
 import com.devepos.adt.abaptags.ui.internal.messages.Messages;
+import com.devepos.adt.tools.base.util.StringUtil;
 import com.sap.adt.util.ui.SWTUtil;
 
 public class AbapTagDetailsPage implements IDetailsPage {
@@ -137,7 +138,7 @@ public class AbapTagDetailsPage implements IDetailsPage {
 			this.detailsComposite.setVisible(false);
 		}
 		refresh();
-		if (this.currentTag != null && this.currentTag.getName().isBlank()) {
+		if (this.currentTag != null && StringUtil.isEmpty(this.currentTag.getId())) {
 			setFocus();
 		}
 	}

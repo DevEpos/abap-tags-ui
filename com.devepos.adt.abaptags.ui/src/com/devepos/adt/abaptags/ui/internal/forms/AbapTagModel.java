@@ -20,9 +20,10 @@ import com.devepos.adt.abaptags.IAbapTagsFactory;
 import com.devepos.adt.abaptags.IAbapTagsPackage;
 import com.devepos.adt.abaptags.ITag;
 import com.devepos.adt.abaptags.ITagList;
-import com.devepos.adt.abaptags.tags.service.AbapTagsServiceFactory;
-import com.devepos.adt.abaptags.tags.service.IAbapTagsService;
+import com.devepos.adt.abaptags.tags.AbapTagsServiceFactory;
+import com.devepos.adt.abaptags.tags.IAbapTagsService;
 import com.devepos.adt.abaptags.ui.internal.messages.Messages;
+import com.devepos.adt.abaptags.validation.TagListValidator;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
 import com.devepos.adt.tools.base.util.IModificationListener;
 import com.devepos.adt.tools.base.util.IModificationListener.ModificationKind;
@@ -384,7 +385,17 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 
 			if (notifier instanceof ITag) {
 				final ITag changedTag = (ITag) notifier;
-				final IStatus tagStatus = changedTag.validate();
+				IStatus tagStatus = changedTag.validate();
+				setValid(tagStatus.getSeverity() == IStatus.OK);
+				// validate the current level of tags
+				if (isValid()) {
+					final EObject tagCont = changedTag.eContainer();
+					if (tagCont instanceof ITagList) {
+						tagStatus = new TagListValidator(((ITagList) tagCont).getTags()).validate(true, false);
+					} else if (tagCont instanceof ITag) {
+						tagStatus = new TagListValidator(((ITag) tagCont).getChildTags()).validate(true, false);
+					}
+				}
 				setValid(tagStatus.getSeverity() == IStatus.OK);
 				AbapTagModel.this.statusView.setViewStatus(tagStatus);
 
