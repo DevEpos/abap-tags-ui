@@ -1,10 +1,11 @@
-package com.devepos.adt.abaptags.tags.service;
+package com.devepos.adt.abaptags.tags;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.devepos.adt.abaptags.ITagList;
+import com.devepos.adt.abaptags.TagSearchScope;
 
 /**
  * Public interface for ABAP Tags service
@@ -49,6 +50,16 @@ public interface IAbapTagsService {
 	 * @return               the status of the delete operation
 	 */
 	IStatus deleteTags(ITagList tags, final String destinationId, final boolean globalTags);
+
+	/**
+	 * Searches for tags with the given query string
+	 * 
+	 * @param  destinationId destination id of ABAP project
+	 * @param  scope         search scope
+	 * @param  query         query String
+	 * @return               list of found tags that match the given parameters
+	 */
+	ITagList findTags(String destinationId, TagSearchScope scope, String query);
 
 	/**
 	 * Locks the tags

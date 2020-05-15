@@ -16,7 +16,9 @@ Require-Bundle: com.sap.adt.compatibility,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: com.devepos.adt.abaptags
 Bundle-ActivationPolicy: lazy
-Export-Package: com.devepos.adt.abaptags.internal.tags.service;x-friends:="com.devepos.adt.abaptags.ui",
- com.devepos.adt.abaptags.tags.service;x-friends:="com.devepos.adt.abaptags.ui",
- com.devepos.adt.abaptags.tagging.service;x-friends:="com.devepos.adt.abaptags.ui",
- com.devepos.adt.abaptags.internal.tagging.service;x-friends:="com.devepos.adt.abaptags.ui"
+Export-Package: com.devepos.adt.abaptags;x-friends:="com.devepos.adt.abaptags.ui",
+ com.devepos.adt.abaptags.internal.tagging;x-friends:="com.devepos.adt.abaptags.ui",
+ com.devepos.adt.abaptags.internal.tags;x-friends:="com.devepos.adt.abaptags.ui",
+ com.devepos.adt.abaptags.search;x-friends:="com.devepos.adt.abaptags.ui",
+ com.devepos.adt.abaptags.tagging;x-friends:="com.devepos.adt.abaptags.ui",
+ com.devepos.adt.abaptags.tags;x-friends:="com.devepos.adt.abaptags.ui"

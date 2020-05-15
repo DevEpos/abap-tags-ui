@@ -1,4 +1,4 @@
-package com.devepos.adt.abaptags.tagging.service;
+package com.devepos.adt.abaptags.tagging;
 
 import org.eclipse.core.runtime.CoreException;
 

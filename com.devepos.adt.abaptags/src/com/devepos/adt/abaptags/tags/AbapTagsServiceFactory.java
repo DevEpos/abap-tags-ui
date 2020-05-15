@@ -1,6 +1,6 @@
-package com.devepos.adt.abaptags.tags.service;
+package com.devepos.adt.abaptags.tags;
 
-import com.devepos.adt.abaptags.internal.tags.service.AbapTagsService;
+import com.devepos.adt.abaptags.internal.tags.AbapTagsService;
 
 /**
  * Factory for creating an instance for the ABAP Tags Service

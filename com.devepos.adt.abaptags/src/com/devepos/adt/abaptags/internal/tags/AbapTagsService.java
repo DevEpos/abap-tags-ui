@@ -1,4 +1,4 @@
-package com.devepos.adt.abaptags.internal.tags.service;
+package com.devepos.adt.abaptags.internal.tags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,8 @@ import org.eclipse.osgi.util.NLS;
 
 import com.devepos.adt.abaptags.AbapTagsPlugin;
 import com.devepos.adt.abaptags.ITagList;
-import com.devepos.adt.abaptags.tags.service.IAbapTagsService;
+import com.devepos.adt.abaptags.TagSearchScope;
+import com.devepos.adt.abaptags.tags.IAbapTagsService;
 import com.devepos.adt.tools.base.project.AbapProjectProviderAccessor;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
 import com.devepos.adt.tools.base.util.AdtUtil;
@@ -71,6 +72,31 @@ public class AbapTagsService implements IAbapTagsService {
 			exc.printStackTrace();
 			return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage());
 		}
+	}
+
+	@Override
+	public ITagList findTags(final String destinationId, final TagSearchScope scope, final String query) {
+		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destinationId);
+		if (projectProvider == null) {
+			return null;
+		}
+
+		try {
+
+			final AbapTagsUriDiscovery uriDiscovery = new AbapTagsUriDiscovery(destinationId);
+			final ISystemSession session = projectProvider.createStatelessSession();
+
+			final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
+				.createRestResource(uriDiscovery.getTagsUri(), session);
+			restResource.addContentHandler(new AbapTagsContentHandler());
+
+			return restResource.get(null, ITagList.class, new QueryParameter("scope", scope.toString()),
+				new QueryParameter("query", query));
+
+		} catch (final ResourceException exc) {
+			exc.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override

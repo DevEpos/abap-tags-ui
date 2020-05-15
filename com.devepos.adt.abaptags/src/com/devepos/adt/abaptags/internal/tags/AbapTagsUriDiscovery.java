@@ -1,4 +1,4 @@
-package com.devepos.adt.abaptags.internal.tags.service;
+package com.devepos.adt.abaptags.internal.tags;
 
 import java.net.URI;
 

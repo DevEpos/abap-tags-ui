@@ -1,4 +1,4 @@
-package com.devepos.adt.abaptags.internal.tagging.service;
+package com.devepos.adt.abaptags.internal.tagging;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
@@ -8,7 +8,7 @@ import com.devepos.adt.abaptags.AbapTagsPlugin;
 import com.devepos.adt.abaptags.IAbapTagsFactory;
 import com.devepos.adt.abaptags.ITagPreviewInfo;
 import com.devepos.adt.abaptags.ITaggedObjectList;
-import com.devepos.adt.abaptags.tagging.service.IAdtObjTaggingService;
+import com.devepos.adt.abaptags.tagging.IAdtObjTaggingService;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRefList;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
 import com.sap.adt.communication.resources.IRestResource;

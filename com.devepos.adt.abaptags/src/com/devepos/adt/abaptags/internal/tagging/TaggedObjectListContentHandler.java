@@ -1,4 +1,4 @@
-package com.devepos.adt.abaptags.internal.tagging.service;
+package com.devepos.adt.abaptags.internal.tagging;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;

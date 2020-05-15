@@ -1,6 +1,6 @@
-package com.devepos.adt.abaptags.tagging.service;
+package com.devepos.adt.abaptags.tagging;
 
-import com.devepos.adt.abaptags.internal.tagging.service.AdtObjTaggingService;
+import com.devepos.adt.abaptags.internal.tagging.AdtObjTaggingService;
 
 /**
  * Factory for Tagging Services
