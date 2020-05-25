@@ -20,6 +20,7 @@ import com.devepos.adt.abaptags.IAbapTagsFactory;
 import com.devepos.adt.abaptags.IAbapTagsPackage;
 import com.devepos.adt.abaptags.ITag;
 import com.devepos.adt.abaptags.ITagList;
+import com.devepos.adt.abaptags.TagSearchScope;
 import com.devepos.adt.abaptags.tags.AbapTagsServiceFactory;
 import com.devepos.adt.abaptags.tags.IAbapTagsService;
 import com.devepos.adt.abaptags.ui.internal.messages.Messages;
@@ -124,7 +125,7 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 
 				final IAbapTagsService tagsService = AbapTagsServiceFactory.createTagsService();
 				// read current tags from project
-				final ITagList tags = tagsService.readTags(destinationId, AbapTagModel.this.globalTagsMode);
+				final ITagList tags = tagsService.readTags(destinationId, getTagScope());
 				updateTags(tags, false);
 
 				Display.getDefault().asyncExec(() -> {
@@ -153,7 +154,7 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 				// update/create tags
 				if (AbapTagModel.this.hasModelChanged()) {
 					final IStatus updatedTagsStatus = tagsService.updateTags(AbapTagModel.this.tags, destinationId,
-						AbapTagModel.this.globalTagsMode);
+						getTagScope());
 					if (updatedTagsStatus != null && updatedTagsStatus.getSeverity() == IStatus.ERROR
 						|| updatedTagsStatus.getSeverity() == IStatus.CANCEL) {
 						AbapTagModel.this.statusView.setViewStatus(updatedTagsStatus);
@@ -163,8 +164,7 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 				// delete tags
 				final ITagList remTags = getRemovedTags();
 				if (!remTags.getTags().isEmpty()) {
-					final IStatus deleteTagsStatus = tagsService.deleteTags(getRemovedTags(), destinationId,
-						AbapTagModel.this.globalTagsMode);
+					final IStatus deleteTagsStatus = tagsService.deleteTags(getRemovedTags(), destinationId, getTagScope());
 					if (deleteTagsStatus != null && deleteTagsStatus.getSeverity() == IStatus.ERROR
 						|| deleteTagsStatus.getSeverity() == IStatus.CANCEL) {
 						AbapTagModel.this.statusView.setViewStatus(deleteTagsStatus);
@@ -172,10 +172,10 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 					}
 				}
 
-				tagsService.unlockTags(destinationId, AbapTagModel.this.globalTagsMode);
+				tagsService.unlockTags(destinationId, getTagScope());
 
 				// read current tags from project
-				final ITagList tags = tagsService.readTags(destinationId, AbapTagModel.this.globalTagsMode);
+				final ITagList tags = tagsService.readTags(destinationId, getTagScope());
 				updateTags(tags, false);
 
 				// switch to edit mode
@@ -291,7 +291,7 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 			protected IStatus run(final IProgressMonitor monitor) {
 				final String destinationId = AbapTagModel.this.projectProvider.getDestinationId();
 				final IAbapTagsService tagsService = AbapTagsServiceFactory.createTagsService();
-				tagsService.unlockTags(destinationId, AbapTagModel.this.globalTagsMode);
+				tagsService.unlockTags(destinationId, getTagScope());
 				return Status.OK_STATUS;
 			}
 		};
@@ -325,12 +325,12 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 				final String destinationId = AbapTagModel.this.projectProvider.getDestinationId();
 
 				final IAbapTagsService tagsService = AbapTagsServiceFactory.createTagsService();
-				final IStatus lockStatus = tagsService.lockTags(destinationId, AbapTagModel.this.globalTagsMode);
+				final IStatus lockStatus = tagsService.lockTags(destinationId, getTagScope());
 				if (lockStatus != null && lockStatus.getSeverity() == IStatus.ERROR) {
 					AbapTagModel.this.statusView.setViewStatus(lockStatus);
 				} else {
 					// read current tags from project
-					final ITagList tags = tagsService.readTags(destinationId, AbapTagModel.this.globalTagsMode);
+					final ITagList tags = tagsService.readTags(destinationId, getTagScope());
 					updateTags(tags, true);
 
 					// switch to edit mode
@@ -356,9 +356,9 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 				final String destinationId = AbapTagModel.this.projectProvider.getDestinationId();
 
 				final IAbapTagsService tagsService = AbapTagsServiceFactory.createTagsService();
-				tagsService.unlockTags(destinationId, AbapTagModel.this.globalTagsMode);
+				tagsService.unlockTags(destinationId, getTagScope());
 				// read current tags from project
-				final ITagList tags = tagsService.readTags(destinationId, AbapTagModel.this.globalTagsMode);
+				final ITagList tags = tagsService.readTags(destinationId, getTagScope());
 				updateTags(tags, false);
 
 				// switch to read only mode
@@ -374,6 +374,10 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 		};
 		lockJob.setSystem(true);
 		lockJob.schedule();
+	}
+
+	private TagSearchScope getTagScope() {
+		return this.globalTagsMode ? TagSearchScope.GLOBAL : TagSearchScope.USER;
 	}
 
 	private class TagNotificationAdapter extends EContentAdapter {

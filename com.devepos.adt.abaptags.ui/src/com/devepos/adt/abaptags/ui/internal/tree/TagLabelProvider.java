@@ -6,49 +6,54 @@ import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.abaptags.ITag;
+import com.devepos.adt.abaptags.ITagBase;
 import com.devepos.adt.abaptags.ui.AbapTagsUIPlugin;
 import com.devepos.adt.abaptags.ui.internal.util.IImages;
 import com.devepos.adt.tools.base.ui.StylerFactory;
 import com.devepos.adt.tools.base.util.StringUtil;
 
 /**
- * Label Provider for Viewer which holds instances of type {@link ITag}
+ * Label Provider for Viewer which holds instances of type {@link ITagBase}
  *
  * @author stockbal
  */
 public class TagLabelProvider extends LabelProvider implements IStyledLabelProvider {
 
 	private final boolean grayScaleImageForNewTags;
+	private final boolean noCounterText;
 
 	/**
 	 * Creates new Label Provider for Viewer which holds instances of type
-	 * {@link ITag}
+	 * {@link ITagBase}
 	 */
 	public TagLabelProvider() {
-		this(true);
+		this(true, false);
 	}
 
 	/**
 	 * Creates new Label Provider for Viewer which holds instances of type
-	 * {@link ITag}
+	 * {@link ITagBase}
 	 *
 	 * @param grayScaleImageForNewTags apply's gray scale filter to image if the tag
 	 *                                 is new
+	 * @param noCounterText            prevents displaying the counter of objects
+	 *                                 that exist for a given tag
 	 */
-	public TagLabelProvider(final boolean grayScaleImageForNewTags) {
+	public TagLabelProvider(final boolean grayScaleImageForNewTags, final boolean noCounterText) {
 		this.grayScaleImageForNewTags = grayScaleImageForNewTags;
+		this.noCounterText = noCounterText;
 	}
 
 	@Override
 	public String getText(final Object element) {
-		final ITag node = (ITag) element;
+		final ITagBase node = (ITagBase) element;
 		return node.getName();
 	}
 
 	@Override
 	public Image getImage(final Object element) {
-		if (element instanceof ITag) {
-			final ITag tag = (ITag) element;
+		if (element instanceof ITagBase) {
+			final ITagBase tag = (ITagBase) element;
 			if (StringUtil.isEmpty(tag.getId()) && this.grayScaleImageForNewTags) {
 				return AbapTagsUIPlugin.getDefault().getImage(IImages.TAG, true);
 			} else if (!StringUtil.isEmpty(tag.getOwner())) {
@@ -63,16 +68,16 @@ public class TagLabelProvider extends LabelProvider implements IStyledLabelProvi
 	@Override
 	public StyledString getStyledText(final Object element) {
 		final StyledString text = new StyledString();
-		final ITag tagNode = (ITag) element;
+		final ITagBase tagNode = (ITagBase) element;
 
-		if (tagNode.isChanged()) {
+		if (tagNode instanceof ITag && ((ITag) tagNode).isChanged()) {
 			text.append(tagNode.getName(), StylerFactory.ITALIC_STYLER);
 		} else {
 			text.append(tagNode.getName());
 		}
 
-		if (!StringUtil.isEmpty(tagNode.getId())) {
-			text.append(" (" + tagNode.getTaggedObjectCount() + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
+		if (!this.noCounterText && !StringUtil.isEmpty(tagNode.getId()) && tagNode instanceof ITag) {
+			text.append(" (" + ((ITag) tagNode).getTaggedObjectCount() + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 
 		return text;
