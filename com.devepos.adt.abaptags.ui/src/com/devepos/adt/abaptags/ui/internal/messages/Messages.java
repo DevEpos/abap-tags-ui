@@ -11,7 +11,6 @@ public class Messages extends NLS {
 	public static String TaggableObjectSelectionWizardPage_SelectObjects_xbut;
 	public static String TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit;
 	public static String TaggableObjectSelectionWizardPage_Title_xtit;
-	public static String TaggedObjectSearchResult_SearchLabel_xmsg;
 	public static String TaggingObjectWizard_NoTagsAvailableMessage_xmsg;
 	public static String TaggingObjectWizard_TagsServiceError_xtit;
 	public static String General_TagsTitle_TagsTitle;

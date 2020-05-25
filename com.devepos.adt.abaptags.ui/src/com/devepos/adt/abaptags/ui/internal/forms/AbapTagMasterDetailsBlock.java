@@ -40,8 +40,8 @@ import com.devepos.adt.abaptags.ITag;
 import com.devepos.adt.abaptags.ui.internal.messages.Messages;
 import com.devepos.adt.abaptags.ui.internal.tree.TagLabelProvider;
 import com.devepos.adt.abaptags.ui.internal.tree.TagTreeContentProvider;
-import com.devepos.adt.tools.base.AdtToolsBaseResources;
-import com.devepos.adt.tools.base.IAdtToolsBaseImages;
+import com.devepos.adt.tools.base.AdtToolsBasePlugin;
+import com.devepos.adt.tools.base.IGeneralWorkbenchImages;
 import com.devepos.adt.tools.base.ui.tree.PrefixedAsteriskFilteredTree;
 import com.devepos.adt.tools.base.util.IModificationListener;
 
@@ -205,14 +205,14 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 	@Override
 	protected void createToolBarActions(final IManagedForm managedForm) {
 		final Action refreshAction = new Action(Messages.AbapTagMasterDetailsBlock_RefreshAction_xtol,
-			AdtToolsBaseResources.getImageDescriptor(IAdtToolsBaseImages.REFRESH)) {
+			AdtToolsBasePlugin.getDefault().getImageDescriptor(IGeneralWorkbenchImages.REFRESH)) {
 			@Override
 			public void run() {
 				AbapTagMasterDetailsBlock.this.model.refreshTags();
 			}
 		};
 		final Action editAction = new Action(Messages.AbapTagMasterDetailsBlock_EditAction_xtol,
-			AdtToolsBaseResources.getImageDescriptor(IAdtToolsBaseImages.EDIT_ACTION)) {
+			AdtToolsBasePlugin.getDefault().getImageDescriptor(IGeneralWorkbenchImages.EDIT_ACTION)) {
 			@Override
 			public void run() {
 				AbapTagMasterDetailsBlock.this.model.editTags();
@@ -255,7 +255,7 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 		toolbar.setCursor(handCursor);
 
 		final IAction collapseAllAction = new Action(Messages.AbapTagMasterDetailsBlock_CollapseAll_xtol,
-			AdtToolsBaseResources.getImageDescriptor(IAdtToolsBaseImages.COLLAPSE_ALL)) {
+			AdtToolsBasePlugin.getDefault().getImageDescriptor(IGeneralWorkbenchImages.COLLAPSE_ALL)) {
 			@Override
 			public void run() {
 				AbapTagMasterDetailsBlock.this.treeViewer.collapseAll();

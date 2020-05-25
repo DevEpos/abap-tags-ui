@@ -36,8 +36,6 @@ public class TagTreeContentProvider implements ITreeContentProvider {
 			tagList = ((AbapTagModel) inputElement).getTags().getTags();
 		} else if (inputElement instanceof EList<?>) {
 			tagList = (EList<ITag>) inputElement;
-		} else if (inputElement instanceof ITagList) {
-			tagList = ((ITagList) inputElement).getTags();
 		}
 		if (tagList != null) {
 			if (!this.showUserTags) {
