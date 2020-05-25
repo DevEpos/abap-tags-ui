@@ -28,10 +28,10 @@ public interface IAbapTagsService {
 	 *
 	 * @param  tags          tags to be saved
 	 * @param  destinationId destination of ABAP Project
-	 * @param  globalTags    if <code>true</code> global tags will be created
+	 * @param  scope         the scope of the tags
 	 * @return               the status of the update operation
 	 */
-	IStatus updateTags(ITagList tags, final String destinationId, final boolean globalTags);
+	IStatus updateTags(ITagList tags, final String destinationId, TagSearchScope scope);
 
 	/**
 	 * Reads ABAP Tags for the given destination ID
@@ -39,21 +39,21 @@ public interface IAbapTagsService {
 	 * @param destinationId destination of ABAP Project
 	 * @param globalTags    if <code>true</code> global tags will be read
 	 */
-	ITagList readTags(final String destinationId, final boolean globalTags);
+	ITagList readTags(final String destinationId, TagSearchScope scope);
 
 	/**
 	 * Deletes the given Tags
 	 *
 	 * @param  tags          the tags to be deleted
 	 * @param  destinationId destination of ABAP Project
-	 * @param  globalTags    if <code>true</code> global tags will be deleted
+	 * @param  scope         the scope of the tags
 	 * @return               the status of the delete operation
 	 */
-	IStatus deleteTags(ITagList tags, final String destinationId, final boolean globalTags);
+	IStatus deleteTags(ITagList tags, final String destinationId, TagSearchScope scope);
 
 	/**
 	 * Searches for tags with the given query string
-	 * 
+	 *
 	 * @param  destinationId destination id of ABAP project
 	 * @param  scope         search scope
 	 * @param  query         query String
@@ -65,16 +65,16 @@ public interface IAbapTagsService {
 	 * Locks the tags
 	 *
 	 * @param  destinationId destination of ABAP Project
-	 * @param  globalTags    if <code>true</code> global tags will be locked
+	 * @param  scope         the scope of the tags
 	 * @return               the status of the lock operation
 	 */
-	IStatus lockTags(final String destinationId, final boolean globalTags);
+	IStatus lockTags(final String destinationId, TagSearchScope scope);
 
 	/**
 	 * Unlocks the tags
 	 *
 	 * @param destinationId destination of ABAP Project
-	 * @param globalTags    if <code>true</code> global tags will be unlocked
+	 * @param scope         the scope of the tags
 	 */
-	void unlockTags(final String destinationId, final boolean globalTags);
+	void unlockTags(final String destinationId, TagSearchScope scope);
 }

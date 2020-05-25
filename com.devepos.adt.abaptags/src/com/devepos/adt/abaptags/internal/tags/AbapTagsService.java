@@ -1,8 +1,5 @@
 package com.devepos.adt.abaptags.internal.tags;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -16,7 +13,6 @@ import com.devepos.adt.tools.base.project.AbapProjectProviderAccessor;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
 import com.devepos.adt.tools.base.util.AdtUtil;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
-import com.sap.adt.communication.resources.IQueryParameter;
 import com.sap.adt.communication.resources.IRestResource;
 import com.sap.adt.communication.resources.QueryParameter;
 import com.sap.adt.communication.resources.ResourceException;
@@ -32,6 +28,9 @@ import com.sap.adt.communication.session.ISystemSession;
  */
 public class AbapTagsService implements IAbapTagsService {
 
+	private static final String QUERY_PARAM_SCOPE = "scope"; //$NON-NLS-1$
+	private static final String QUERY_PARAM_ACTION = "action"; //$NON-NLS-1$
+	private static final String QUERY_PARAM_QUERY = "query"; //$NON-NLS-1$
 	private static final String CUSTOM_ACTION_UNLOCK = "unlock"; //$NON-NLS-1$
 	private static final String CUSTOM_ACTION_LOCK = "lock"; //$NON-NLS-1$
 	private static final String CUSTOM_ACTION_BATCH_DELETE = "batchDelete"; //$NON-NLS-1$
@@ -48,7 +47,7 @@ public class AbapTagsService implements IAbapTagsService {
 	}
 
 	@Override
-	public IStatus updateTags(final ITagList tags, final String destinationId, final boolean globalTags) {
+	public IStatus updateTags(final ITagList tags, final String destinationId, final TagSearchScope scope) {
 		if (tags == null || tags.getTags().isEmpty()) {
 			return Status.OK_STATUS;
 		}
@@ -66,7 +65,7 @@ public class AbapTagsService implements IAbapTagsService {
 				.createRestResource(uriDiscovery.getTagsUri(), session);
 			restResource.addContentHandler(new AbapTagsContentHandler());
 
-			restResource.post(null, ITagList.class, tags, getParameters(globalTags, null));
+			restResource.post(null, ITagList.class, tags, new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()));
 			return Status.OK_STATUS;
 		} catch (final ResourceException exc) {
 			exc.printStackTrace();
@@ -90,8 +89,8 @@ public class AbapTagsService implements IAbapTagsService {
 				.createRestResource(uriDiscovery.getTagsUri(), session);
 			restResource.addContentHandler(new AbapTagsContentHandler());
 
-			return restResource.get(null, ITagList.class, new QueryParameter("scope", scope.toString()),
-				new QueryParameter("query", query));
+			return restResource.get(null, ITagList.class, new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()),
+				new QueryParameter(QUERY_PARAM_QUERY, query));
 
 		} catch (final ResourceException exc) {
 			exc.printStackTrace();
@@ -100,7 +99,7 @@ public class AbapTagsService implements IAbapTagsService {
 	}
 
 	@Override
-	public ITagList readTags(final String destinationId, final boolean globalTags) {
+	public ITagList readTags(final String destinationId, final TagSearchScope scope) {
 		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destinationId);
 		if (projectProvider == null) {
 			return null;
@@ -115,7 +114,7 @@ public class AbapTagsService implements IAbapTagsService {
 				.createRestResource(uriDiscovery.getTagsUri(), session);
 			restResource.addContentHandler(new AbapTagsContentHandler());
 
-			return restResource.get(null, ITagList.class, getParameters(globalTags, null));
+			return restResource.get(null, ITagList.class, new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()));
 
 		} catch (final ResourceException exc) {
 			exc.printStackTrace();
@@ -124,7 +123,7 @@ public class AbapTagsService implements IAbapTagsService {
 	}
 
 	@Override
-	public IStatus deleteTags(final ITagList tags, final String destinationId, final boolean globalTags) {
+	public IStatus deleteTags(final ITagList tags, final String destinationId, final TagSearchScope scope) {
 		if (tags == null || tags.getTags().isEmpty()) {
 			return Status.OK_STATUS;
 		}
@@ -142,7 +141,8 @@ public class AbapTagsService implements IAbapTagsService {
 				.createRestResource(uriDiscovery.getTagsUri(), session);
 			restResource.addContentHandler(new AbapTagsContentHandler());
 
-			restResource.post(null, ITagList.class, tags, getParameters(globalTags, CUSTOM_ACTION_BATCH_DELETE));
+			restResource.post(null, ITagList.class, tags, new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()),
+				new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_BATCH_DELETE));
 			return Status.OK_STATUS;
 		} catch (final ResourceException exc) {
 			exc.printStackTrace();
@@ -152,7 +152,7 @@ public class AbapTagsService implements IAbapTagsService {
 	}
 
 	@Override
-	public IStatus lockTags(final String destinationId, final boolean globalTags) {
+	public IStatus lockTags(final String destinationId, final TagSearchScope scope) {
 		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destinationId);
 		if (projectProvider == null) {
 			return Status.CANCEL_STATUS;
@@ -168,7 +168,8 @@ public class AbapTagsService implements IAbapTagsService {
 				.createRestResource(uriDiscovery.getTagsUri(), session);
 			restResource.addContentHandler(new AbapTagsContentHandler());
 
-			restResource.post(null, ITagList.class, getParameters(globalTags, CUSTOM_ACTION_LOCK));
+			restResource.post(null, ITagList.class, new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()),
+				new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_LOCK));
 			return Status.OK_STATUS;
 		} catch (final ResourceForbiddenException exc) {
 			return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage(), exc);
@@ -178,7 +179,7 @@ public class AbapTagsService implements IAbapTagsService {
 	}
 
 	@Override
-	public void unlockTags(final String destinationId, final boolean globalTags) {
+	public void unlockTags(final String destinationId, final TagSearchScope scope) {
 		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destinationId);
 		if (projectProvider == null) {
 			return;
@@ -194,22 +195,12 @@ public class AbapTagsService implements IAbapTagsService {
 				.createRestResource(uriDiscovery.getTagsUri(), session);
 			restResource.addContentHandler(new AbapTagsContentHandler());
 
-			restResource.post(null, ITagList.class, getParameters(globalTags, CUSTOM_ACTION_UNLOCK));
+			restResource.post(null, ITagList.class, new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()),
+				new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_UNLOCK));
 
 		} catch (final ResourceException exc) {
 			exc.printStackTrace();
 		}
 	}
 
-	private IQueryParameter[] getParameters(final boolean globalTags, final String customAction) {
-		final List<IQueryParameter> params = new ArrayList<>();
-		if (globalTags) {
-			params.add(new QueryParameter("globalTags", "X")); //$NON-NLS-1$ //$NON-NLS-2$
-		}
-		if (customAction != null && !customAction.isEmpty()) {
-			params.add(new QueryParameter("action", customAction)); //$NON-NLS-1$
-		}
-
-		return params.toArray(new IQueryParameter[params.size()]);
-	}
 }
