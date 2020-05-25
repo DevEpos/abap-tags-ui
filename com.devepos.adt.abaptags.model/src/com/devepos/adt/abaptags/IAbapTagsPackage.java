@@ -4,6 +4,7 @@ package com.devepos.adt.abaptags;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -315,13 +316,22 @@ public interface IAbapTagsPackage extends EPackage {
 	int ADT_OBJECT_TAG__PARENT_OBJECT_URI = TAG_BASE_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Parent Tag Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADT_OBJECT_TAG__PARENT_TAG_ID = TAG_BASE_FEATURE_COUNT + 3;
+
+	/**
 	 * The feature id for the '<em><b>Parent Tag Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ADT_OBJECT_TAG__PARENT_TAG_NAME = TAG_BASE_FEATURE_COUNT + 3;
+	int ADT_OBJECT_TAG__PARENT_TAG_NAME = TAG_BASE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>User Tag</b></em>' attribute.
@@ -330,7 +340,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ADT_OBJECT_TAG__USER_TAG = TAG_BASE_FEATURE_COUNT + 4;
+	int ADT_OBJECT_TAG__USER_TAG = TAG_BASE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Adt Object Tag</em>' class.
@@ -338,7 +348,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ADT_OBJECT_TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 5;
+	int ADT_OBJECT_TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of operations of the '<em>Adt Object Tag</em>' class. <!--
@@ -504,6 +514,116 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @ordered
 	 */
 	int TAGGED_OBJECT_LIST_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link com.devepos.adt.abaptags.impl.TaggedObjectSearchParams <em>Tagged Object Search Params</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.devepos.adt.abaptags.impl.TaggedObjectSearchParams
+	 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTaggedObjectSearchParams()
+	 * @generated
+	 */
+	int TAGGED_OBJECT_SEARCH_PARAMS = 7;
+
+	/**
+	 * The feature id for the '<em><b>Tag Ids</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_OBJECT_SEARCH_PARAMS__TAG_IDS = 0;
+
+	/**
+	 * The feature id for the '<em><b>Search Scope</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_OBJECT_SEARCH_PARAMS__SEARCH_SCOPE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Query</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_OBJECT_SEARCH_PARAMS__QUERY = 2;
+
+	/**
+	 * The feature id for the '<em><b>Max Results</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_OBJECT_SEARCH_PARAMS__MAX_RESULTS = 3;
+
+	/**
+	 * The feature id for the '<em><b>Matches All Tags</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_OBJECT_SEARCH_PARAMS__MATCHES_ALL_TAGS = 4;
+
+	/**
+	 * The feature id for the '<em><b>With Tag Info</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_OBJECT_SEARCH_PARAMS__WITH_TAG_INFO = 5;
+
+	/**
+	 * The feature id for the '<em><b>With Full Tag Info</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_OBJECT_SEARCH_PARAMS__WITH_FULL_TAG_INFO = 6;
+
+	/**
+	 * The feature id for the '<em><b>Query Is Object Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_OBJECT_SEARCH_PARAMS__QUERY_IS_OBJECT_URI = 7;
+
+	/**
+	 * The number of structural features of the '<em>Tagged Object Search Params</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_OBJECT_SEARCH_PARAMS_FEATURE_COUNT = 8;
+
+	/**
+	 * The number of operations of the '<em>Tagged Object Search Params</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_OBJECT_SEARCH_PARAMS_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link com.devepos.adt.abaptags.TagSearchScope <em>Tag Search Scope</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.devepos.adt.abaptags.TagSearchScope
+	 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTagSearchScope()
+	 * @generated
+	 */
+	int TAG_SEARCH_SCOPE = 8;
 
 	/**
 	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.ITagBase <em>Tag Base</em>}'.
@@ -702,6 +822,17 @@ public interface IAbapTagsPackage extends EPackage {
 	EAttribute getAdtObjectTag_ParentObjectUri();
 
 	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentTagId <em>Parent Tag Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Parent Tag Id</em>'.
+	 * @see com.devepos.adt.abaptags.IAdtObjectTag#getParentTagId()
+	 * @see #getAdtObjectTag()
+	 * @generated
+	 */
+	EAttribute getAdtObjectTag_ParentTagId();
+
+	/**
 	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentTagName <em>Parent Tag Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -827,6 +958,114 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTaggedObjectList_TaggedObjects();
+
+	/**
+	 * Returns the meta object for class '{@link com.devepos.adt.abaptags.ITaggedObjectSearchParams <em>Tagged Object Search Params</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Tagged Object Search Params</em>'.
+	 * @see com.devepos.adt.abaptags.ITaggedObjectSearchParams
+	 * @generated
+	 */
+	EClass getTaggedObjectSearchParams();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link com.devepos.adt.abaptags.ITaggedObjectSearchParams#getTagIds <em>Tag Ids</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Tag Ids</em>'.
+	 * @see com.devepos.adt.abaptags.ITaggedObjectSearchParams#getTagIds()
+	 * @see #getTaggedObjectSearchParams()
+	 * @generated
+	 */
+	EAttribute getTaggedObjectSearchParams_TagIds();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITaggedObjectSearchParams#getSearchScope <em>Search Scope</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Search Scope</em>'.
+	 * @see com.devepos.adt.abaptags.ITaggedObjectSearchParams#getSearchScope()
+	 * @see #getTaggedObjectSearchParams()
+	 * @generated
+	 */
+	EAttribute getTaggedObjectSearchParams_SearchScope();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITaggedObjectSearchParams#getQuery <em>Query</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Query</em>'.
+	 * @see com.devepos.adt.abaptags.ITaggedObjectSearchParams#getQuery()
+	 * @see #getTaggedObjectSearchParams()
+	 * @generated
+	 */
+	EAttribute getTaggedObjectSearchParams_Query();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITaggedObjectSearchParams#getMaxResults <em>Max Results</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Results</em>'.
+	 * @see com.devepos.adt.abaptags.ITaggedObjectSearchParams#getMaxResults()
+	 * @see #getTaggedObjectSearchParams()
+	 * @generated
+	 */
+	EAttribute getTaggedObjectSearchParams_MaxResults();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITaggedObjectSearchParams#isMatchesAllTags <em>Matches All Tags</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Matches All Tags</em>'.
+	 * @see com.devepos.adt.abaptags.ITaggedObjectSearchParams#isMatchesAllTags()
+	 * @see #getTaggedObjectSearchParams()
+	 * @generated
+	 */
+	EAttribute getTaggedObjectSearchParams_MatchesAllTags();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITaggedObjectSearchParams#isWithTagInfo <em>With Tag Info</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>With Tag Info</em>'.
+	 * @see com.devepos.adt.abaptags.ITaggedObjectSearchParams#isWithTagInfo()
+	 * @see #getTaggedObjectSearchParams()
+	 * @generated
+	 */
+	EAttribute getTaggedObjectSearchParams_WithTagInfo();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITaggedObjectSearchParams#isWithFullTagInfo <em>With Full Tag Info</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>With Full Tag Info</em>'.
+	 * @see com.devepos.adt.abaptags.ITaggedObjectSearchParams#isWithFullTagInfo()
+	 * @see #getTaggedObjectSearchParams()
+	 * @generated
+	 */
+	EAttribute getTaggedObjectSearchParams_WithFullTagInfo();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.abaptags.ITaggedObjectSearchParams#isQueryIsObjectUri <em>Query Is Object Uri</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Query Is Object Uri</em>'.
+	 * @see com.devepos.adt.abaptags.ITaggedObjectSearchParams#isQueryIsObjectUri()
+	 * @see #getTaggedObjectSearchParams()
+	 * @generated
+	 */
+	EAttribute getTaggedObjectSearchParams_QueryIsObjectUri();
+
+	/**
+	 * Returns the meta object for enum '{@link com.devepos.adt.abaptags.TagSearchScope <em>Tag Search Scope</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Tag Search Scope</em>'.
+	 * @see com.devepos.adt.abaptags.TagSearchScope
+	 * @generated
+	 */
+	EEnum getTagSearchScope();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!--
@@ -992,6 +1231,14 @@ public interface IAbapTagsPackage extends EPackage {
 		EAttribute ADT_OBJECT_TAG__PARENT_OBJECT_URI = eINSTANCE.getAdtObjectTag_ParentObjectUri();
 
 		/**
+		 * The meta object literal for the '<em><b>Parent Tag Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADT_OBJECT_TAG__PARENT_TAG_ID = eINSTANCE.getAdtObjectTag_ParentTagId();
+
+		/**
 		 * The meta object literal for the '<em><b>Parent Tag Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1085,6 +1332,90 @@ public interface IAbapTagsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference TAGGED_OBJECT_LIST__TAGGED_OBJECTS = eINSTANCE.getTaggedObjectList_TaggedObjects();
+
+		/**
+		 * The meta object literal for the '{@link com.devepos.adt.abaptags.impl.TaggedObjectSearchParams <em>Tagged Object Search Params</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.devepos.adt.abaptags.impl.TaggedObjectSearchParams
+		 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTaggedObjectSearchParams()
+		 * @generated
+		 */
+		EClass TAGGED_OBJECT_SEARCH_PARAMS = eINSTANCE.getTaggedObjectSearchParams();
+
+		/**
+		 * The meta object literal for the '<em><b>Tag Ids</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAGGED_OBJECT_SEARCH_PARAMS__TAG_IDS = eINSTANCE.getTaggedObjectSearchParams_TagIds();
+
+		/**
+		 * The meta object literal for the '<em><b>Search Scope</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAGGED_OBJECT_SEARCH_PARAMS__SEARCH_SCOPE = eINSTANCE.getTaggedObjectSearchParams_SearchScope();
+
+		/**
+		 * The meta object literal for the '<em><b>Query</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAGGED_OBJECT_SEARCH_PARAMS__QUERY = eINSTANCE.getTaggedObjectSearchParams_Query();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Results</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAGGED_OBJECT_SEARCH_PARAMS__MAX_RESULTS = eINSTANCE.getTaggedObjectSearchParams_MaxResults();
+
+		/**
+		 * The meta object literal for the '<em><b>Matches All Tags</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAGGED_OBJECT_SEARCH_PARAMS__MATCHES_ALL_TAGS = eINSTANCE.getTaggedObjectSearchParams_MatchesAllTags();
+
+		/**
+		 * The meta object literal for the '<em><b>With Tag Info</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAGGED_OBJECT_SEARCH_PARAMS__WITH_TAG_INFO = eINSTANCE.getTaggedObjectSearchParams_WithTagInfo();
+
+		/**
+		 * The meta object literal for the '<em><b>With Full Tag Info</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAGGED_OBJECT_SEARCH_PARAMS__WITH_FULL_TAG_INFO = eINSTANCE.getTaggedObjectSearchParams_WithFullTagInfo();
+
+		/**
+		 * The meta object literal for the '<em><b>Query Is Object Uri</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAGGED_OBJECT_SEARCH_PARAMS__QUERY_IS_OBJECT_URI = eINSTANCE.getTaggedObjectSearchParams_QueryIsObjectUri();
+
+		/**
+		 * The meta object literal for the '{@link com.devepos.adt.abaptags.TagSearchScope <em>Tag Search Scope</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.devepos.adt.abaptags.TagSearchScope
+		 * @see com.devepos.adt.abaptags.impl.AbapTagsPackage#getTagSearchScope()
+		 * @generated
+		 */
+		EEnum TAG_SEARCH_SCOPE = eINSTANCE.getTagSearchScope();
 
 	}
 

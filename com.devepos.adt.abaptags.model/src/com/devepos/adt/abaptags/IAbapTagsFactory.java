@@ -76,6 +76,15 @@ public interface IAbapTagsFactory extends EFactory {
 	ITaggedObjectList createTaggedObjectList();
 
 	/**
+	 * Returns a new object of class '<em>Tagged Object Search Params</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Tagged Object Search Params</em>'.
+	 * @generated
+	 */
+	ITaggedObjectSearchParams createTaggedObjectSearchParams();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

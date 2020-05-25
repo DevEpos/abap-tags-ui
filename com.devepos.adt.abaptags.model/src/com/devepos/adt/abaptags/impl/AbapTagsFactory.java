@@ -5,6 +5,7 @@ package com.devepos.adt.abaptags.impl;
 import com.devepos.adt.abaptags.*;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -62,8 +63,39 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
 			case IAbapTagsPackage.TAG_PREVIEW_INFO: return createTagPreviewInfo();
 			case IAbapTagsPackage.TAGGED_OBJECT: return createTaggedObject();
 			case IAbapTagsPackage.TAGGED_OBJECT_LIST: return createTaggedObjectList();
+			case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS: return createTaggedObjectSearchParams();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object createFromString(EDataType eDataType, String initialValue) {
+		switch (eDataType.getClassifierID()) {
+			case IAbapTagsPackage.TAG_SEARCH_SCOPE:
+				return createTagSearchScopeFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String convertToString(EDataType eDataType, Object instanceValue) {
+		switch (eDataType.getClassifierID()) {
+			case IAbapTagsPackage.TAG_SEARCH_SCOPE:
+				return convertTagSearchScopeToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -131,6 +163,37 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
 	public ITaggedObjectList createTaggedObjectList() {
 		TaggedObjectList taggedObjectList = new TaggedObjectList();
 		return taggedObjectList;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ITaggedObjectSearchParams createTaggedObjectSearchParams() {
+		TaggedObjectSearchParams taggedObjectSearchParams = new TaggedObjectSearchParams();
+		return taggedObjectSearchParams;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TagSearchScope createTagSearchScopeFromString(EDataType eDataType, String initialValue) {
+		TagSearchScope result = TagSearchScope.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTagSearchScopeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

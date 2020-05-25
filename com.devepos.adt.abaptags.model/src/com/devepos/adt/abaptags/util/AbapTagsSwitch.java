@@ -109,6 +109,12 @@ public class AbapTagsSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS: {
+				ITaggedObjectSearchParams taggedObjectSearchParams = (ITaggedObjectSearchParams)theEObject;
+				T result = caseTaggedObjectSearchParams(taggedObjectSearchParams);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -215,6 +221,21 @@ public class AbapTagsSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTaggedObjectList(ITaggedObjectList object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Tagged Object Search Params</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Tagged Object Search Params</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTaggedObjectSearchParams(ITaggedObjectSearchParams object) {
 		return null;
 	}
 

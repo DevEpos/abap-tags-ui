@@ -15,6 +15,7 @@ package com.devepos.adt.abaptags;
  *   <li>{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentObjectName <em>Parent Object Name</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentObjectType <em>Parent Object Type</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentObjectUri <em>Parent Object Uri</em>}</li>
+ *   <li>{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentTagId <em>Parent Tag Id</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentTagName <em>Parent Tag Name</em>}</li>
  *   <li>{@link com.devepos.adt.abaptags.IAdtObjectTag#isUserTag <em>User Tag</em>}</li>
  * </ul>
@@ -89,6 +90,28 @@ public interface IAdtObjectTag extends ITagBase {
 	 * @generated
 	 */
 	void setParentObjectUri(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Parent Tag Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parent Tag Id</em>' attribute.
+	 * @see #setParentTagId(String)
+	 * @see com.devepos.adt.abaptags.IAbapTagsPackage#getAdtObjectTag_ParentTagId()
+	 * @model transient="true"
+	 * @generated
+	 */
+	String getParentTagId();
+
+	/**
+	 * Sets the value of the '{@link com.devepos.adt.abaptags.IAdtObjectTag#getParentTagId <em>Parent Tag Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Parent Tag Id</em>' attribute.
+	 * @see #getParentTagId()
+	 * @generated
+	 */
+	void setParentTagId(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Parent Tag Name</b></em>' attribute.

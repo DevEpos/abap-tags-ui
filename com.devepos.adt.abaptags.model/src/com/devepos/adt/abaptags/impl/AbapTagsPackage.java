@@ -12,9 +12,12 @@ import com.devepos.adt.abaptags.ITagPreviewInfo;
 import com.devepos.adt.abaptags.ITaggedObject;
 import com.devepos.adt.abaptags.ITaggedObjectList;
 
+import com.devepos.adt.abaptags.ITaggedObjectSearchParams;
+import com.devepos.adt.abaptags.TagSearchScope;
 import com.devepos.adt.tools.base.model.adtbase.IAdtBasePackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -75,6 +78,20 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	private EClass taggedObjectListEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass taggedObjectSearchParamsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum tagSearchScopeEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -336,7 +353,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getAdtObjectTag_ParentTagName() {
+	public EAttribute getAdtObjectTag_ParentTagId() {
 		return (EAttribute)adtObjectTagEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -346,8 +363,18 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getAdtObjectTag_UserTag() {
+	public EAttribute getAdtObjectTag_ParentTagName() {
 		return (EAttribute)adtObjectTagEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getAdtObjectTag_UserTag() {
+		return (EAttribute)adtObjectTagEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -456,6 +483,106 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
+	public EClass getTaggedObjectSearchParams() {
+		return taggedObjectSearchParamsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTaggedObjectSearchParams_TagIds() {
+		return (EAttribute)taggedObjectSearchParamsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTaggedObjectSearchParams_SearchScope() {
+		return (EAttribute)taggedObjectSearchParamsEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTaggedObjectSearchParams_Query() {
+		return (EAttribute)taggedObjectSearchParamsEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTaggedObjectSearchParams_MaxResults() {
+		return (EAttribute)taggedObjectSearchParamsEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTaggedObjectSearchParams_MatchesAllTags() {
+		return (EAttribute)taggedObjectSearchParamsEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTaggedObjectSearchParams_WithTagInfo() {
+		return (EAttribute)taggedObjectSearchParamsEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTaggedObjectSearchParams_WithFullTagInfo() {
+		return (EAttribute)taggedObjectSearchParamsEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTaggedObjectSearchParams_QueryIsObjectUri() {
+		return (EAttribute)taggedObjectSearchParamsEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getTagSearchScope() {
+		return tagSearchScopeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public IAbapTagsFactory getAbapTagsFactory() {
 		return (IAbapTagsFactory)getEFactoryInstance();
 	}
@@ -500,6 +627,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__PARENT_OBJECT_NAME);
 		createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__PARENT_OBJECT_TYPE);
 		createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__PARENT_OBJECT_URI);
+		createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__PARENT_TAG_ID);
 		createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__PARENT_TAG_NAME);
 		createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__USER_TAG);
 
@@ -516,6 +644,19 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 
 		taggedObjectListEClass = createEClass(TAGGED_OBJECT_LIST);
 		createEReference(taggedObjectListEClass, TAGGED_OBJECT_LIST__TAGGED_OBJECTS);
+
+		taggedObjectSearchParamsEClass = createEClass(TAGGED_OBJECT_SEARCH_PARAMS);
+		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__TAG_IDS);
+		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__SEARCH_SCOPE);
+		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__QUERY);
+		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__MAX_RESULTS);
+		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__MATCHES_ALL_TAGS);
+		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__WITH_TAG_INFO);
+		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__WITH_FULL_TAG_INFO);
+		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__QUERY_IS_OBJECT_URI);
+
+		// Create enums
+		tagSearchScopeEEnum = createEEnum(TAG_SEARCH_SCOPE);
 	}
 
 	/**
@@ -574,6 +715,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		initEAttribute(getAdtObjectTag_ParentObjectName(), ecorePackage.getEString(), "parentObjectName", null, 0, 1, IAdtObjectTag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAdtObjectTag_ParentObjectType(), ecorePackage.getEString(), "parentObjectType", null, 0, 1, IAdtObjectTag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAdtObjectTag_ParentObjectUri(), ecorePackage.getEString(), "parentObjectUri", null, 0, 1, IAdtObjectTag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAdtObjectTag_ParentTagId(), ecorePackage.getEString(), "parentTagId", null, 0, 1, IAdtObjectTag.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAdtObjectTag_ParentTagName(), ecorePackage.getEString(), "parentTagName", null, 0, 1, IAdtObjectTag.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAdtObjectTag_UserTag(), ecorePackage.getEBoolean(), "userTag", null, 0, 1, IAdtObjectTag.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -590,6 +732,22 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 
 		initEClass(taggedObjectListEClass, ITaggedObjectList.class, "TaggedObjectList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTaggedObjectList_TaggedObjects(), this.getTaggedObject(), null, "taggedObjects", null, 0, -1, ITaggedObjectList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(taggedObjectSearchParamsEClass, ITaggedObjectSearchParams.class, "TaggedObjectSearchParams", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTaggedObjectSearchParams_TagIds(), ecorePackage.getEString(), "tagIds", null, 0, -1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTaggedObjectSearchParams_SearchScope(), this.getTagSearchScope(), "searchScope", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTaggedObjectSearchParams_Query(), ecorePackage.getEString(), "query", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTaggedObjectSearchParams_MaxResults(), ecorePackage.getEInt(), "maxResults", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTaggedObjectSearchParams_MatchesAllTags(), ecorePackage.getEBoolean(), "matchesAllTags", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTaggedObjectSearchParams_WithTagInfo(), ecorePackage.getEBoolean(), "withTagInfo", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTaggedObjectSearchParams_WithFullTagInfo(), ecorePackage.getEBoolean(), "withFullTagInfo", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTaggedObjectSearchParams_QueryIsObjectUri(), ecorePackage.getEBoolean(), "queryIsObjectUri", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize enums and add enum literals
+		initEEnum(tagSearchScopeEEnum, TagSearchScope.class, "TagSearchScope");
+		addEEnumLiteral(tagSearchScopeEEnum, TagSearchScope.ALL);
+		addEEnumLiteral(tagSearchScopeEEnum, TagSearchScope.GLOBAL);
+		addEEnumLiteral(tagSearchScopeEEnum, TagSearchScope.USER);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -830,6 +988,77 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		   new String[] {
 			   "kind", "element",
 			   "name", "taggedObject",
+			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
+		  (taggedObjectSearchParamsEClass,
+		   source,
+		   new String[] {
+			   "kind", "elementOnly",
+			   "name", "taggedObjectSearchParams"
+		   });
+		addAnnotation
+		  (getTaggedObjectSearchParams_TagIds(),
+		   source,
+		   new String[] {
+			   "kind", "element",
+			   "name", "tagId",
+			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
+		  (getTaggedObjectSearchParams_SearchScope(),
+		   source,
+		   new String[] {
+			   "kind", "attribute",
+			   "name", "searchScope",
+			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
+		  (getTaggedObjectSearchParams_Query(),
+		   source,
+		   new String[] {
+			   "kind", "attribute",
+			   "name", "query",
+			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
+		  (getTaggedObjectSearchParams_MaxResults(),
+		   source,
+		   new String[] {
+			   "kind", "attribute",
+			   "name", "maxResults",
+			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
+		  (getTaggedObjectSearchParams_MatchesAllTags(),
+		   source,
+		   new String[] {
+			   "kind", "attribute",
+			   "name", "matchesAllTags",
+			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
+		  (getTaggedObjectSearchParams_WithTagInfo(),
+		   source,
+		   new String[] {
+			   "kind", "attribute",
+			   "name", "withTagInfo",
+			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
+		  (getTaggedObjectSearchParams_WithFullTagInfo(),
+		   source,
+		   new String[] {
+			   "kind", "attribute",
+			   "name", "withFullTagInfo",
+			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
+		  (getTaggedObjectSearchParams_QueryIsObjectUri(),
+		   source,
+		   new String[] {
+			   "kind", "attribute",
+			   "name", "queryIsObjectUri",
 			   "namespace", "##targetNamespace"
 		   });
 	}
