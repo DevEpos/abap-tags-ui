@@ -10,7 +10,7 @@ import com.devepos.adt.abaptags.internal.util.AbapTagsUriDiscoveryBase;
  * @author stockbal
  */
 public class AbapTagsUriDiscovery extends AbapTagsUriDiscoveryBase {
-	private static final String DISCOVERY_SCHEME = "http://www.devepos.com/adt/atm/tags";
+	private static final String DISCOVERY_SCHEME = "http://www.devepos.com/adt/atm";
 	private static final String DISCOVERY_RELATION_TAGS = "http://www.devepos.com/adt/relations/atm/tags";
 	private static final String DISCOVERY_TERM_TAGS = "tags";
 

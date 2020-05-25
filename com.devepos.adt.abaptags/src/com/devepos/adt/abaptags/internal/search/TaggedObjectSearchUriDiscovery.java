@@ -10,8 +10,8 @@ import com.devepos.adt.abaptags.internal.util.AbapTagsUriDiscoveryBase;
  * @author stockbal
  */
 public class TaggedObjectSearchUriDiscovery extends AbapTagsUriDiscoveryBase {
-	private static final String DISCOVERY_SCHEME = "http://www.devepos.com/adt/atm/tags/objects/search";
-	private static final String DISCOVERY_RELATION_TAGS = "http://www.devepos.com/adt/relations/atm/tags/objects/search";
+	private static final String DISCOVERY_SCHEME = "http://www.devepos.com/adt/atm";
+	private static final String DISCOVERY_RELATION_TAGS = "http://www.devepos.com/adt/relations/atm/taggedobjects/search";
 	private static final String DISCOVERY_TERM_TAGS = "taggedobjectsearch";
 
 	public TaggedObjectSearchUriDiscovery(final String destination) {
