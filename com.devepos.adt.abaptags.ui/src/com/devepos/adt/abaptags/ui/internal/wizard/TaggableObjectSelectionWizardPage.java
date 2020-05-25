@@ -31,8 +31,8 @@ import org.eclipse.ui.PlatformUI;
 import com.devepos.adt.abaptags.tags.AbapTagsServiceFactory;
 import com.devepos.adt.abaptags.ui.AbapTagsUIPlugin;
 import com.devepos.adt.abaptags.ui.internal.messages.Messages;
-import com.devepos.adt.tools.base.AdtToolsBasePlugin;
-import com.devepos.adt.tools.base.IGeneralWorkbenchImages;
+import com.devepos.adt.tools.base.AdtToolsBaseResources;
+import com.devepos.adt.tools.base.IAdtToolsBaseImages;
 import com.devepos.adt.tools.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.tools.base.ui.project.ProjectInput;
@@ -41,6 +41,7 @@ import com.devepos.adt.tools.base.wizard.AbstractBaseWizardPage;
 import com.sap.adt.ris.search.ui.AdtRepositorySearchServiceUIFactory;
 import com.sap.adt.ris.search.ui.IAdtRepositorySearchServiceUIParameters;
 import com.sap.adt.ris.search.ui.IAdtRepositorySearchServiceUIResult;
+import com.sap.adt.ris.search.ui.internal.preferences.SearchPreferences;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 import com.sap.adt.tools.core.ui.AbapCoreUi;
 import com.sap.adt.tools.core.ui.IAdtObjectTypeInfoUi;
@@ -162,6 +163,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 				parameters.setTitle(Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit);
 				parameters.setFixedProject(getWizard().getProject());
 				parameters.setDescriptionVisible(true);
+				parameters.setSearchPreferences(new SearchPreferences());
 				final IAdtRepositorySearchServiceUIResult result = AdtRepositorySearchServiceUIFactory
 					.createAdtRepositorySearchServiceUI()
 					.openDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), parameters);
@@ -225,7 +227,6 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 	}
 
 	private void validatePage(final IStatus status, final ValidationSource source) {
-		// every validation call triggers the dirty state
 		setDirty(true);
 		IStatus pageStatus = status;
 		boolean validateObjects = false;
@@ -310,7 +311,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 			if (type != null) {
 				image = type.getImage();
 			} else {
-				image = AdtToolsBasePlugin.getDefault().getImage(IGeneralWorkbenchImages.SAP_GUI_OBJECT);
+				image = AdtToolsBaseResources.getImage(IAdtToolsBaseImages.SAP_GUI_OBJECT);
 			}
 			return image;
 		}

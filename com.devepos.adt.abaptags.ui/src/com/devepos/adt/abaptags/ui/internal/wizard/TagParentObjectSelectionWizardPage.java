@@ -38,8 +38,8 @@ import com.devepos.adt.abaptags.ui.internal.dialogs.ParentObjectFilterDialog;
 import com.devepos.adt.abaptags.ui.internal.messages.Messages;
 import com.devepos.adt.abaptags.ui.internal.tree.TaggedObjectTreeContentProvider;
 import com.devepos.adt.abaptags.ui.internal.util.IImages;
-import com.devepos.adt.tools.base.AdtToolsBasePlugin;
-import com.devepos.adt.tools.base.IGeneralWorkbenchImages;
+import com.devepos.adt.tools.base.AdtToolsBaseResources;
+import com.devepos.adt.tools.base.IAdtToolsBaseImages;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.tools.base.ui.celleditor.ExtendedDialogCellEditor;
 import com.devepos.adt.tools.base.util.AdtUtil;
@@ -111,6 +111,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 						objectTag.setName(selectedTag.getName());
 						objectTag.setOwner(selectedTag.getOwner());
 						objectTag.setUserTag(selectedTag.getOwner() != null && !selectedTag.getOwner().isEmpty());
+						objectTag.setParentTagId(parentTag.getId());
 						objectTag.setParentTagName(parentTag.getName());
 						this.adtObjectTags.add(objectTag);
 					}
@@ -204,8 +205,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 			for (final ITaggedObject taggedObj : getWizard().getTaggedObjectList().getTaggedObjects()) {
 				pageComplete = !taggedObj.getTags()
 					.stream()
-					.anyMatch(
-						tag -> !StringUtil.isEmpty(tag.getParentTagName()) && StringUtil.isEmpty(tag.getParentObjectName()));
+					.anyMatch(tag -> !StringUtil.isEmpty(tag.getParentTagId()) && StringUtil.isEmpty(tag.getParentObjectName()));
 			}
 		}
 		getWizard().setCanFinish(pageComplete);
@@ -255,10 +255,10 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 					final TagSearchScope scope = tag.getOwner() != null && !tag.getOwner().isEmpty() ? TagSearchScope.USER
 						: TagSearchScope.GLOBAL;
 					final ParentObjectFilterDialog filterDialog = new ParentObjectFilterDialog(getShell(), destinationId,
-						tag.getParentTagName(), scope);
+						tag.getParentTagId(), scope);
 					filterDialog.open();
-					final Object selectedObj = filterDialog.getFirstResult();
-					if (selectedObj != null && selectedObj instanceof IAdtObjRef) {
+					final IAdtObjRef selectedObj = filterDialog.getFirstResult();
+					if (selectedObj != null) {
 						return selectedObj;
 					}
 					return null;
@@ -329,6 +329,8 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 					final String parentObject = objectTag.getParentObjectName();
 					if (parentObject != null && !parentObject.isEmpty()) {
 						text.append(parentObject);
+					} else {
+						text.append("<Click to assign parent object>", StyledString.QUALIFIER_STYLER);
 					}
 				}
 				break;
@@ -370,8 +372,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 			}
 			final IAdtObjectTypeInfoUi typeRef = TagParentObjectSelectionWizardPage.this.typeRegistryUi
 				.getObjectTypeByGlobalWorkbenchType(type);
-			return typeRef != null ? typeRef.getImage()
-				: AdtToolsBasePlugin.getDefault().getImage(IGeneralWorkbenchImages.SAP_GUI_OBJECT);
+			return typeRef != null ? typeRef.getImage() : AdtToolsBaseResources.getImage(IAdtToolsBaseImages.SAP_GUI_OBJECT);
 		}
 
 		@Override

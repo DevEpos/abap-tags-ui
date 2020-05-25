@@ -23,7 +23,6 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreeViewerColumn;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
@@ -47,6 +46,7 @@ import com.devepos.adt.abaptags.tagging.AdtObjTaggingServiceFactory;
 import com.devepos.adt.abaptags.tagging.IAdtObjTaggingService;
 import com.devepos.adt.abaptags.ui.internal.messages.Messages;
 import com.devepos.adt.abaptags.ui.internal.tree.TagLabelProvider;
+import com.devepos.adt.abaptags.ui.internal.tree.TagFilter;
 import com.devepos.adt.abaptags.ui.internal.tree.TagTreeContentProvider;
 import com.devepos.adt.abaptags.validation.TagListValidator;
 import com.devepos.adt.tools.base.destinations.DestinationUtil;
@@ -62,7 +62,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 	private Tree tagsTree;
 	private CheckboxTreeViewer checkBoxViewer;
 	private Text filterText;
-	private final TreePatternFilter patternFilter;
+	private final PatternFilter patternFilter;
 	private int objectCount;
 	private TreeViewerLabelProvider treeLabelProvider;
 	private TagTreeContentProvider treeContentProvider;
@@ -78,7 +78,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 	public TagSelectionWizardPage() {
 		super(PAGE_NAME);
 		setTitle(Messages.TagSelectionWizardPage_Title_xtit);
-		this.patternFilter = new TreePatternFilter();
+		this.patternFilter = new TagFilter();
 		this.patternFilter.setIncludeLeadingWildcard(true);
 	}
 
@@ -94,7 +94,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
 	@Override
 	public boolean canFlipToNextPage() {
-		return this.needsParentObjectSelection;
+		return isPageComplete() && StringUtil.isEmpty(getErrorMessage()) && this.needsParentObjectSelection;
 	}
 
 	@Override
@@ -145,6 +145,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 				objectTag.setUserTag(selectedTag.getOwner() != null && !selectedTag.getOwner().isEmpty());
 				final EObject parent = selectedTag.eContainer();
 				if (parent != null && parent instanceof ITag) {
+					objectTag.setParentTagId(((ITag) parent).getId());
 					objectTag.setParentTagName(((ITag) parent).getName());
 				}
 				taggedObject.getTags().add(objectTag);
@@ -257,9 +258,11 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 		if (previewInfo != null) {
 			this.objectCount = previewInfo.getAdtObjectRefs().size();
 			if (this.objectCount > 1) {
-				((Wizard) getWizard()).setWindowTitle(NLS.bind(Messages.TagObjectsWizard_MultipleObjectsWizardTitle_xtit, this.objectCount));
+				((Wizard) getWizard())
+					.setWindowTitle(NLS.bind(Messages.TagObjectsWizard_MultipleObjectsWizardTitle_xtit, this.objectCount));
 			} else {
-				((Wizard) getWizard()).setWindowTitle(Messages.TagObjectsWizard_SingleObjectWizardTitle_xtit + previewInfo.getAdtObjectRefs().get(0).getName());
+				((Wizard) getWizard()).setWindowTitle(
+					Messages.TagObjectsWizard_SingleObjectWizardTitle_xtit + previewInfo.getAdtObjectRefs().get(0).getName());
 			}
 			determinePreCheckedTags(previewInfo.getTags());
 			this.checkBoxViewer.setInput(previewInfo.getTags());
@@ -270,16 +273,13 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
 	private void determinePreCheckedTags(final EList<ITag> tags) {
 		for (final ITag tag : tags) {
-			final EObject parent = tag.eContainer();
-			final boolean isHierarchicalTag = parent != null && parent instanceof ITag || tag.isIsRoot();
-			if (isHierarchicalTag && tag.getTaggedObjectCount() > 0) {
+			if (tag.getTaggedObjectCount() > 0) {
 				this.preCheckedTags.add(tag);
 				if (tag.getTaggedObjectCount() == this.objectCount) {
 					this.uncheckableTags.add(tag);
 				}
-			} else {
-				determinePreCheckedTags(tag.getChildTags());
 			}
+			determinePreCheckedTags(tag.getChildTags());
 		}
 	}
 
@@ -480,10 +480,10 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 			tagStatus = new TagListValidator((List<ITag>) this.checkBoxViewer.getInput()).validate(true, false);
 		}
 		boolean isComplete = false;
+		this.needsParentObjectSelection = false;
 		if (tagStatus == null || tagStatus.isOK()) {
 			setErrorMessage(null);
 			isComplete = this.checkedTags.size() > 0;
-			this.needsParentObjectSelection = false;
 			if (!isComplete) {
 				getWizard().setCanFinish(false);
 			} else {
@@ -512,20 +512,9 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 		}
 	}
 
-	private class TreePatternFilter extends PatternFilter {
-		@Override
-		protected boolean isLeafMatch(final Viewer viewer, final Object element) {
-			if (element instanceof ITag) {
-				final ITag tag = (ITag) element;
-				return wordMatches(tag.getName());
-			}
-			return false;
-		}
-	}
-
 	private class TreeViewerLabelProvider extends TagLabelProvider {
 		public TreeViewerLabelProvider() {
-			super(false);
+			super(false, false);
 		}
 
 		@Override
