@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: com.devepos.adt.abaptags.model;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: com.devepos.adt.abaptags.model.AbapTagsModelPlugin
+Bundle-Activator: com.devepos.adt.atm.model.AbapTagsModelPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
@@ -14,17 +14,9 @@ Require-Bundle: org.eclipse.ui,
  com.devepos.adt.tools.base;visibility:=reexport,
  com.sap.adt.tools.core.base;visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: com.devepos.adt.abaptags;
-  x-friends:="com.devepos.adt.abaptags,
-   com.devepos.adt.abaptags.ui",
- com.devepos.adt.abaptags.impl;
-  x-friends:="com.devepos.adt.abaptags.ui,
-   com.devepos.adt.abaptags",
- com.devepos.adt.abaptags.util;
-  x-friends:="com.devepos.adt.abaptags.ui,
-   com.devepos.adt.abaptags",
- com.devepos.adt.abaptags.validation;
-  x-friends:="com.devepos.adt.abaptags,
-   com.devepos.adt.abaptags.ui"
+Export-Package: com.devepos.adt.atm.model.abaptags;x-friends:="com.devepos.adt.abaptags,com.devepos.adt.abaptags.ui",
+ com.devepos.adt.atm.model.abaptags.impl;x-internal:=true,
+ com.devepos.adt.atm.model.abaptags.util;x-internal:=true,
+ com.devepos.adt.atm.model.validation;x-friends:="com.devepos.adt.abaptags,com.devepos.adt.abaptags.ui"
 Automatic-Module-Name: com.devepos.adt.abaptags.model
 Bundle-ActivationPolicy: lazy

@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.devepos.adt.abaptags
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: com.devepos.adt.abaptags.AbapTagsPlugin
+Bundle-Activator: com.devepos.adt.atm.AbapTagsPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: OSGI-INF/l10n/bundle
 Require-Bundle: com.sap.adt.compatibility,
@@ -16,9 +16,9 @@ Require-Bundle: com.sap.adt.compatibility,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: com.devepos.adt.abaptags
 Bundle-ActivationPolicy: lazy
-Export-Package: com.devepos.adt.abaptags;x-friends:="com.devepos.adt.abaptags.ui",
- com.devepos.adt.abaptags.internal.tagging;x-friends:="com.devepos.adt.abaptags.ui",
- com.devepos.adt.abaptags.internal.tags;x-friends:="com.devepos.adt.abaptags.ui",
- com.devepos.adt.abaptags.search;x-friends:="com.devepos.adt.abaptags.ui",
- com.devepos.adt.abaptags.tagging;x-friends:="com.devepos.adt.abaptags.ui",
- com.devepos.adt.abaptags.tags;x-friends:="com.devepos.adt.abaptags.ui"
+Export-Package: com.devepos.adt.atm;x-friends:="com.devepos.adt.abaptags.ui",
+ com.devepos.adt.atm.internal.tagging;x-friends:="com.devepos.adt.abaptags.ui",
+ com.devepos.adt.atm.internal.tags;x-friends:="com.devepos.adt.abaptags.ui",
+ com.devepos.adt.atm.search;x-friends:="com.devepos.adt.abaptags.ui",
+ com.devepos.adt.atm.tagging;x-friends:="com.devepos.adt.abaptags.ui",
+ com.devepos.adt.atm.tags;x-friends:="com.devepos.adt.abaptags.ui"

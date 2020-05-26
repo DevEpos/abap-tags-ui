@@ -31,15 +31,15 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="com.devepos.adt.abaptags.ui.internal.handlers.ManageTagsHandler"
+            class="com.devepos.adt.atm.ui.internal.handlers.ManageTagsHandler"
             commandId="com.devepos.adt.abaptags.ui.command.manageTags">
       </handler>
       <handler
-            class="com.devepos.adt.abaptags.ui.internal.handlers.AddTagsToSelectedObjectsHandler"
+            class="com.devepos.adt.atm.ui.internal.handlers.AddTagsToSelectedObjectsHandler"
             commandId="com.devepos.adt.abaptags.ui.command.tagSelectedObjects">
       </handler>
       <handler
-            class="com.devepos.adt.abaptags.ui.internal.handlers.AddTagsToObjectsHandler"
+            class="com.devepos.adt.atm.ui.internal.handlers.AddTagsToObjectsHandler"
             commandId="com.devepos.adt.abaptags.ui.command.tagObjects">
       </handler>
     </extension>
@@ -158,7 +158,7 @@
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
-            class="com.devepos.adt.abaptags.ui.internal.propertytester.FeatureTester"
+            class="com.devepos.adt.atm.ui.internal.propertytester.FeatureTester"
             id="com.devepos.adt.abaptags.ui.ProjectFeatureTester"
             namespace="com.devepos.adt.abaptags.ui.features"
             properties="abaptagsAvailable"
@@ -168,16 +168,16 @@
    <extension
          point="org.eclipse.search.searchResultViewPages">
       <viewPage
-            class="com.devepos.adt.abaptags.ui.internal.search.TaggedObjectSearchResultPage"
+            class="com.devepos.adt.atm.ui.internal.search.TaggedObjectSearchResultPage"
             icon="icons/Tag.png"
             id="com.devepos.adt.abaptags.ui.searchresultpage.tags"
-            searchResultClass="com.devepos.adt.abaptags.ui.internal.search.TaggedObjectSearchResult">
+            searchResultClass="com.devepos.adt.atm.ui.internal.search.TaggedObjectSearchResult">
       </viewPage>
    </extension>
    <extension
          point="org.eclipse.search.searchPages">
       <page
-            class="com.devepos.adt.abaptags.ui.internal.search.TaggedObjectSearchPage"
+            class="com.devepos.adt.atm.ui.internal.search.TaggedObjectSearchPage"
             icon="icons/Tag.png"
             id="com.devepos.adt.abaptags.ui.searchpage.tags"
             label="%tag.searchpage.label"

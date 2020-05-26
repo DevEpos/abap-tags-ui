@@ -10,7 +10,7 @@
       <!-- @generated abaptags -->
       <package
             uri="http://www.devepos.com/adt/atm"
-            class="com.devepos.adt.abaptags.IAbapTagsPackage"
+            class="com.devepos.adt.atm.model.abaptags.IAbapTagsPackage"
             genModel="model/abaptags.genmodel"/>
    </extension>
 
@@ -18,7 +18,6 @@
       <!-- @generated abaptags -->
       <parser
             type="abaptags"
-            class="com.devepos.adt.abaptags.util.AbapTagsResourceFactory"/>
+            class="com.devepos.adt.atm.model.abaptags.util.AbapTagsResourceFactory"/>
    </extension>
-
 </plugin>

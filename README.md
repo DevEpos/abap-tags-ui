@@ -1,4 +1,4 @@
-# abap-search-tools-ui
+# abap-tags-ui
 ABAP Tags eclipse plugin
 
 ## Update Sites

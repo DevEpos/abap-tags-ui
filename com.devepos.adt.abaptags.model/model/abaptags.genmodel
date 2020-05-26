@@ -7,8 +7,8 @@
     interfaceNamePattern="I{0}" classNamePattern="{0}" operationReflection="true"
     importOrganizing="true">
   <foreignModel>abaptags.ecore</foreignModel>
-  <genPackages prefix="AbapTags" basePackage="com.devepos.adt" resource="XML" disposableProviderFactory="true"
-      ecorePackage="abaptags.ecore#/">
+  <genPackages prefix="AbapTags" basePackage="com.devepos.adt.atm.model" resource="XML"
+      disposableProviderFactory="true" ecorePackage="abaptags.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="abaptags.ecore#//TagSearchScope">
       <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagSearchScope/ALL"/>
       <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagSearchScope/GLOBAL"/>

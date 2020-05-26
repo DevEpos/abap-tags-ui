@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.devepos.adt.abaptags.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: com.devepos.adt.abaptags.ui.AbapTagsUIPlugin
+Bundle-Activator: com.devepos.adt.atm.ui.AbapTagsUIPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: OSGI-INF/l10n/bundle
 Require-Bundle: com.devepos.adt.abaptags.model,
