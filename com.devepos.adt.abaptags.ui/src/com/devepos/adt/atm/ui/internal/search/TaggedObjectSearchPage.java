@@ -32,6 +32,7 @@ import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
+import com.devepos.adt.atm.model.abaptags.TagInfoType;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
@@ -106,11 +107,18 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 			return false;
 		}
 		this.prefStore.setValue(LAST_PROJECT_PREF, this.projectProvider.getProjectName());
+
 		final ITaggedObjectSearchParams searchParams = IAbapTagsFactory.eINSTANCE.createTaggedObjectSearchParams();
 		searchParams.setMaxResults(50); // TODO: read from preferences
+		searchParams.setWithTagInfo(true);
+		searchParams.setTagInfoType(TagInfoType.CHILDREN);
+
 		this.checkedTags.forEach(tag -> searchParams.addTag(tag));
+		searchParams.setMatchesAllTags(this.matchAllTagsButton.getSelection());
+
 		final TaggedObjectSearchQuery searchQuery = new TaggedObjectSearchQuery(searchParams);
 		searchQuery.setProjectProvider(this.projectProvider);
+
 		NewSearchUI.runQueryInBackground(searchQuery);
 		return true;
 	}
@@ -136,14 +144,9 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 	}
 
 	private void createProjectInput(final Composite parent) {
-//		final Group projectGroup = new Group(parent, SWT.NONE);
-//		GridDataFactory.fillDefaults().grab(true, false).applyTo(projectGroup);
-//		GridLayoutFactory.swtDefaults().applyTo(projectGroup);
-
 		this.projectInput = new ProjectInput();
 		this.projectProvider = this.projectInput.getProjectProvider();
 
-//		this.projectInput.createControl(projectGroup);
 		this.projectInput.createControl(parent);
 		this.projectInput.addProjectValidator((project) -> {
 			final IStatus loggedOnStatus = AdtUtil.ensureLoggedOnToProject(project);
@@ -152,7 +155,6 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 			}
 			return AbapTagsServiceFactory.createTagsService().testTagsFeatureAvailability(project);
 		});
-//		projectGroup.setText("Scope");
 	}
 
 	private void createTagsTree(final Composite parent) {
@@ -249,6 +251,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 				}
 				this.currentProject = newProject;
 			} else {
+				this.currentProject = null;
 				this.tagList.getTags().clear();
 				this.tagsTreeViewer.refresh();
 			}

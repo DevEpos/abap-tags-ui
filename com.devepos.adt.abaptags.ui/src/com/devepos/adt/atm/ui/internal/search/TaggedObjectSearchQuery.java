@@ -89,13 +89,6 @@ public class TaggedObjectSearchQuery implements ISearchQuery {
 		return this.searchResult;
 	}
 
-	public String getQuery() {
-		if (this.searchParams != null) {
-			return this.searchParams.getTags();
-		}
-		return ""; //$NON-NLS-1$
-	}
-
 	public String getDestinationId() {
 		return this.projectProvider != null ? this.projectProvider.getDestinationId()
 			: this.destinationId != null ? this.destinationId : "";
@@ -124,5 +117,12 @@ public class TaggedObjectSearchQuery implements ISearchQuery {
 			final IDestinationData destData = this.projectProvider.getDestinationData();
 			return String.format("%s-%s", destData.getSystemConfiguration().getSystemId(), destData.getClient());
 		}
+	}
+
+	private String getQuery() {
+		if (this.searchParams != null) {
+			return this.searchParams.getTags();
+		}
+		return ""; //$NON-NLS-1$
 	}
 }
