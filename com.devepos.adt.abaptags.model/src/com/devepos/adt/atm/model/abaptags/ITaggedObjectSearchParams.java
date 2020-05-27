@@ -8,31 +8,24 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Tagged
  * Object Search Params</b></em>'. <!-- end-user-doc -->
+ *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getTagIds
- * <em>Tag Ids</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getSearchScope
- * <em>Search Scope</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getQuery
- * <em>Query</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getMaxResults
- * <em>Max Results</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isMatchesAllTags
- * <em>Matches All Tags</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isWithTagInfo
- * <em>With Tag Info</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isWithFullTagInfo
- * <em>With Full Tag Info</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isQueryIsObjectUri
- * <em>Query Is Object Uri</em>}</li>
+ *   <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getTagIds <em>Tag Ids</em>}</li>
+ *   <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getSearchScope <em>Search Scope</em>}</li>
+ *   <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getQuery <em>Query</em>}</li>
+ *   <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getQueryType <em>Query Type</em>}</li>
+ *   <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getQueryFocus <em>Query Focus</em>}</li>
+ *   <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getMaxResults <em>Max Results</em>}</li>
+ *   <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isMatchesAllTags <em>Matches All Tags</em>}</li>
+ *   <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isWithTagInfo <em>With Tag Info</em>}</li>
+ *   <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getTagInfoType <em>Tag Info Type</em>}</li>
  * </ul>
  *
- * @see       com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectSearchParams()
- * @model     extendedMetaData="kind='elementOnly'
- *            name='taggedObjectSearchParams'"
+ * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectSearchParams()
+ * @model extendedMetaData="kind='elementOnly' name='taggedObjectSearchParams'"
  * @generated
  */
 public interface ITaggedObjectSearchParams extends EObject {
@@ -54,14 +47,13 @@ public interface ITaggedObjectSearchParams extends EObject {
 	String getTags();
 
 	/**
-	 * Returns the value of the '<em><b>Tag Ids</b></em>' attribute list. The list
-	 * contents are of type {@link java.lang.String}. <!-- begin-user-doc --> <!--
+	 * Returns the value of the '<em><b>Tag Ids</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @return    the value of the '<em>Tag Ids</em>' attribute list.
-	 * @see       com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectSearchParams_TagIds()
-	 * @model     extendedMetaData="kind='element' name='tagId'
-	 *            namespace='##targetNamespace'"
+	 * @return the value of the '<em>Tag Ids</em>' attribute list.
+	 * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectSearchParams_TagIds()
+	 * @model extendedMetaData="kind='element' name='tagId' namespace='##targetNamespace'"
 	 * @generated
 	 */
 	EList<String> getTagIds();
@@ -109,15 +101,63 @@ public interface ITaggedObjectSearchParams extends EObject {
 	String getQuery();
 
 	/**
-	 * Sets the value of the
-	 * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getQuery
-	 * <em>Query</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param     value the new value of the '<em>Query</em>' attribute.
-	 * @see             #getQuery()
+	 * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getQuery <em>Query</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Query</em>' attribute.
+	 * @see #getQuery()
 	 * @generated
 	 */
 	void setQuery(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Query Type</b></em>' attribute.
+	 * The literals are from the enumeration {@link com.devepos.adt.atm.model.abaptags.TagQueryType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Query Type</em>' attribute.
+	 * @see com.devepos.adt.atm.model.abaptags.TagQueryType
+	 * @see #setQueryType(TagQueryType)
+	 * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectSearchParams_QueryType()
+	 * @model extendedMetaData="kind='attribute' name='queryType' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	TagQueryType getQueryType();
+
+	/**
+	 * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getQueryType <em>Query Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Query Type</em>' attribute.
+	 * @see com.devepos.adt.atm.model.abaptags.TagQueryType
+	 * @see #getQueryType()
+	 * @generated
+	 */
+	void setQueryType(TagQueryType value);
+
+	/**
+	 * Returns the value of the '<em><b>Query Focus</b></em>' attribute.
+	 * The literals are from the enumeration {@link com.devepos.adt.atm.model.abaptags.TagQueryFocus}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Query Focus</em>' attribute.
+	 * @see com.devepos.adt.atm.model.abaptags.TagQueryFocus
+	 * @see #setQueryFocus(TagQueryFocus)
+	 * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectSearchParams_QueryFocus()
+	 * @model extendedMetaData="kind='attribute' name='queryFocus' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	TagQueryFocus getQueryFocus();
+
+	/**
+	 * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getQueryFocus <em>Query Focus</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Query Focus</em>' attribute.
+	 * @see com.devepos.adt.atm.model.abaptags.TagQueryFocus
+	 * @see #getQueryFocus()
+	 * @generated
+	 */
+	void setQueryFocus(TagQueryFocus value);
 
 	/**
 	 * Returns the value of the '<em><b>Max Results</b></em>' attribute. <!--
@@ -158,13 +198,11 @@ public interface ITaggedObjectSearchParams extends EObject {
 	boolean isMatchesAllTags();
 
 	/**
-	 * Sets the value of the
-	 * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isMatchesAllTags
-	 * <em>Matches All Tags</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isMatchesAllTags <em>Matches All Tags</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @param     value the new value of the '<em>Matches All Tags</em>' attribute.
-	 * @see             #isMatchesAllTags()
+	 * @param value the new value of the '<em>Matches All Tags</em>' attribute.
+	 * @see #isMatchesAllTags()
 	 * @generated
 	 */
 	void setMatchesAllTags(boolean value);
@@ -195,55 +233,28 @@ public interface ITaggedObjectSearchParams extends EObject {
 	void setWithTagInfo(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>With Full Tag Info</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return    the value of the '<em>With Full Tag Info</em>' attribute.
-	 * @see       #setWithFullTagInfo(boolean)
-	 * @see       com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectSearchParams_WithFullTagInfo()
-	 * @model     extendedMetaData="kind='attribute' name='withFullTagInfo'
-	 *            namespace='##targetNamespace'"
+	 * Returns the value of the '<em><b>Tag Info Type</b></em>' attribute.
+	 * The literals are from the enumeration {@link com.devepos.adt.atm.model.abaptags.TagInfoType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Tag Info Type</em>' attribute.
+	 * @see com.devepos.adt.atm.model.abaptags.TagInfoType
+	 * @see #setTagInfoType(TagInfoType)
+	 * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectSearchParams_TagInfoType()
+	 * @model extendedMetaData="kind='attribute' name='tagInfoType' namespace='##targetNamespace'"
 	 * @generated
 	 */
-	boolean isWithFullTagInfo();
+	TagInfoType getTagInfoType();
 
 	/**
-	 * Sets the value of the
-	 * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isWithFullTagInfo
-	 * <em>With Full Tag Info</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @param     value the new value of the '<em>With Full Tag Info</em>'
-	 *                  attribute.
-	 * @see             #isWithFullTagInfo()
+	 * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getTagInfoType <em>Tag Info Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Tag Info Type</em>' attribute.
+	 * @see com.devepos.adt.atm.model.abaptags.TagInfoType
+	 * @see #getTagInfoType()
 	 * @generated
 	 */
-	void setWithFullTagInfo(boolean value);
-
-	/**
-	 * Returns the value of the '<em><b>Query Is Object Uri</b></em>' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return    the value of the '<em>Query Is Object Uri</em>' attribute.
-	 * @see       #setQueryIsObjectUri(boolean)
-	 * @see       com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectSearchParams_QueryIsObjectUri()
-	 * @model     extendedMetaData="kind='attribute' name='queryIsObjectUri'
-	 *            namespace='##targetNamespace'"
-	 * @generated
-	 */
-	boolean isQueryIsObjectUri();
-
-	/**
-	 * Sets the value of the
-	 * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isQueryIsObjectUri
-	 * <em>Query Is Object Uri</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @param     value the new value of the '<em>Query Is Object Uri</em>'
-	 *                  attribute.
-	 * @see             #isQueryIsObjectUri()
-	 * @generated
-	 */
-	void setQueryIsObjectUri(boolean value);
+	void setTagInfoType(TagInfoType value);
 
 } // ITaggedObjectSearchParams

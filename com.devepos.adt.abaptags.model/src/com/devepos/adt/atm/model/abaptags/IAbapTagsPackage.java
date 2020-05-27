@@ -168,22 +168,13 @@ public interface IAbapTagsPackage extends EPackage {
 	int TAG__CHILD_TAGS = TAG_BASE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Is Root</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TAG__IS_ROOT = TAG_BASE_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Created By</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CREATED_BY = TAG_BASE_FEATURE_COUNT + 3;
+	int TAG__CREATED_BY = TAG_BASE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Created Date Time</b></em>' attribute.
@@ -192,7 +183,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CREATED_DATE_TIME = TAG_BASE_FEATURE_COUNT + 4;
+	int TAG__CREATED_DATE_TIME = TAG_BASE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Changed By</b></em>' attribute.
@@ -201,7 +192,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CHANGED_BY = TAG_BASE_FEATURE_COUNT + 5;
+	int TAG__CHANGED_BY = TAG_BASE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Changed Date Time</b></em>' attribute.
@@ -210,7 +201,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CHANGED_DATE_TIME = TAG_BASE_FEATURE_COUNT + 6;
+	int TAG__CHANGED_DATE_TIME = TAG_BASE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Tagged Object Count</b></em>' attribute.
@@ -219,7 +210,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__TAGGED_OBJECT_COUNT = TAG_BASE_FEATURE_COUNT + 7;
+	int TAG__TAGGED_OBJECT_COUNT = TAG_BASE_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Changed</b></em>' attribute.
@@ -228,7 +219,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CHANGED = TAG_BASE_FEATURE_COUNT + 8;
+	int TAG__CHANGED = TAG_BASE_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Parent Tag Id</b></em>' attribute.
@@ -237,7 +228,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__PARENT_TAG_ID = TAG_BASE_FEATURE_COUNT + 9;
+	int TAG__PARENT_TAG_ID = TAG_BASE_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of structural features of the '<em>Tag</em>' class.
@@ -246,7 +237,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 10;
+	int TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of operations of the '<em>Tag</em>' class.
@@ -570,13 +561,31 @@ public interface IAbapTagsPackage extends EPackage {
 	int TAGGED_OBJECT_SEARCH_PARAMS__QUERY = 2;
 
 	/**
+	 * The feature id for the '<em><b>Query Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_OBJECT_SEARCH_PARAMS__QUERY_TYPE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Query Focus</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_OBJECT_SEARCH_PARAMS__QUERY_FOCUS = 4;
+
+	/**
 	 * The feature id for the '<em><b>Max Results</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TAGGED_OBJECT_SEARCH_PARAMS__MAX_RESULTS = 3;
+	int TAGGED_OBJECT_SEARCH_PARAMS__MAX_RESULTS = 5;
 
 	/**
 	 * The feature id for the '<em><b>Matches All Tags</b></em>' attribute.
@@ -585,7 +594,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAGGED_OBJECT_SEARCH_PARAMS__MATCHES_ALL_TAGS = 4;
+	int TAGGED_OBJECT_SEARCH_PARAMS__MATCHES_ALL_TAGS = 6;
 
 	/**
 	 * The feature id for the '<em><b>With Tag Info</b></em>' attribute.
@@ -594,25 +603,16 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAGGED_OBJECT_SEARCH_PARAMS__WITH_TAG_INFO = 5;
+	int TAGGED_OBJECT_SEARCH_PARAMS__WITH_TAG_INFO = 7;
 
 	/**
-	 * The feature id for the '<em><b>With Full Tag Info</b></em>' attribute.
+	 * The feature id for the '<em><b>Tag Info Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TAGGED_OBJECT_SEARCH_PARAMS__WITH_FULL_TAG_INFO = 6;
-
-	/**
-	 * The feature id for the '<em><b>Query Is Object Uri</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TAGGED_OBJECT_SEARCH_PARAMS__QUERY_IS_OBJECT_URI = 7;
+	int TAGGED_OBJECT_SEARCH_PARAMS__TAG_INFO_TYPE = 8;
 
 	/**
 	 * The number of structural features of the '<em>Tagged Object Search Params</em>' class.
@@ -621,7 +621,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAGGED_OBJECT_SEARCH_PARAMS_FEATURE_COUNT = 8;
+	int TAGGED_OBJECT_SEARCH_PARAMS_FEATURE_COUNT = 9;
 
 	/**
 	 * The number of operations of the '<em>Tagged Object Search Params</em>' class.
@@ -641,6 +641,38 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 */
 	int TAG_SEARCH_SCOPE = 8;
+
+
+	/**
+	 * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagQueryType <em>Tag Query Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.devepos.adt.atm.model.abaptags.TagQueryType
+	 * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagQueryType()
+	 * @generated
+	 */
+	int TAG_QUERY_TYPE = 9;
+
+	/**
+	 * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagInfoType <em>Tag Info Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.devepos.adt.atm.model.abaptags.TagInfoType
+	 * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagInfoType()
+	 * @generated
+	 */
+	int TAG_INFO_TYPE = 10;
+
+
+	/**
+	 * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagQueryFocus <em>Tag Query Focus</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.devepos.adt.atm.model.abaptags.TagQueryFocus
+	 * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagQueryFocus()
+	 * @generated
+	 */
+	int TAG_QUERY_FOCUS = 11;
 
 
 	/**
@@ -717,17 +749,6 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTag_ChildTags();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.devepos.adt.atm.model.abaptags.ITag#isIsRoot <em>Is Root</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Root</em>'.
-	 * @see com.devepos.adt.atm.model.abaptags.ITag#isIsRoot()
-	 * @see #getTag()
-	 * @generated
-	 */
-	EAttribute getTag_IsRoot();
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.devepos.adt.atm.model.abaptags.ITag#getCreatedBy <em>Created By</em>}'.
@@ -1032,6 +1053,28 @@ public interface IAbapTagsPackage extends EPackage {
 	EAttribute getTaggedObjectSearchParams_Query();
 
 	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getQueryType <em>Query Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Query Type</em>'.
+	 * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getQueryType()
+	 * @see #getTaggedObjectSearchParams()
+	 * @generated
+	 */
+	EAttribute getTaggedObjectSearchParams_QueryType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getQueryFocus <em>Query Focus</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Query Focus</em>'.
+	 * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getQueryFocus()
+	 * @see #getTaggedObjectSearchParams()
+	 * @generated
+	 */
+	EAttribute getTaggedObjectSearchParams_QueryFocus();
+
+	/**
 	 * Returns the meta object for the attribute '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getMaxResults <em>Max Results</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1065,26 +1108,15 @@ public interface IAbapTagsPackage extends EPackage {
 	EAttribute getTaggedObjectSearchParams_WithTagInfo();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isWithFullTagInfo <em>With Full Tag Info</em>}'.
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getTagInfoType <em>Tag Info Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>With Full Tag Info</em>'.
-	 * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isWithFullTagInfo()
+	 * @return the meta object for the attribute '<em>Tag Info Type</em>'.
+	 * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getTagInfoType()
 	 * @see #getTaggedObjectSearchParams()
 	 * @generated
 	 */
-	EAttribute getTaggedObjectSearchParams_WithFullTagInfo();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isQueryIsObjectUri <em>Query Is Object Uri</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Query Is Object Uri</em>'.
-	 * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isQueryIsObjectUri()
-	 * @see #getTaggedObjectSearchParams()
-	 * @generated
-	 */
-	EAttribute getTaggedObjectSearchParams_QueryIsObjectUri();
+	EAttribute getTaggedObjectSearchParams_TagInfoType();
 
 	/**
 	 * Returns the meta object for enum '{@link com.devepos.adt.atm.model.abaptags.TagSearchScope <em>Tag Search Scope</em>}'.
@@ -1095,6 +1127,36 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getTagSearchScope();
+
+	/**
+	 * Returns the meta object for enum '{@link com.devepos.adt.atm.model.abaptags.TagQueryType <em>Tag Query Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Tag Query Type</em>'.
+	 * @see com.devepos.adt.atm.model.abaptags.TagQueryType
+	 * @generated
+	 */
+	EEnum getTagQueryType();
+
+	/**
+	 * Returns the meta object for enum '{@link com.devepos.adt.atm.model.abaptags.TagInfoType <em>Tag Info Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Tag Info Type</em>'.
+	 * @see com.devepos.adt.atm.model.abaptags.TagInfoType
+	 * @generated
+	 */
+	EEnum getTagInfoType();
+
+	/**
+	 * Returns the meta object for enum '{@link com.devepos.adt.atm.model.abaptags.TagQueryFocus <em>Tag Query Focus</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Tag Query Focus</em>'.
+	 * @see com.devepos.adt.atm.model.abaptags.TagQueryFocus
+	 * @generated
+	 */
+	EEnum getTagQueryFocus();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1178,14 +1240,6 @@ public interface IAbapTagsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference TAG__CHILD_TAGS = eINSTANCE.getTag_ChildTags();
-
-		/**
-		 * The meta object literal for the '<em><b>Is Root</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TAG__IS_ROOT = eINSTANCE.getTag_IsRoot();
 
 		/**
 		 * The meta object literal for the '<em><b>Created By</b></em>' attribute feature.
@@ -1424,6 +1478,22 @@ public interface IAbapTagsPackage extends EPackage {
 		EAttribute TAGGED_OBJECT_SEARCH_PARAMS__QUERY = eINSTANCE.getTaggedObjectSearchParams_Query();
 
 		/**
+		 * The meta object literal for the '<em><b>Query Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAGGED_OBJECT_SEARCH_PARAMS__QUERY_TYPE = eINSTANCE.getTaggedObjectSearchParams_QueryType();
+
+		/**
+		 * The meta object literal for the '<em><b>Query Focus</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAGGED_OBJECT_SEARCH_PARAMS__QUERY_FOCUS = eINSTANCE.getTaggedObjectSearchParams_QueryFocus();
+
+		/**
 		 * The meta object literal for the '<em><b>Max Results</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1448,20 +1518,12 @@ public interface IAbapTagsPackage extends EPackage {
 		EAttribute TAGGED_OBJECT_SEARCH_PARAMS__WITH_TAG_INFO = eINSTANCE.getTaggedObjectSearchParams_WithTagInfo();
 
 		/**
-		 * The meta object literal for the '<em><b>With Full Tag Info</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Tag Info Type</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute TAGGED_OBJECT_SEARCH_PARAMS__WITH_FULL_TAG_INFO = eINSTANCE.getTaggedObjectSearchParams_WithFullTagInfo();
-
-		/**
-		 * The meta object literal for the '<em><b>Query Is Object Uri</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TAGGED_OBJECT_SEARCH_PARAMS__QUERY_IS_OBJECT_URI = eINSTANCE.getTaggedObjectSearchParams_QueryIsObjectUri();
+		EAttribute TAGGED_OBJECT_SEARCH_PARAMS__TAG_INFO_TYPE = eINSTANCE.getTaggedObjectSearchParams_TagInfoType();
 
 		/**
 		 * The meta object literal for the '{@link com.devepos.adt.atm.model.abaptags.TagSearchScope <em>Tag Search Scope</em>}' enum.
@@ -1472,6 +1534,36 @@ public interface IAbapTagsPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum TAG_SEARCH_SCOPE = eINSTANCE.getTagSearchScope();
+
+		/**
+		 * The meta object literal for the '{@link com.devepos.adt.atm.model.abaptags.TagQueryType <em>Tag Query Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.devepos.adt.atm.model.abaptags.TagQueryType
+		 * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagQueryType()
+		 * @generated
+		 */
+		EEnum TAG_QUERY_TYPE = eINSTANCE.getTagQueryType();
+
+		/**
+		 * The meta object literal for the '{@link com.devepos.adt.atm.model.abaptags.TagInfoType <em>Tag Info Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.devepos.adt.atm.model.abaptags.TagInfoType
+		 * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagInfoType()
+		 * @generated
+		 */
+		EEnum TAG_INFO_TYPE = eINSTANCE.getTagInfoType();
+
+		/**
+		 * The meta object literal for the '{@link com.devepos.adt.atm.model.abaptags.TagQueryFocus <em>Tag Query Focus</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.devepos.adt.atm.model.abaptags.TagQueryFocus
+		 * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagQueryFocus()
+		 * @generated
+		 */
+		EEnum TAG_QUERY_FOCUS = eINSTANCE.getTagQueryFocus();
 
 	}
 

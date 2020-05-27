@@ -51,13 +51,6 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isRoot" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="attribute"/>
-        <details key="name" value="isRoot"/>
-        <details key="namespace" value="##targetNamespace"/>
-      </eAnnotations>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="createdBy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -246,6 +239,20 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="queryType" eType="#//TagQueryType">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="kind" value="attribute"/>
+        <details key="name" value="queryType"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="queryFocus" eType="#//TagQueryFocus">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="kind" value="attribute"/>
+        <details key="name" value="queryFocus"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxResults" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="attribute"/>
@@ -267,17 +274,10 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="withFullTagInfo" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tagInfoType" eType="#//TagInfoType">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="attribute"/>
-        <details key="name" value="withFullTagInfo"/>
-        <details key="namespace" value="##targetNamespace"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="queryIsObjectUri" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="attribute"/>
-        <details key="name" value="queryIsObjectUri"/>
+        <details key="name" value="tagInfoType"/>
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
@@ -286,5 +286,18 @@
     <eLiterals name="ALL" literal="all"/>
     <eLiterals name="GLOBAL" value="1" literal="global"/>
     <eLiterals name="USER" value="2" literal="user"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TagQueryType">
+    <eLiterals name="OBJECT_NAME" literal="objectName"/>
+    <eLiterals name="OBJECT_URI" value="1" literal="objectUri"/>
+    <eLiterals name="OBJECT_NAME_TYPE_COMBO" value="2" literal="objectNameTypeCombo"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TagInfoType">
+    <eLiterals name="ALL" literal="all"/>
+    <eLiterals name="CHILDREN" value="1" literal="children"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TagQueryFocus">
+    <eLiterals name="OBJECT" literal="object"/>
+    <eLiterals name="PARENT_OBJECT" value="1" literal="parentObject"/>
   </eClassifiers>
 </ecore:EPackage>

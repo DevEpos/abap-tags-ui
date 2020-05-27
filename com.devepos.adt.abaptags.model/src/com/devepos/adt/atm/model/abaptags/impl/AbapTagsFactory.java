@@ -79,6 +79,12 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
 		switch (eDataType.getClassifierID()) {
 			case IAbapTagsPackage.TAG_SEARCH_SCOPE:
 				return createTagSearchScopeFromString(eDataType, initialValue);
+			case IAbapTagsPackage.TAG_QUERY_TYPE:
+				return createTagQueryTypeFromString(eDataType, initialValue);
+			case IAbapTagsPackage.TAG_INFO_TYPE:
+				return createTagInfoTypeFromString(eDataType, initialValue);
+			case IAbapTagsPackage.TAG_QUERY_FOCUS:
+				return createTagQueryFocusFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -94,6 +100,12 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
 		switch (eDataType.getClassifierID()) {
 			case IAbapTagsPackage.TAG_SEARCH_SCOPE:
 				return convertTagSearchScopeToString(eDataType, instanceValue);
+			case IAbapTagsPackage.TAG_QUERY_TYPE:
+				return convertTagQueryTypeToString(eDataType, instanceValue);
+			case IAbapTagsPackage.TAG_INFO_TYPE:
+				return convertTagInfoTypeToString(eDataType, instanceValue);
+			case IAbapTagsPackage.TAG_QUERY_FOCUS:
+				return convertTagQueryFocusToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -193,6 +205,66 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
 	 * @generated
 	 */
 	public String convertTagSearchScopeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TagQueryType createTagQueryTypeFromString(EDataType eDataType, String initialValue) {
+		TagQueryType result = TagQueryType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTagQueryTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TagInfoType createTagInfoTypeFromString(EDataType eDataType, String initialValue) {
+		TagInfoType result = TagInfoType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTagInfoTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TagQueryFocus createTagQueryFocusFromString(EDataType eDataType, String initialValue) {
+		TagQueryFocus result = TagQueryFocus.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTagQueryFocusToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

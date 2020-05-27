@@ -14,6 +14,19 @@
       <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagSearchScope/GLOBAL"/>
       <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagSearchScope/USER"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="abaptags.ecore#//TagQueryType">
+      <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagQueryType/OBJECT_NAME"/>
+      <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagQueryType/OBJECT_URI"/>
+      <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagQueryType/OBJECT_NAME_TYPE_COMBO"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="abaptags.ecore#//TagInfoType">
+      <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagInfoType/ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagInfoType/CHILDREN"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="abaptags.ecore#//TagQueryFocus">
+      <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagQueryFocus/OBJECT"/>
+      <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagQueryFocus/PARENT_OBJECT"/>
+    </genEnums>
     <genClasses ecoreClass="abaptags.ecore#//TagBase">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TagBase/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TagBase/name"/>
@@ -22,7 +35,6 @@
     <genClasses ecoreClass="abaptags.ecore#//Tag">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//Tag/childTags"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/isRoot"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/createdBy"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/createdDateTime"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/changedBy"/>
@@ -57,11 +69,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/tagIds"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/searchScope"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/query"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/queryType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/queryFocus"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/maxResults"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/matchesAllTags"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/withTagInfo"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/withFullTagInfo"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/queryIsObjectUri"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/tagInfoType"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

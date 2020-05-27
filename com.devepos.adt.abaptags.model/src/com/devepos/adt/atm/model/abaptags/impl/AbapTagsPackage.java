@@ -12,6 +12,9 @@ import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
+import com.devepos.adt.atm.model.abaptags.TagInfoType;
+import com.devepos.adt.atm.model.abaptags.TagQueryFocus;
+import com.devepos.adt.atm.model.abaptags.TagQueryType;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 
 import com.devepos.adt.tools.base.model.adtbase.IAdtBasePackage;
@@ -93,6 +96,27 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	private EEnum tagSearchScopeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum tagQueryTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum tagInfoTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum tagQueryFocusEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -234,7 +258,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTag_IsRoot() {
+	public EAttribute getTag_CreatedBy() {
 		return (EAttribute)tagEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -244,7 +268,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTag_CreatedBy() {
+	public EAttribute getTag_CreatedDateTime() {
 		return (EAttribute)tagEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -254,7 +278,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTag_CreatedDateTime() {
+	public EAttribute getTag_ChangedBy() {
 		return (EAttribute)tagEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -264,7 +288,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTag_ChangedBy() {
+	public EAttribute getTag_ChangedDateTime() {
 		return (EAttribute)tagEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -274,7 +298,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTag_ChangedDateTime() {
+	public EAttribute getTag_TaggedObjectCount() {
 		return (EAttribute)tagEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -284,7 +308,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTag_TaggedObjectCount() {
+	public EAttribute getTag_Changed() {
 		return (EAttribute)tagEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -294,18 +318,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTag_Changed() {
-		return (EAttribute)tagEClass.getEStructuralFeatures().get(8);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EAttribute getTag_ParentTagId() {
-		return (EAttribute)tagEClass.getEStructuralFeatures().get(9);
+		return (EAttribute)tagEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -524,7 +538,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTaggedObjectSearchParams_MaxResults() {
+	public EAttribute getTaggedObjectSearchParams_QueryType() {
 		return (EAttribute)taggedObjectSearchParamsEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -534,7 +548,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTaggedObjectSearchParams_MatchesAllTags() {
+	public EAttribute getTaggedObjectSearchParams_QueryFocus() {
 		return (EAttribute)taggedObjectSearchParamsEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -544,7 +558,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTaggedObjectSearchParams_WithTagInfo() {
+	public EAttribute getTaggedObjectSearchParams_MaxResults() {
 		return (EAttribute)taggedObjectSearchParamsEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -554,7 +568,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTaggedObjectSearchParams_WithFullTagInfo() {
+	public EAttribute getTaggedObjectSearchParams_MatchesAllTags() {
 		return (EAttribute)taggedObjectSearchParamsEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -564,8 +578,18 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTaggedObjectSearchParams_QueryIsObjectUri() {
+	public EAttribute getTaggedObjectSearchParams_WithTagInfo() {
 		return (EAttribute)taggedObjectSearchParamsEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTaggedObjectSearchParams_TagInfoType() {
+		return (EAttribute)taggedObjectSearchParamsEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -576,6 +600,36 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	@Override
 	public EEnum getTagSearchScope() {
 		return tagSearchScopeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getTagQueryType() {
+		return tagQueryTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getTagInfoType() {
+		return tagInfoTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getTagQueryFocus() {
+		return tagQueryFocusEEnum;
 	}
 
 	/**
@@ -615,7 +669,6 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		tagEClass = createEClass(TAG);
 		createEAttribute(tagEClass, TAG__DESCRIPTION);
 		createEReference(tagEClass, TAG__CHILD_TAGS);
-		createEAttribute(tagEClass, TAG__IS_ROOT);
 		createEAttribute(tagEClass, TAG__CREATED_BY);
 		createEAttribute(tagEClass, TAG__CREATED_DATE_TIME);
 		createEAttribute(tagEClass, TAG__CHANGED_BY);
@@ -650,14 +703,18 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__TAG_IDS);
 		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__SEARCH_SCOPE);
 		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__QUERY);
+		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__QUERY_TYPE);
+		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__QUERY_FOCUS);
 		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__MAX_RESULTS);
 		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__MATCHES_ALL_TAGS);
 		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__WITH_TAG_INFO);
-		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__WITH_FULL_TAG_INFO);
-		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__QUERY_IS_OBJECT_URI);
+		createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__TAG_INFO_TYPE);
 
 		// Create enums
 		tagSearchScopeEEnum = createEEnum(TAG_SEARCH_SCOPE);
+		tagQueryTypeEEnum = createEEnum(TAG_QUERY_TYPE);
+		tagInfoTypeEEnum = createEEnum(TAG_INFO_TYPE);
+		tagQueryFocusEEnum = createEEnum(TAG_QUERY_FOCUS);
 	}
 
 	/**
@@ -703,7 +760,6 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		initEClass(tagEClass, ITag.class, "Tag", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTag_Description(), ecorePackage.getEString(), "description", "", 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTag_ChildTags(), this.getTag(), null, "childTags", null, 0, -1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTag_IsRoot(), ecorePackage.getEBoolean(), "isRoot", null, 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_CreatedBy(), ecorePackage.getEString(), "createdBy", "", 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_CreatedDateTime(), ecorePackage.getEString(), "createdDateTime", "", 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_ChangedBy(), ecorePackage.getEString(), "changedBy", "", 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -738,17 +794,31 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		initEAttribute(getTaggedObjectSearchParams_TagIds(), ecorePackage.getEString(), "tagIds", null, 0, -1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTaggedObjectSearchParams_SearchScope(), this.getTagSearchScope(), "searchScope", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTaggedObjectSearchParams_Query(), ecorePackage.getEString(), "query", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTaggedObjectSearchParams_QueryType(), this.getTagQueryType(), "queryType", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTaggedObjectSearchParams_QueryFocus(), this.getTagQueryFocus(), "queryFocus", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTaggedObjectSearchParams_MaxResults(), ecorePackage.getEInt(), "maxResults", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTaggedObjectSearchParams_MatchesAllTags(), ecorePackage.getEBoolean(), "matchesAllTags", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTaggedObjectSearchParams_WithTagInfo(), ecorePackage.getEBoolean(), "withTagInfo", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTaggedObjectSearchParams_WithFullTagInfo(), ecorePackage.getEBoolean(), "withFullTagInfo", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTaggedObjectSearchParams_QueryIsObjectUri(), ecorePackage.getEBoolean(), "queryIsObjectUri", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTaggedObjectSearchParams_TagInfoType(), this.getTagInfoType(), "tagInfoType", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(tagSearchScopeEEnum, TagSearchScope.class, "TagSearchScope");
 		addEEnumLiteral(tagSearchScopeEEnum, TagSearchScope.ALL);
 		addEEnumLiteral(tagSearchScopeEEnum, TagSearchScope.GLOBAL);
 		addEEnumLiteral(tagSearchScopeEEnum, TagSearchScope.USER);
+
+		initEEnum(tagQueryTypeEEnum, TagQueryType.class, "TagQueryType");
+		addEEnumLiteral(tagQueryTypeEEnum, TagQueryType.OBJECT_NAME);
+		addEEnumLiteral(tagQueryTypeEEnum, TagQueryType.OBJECT_URI);
+		addEEnumLiteral(tagQueryTypeEEnum, TagQueryType.OBJECT_NAME_TYPE_COMBO);
+
+		initEEnum(tagInfoTypeEEnum, TagInfoType.class, "TagInfoType");
+		addEEnumLiteral(tagInfoTypeEEnum, TagInfoType.ALL);
+		addEEnumLiteral(tagInfoTypeEEnum, TagInfoType.CHILDREN);
+
+		initEEnum(tagQueryFocusEEnum, TagQueryFocus.class, "TagQueryFocus");
+		addEEnumLiteral(tagQueryFocusEEnum, TagQueryFocus.OBJECT);
+		addEEnumLiteral(tagQueryFocusEEnum, TagQueryFocus.PARENT_OBJECT);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -818,14 +888,6 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		   new String[] {
 			   "kind", "element",
 			   "name", "tag",
-			   "namespace", "##targetNamespace"
-		   });
-		addAnnotation
-		  (getTag_IsRoot(),
-		   source,
-		   new String[] {
-			   "kind", "attribute",
-			   "name", "isRoot",
 			   "namespace", "##targetNamespace"
 		   });
 		addAnnotation
@@ -1023,6 +1085,22 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 			   "namespace", "##targetNamespace"
 		   });
 		addAnnotation
+		  (getTaggedObjectSearchParams_QueryType(),
+		   source,
+		   new String[] {
+			   "kind", "attribute",
+			   "name", "queryType",
+			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
+		  (getTaggedObjectSearchParams_QueryFocus(),
+		   source,
+		   new String[] {
+			   "kind", "attribute",
+			   "name", "queryFocus",
+			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
 		  (getTaggedObjectSearchParams_MaxResults(),
 		   source,
 		   new String[] {
@@ -1047,19 +1125,11 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 			   "namespace", "##targetNamespace"
 		   });
 		addAnnotation
-		  (getTaggedObjectSearchParams_WithFullTagInfo(),
+		  (getTaggedObjectSearchParams_TagInfoType(),
 		   source,
 		   new String[] {
 			   "kind", "attribute",
-			   "name", "withFullTagInfo",
-			   "namespace", "##targetNamespace"
-		   });
-		addAnnotation
-		  (getTaggedObjectSearchParams_QueryIsObjectUri(),
-		   source,
-		   new String[] {
-			   "kind", "attribute",
-			   "name", "queryIsObjectUri",
+			   "name", "tagInfoType",
 			   "namespace", "##targetNamespace"
 		   });
 	}
