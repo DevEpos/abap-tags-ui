@@ -22,13 +22,9 @@ import com.devepos.adt.atm.search.ITaggedObjectSearchService;
 import com.devepos.adt.atm.search.TaggedObjectSearchFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
-import com.devepos.adt.tools.base.AdtToolsBaseResources;
-import com.devepos.adt.tools.base.IAdtToolsBaseImages;
+import com.devepos.adt.tools.base.adtobject.AdtTypeUtil;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.tools.base.ui.StylerFactory;
-import com.sap.adt.tools.core.ui.AbapCoreUi;
-import com.sap.adt.tools.core.ui.IAdtObjectTypeInfoUi;
-import com.sap.adt.tools.core.ui.IAdtObjectTypeRegistryUi;
 import com.sap.ide.platform.common.ui.dialogs.ScopedFilteredItemsSelectionDialog;
 
 @SuppressWarnings("restriction")
@@ -37,7 +33,6 @@ public class ParentObjectFilterDialog extends ScopedFilteredItemsSelectionDialog
 	private final String tagId;
 	private final TagSearchScope searchScope;
 	private final String destinationId;
-	private final IAdtObjectTypeRegistryUi typeRegistryUi;
 	private final ITaggedObjectSearchParams parameters;
 
 	public ParentObjectFilterDialog(final Shell shell, final String destinationId, final String tagId,
@@ -48,7 +43,6 @@ public class ParentObjectFilterDialog extends ScopedFilteredItemsSelectionDialog
 		this.tagId = tagId;
 		this.destinationId = destinationId;
 		this.searchScope = searchScope;
-		this.typeRegistryUi = AbapCoreUi.getObjectTypeRegistry();
 		setListLabelProvider(new ItemsLabelProvider());
 		setDetailsLabelProvider(new ItemsLabelProvider());
 		setInitialPattern("*");
@@ -160,13 +154,7 @@ public class ParentObjectFilterDialog extends ScopedFilteredItemsSelectionDialog
 		public Image getImage(final Object element) {
 			if (element != null && element instanceof IAdtObjRef) {
 				final IAdtObjRef ref = (IAdtObjRef) element;
-				final IAdtObjectTypeInfoUi type = ParentObjectFilterDialog.this.typeRegistryUi
-					.getObjectTypeByGlobalWorkbenchType(ref.getType());
-				if (type != null) {
-					return type.getImage();
-				} else {
-					return AdtToolsBaseResources.getImage(IAdtToolsBaseImages.SAP_GUI_OBJECT);
-				}
+				return AdtTypeUtil.getInstance().getTypeImage(ref.getType());
 			}
 			return null;
 		}

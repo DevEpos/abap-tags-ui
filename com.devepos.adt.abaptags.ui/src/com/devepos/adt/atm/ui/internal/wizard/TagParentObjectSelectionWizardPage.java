@@ -38,21 +38,15 @@ import com.devepos.adt.atm.ui.internal.dialogs.ParentObjectFilterDialog;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.tree.TaggedObjectTreeContentProvider;
 import com.devepos.adt.atm.ui.internal.util.IImages;
-import com.devepos.adt.tools.base.AdtToolsBaseResources;
-import com.devepos.adt.tools.base.IAdtToolsBaseImages;
+import com.devepos.adt.tools.base.adtobject.AdtTypeUtil;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.tools.base.ui.celleditor.ExtendedDialogCellEditor;
 import com.devepos.adt.tools.base.util.AdtUtil;
 import com.devepos.adt.tools.base.util.StringUtil;
 import com.devepos.adt.tools.base.wizard.AbstractBaseWizardPage;
-import com.sap.adt.tools.core.ui.AbapCoreUi;
-import com.sap.adt.tools.core.ui.IAdtObjectTypeInfoUi;
-import com.sap.adt.tools.core.ui.IAdtObjectTypeRegistryUi;
 
-@SuppressWarnings("restriction")
 public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 	public static final String PAGE_NAME = TagParentObjectSelectionWizardPage.class.getCanonicalName();
-	private final IAdtObjectTypeRegistryUi typeRegistryUi;
 	private final List<IAdtObjectTag> adtObjectTags = new ArrayList<>();
 	private Tree parentObjectSelectionTree;
 	private TreeViewer treeViewer;
@@ -83,7 +77,6 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 		super(PAGE_NAME);
 		setTitle(Messages.TagParentObjectSelectionWizardPage_Title_xtit);
 		setDescription(Messages.TagParentObjectSelectionWizardPage_Description_xmsg);
-		this.typeRegistryUi = AbapCoreUi.getObjectTypeRegistry();
 	}
 
 	@Override
@@ -370,9 +363,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 			if (type == null || type.isEmpty()) {
 				return null;
 			}
-			final IAdtObjectTypeInfoUi typeRef = TagParentObjectSelectionWizardPage.this.typeRegistryUi
-				.getObjectTypeByGlobalWorkbenchType(type);
-			return typeRef != null ? typeRef.getImage() : AdtToolsBaseResources.getImage(IAdtToolsBaseImages.SAP_GUI_OBJECT);
+			return AdtTypeUtil.getInstance().getTypeImage(type);
 		}
 
 		@Override

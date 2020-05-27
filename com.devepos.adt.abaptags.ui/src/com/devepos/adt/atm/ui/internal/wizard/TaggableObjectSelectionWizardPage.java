@@ -31,8 +31,7 @@ import org.eclipse.ui.PlatformUI;
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
-import com.devepos.adt.tools.base.AdtToolsBaseResources;
-import com.devepos.adt.tools.base.IAdtToolsBaseImages;
+import com.devepos.adt.tools.base.adtobject.AdtTypeUtil;
 import com.devepos.adt.tools.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.tools.base.ui.project.ProjectInput;
@@ -43,9 +42,6 @@ import com.sap.adt.ris.search.ui.IAdtRepositorySearchServiceUIParameters;
 import com.sap.adt.ris.search.ui.IAdtRepositorySearchServiceUIResult;
 import com.sap.adt.ris.search.ui.internal.preferences.SearchPreferences;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
-import com.sap.adt.tools.core.ui.AbapCoreUi;
-import com.sap.adt.tools.core.ui.IAdtObjectTypeInfoUi;
-import com.sap.adt.tools.core.ui.IAdtObjectTypeRegistryUi;
 
 /**
  * Wizard page for selecting the objects that should be tagged
@@ -61,7 +57,6 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 	private AggregateValidationStatus projectAggrValStatus;
 	private Button removeObjectsButton;
 	private Button selectObjectsButton;
-	private final IAdtObjectTypeRegistryUi typeRegistryUi;
 
 	private enum ValidationSource {
 		PROJECT,
@@ -74,7 +69,6 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 		setDescription(Messages.TaggableObjectSelectionWizardPage_Description_xmsg);
 		this.projectInput = new ProjectInput();
 		this.dbc = new DataBindingContext();
-		this.typeRegistryUi = AbapCoreUi.getObjectTypeRegistry();
 	}
 
 	@Override
@@ -305,15 +299,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 		public Image getImage(final Object element) {
 			final ObjectToBeTagged selectedObj = (ObjectToBeTagged) element;
 			final IAdtObjectReference ref = selectedObj.getRef();
-			Image image = null;
-			final IAdtObjectTypeInfoUi type = TaggableObjectSelectionWizardPage.this.typeRegistryUi
-				.getObjectTypeByGlobalWorkbenchType(ref.getType());
-			if (type != null) {
-				image = type.getImage();
-			} else {
-				image = AdtToolsBaseResources.getImage(IAdtToolsBaseImages.SAP_GUI_OBJECT);
-			}
-			return image;
+			return AdtTypeUtil.getInstance().getTypeImage(ref.getType());
 		}
 
 		@Override
