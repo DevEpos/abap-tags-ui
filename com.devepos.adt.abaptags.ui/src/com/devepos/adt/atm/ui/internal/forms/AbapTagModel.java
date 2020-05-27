@@ -192,14 +192,14 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 		lockJob.schedule();
 	}
 
-	public void unlock(final boolean loadTags) {
+	public boolean unlock(final boolean loadTags) {
 		if (!isEditMode()) {
-			return;
+			return true;
 		}
 		if (hasModelChanged()) {
 			if (!MessageDialog.openQuestion(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 				Messages.AbapTagModel_UnlockMessageDialogTitle_xtit, Messages.AbapTagModel_UnlockMessageDialogText_xmsg)) {
-				return;
+				return false;
 			}
 		}
 		if (loadTags) {
@@ -208,6 +208,7 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 			runUnlockTagsJob();
 		}
 		setModelChanged(false);
+		return true;
 	}
 
 	public void editTags() {
@@ -236,9 +237,6 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 		if (parent == null) {
 			getTags().getTags().add(newTag);
 		} else {
-			if (!parent.isIsRoot()) {
-				parent.setIsRoot(true);
-			}
 			parent.getChildTags().add(newTag);
 		}
 		fireModified(ModificationKind.ADDED, newTag);

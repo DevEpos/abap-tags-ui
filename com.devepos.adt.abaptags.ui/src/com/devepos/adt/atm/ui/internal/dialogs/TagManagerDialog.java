@@ -86,8 +86,10 @@ public class TagManagerDialog extends TrayDialog implements IStatusView {
 
 	@Override
 	public boolean close() {
-		this.model.unlock(false);
-		return super.close();
+		if (this.model.unlock(false)) {
+			return super.close();
+		}
+		return false;
 	}
 
 	@Override
@@ -161,7 +163,7 @@ public class TagManagerDialog extends TrayDialog implements IStatusView {
 				: Messages.TagManagerDialog_UserTagsModeFormTitle_xtit);
 		tagMasterDetailForm.getForm()
 			.setImage(AbapTagsUIPlugin.getDefault().getImage(this.globalTags ? IImages.GLOBE : IImages.USER));
-		GridDataFactory.fillDefaults().grab(true, true).applyTo(tagMasterDetailForm.getForm());
+		GridDataFactory.fillDefaults().grab(true, true).hint(650, 500).applyTo(tagMasterDetailForm.getForm());
 
 		createProjectInput(tagMasterDetailForm, tagMasterDetailForm.getToolkit(), tagMasterDetailForm.getForm().getBody());
 
