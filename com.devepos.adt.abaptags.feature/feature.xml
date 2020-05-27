@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="com.devepos.adt.abaptags.feature"
+      id="com.devepos.adt.abaptags"
       label="ABAP Tags"
       version="1.0.0.qualifier"
       provider-name="DEVEPOS">
+
+   <description>
+      Provides tools for ABAP Tags Management
+- Custom Dialog to manage ABAP Tags
+- New Wizard to add Tags to Repository Objects
+- New Search Page in Search View to search for Tagged Objects
+- New View to manage Tags of a Repository Object
+   </description>
 
    <copyright url="http://www.example.com/copyright">
       [Enter Copyright Description here.]
@@ -60,20 +68,6 @@ END OF TERMS AND CONDITIONS
    </license>
 
    <plugin
-         id="com.devepos.adt.abaptags"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.devepos.adt.tools.base"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="com.devepos.adt.abaptags.ui"
          download-size="0"
          install-size="0"
@@ -81,7 +75,21 @@ END OF TERMS AND CONDITIONS
          unpack="false"/>
 
    <plugin
+         id="com.devepos.adt.abaptags"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="com.devepos.adt.abaptags.model"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.devepos.adt.tools.base"
          download-size="0"
          install-size="0"
          version="0.0.0"
