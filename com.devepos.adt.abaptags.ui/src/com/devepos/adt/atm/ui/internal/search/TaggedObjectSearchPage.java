@@ -36,6 +36,8 @@ import com.devepos.adt.atm.model.abaptags.TagInfoType;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.atm.ui.internal.messages.Messages;
+import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
 import com.devepos.adt.atm.ui.internal.tree.TagFilter;
 import com.devepos.adt.atm.ui.internal.tree.TagLabelProvider;
 import com.devepos.adt.atm.ui.internal.tree.TagTreeContentProvider;
@@ -71,6 +73,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 	public TaggedObjectSearchPage() {
 		this.prefStore = AbapTagsUIPlugin.getDefault().getPreferenceStore();
 		this.prefStore.setDefault(LAST_PROJECT_PREF, ""); //$NON-NLS-1$
+		this.prefStore.setDefault(ITaggedObjectSearchPrefs.MAX_RESULTS, 50);
 		this.checkedTags = new HashSet<>();
 		this.patternFilter = new TagFilter();
 	}
@@ -114,7 +117,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 		this.prefStore.setValue(LAST_PROJECT_PREF, this.projectProvider.getProjectName());
 
 		final ITaggedObjectSearchParams searchParams = IAbapTagsFactory.eINSTANCE.createTaggedObjectSearchParams();
-		searchParams.setMaxResults(50); // TODO: read from preferences
+		searchParams.setMaxResults(this.prefStore.getInt(ITaggedObjectSearchPrefs.MAX_RESULTS));
 		searchParams.setWithTagInfo(true);
 		searchParams.setTagInfoType(TagInfoType.CHILDREN);
 
@@ -166,7 +169,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 		final Group tagsGroup = new Group(parent, SWT.NONE);
 		GridDataFactory.fillDefaults().grab(true, true).applyTo(tagsGroup);
 		GridLayoutFactory.swtDefaults().applyTo(tagsGroup);
-		tagsGroup.setText("Tags");
+		tagsGroup.setText(Messages.TaggedObjectSearchPage_TagsGroup_xtit);
 
 		createFilterText(tagsGroup);
 
@@ -189,14 +192,14 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 		});
 
 		this.matchAllTagsButton = new Button(tagsGroup, SWT.CHECK);
-		this.matchAllTagsButton.setText("Only consider Objects that match &all selected Tags");
+		this.matchAllTagsButton.setText(Messages.TaggedObjectSearchPage_MatchAllTags_xckl);
 		GridDataFactory.fillDefaults().applyTo(this.matchAllTagsButton);
 	}
 
 	private void createFilterText(final Composite parent) {
 		this.filterText = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.SEARCH | SWT.ICON_CANCEL);
 		GridDataFactory.fillDefaults().grab(true, false).indent(SWT.DEFAULT, 10).applyTo(this.filterText);
-		this.filterText.setMessage("Enter Filter Text");
+		this.filterText.setMessage(Messages.TaggedObjectSearchPage_TagsTreeFilterText_xmsg);
 
 		this.filterText.addKeyListener(new KeyAdapter() {
 			@Override
@@ -274,7 +277,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 		if (this.loadTagsJob != null && this.loadTagsJob.getResult() == null) {
 			this.loadTagsJob.cancel();
 		}
-		this.loadTagsJob = Job.create("Loading Tags...", monitor -> {
+		this.loadTagsJob = Job.create(Messages.TaggedObjectSearchPage_LoadingTagsJob_xmsg, monitor -> {
 			final ITagList tagList = AbapTagsServiceFactory.createTagsService()
 				.readTags(AdtUtil.getDestinationId(project), TagSearchScope.ALL, false);
 			monitor.done();
