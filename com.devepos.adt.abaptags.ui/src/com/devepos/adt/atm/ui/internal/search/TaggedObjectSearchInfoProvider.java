@@ -13,6 +13,8 @@ import com.devepos.adt.atm.model.abaptags.TagQueryFocus;
 import com.devepos.adt.atm.model.abaptags.TagQueryType;
 import com.devepos.adt.atm.search.ITaggedObjectSearchService;
 import com.devepos.adt.atm.search.TaggedObjectSearchFactory;
+import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.atm.ui.internal.util.IImages;
 import com.devepos.adt.tools.base.adtobject.AdtObjectReferenceModelFactory;
 import com.devepos.adt.tools.base.elementinfo.AdtObjectReferenceElementInfo;
 import com.devepos.adt.tools.base.elementinfo.IElementInfo;
@@ -20,6 +22,7 @@ import com.devepos.adt.tools.base.elementinfo.IElementInfoProvider;
 import com.devepos.adt.tools.base.elementinfo.ILazyLoadingElementInfo;
 import com.devepos.adt.tools.base.elementinfo.LazyLoadingElementInfo;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
+import com.devepos.adt.tools.base.util.StringUtil;
 
 public class TaggedObjectSearchInfoProvider implements IElementInfoProvider {
 
@@ -59,7 +62,9 @@ public class TaggedObjectSearchInfoProvider implements IElementInfoProvider {
 				objRefElemeInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(this.destinationId, objRef));
 
 				for (final IAdtObjectTag tag : taggedObject.getTags()) {
-					final ILazyLoadingElementInfo lazyTagElemInfo = new LazyLoadingElementInfo(tag.getName(), null,
+					final ILazyLoadingElementInfo lazyTagElemInfo = new LazyLoadingElementInfo(tag.getName(),
+						AbapTagsUIPlugin.getDefault()
+							.getImage(StringUtil.isEmpty(tag.getOwner()) ? IImages.TAG : IImages.USER_TAG),
 						new TaggedObjectSearchInfoProvider(this.destinationId, objRef, tag, this.maxResults));
 					objRefElemeInfo.getChildren().add(lazyTagElemInfo);
 				}

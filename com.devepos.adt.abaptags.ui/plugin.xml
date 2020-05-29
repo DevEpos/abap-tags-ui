@@ -184,4 +184,24 @@
             tabPosition="1">
       </page>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
+            class="com.devepos.adt.atm.ui.internal.preferences.SearchPreferencesPage"
+            id="com.devepos.adt.atm.ui.preferencePages.Search"
+            name="%preferences.page.search">
+      </page>
+      <page
+            class="com.devepos.adt.atm.ui.internal.preferences.MainPreferencesPage"
+            id="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
+            name="%preferences.page.main">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.devepos.adt.atm.ui.internal.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
 </plugin>

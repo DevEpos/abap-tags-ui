@@ -23,6 +23,7 @@ import com.devepos.adt.tools.base.ui.tree.AdtObjectReferenceNode;
 import com.devepos.adt.tools.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.tools.base.ui.tree.ILazyLoadingNode;
 import com.devepos.adt.tools.base.ui.tree.LazyLoadingFolderNode;
+import com.devepos.adt.tools.base.util.StringUtil;
 
 public class TaggedObjectSearchResult implements ISearchResult {
 	private final TaggedObjectSearchQuery query;
@@ -52,7 +53,7 @@ public class TaggedObjectSearchResult implements ISearchResult {
 	public String getLabel() {
 		String resultsLabel = null;
 		if (this.resultCount == 1) {
-			resultsLabel = AdtToolsBaseResources.getString(IAdtToolsBaseStrings.SearchUI_MoreThanOneResult_xmsg);
+			resultsLabel = AdtToolsBaseResources.getString(IAdtToolsBaseStrings.SearchUI_OneResult_xmsg);
 		} else if (this.resultCount > 1) {
 			if (this.hasMoreResults) {
 				resultsLabel = AdtToolsBaseResources.format(IAdtToolsBaseStrings.SearchUI_MoreThanOneResult_xmsg,
@@ -153,7 +154,7 @@ public class TaggedObjectSearchResult implements ISearchResult {
 			for (final IAdtObjectTag tag : taggedObject.getTags()) {
 				final ILazyLoadingNode lazyTagNode = new LazyLoadingFolderNode(tag.getName(),
 					new TaggedObjectSearchInfoProvider(this.query.getDestinationId(), objectRef, tag, 50), objRefNode,
-					AbapTagsUIPlugin.getDefault().getImage(IImages.TAG));
+					AbapTagsUIPlugin.getDefault().getImage(StringUtil.isEmpty(tag.getOwner()) ? IImages.TAG : IImages.USER_TAG));
 				objRefNode.getChildren().add(lazyTagNode);
 			}
 		}

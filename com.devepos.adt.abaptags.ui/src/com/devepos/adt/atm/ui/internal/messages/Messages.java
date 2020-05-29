@@ -41,6 +41,11 @@ public class Messages extends NLS {
 	public static String AbapTagModel_UnlockMessageDialogTitle_xtit;
 	public static String ParentObjectFilterDialog_FilterText_xmsg;
 	public static String ParentObjectFilterDialog_Title_xtit;
+	public static String SearchPreferencesPage_DisplayObjectTypes_xckl;
+	public static String SearchPreferencesPage_DisplayPackages_xckl;
+	public static String SearchPreferencesPage_DisplayShortDescriptions_xckl;
+	public static String SearchPreferencesPage_MaxNumberOfResults_xlbl;
+	public static String SearchPreferencesPage_ResultDisplayGroup_xtit;
 	public static String TagManagerDialog_Browse_xbut;
 	public static String TagManagerDialog_DialogTitle_xtit;
 	public static String TagManagerDialog_GlobalTagsModeFormTitle_xtit;

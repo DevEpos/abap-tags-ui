@@ -46,6 +46,7 @@ import com.devepos.adt.tools.base.util.StatusUtil;
 
 public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 
+	public static final String PAGE_ID = "com.devepos.adt.abaptags.ui.searchpage.tags"; //$NON-NLS-1$
 	private static final String LAST_PROJECT_PREF = "com.devepos.adt.abaptags.ui.taggedObjectSearch.lastProject"; //$NON-NLS-1$
 	private ISearchPageContainer container;
 	private CheckboxTreeViewer tagsTreeViewer;
@@ -103,6 +104,10 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 	public boolean performAction() {
 		if (this.currentStatus != null && this.currentStatus.getSeverity() == IStatus.ERROR) {
 			setStatus(this.currentStatus);
+			updateOKStatus();
+			return false;
+		}
+		if (this.checkedTags.isEmpty()) {
 			updateOKStatus();
 			return false;
 		}
@@ -271,7 +276,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 		}
 		this.loadTagsJob = Job.create("Loading Tags...", monitor -> {
 			final ITagList tagList = AbapTagsServiceFactory.createTagsService()
-				.readTags(AdtUtil.getDestinationId(project), TagSearchScope.ALL);
+				.readTags(AdtUtil.getDestinationId(project), TagSearchScope.ALL, false);
 			monitor.done();
 			if (tagList != null) {
 				this.tagList.getTags().clear();

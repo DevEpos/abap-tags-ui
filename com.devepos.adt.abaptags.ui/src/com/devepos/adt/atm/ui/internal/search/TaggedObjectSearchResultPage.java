@@ -1,18 +1,30 @@
 package com.devepos.adt.atm.ui.internal.search;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.JFacePreferences;
+import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.search.internal.ui.SearchPlugin;
+import org.eclipse.search.ui.IContextMenuConstants;
 import org.eclipse.search.ui.ISearchResult;
 import org.eclipse.search.ui.ISearchResultListener;
 import org.eclipse.search.ui.ISearchResultPage;
@@ -25,16 +37,30 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IMemento;
+import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.Page;
 
+import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
+import com.devepos.adt.tools.base.AdtToolsBaseResources;
+import com.devepos.adt.tools.base.IAdtToolsBaseImages;
+import com.devepos.adt.tools.base.IAdtToolsBaseStrings;
 import com.devepos.adt.tools.base.adtobject.AdtTypeUtil;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
 import com.devepos.adt.tools.base.ui.StylerFactory;
 import com.devepos.adt.tools.base.ui.UIState;
+import com.devepos.adt.tools.base.ui.action.CollapseAllTreeNodesAction;
+import com.devepos.adt.tools.base.ui.action.CollapseTreeNodesAction;
+import com.devepos.adt.tools.base.ui.action.CopyToClipboardAction;
+import com.devepos.adt.tools.base.ui.action.ExecuteAdtObjectAction;
+import com.devepos.adt.tools.base.ui.action.OpenAdtObjectAction;
+import com.devepos.adt.tools.base.ui.menu.MenuItemFactory;
 import com.devepos.adt.tools.base.ui.tree.ActionTreeNode;
 import com.devepos.adt.tools.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.tools.base.ui.tree.ICollectionTreeNode;
@@ -42,9 +68,11 @@ import com.devepos.adt.tools.base.ui.tree.IStyledTreeNode;
 import com.devepos.adt.tools.base.ui.tree.ITreeNode;
 import com.devepos.adt.tools.base.ui.tree.LazyLoadingTreeContentProvider;
 import com.devepos.adt.tools.base.ui.tree.LoadingTreeItemsNode;
+import com.devepos.adt.tools.base.util.StringUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 public class TaggedObjectSearchResultPage extends Page implements ISearchResultPage, ISearchResultListener {
+	private static final String GROUP_WHERE_USED = "group.whereUsed"; //$NON-NLS-1$
 	private String id;
 	private ISearchResultViewPart searchViewPart;
 	private Tree resultTree;
@@ -54,6 +82,19 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 	private Composite mainComposite;
 	private TaggedObjectSearchQuery searchQuery;
 	private IAbapProjectProvider projectProvider;
+	private CollapseAllTreeNodesAction collapseAllNodesAction;
+	private CollapseTreeNodesAction collapseNodesAction;
+	private CopyToClipboardAction copyToClipBoardAction;
+	private OpenTaggedObjectSearchPreferences openPreferencesAction;
+	private OpenInSearchDialogAction openInSearchDialog;
+	private IPropertyChangeListener prefStoreListener;
+	private IPreferenceStore prefStore;
+	private final List<String> compatibleObjectTypes;
+
+	public TaggedObjectSearchResultPage() {
+		this.compatibleObjectTypes = Stream.of("CLAS/OC", "PROG/P", "TRAN/T", "FUGR/FF", "WAPA/WO", "WDYA/YY", "WDCA/YA")
+			.collect(Collectors.toList());
+	}
 
 	@Override
 	public void createControl(final Composite parent) {
@@ -64,11 +105,30 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 
 		createResultTree(this.mainComposite);
 
+		initializeActions();
+		hookContextMenu();
+
+		this.prefStoreListener = e -> {
+			if (this.resultTree == null || this.resultTree.isDisposed()) {
+				return;
+			}
+			if (e.getProperty().equals(ITaggedObjectSearchPrefs.DISPLAY_DESCRIPTIONS)
+				|| e.getProperty().equals(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES)
+				|| e.getProperty().equals(ITaggedObjectSearchPrefs.DISPLAY_OBJECT_TYPES)) {
+				this.resultTreeViewer.refresh();
+			}
+		};
+		this.prefStore = AbapTagsUIPlugin.getDefault().getPreferenceStore();
+		this.prefStore.addPropertyChangeListener(this.prefStoreListener);
+
 		getSite().setSelectionProvider(this.resultTreeViewer);
 	}
 
 	@Override
 	public void dispose() {
+		if (this.prefStoreListener != null) {
+			this.prefStore.removePropertyChangeListener(this.prefStoreListener);
+		}
 		super.dispose();
 	}
 
@@ -79,7 +139,16 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 
 	@Override
 	public void setActionBars(final IActionBars actionBars) {
-		// TODO Auto-generated method stub
+		final IToolBarManager tbm = actionBars.getToolBarManager();
+		tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, this.openInSearchDialog);
+		tbm.appendToGroup(IContextMenuConstants.GROUP_EDIT, this.collapseAllNodesAction);
+		this.copyToClipBoardAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_COPY);
+		actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), this.copyToClipBoardAction);
+		actionBars.updateActionBars();
+
+		actionBars.getMenuManager().add(new ObjectLabelDecorationMenu());
+		actionBars.getMenuManager().add(new Separator());
+		actionBars.getMenuManager().add(this.openPreferencesAction);
 
 	}
 
@@ -184,6 +253,84 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 			updateUiState();
 		});
 
+	}
+
+	private void initializeActions() {
+		this.collapseAllNodesAction = new CollapseAllTreeNodesAction(this.resultTreeViewer);
+		this.collapseNodesAction = new CollapseTreeNodesAction(this.resultTreeViewer);
+		this.copyToClipBoardAction = new CopyToClipboardAction();
+		this.copyToClipBoardAction.registerViewer(this.resultTreeViewer);
+		this.openPreferencesAction = new OpenTaggedObjectSearchPreferences();
+		this.openInSearchDialog = new OpenInSearchDialogAction();
+	}
+
+	private void hookContextMenu() {
+		final MenuManager menuMgr = new MenuManager();
+		menuMgr.setRemoveAllWhenShown(true);
+
+		menuMgr.addMenuListener((menu) -> {
+			fillContextMenu(menu);
+		});
+		final Control viewerControl = this.resultTree;
+		final Menu menu = menuMgr.createContextMenu(viewerControl);
+		viewerControl.setMenu(menu);
+		getSite().registerContextMenu(this.searchViewPart.getViewSite().getId(), menuMgr, this.resultTreeViewer);
+	}
+
+	private void fillContextMenu(final IMenuManager menu) {
+		final IStructuredSelection selection = this.resultTreeViewer.getStructuredSelection();
+		if (selection == null || selection.isEmpty()) {
+			return;
+		}
+		boolean selectionHasExpandedNodes = false;
+		final List<IAdtObjectReference> adtObjRefs = new ArrayList<>();
+		final List<IAdtObjectReference> previewAdtObjRefs = new ArrayList<>();
+		final List<IAdtObjectReference> executableAdtObjRefs = new ArrayList<>();
+
+		for (final Object selectedObject : selection.toList()) {
+			if (selectedObject instanceof IAdtObjectReferenceNode) {
+				final IAdtObjectReferenceNode objRefNode = (IAdtObjectReferenceNode) selectedObject;
+				final IAdtObjectReference adtObjectRef = objRefNode.getObjectReference();
+				if (objRefNode.supportsDataPreview()) {
+					previewAdtObjRefs.add(adtObjectRef);
+				}
+				if (this.compatibleObjectTypes.contains(objRefNode.getAdtObjectType())) {
+					executableAdtObjRefs.add(adtObjectRef);
+				}
+				adtObjRefs.add(adtObjectRef);
+			}
+
+			if (!selectionHasExpandedNodes && selectedObject instanceof ICollectionTreeNode
+				&& this.resultTreeViewer.getExpandedState(selectedObject)) {
+				selectionHasExpandedNodes = true;
+			}
+		}
+
+		if (!adtObjRefs.isEmpty()) {
+			menu.add(new OpenAdtObjectAction(this.projectProvider, adtObjRefs));
+		}
+		if (!previewAdtObjRefs.isEmpty()) {
+			menu.add(new ExecuteAdtObjectAction(this.projectProvider.getProject(), previewAdtObjRefs, true));
+		}
+		if (!executableAdtObjRefs.isEmpty()) {
+			menu.add(new ExecuteAdtObjectAction(this.projectProvider.getProject(), executableAdtObjRefs, false));
+		}
+
+		if (!adtObjRefs.isEmpty()) {
+			menu.add(new Separator(GROUP_WHERE_USED));
+			MenuItemFactory.addCommandItem(menu, GROUP_WHERE_USED, "com.sap.adt.ris.whereused.ui.callWhereUsed", //$NON-NLS-1$
+				AdtToolsBaseResources.getImageDescriptor(IAdtToolsBaseImages.WHERE_USED_LIST),
+				AdtToolsBaseResources.getString(IAdtToolsBaseStrings.General_WhereUsedList_xmit), null);
+		}
+
+		if (selectionHasExpandedNodes) {
+			if (selectionHasExpandedNodes) {
+				menu.add(this.collapseNodesAction);
+			}
+		}
+
+		menu.add(new Separator(IContextMenuConstants.GROUP_EDIT));
+		menu.appendToGroup(IContextMenuConstants.GROUP_EDIT, this.copyToClipBoardAction);
 	}
 
 	/*
@@ -294,6 +441,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 
 		@Override
 		public StyledString getStyledText(final Object element) {
+			boolean isAdtObjectRefNode = false;
 			StyledString text = new StyledString();
 			final ITreeNode searchResult = (ITreeNode) element;
 
@@ -310,7 +458,31 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 					text.append(searchResult.getDisplayName());
 				}
 
-				if (element instanceof ICollectionTreeNode) {
+				if (element instanceof IAdtObjectReferenceNode) {
+					isAdtObjectRefNode = true;
+					final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) element;
+
+					if (TaggedObjectSearchResultPage.this.prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_OBJECT_TYPES)) {
+						String typeLabel = AdtTypeUtil.getInstance().getTypeDescription(adtObjRefNode.getAdtObjectType());
+						if (typeLabel == null) {
+							typeLabel = AdtTypeUtil.getInstance()
+								.getTypeDescriptionByProject(adtObjRefNode.getAdtObjectType(),
+									TaggedObjectSearchResultPage.this.projectProvider.getProject());
+						}
+						if (typeLabel != null) {
+							text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER);
+						}
+					}
+					if (TaggedObjectSearchResultPage.this.prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES)
+						&& !adtObjRefNode.getAdtObjectType().startsWith("DEVC")) {
+						if (!StringUtil.isEmpty(adtObjRefNode.getObjectReference().getPackageName())) {
+							text.append(" - ");
+							text.append(adtObjRefNode.getObjectReference().getPackageName(), StyledString.QUALIFIER_STYLER);
+						}
+					}
+				}
+
+				if (element instanceof ICollectionTreeNode && !isAdtObjectRefNode) {
 					final ICollectionTreeNode collectionNode = (ICollectionTreeNode) element;
 					if (collectionNode.hasChildren()) {
 						final String size = ((ICollectionTreeNode) element).getSizeAsString();
@@ -320,10 +492,12 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 					}
 				}
 
-				final String description = searchResult.getDescription();
-				if (description != null && !description.isEmpty()) {
-					text.append("  " + description + "  ", //$NON-NLS-1$ //$NON-NLS-2$
-						StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR, null));
+				if (TaggedObjectSearchResultPage.this.prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_DESCRIPTIONS)) {
+					final String description = searchResult.getDescription();
+					if (!StringUtil.isEmpty(description)) {
+						text.append("  " + description + "  ", //$NON-NLS-1$ //$NON-NLS-2$
+							StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR, null));
+					}
 				}
 			}
 
