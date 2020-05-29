@@ -309,7 +309,13 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 			final IAdtObjectReference ref = objectToBeTagged.getRef();
 
 			text.append(ref.getName());
-			text.append(" " + ref.getDescription(), StyledString.DECORATIONS_STYLER); //$NON-NLS-1$
+			String typeLabel = AdtTypeUtil.getInstance().getTypeDescription(ref.getType());
+			if (typeLabel == null) {
+				typeLabel = AdtTypeUtil.getInstance().getTypeDescriptionByProject(ref.getType(), getWizard().getProject());
+			}
+			if (typeLabel != null) {
+				text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
+			}
 
 			return text;
 		}
