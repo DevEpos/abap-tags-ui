@@ -36,10 +36,12 @@ public interface IAbapTagsService {
 	/**
 	 * Reads ABAP Tags for the given destination ID
 	 *
-	 * @param destinationId destination of ABAP Project
-	 * @param globalTags    if <code>true</code> global tags will be read
+	 * @param destinationId   destination of ABAP Project
+	 * @param scope           the search scope for the tags
+	 * @param withObjectCount if {@code true} the tagged object count for each tag
+	 *                        should be determined
 	 */
-	ITagList readTags(final String destinationId, TagSearchScope scope);
+	ITagList readTags(final String destinationId, TagSearchScope scope, boolean withObjectCount);
 
 	/**
 	 * Deletes the given Tags
