@@ -93,8 +93,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
 
 	/**
 	 * The default value of the '{@link #getQueryType() <em>Query Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getQueryType()
 	 * @generated
 	 * @ordered
@@ -102,8 +101,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
 	protected static final TagQueryType QUERY_TYPE_EDEFAULT = TagQueryType.OBJECT_NAME;
 	/**
 	 * The cached value of the '{@link #getQueryType() <em>Query Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getQueryType()
 	 * @generated
 	 * @ordered
@@ -111,8 +109,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
 	protected TagQueryType queryType = QUERY_TYPE_EDEFAULT;
 	/**
 	 * The default value of the '{@link #getQueryFocus() <em>Query Focus</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getQueryFocus()
 	 * @generated
 	 * @ordered
@@ -120,8 +117,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
 	protected static final TagQueryFocus QUERY_FOCUS_EDEFAULT = TagQueryFocus.OBJECT;
 	/**
 	 * The cached value of the '{@link #getQueryFocus() <em>Query Focus</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getQueryFocus()
 	 * @generated
 	 * @ordered
@@ -183,8 +179,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
 
 	/**
 	 * The default value of the '{@link #getTagInfoType() <em>Tag Info Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getTagInfoType()
 	 * @generated
 	 * @ordered
@@ -192,13 +187,13 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
 	protected static final TagInfoType TAG_INFO_TYPE_EDEFAULT = TagInfoType.ALL;
 	/**
 	 * The cached value of the '{@link #getTagInfoType() <em>Tag Info Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getTagInfoType()
 	 * @generated
 	 * @ordered
 	 */
 	protected TagInfoType tagInfoType = TAG_INFO_TYPE_EDEFAULT;
+
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
@@ -233,7 +228,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
 		if (this.tags.isEmpty()) {
 			return null;
 		}
-		return this.tags.stream().collect(Collectors.joining(","));
+		return this.tags.stream().collect(Collectors.joining(", "));
 	}
 
 	/**
@@ -291,8 +286,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -301,8 +295,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -314,8 +307,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -324,8 +316,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -400,8 +391,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -410,8 +400,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
