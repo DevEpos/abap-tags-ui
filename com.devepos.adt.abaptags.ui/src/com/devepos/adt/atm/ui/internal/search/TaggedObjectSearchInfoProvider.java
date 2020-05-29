@@ -14,6 +14,7 @@ import com.devepos.adt.atm.model.abaptags.TagQueryType;
 import com.devepos.adt.atm.search.ITaggedObjectSearchService;
 import com.devepos.adt.atm.search.TaggedObjectSearchFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.util.IImages;
 import com.devepos.adt.tools.base.adtobject.AdtObjectReferenceModelFactory;
 import com.devepos.adt.tools.base.elementinfo.AdtObjectReferenceElementInfo;
@@ -46,7 +47,7 @@ public class TaggedObjectSearchInfoProvider implements IElementInfoProvider {
 		searchParams.setMaxResults(this.maxResults);
 		searchParams.setWithTagInfo(true);
 		searchParams.setTagInfoType(TagInfoType.CHILDREN);
-		searchParams.setQuery(String.format("%s:%s", this.parentObjRef.getName(), this.parentObjRef.getTadirType()));
+		searchParams.setQuery(String.format("%s:%s", this.parentObjRef.getName(), this.parentObjRef.getTadirType())); //$NON-NLS-1$
 		searchParams.setQueryType(TagQueryType.OBJECT_NAME_TYPE_COMBO);
 		searchParams.setQueryFocus(TagQueryFocus.PARENT_OBJECT);
 
@@ -78,7 +79,7 @@ public class TaggedObjectSearchInfoProvider implements IElementInfoProvider {
 
 	@Override
 	public String getProviderDescription() {
-		return String.format("Loading Objects for Tag %s", this.tag.getName());
+		return String.format(Messages.TaggedObjectSearchInfoProvider_LoadingTagsJob_xmsg, this.tag.getName());
 	}
 
 }

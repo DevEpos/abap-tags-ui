@@ -3,6 +3,7 @@ package com.devepos.adt.atm.ui.internal.search;
 import org.eclipse.jface.action.Action;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 
+import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.preferences.IPreferences;
 
 /**
@@ -13,7 +14,7 @@ import com.devepos.adt.atm.ui.internal.preferences.IPreferences;
  */
 public class OpenTaggedObjectSearchPreferences extends Action {
 	public OpenTaggedObjectSearchPreferences() {
-		super("Open Search Preferences");
+		super(Messages.OpenTaggedObjectSearchPreferences_ActionLabel_xmit);
 	}
 
 	@Override

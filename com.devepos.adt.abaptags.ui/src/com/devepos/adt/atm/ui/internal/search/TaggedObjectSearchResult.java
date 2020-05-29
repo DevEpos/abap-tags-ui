@@ -153,7 +153,9 @@ public class TaggedObjectSearchResult implements ISearchResult {
 
 			for (final IAdtObjectTag tag : taggedObject.getTags()) {
 				final ILazyLoadingNode lazyTagNode = new LazyLoadingFolderNode(tag.getName(),
-					new TaggedObjectSearchInfoProvider(this.query.getDestinationId(), objectRef, tag, 50), objRefNode,
+					new TaggedObjectSearchInfoProvider(this.query.getDestinationId(), objectRef, tag,
+						this.query.getSearchParams().getMaxResults()),
+					objRefNode,
 					AbapTagsUIPlugin.getDefault().getImage(StringUtil.isEmpty(tag.getOwner()) ? IImages.TAG : IImages.USER_TAG));
 				objRefNode.getChildren().add(lazyTagNode);
 			}

@@ -470,11 +470,11 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 									TaggedObjectSearchResultPage.this.projectProvider.getProject());
 						}
 						if (typeLabel != null) {
-							text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER);
+							text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
 						}
 					}
 					if (TaggedObjectSearchResultPage.this.prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES)
-						&& !adtObjRefNode.getAdtObjectType().startsWith("DEVC")) {
+						&& !adtObjRefNode.getAdtObjectType().startsWith("DEVC")) { //$NON-NLS-1$
 						if (!StringUtil.isEmpty(adtObjRefNode.getObjectReference().getPackageName())) {
 							text.append(" - ");
 							text.append(adtObjRefNode.getObjectReference().getPackageName(), StyledString.QUALIFIER_STYLER);

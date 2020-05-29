@@ -11,6 +11,14 @@ public class Messages extends NLS {
 	public static String TaggableObjectSelectionWizardPage_SelectObjects_xbut;
 	public static String TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit;
 	public static String TaggableObjectSelectionWizardPage_Title_xtit;
+	public static String TaggedObjectSearchInfoProvider_LoadingTagsJob_xmsg;
+	public static String TaggedObjectSearchPage_LoadingTagsJob_xmsg;
+	public static String TaggedObjectSearchPage_MatchAllTags_xckl;
+	public static String TaggedObjectSearchPage_TagsGroup_xtit;
+	public static String TaggedObjectSearchPage_TagsTreeFilterText_xmsg;
+	public static String TaggedObjectSearchQuery_NoProjectError_xmsg;
+	public static String TaggedObjectSearchQuery_SearchTaskName_xmsg;
+	public static String TaggedObjectSearchQuery_TaggedObjectSearchLabel_xmsg;
 	public static String TaggedObjectSearchResult_SearchLabel_xmsg;
 	public static String TaggingObjectWizard_NoTagsAvailableMessage_xmsg;
 	public static String TaggingObjectWizard_TagsServiceError_xtit;
@@ -39,6 +47,10 @@ public class Messages extends NLS {
 	public static String AbapTagModel_UnlockJob_xmsg;
 	public static String AbapTagModel_UnlockMessageDialogText_xmsg;
 	public static String AbapTagModel_UnlockMessageDialogTitle_xtit;
+	public static String MainPreferencesPage_InfoLabel_xlbl;
+	public static String ObjectLabelDecorationMenu_MenuLabel_xmit;
+	public static String OpenInSearchDialogAction_Label_xmit;
+	public static String OpenTaggedObjectSearchPreferences_ActionLabel_xmit;
 	public static String ParentObjectFilterDialog_FilterText_xmsg;
 	public static String ParentObjectFilterDialog_Title_xtit;
 	public static String SearchPreferencesPage_DisplayObjectTypes_xckl;

@@ -10,6 +10,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
+import com.devepos.adt.atm.ui.internal.messages.Messages;
+
 public class MainPreferencesPage extends PreferencePage implements IWorkbenchPreferencePage {
 
 	@Override
@@ -24,7 +26,7 @@ public class MainPreferencesPage extends PreferencePage implements IWorkbenchPre
 		GridLayoutFactory.fillDefaults().applyTo(main);
 
 		final Label label = new Label(main, SWT.NONE);
-		label.setText("See sub-pages for details");
+		label.setText(Messages.MainPreferencesPage_InfoLabel_xlbl);
 		GridDataFactory.fillDefaults().applyTo(label);
 		return main;
 	}
