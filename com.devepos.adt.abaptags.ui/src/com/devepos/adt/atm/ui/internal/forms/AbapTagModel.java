@@ -125,7 +125,7 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 
 				final IAbapTagsService tagsService = AbapTagsServiceFactory.createTagsService();
 				// read current tags from project
-				final ITagList tags = tagsService.readTags(destinationId, getTagScope());
+				final ITagList tags = tagsService.readTags(destinationId, getTagScope(), true);
 				updateTags(tags, false);
 
 				Display.getDefault().asyncExec(() -> {
@@ -175,7 +175,7 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 				tagsService.unlockTags(destinationId, getTagScope());
 
 				// read current tags from project
-				final ITagList tags = tagsService.readTags(destinationId, getTagScope());
+				final ITagList tags = tagsService.readTags(destinationId, getTagScope(), true);
 				updateTags(tags, false);
 
 				// switch to edit mode
@@ -328,7 +328,7 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 					AbapTagModel.this.statusView.setViewStatus(lockStatus);
 				} else {
 					// read current tags from project
-					final ITagList tags = tagsService.readTags(destinationId, getTagScope());
+					final ITagList tags = tagsService.readTags(destinationId, getTagScope(), true);
 					updateTags(tags, true);
 
 					// switch to edit mode
@@ -356,7 +356,7 @@ public class AbapTagModel implements IModel, IModificationProvider<ITag> {
 				final IAbapTagsService tagsService = AbapTagsServiceFactory.createTagsService();
 				tagsService.unlockTags(destinationId, getTagScope());
 				// read current tags from project
-				final ITagList tags = tagsService.readTags(destinationId, getTagScope());
+				final ITagList tags = tagsService.readTags(destinationId, getTagScope(), true);
 				updateTags(tags, false);
 
 				// switch to read only mode

@@ -167,6 +167,7 @@ public class AbapTagDetailsPage implements IDetailsPage {
 		GridDataFactory.fillDefaults().align(SWT.BEGINNING, SWT.CENTER).applyTo(nameLabel);
 
 		this.nameText = new Text(client, SWT.BORDER);
+		this.nameText.setTextLimit(60);
 		this.nameText.addModifyListener(e -> {
 			final String name = this.nameText.getText();
 			if (this.notifyOfModifications && this.currentTag != null) {
