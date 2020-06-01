@@ -35,5 +35,9 @@ public interface IImages {
 	 * Image for Folder of User Tags
 	 */
 	String USER_TAGS_FOLDER = "IMG_USER_TAGS_FOLDER";
+	/**
+	 * Image to indicate new tag assignments to ADT objects
+	 */
+	String NEW_TAG_ASSIGN_WIZ = "IMG_NEW_TAG_ASSIGN_WIZ";
 
 }
