@@ -31,11 +31,11 @@ import org.eclipse.ui.PlatformUI;
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
-import com.devepos.adt.tools.base.adtobject.AdtTypeUtil;
 import com.devepos.adt.tools.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
+import com.devepos.adt.tools.base.project.ProjectUtil;
 import com.devepos.adt.tools.base.ui.project.ProjectInput;
-import com.devepos.adt.tools.base.util.AdtUtil;
+import com.devepos.adt.tools.base.util.AdtTypeUtil;
 import com.devepos.adt.tools.base.wizard.AbstractBaseWizardPage;
 import com.sap.adt.ris.search.ui.AdtRepositorySearchServiceUIFactory;
 import com.sap.adt.ris.search.ui.IAdtRepositorySearchServiceUIParameters;
@@ -86,7 +86,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 		this.objectsViewer.setInput(this.objects);
 
 		this.projectInput.addProjectValidator((project) -> {
-			final IStatus loggedOnStatus = AdtUtil.ensureLoggedOnToProject(project);
+			final IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(project);
 			if (!loggedOnStatus.isOK()) {
 				return loggedOnStatus;
 			}

@@ -19,25 +19,6 @@ public class ManageTagsHandler extends AbstractHandler {
 
 		new TagManagerDialog(window.getShell(), globalTags, null).open();
 
-//		final IAbapTagsService tagsService = AbapTagsServiceFactory.createTagsService();
-//		final IProject project = AbapProjectSelectionDialog.open(window.getShell(), null);
-//		if (project != null) {
-//			final String destinationId = AdtUtil.getDestinationId(project);
-//			AbapProjectProviderAccessor.getProviderForDestination(destinationId);
-//
-//			// dummy logic to pass some tags to backend
-//			final IAbapTagsFactory factory = IAbapTagsFactory.eINSTANCE;
-//			final ITags tags = factory.createTags();
-//			final ITag costing = factory.createTag();
-//			costing.setName("Costing");
-//			costing.setIsRoot(true);
-//			tags.getTags().add(costing);
-//
-//			final ITag productCosting = factory.createTag();
-//			productCosting.setName("Product Costing");
-//			costing.getChildTag().add(productCosting);
-//			tagsService.createTags(tags, destinationId, globalTags);
-//		}
 		return null;
 	}
 

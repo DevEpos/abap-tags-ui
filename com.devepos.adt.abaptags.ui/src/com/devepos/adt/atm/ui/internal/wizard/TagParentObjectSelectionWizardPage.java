@@ -38,10 +38,10 @@ import com.devepos.adt.atm.ui.internal.dialogs.ParentObjectFilterDialog;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.tree.TaggedObjectTreeContentProvider;
 import com.devepos.adt.atm.ui.internal.util.IImages;
-import com.devepos.adt.tools.base.adtobject.AdtTypeUtil;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
+import com.devepos.adt.tools.base.project.ProjectUtil;
 import com.devepos.adt.tools.base.ui.celleditor.ExtendedDialogCellEditor;
-import com.devepos.adt.tools.base.util.AdtUtil;
+import com.devepos.adt.tools.base.util.AdtTypeUtil;
 import com.devepos.adt.tools.base.util.StringUtil;
 import com.devepos.adt.tools.base.wizard.AbstractBaseWizardPage;
 
@@ -242,7 +242,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 				@Override
 				protected Object openDialogBox(final Control cellEditorWindow) {
 					final IProject project = getWizard().getProject();
-					final String destinationId = AdtUtil.getDestinationId(project);
+					final String destinationId = ProjectUtil.getDestinationId(project);
 
 					final IAdtObjectTag tag = (IAdtObjectTag) element;
 					final TagSearchScope scope = tag.getOwner() != null && !tag.getOwner().isEmpty() ? TagSearchScope.USER
@@ -323,7 +323,8 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 					if (parentObject != null && !parentObject.isEmpty()) {
 						text.append(parentObject);
 					} else {
-						text.append("<Click to assign parent object>", StyledString.QUALIFIER_STYLER);
+						text.append(Messages.TagParentObjectSelectionWizardPage_ParentObjectAssignPrompt_xmsg,
+							StyledString.QUALIFIER_STYLER);
 					}
 				}
 				break;

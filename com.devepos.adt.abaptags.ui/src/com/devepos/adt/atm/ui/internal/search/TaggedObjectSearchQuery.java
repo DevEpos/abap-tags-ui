@@ -13,7 +13,7 @@ import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
-import com.devepos.adt.tools.base.util.AdtUtil;
+import com.devepos.adt.tools.base.project.ProjectUtil;
 import com.sap.adt.destinations.model.IDestinationData;
 
 /**
@@ -42,7 +42,7 @@ public class TaggedObjectSearchQuery implements ISearchQuery {
 		if (this.projectProvider == null || !this.projectProvider.hasProject()) {
 			return new Status(IStatus.ERROR, AbapTagsUIPlugin.PLUGIN_ID, Messages.TaggedObjectSearchQuery_NoProjectError_xmsg);
 		}
-		final IStatus loggedOnStatus = AdtUtil.ensureLoggedOnToProject(this.projectProvider.getProject());
+		final IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(this.projectProvider.getProject());
 		if (!loggedOnStatus.isOK()) {
 			return loggedOnStatus;
 		}

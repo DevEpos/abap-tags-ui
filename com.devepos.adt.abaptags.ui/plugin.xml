@@ -4,43 +4,52 @@
    <extension
          point="org.eclipse.ui.commands">
       <category
-            id="com.devepos.adt.abaptags.ui.general.commands.category"
-            name="%catagory.abaptags.label">
+            id="com.devepos.adt.atm.ui.general.commands.category"
+            name="%catagory.atm.label">
       </category>
       <command
-            categoryId="com.devepos.adt.abaptags.ui.general.commands.category"
-            id="com.devepos.adt.abaptags.ui.command.manageTags"
+            categoryId="com.devepos.adt.atm.ui.general.commands.category"
+            id="com.devepos.adt.atm.ui.command.manageTags"
             name="%command.manageTags.label">
          <commandParameter
-               id="com.devepos.adt.abaptags.ui.commandParams.globalTags"
+               id="com.devepos.adt.atm.ui.commandParams.globalTags"
                name="%commandParams.globalTags"
                optional="true">
          </commandParameter>
       </command>
       <command
-            categoryId="com.devepos.adt.abaptags.ui.general.commands.category"
-            id="com.devepos.adt.abaptags.ui.command.tagSelectedObjects"
+            categoryId="com.devepos.adt.atm.ui.general.commands.category"
+            id="com.devepos.adt.atm.ui.command.tagSelectedObjects"
             name="%command.tagSelectedObjects.label">
       </command>
       <command
-            categoryId="com.devepos.adt.abaptags.ui.general.commands.category"
-            id="com.devepos.adt.abaptags.ui.command.tagObjects"
+            categoryId="com.devepos.adt.atm.ui.general.commands.category"
+            id="com.devepos.adt.atm.ui.command.tagObjects"
             name="%command.tagObjects.label">
+      </command>
+      <command
+            categoryId="com.devepos.adt.atm.ui.general.commands.category"
+            id="com.devepos.adt.atm.ui.command.showInTagsExplorer"
+            name="%command.showInTagsExplorer.label">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
             class="com.devepos.adt.atm.ui.internal.handlers.ManageTagsHandler"
-            commandId="com.devepos.adt.abaptags.ui.command.manageTags">
+            commandId="com.devepos.adt.atm.ui.command.manageTags">
       </handler>
       <handler
             class="com.devepos.adt.atm.ui.internal.handlers.AddTagsToSelectedObjectsHandler"
-            commandId="com.devepos.adt.abaptags.ui.command.tagSelectedObjects">
+            commandId="com.devepos.adt.atm.ui.command.tagSelectedObjects">
       </handler>
       <handler
             class="com.devepos.adt.atm.ui.internal.handlers.AddTagsToObjectsHandler"
-            commandId="com.devepos.adt.abaptags.ui.command.tagObjects">
+            commandId="com.devepos.adt.atm.ui.command.tagObjects">
+      </handler>
+      <handler
+            class="com.devepos.adt.atm.ui.internal.handlers.ShowInTagExplorerHandler"
+            commandId="com.devepos.adt.atm.ui.command.showInTagsExplorer">
       </handler>
     </extension>
    <extension
@@ -49,15 +58,15 @@
             allPopups="false"
             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
          <toolbar
-               id="com.devepos.adt.abaptags.ui"
-               label="%toolbar.abaptags.label">
+               id="com.devepos.adt.atm.ui"
+               label="%toolbar.atm.label">
             <command
-                  commandId="com.devepos.adt.abaptags.ui.command.manageTags"
+                  commandId="com.devepos.adt.atm.ui.command.manageTags"
                   icon="icons/Tag.png"
                   label="%command.manageGlobalTags.label"
                   style="pulldown">
                <parameter
-                     name="com.devepos.adt.abaptags.ui.commandParams.globalTags"
+                     name="com.devepos.adt.atm.ui.commandParams.globalTags"
                      value="true">
                </parameter>
                <visibleWhen
@@ -71,34 +80,34 @@
       </menuContribution>
       <menuContribution
             allPopups="false"
-            locationURI="menu:com.devepos.adt.abaptags.ui.command.manageTags">
+            locationURI="menu:com.devepos.adt.atm.ui.command.manageTags">
          <command
-               commandId="com.devepos.adt.abaptags.ui.command.manageTags"
+               commandId="com.devepos.adt.atm.ui.command.manageTags"
                icon="icons/Globe.png"
                label="%menu.cmd.manageGlobalTags.label"
                mnemonic="g"
                style="push">
             <parameter
-                  name="com.devepos.adt.abaptags.ui.commandParams.globalTags"
+                  name="com.devepos.adt.atm.ui.commandParams.globalTags"
                   value="true">
             </parameter>
          </command>
          <command
-               commandId="com.devepos.adt.abaptags.ui.command.manageTags"
+               commandId="com.devepos.adt.atm.ui.command.manageTags"
                icon="icons/User.png"
                label="%menu.cmd.manageUserTags.label"
                style="push">
             <parameter
-                  name="com.devepos.adt.abaptags.ui.commandParams.globalTags"
+                  name="com.devepos.adt.atm.ui.commandParams.globalTags"
                   value="false">
             </parameter>
          </command>
          <separator
-               name="com.devepos.adt.abaptags.ui.separator1"
+               name="com.devepos.adt.atm.ui.separator1"
                visible="true">
          </separator>
          <command
-               commandId="com.devepos.adt.abaptags.ui.command.tagObjects"
+               commandId="com.devepos.adt.atm.ui.command.tagObjects"
                icon="icons/NewTag.png"
                label="%menu.cmd.tagObjects.label"
                mnemonic="a"
@@ -109,7 +118,7 @@
             allPopups="false"
             locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?endof=group.open">
          <command
-               commandId="com.devepos.adt.abaptags.ui.command.tagSelectedObjects"
+               commandId="com.devepos.adt.atm.ui.command.tagSelectedObjects"
                icon="icons/NewTag.png"
                label="%menu.cmd.tagObjects.label"
                mnemonic="a"
@@ -123,7 +132,7 @@
                      <adapt
                            type="com.devepos.adt.tools.base.adtobject.IAdtObject">
                         <test
-                              property="com.devepos.adt.abaptags.ui.features.abaptagsAvailable">
+                              property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
                         </test>
                      </adapt>
                   </iterate>
@@ -135,7 +144,7 @@
             allPopups="false"
             locationURI="popup:#EditorContext?after=group.open">
          <command
-               commandId="com.devepos.adt.abaptags.ui.command.tagSelectedObjects"
+               commandId="com.devepos.adt.atm.ui.command.tagSelectedObjects"
                icon="icons/NewTag.png"
                label="%menu.cmd.tagObjects.label"
                mnemonic="a"
@@ -147,11 +156,20 @@
                   <adapt
                         type="com.devepos.adt.tools.base.adtobject.IAdtObject">
                      <test
-                           property="com.devepos.adt.abaptags.ui.features.abaptagsAvailable">
+                           property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
                      </test>
                   </adapt>
                </with>
             </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.menus.showInMenu">
+         <command
+               commandId="com.devepos.adt.atm.ui.command.showInTagsExplorer"
+               icon="icons/TagsFolder.png"
+               style="push">
          </command>
       </menuContribution>
    </extension>
@@ -159,8 +177,8 @@
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
             class="com.devepos.adt.atm.ui.internal.propertytester.FeatureTester"
-            id="com.devepos.adt.abaptags.ui.ProjectFeatureTester"
-            namespace="com.devepos.adt.abaptags.ui.features"
+            id="com.devepos.adt.atm.ui.ProjectFeatureTester"
+            namespace="com.devepos.adt.atm.ui.features"
             properties="abaptagsAvailable"
             type="com.devepos.adt.tools.base.adtobject.IAdtObject">
       </propertyTester>
@@ -170,7 +188,7 @@
       <viewPage
             class="com.devepos.adt.atm.ui.internal.search.TaggedObjectSearchResultPage"
             icon="icons/Tag.png"
-            id="com.devepos.adt.abaptags.ui.searchresultpage.tags"
+            id="com.devepos.adt.atm.ui.searchresultpage.tags"
             searchResultClass="com.devepos.adt.atm.ui.internal.search.TaggedObjectSearchResult">
       </viewPage>
    </extension>
@@ -179,7 +197,7 @@
       <page
             class="com.devepos.adt.atm.ui.internal.search.TaggedObjectSearchPage"
             icon="icons/Tag.png"
-            id="com.devepos.adt.abaptags.ui.searchpage.tags"
+            id="com.devepos.adt.atm.ui.searchpage.tags"
             label="%tag.searchpage.label"
             tabPosition="1">
       </page>
@@ -203,5 +221,24 @@
       <initializer
             class="com.devepos.adt.atm.ui.internal.preferences.PreferenceInitializer">
       </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="com.sap.adt.views"
+            class="com.devepos.adt.atm.ui.internal.views.AbapTagExplorerView"
+            icon="icons/TagsFolder.png"
+            id="com.devepos.adt.atm.ui.views.AbapTagsExplorer"
+            name="%views.name.abapTagsExplorer"
+            restorable="true">
+      </view>
+      <view
+            category="com.sap.adt.views"
+            class="com.devepos.adt.atm.ui.internal.views.AbapTagsView"
+            icon="icons/Tag.png"
+            id="com.devepos.adt.atm.ui.views.AbapTags"
+            name="%views.name.abapTags"
+            restorable="true">
+      </view>
    </extension>
 </plugin>

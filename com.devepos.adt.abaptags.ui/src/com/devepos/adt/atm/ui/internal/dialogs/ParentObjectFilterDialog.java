@@ -22,9 +22,9 @@ import com.devepos.adt.atm.search.ITaggedObjectSearchService;
 import com.devepos.adt.atm.search.TaggedObjectSearchFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
-import com.devepos.adt.tools.base.adtobject.AdtTypeUtil;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.tools.base.ui.StylerFactory;
+import com.devepos.adt.tools.base.util.AdtTypeUtil;
 import com.sap.ide.platform.common.ui.dialogs.ScopedFilteredItemsSelectionDialog;
 
 @SuppressWarnings("restriction")

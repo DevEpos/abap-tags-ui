@@ -42,13 +42,13 @@ import com.devepos.adt.atm.ui.internal.tree.TagFilter;
 import com.devepos.adt.atm.ui.internal.tree.TagLabelProvider;
 import com.devepos.adt.atm.ui.internal.tree.TagTreeContentProvider;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
+import com.devepos.adt.tools.base.project.ProjectUtil;
 import com.devepos.adt.tools.base.ui.project.ProjectInput;
-import com.devepos.adt.tools.base.util.AdtUtil;
 import com.devepos.adt.tools.base.util.StatusUtil;
 
 public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 
-	public static final String PAGE_ID = "com.devepos.adt.abaptags.ui.searchpage.tags"; //$NON-NLS-1$
+	public static final String PAGE_ID = "com.devepos.adt.atm.ui.searchpage.tags"; //$NON-NLS-1$
 	private static final String LAST_PROJECT_PREF = "com.devepos.adt.abaptags.ui.taggedObjectSearch.lastProject"; //$NON-NLS-1$
 	private ISearchPageContainer container;
 	private CheckboxTreeViewer tagsTreeViewer;
@@ -140,7 +140,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 		if (this.projectInput != null) {
 			String projectName = null;
 
-			final IProject currentAbapProject = AdtUtil.getCurrentAbapProject();
+			final IProject currentAbapProject = ProjectUtil.getCurrentAbapProject();
 			if (currentAbapProject != null) {
 				projectName = currentAbapProject.getName();
 			}
@@ -157,7 +157,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 
 		this.projectInput.createControl(parent);
 		this.projectInput.addProjectValidator((project) -> {
-			final IStatus loggedOnStatus = AdtUtil.ensureLoggedOnToProject(project);
+			final IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(project);
 			if (!loggedOnStatus.isOK()) {
 				return loggedOnStatus;
 			}
@@ -279,7 +279,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 		}
 		this.loadTagsJob = Job.create(Messages.TaggedObjectSearchPage_LoadingTagsJob_xmsg, monitor -> {
 			final ITagList tagList = AbapTagsServiceFactory.createTagsService()
-				.readTags(AdtUtil.getDestinationId(project), TagSearchScope.ALL, false);
+				.readTags(ProjectUtil.getDestinationId(project), TagSearchScope.ALL, false);
 			monitor.done();
 			if (tagList != null) {
 				this.tagList.getTags().clear();

@@ -35,8 +35,8 @@ import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.util.IImages;
 import com.devepos.adt.tools.base.project.AbapProjectProxy;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
+import com.devepos.adt.tools.base.project.ProjectUtil;
 import com.devepos.adt.tools.base.ui.MessageLine;
-import com.devepos.adt.tools.base.util.AdtUtil;
 import com.devepos.adt.tools.base.util.IStatusView;
 import com.sap.adt.tools.core.ui.AbapProjectProposalProvider;
 import com.sap.adt.tools.core.ui.dialogs.AbapProjectSelectionDialog;
@@ -142,7 +142,7 @@ public class TagManagerDialog extends TrayDialog implements IStatusView {
 	private void setInitialProject() {
 		String projectName = null;
 
-		final IProject currentAbapProject = AdtUtil.getCurrentAbapProject();
+		final IProject currentAbapProject = ProjectUtil.getCurrentAbapProject();
 		if (currentAbapProject != null) {
 			projectName = currentAbapProject.getName();
 		}
@@ -273,7 +273,7 @@ public class TagManagerDialog extends TrayDialog implements IStatusView {
 			this.projectProvider.setProject(null);
 		} else {
 			// check if there is an ABAP project which matches the entered name
-			final IProject[] abapProjects = AdtUtil.getAbapProjects();
+			final IProject[] abapProjects = ProjectUtil.getAbapProjects();
 			String availableProjectName = null;
 			for (final IProject project : abapProjects) {
 				if (project.getName().equalsIgnoreCase(projectName)) {

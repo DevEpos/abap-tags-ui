@@ -31,6 +31,13 @@ public class Messages extends NLS {
 	public static String AbapTagDetailsPage_DetailsSectionDescription_xmsg;
 	public static String AbapTagDetailsPage_DetailsSectionTitle_xtit;
 	public static String AbapTagDetailsPage_NameInput_xlbl;
+	public static String AbapTagExplorerView_AddTagsAction_xtol;
+	public static String AbapTagExplorerView_DeleteTagAction_xmit;
+	public static String AbapTagExplorerView_DeleteTagsJob_xmsg;
+	public static String AbapTagExplorerView_LinkToEditorAction_xtol;
+	public static String AbapTagExplorerView_LoadingTaggedObjectInfoJob_xmsg;
+	public static String AbapTagExplorerView_NoInputAvailable_xmsg;
+	public static String AbapTagExplorerView_NoTagsAssigned_xmsg;
 	public static String AbapTagMasterDetailsBlock_AddAction_xbut;
 	public static String AbapTagMasterDetailsBlock_CancelAction_xtol;
 	public static String AbapTagMasterDetailsBlock_CollapseAll_xtol;
@@ -76,6 +83,7 @@ public class Messages extends NLS {
 	public static String TagParentObjectSelectionWizardPage_MultipleSelectionMode_xrbl;
 	public static String TagParentObjectSelectionWizardPage_ObjectTagColumn_xlbl;
 	public static String TagParentObjectSelectionWizardPage_ParentObject_xlbl;
+	public static String TagParentObjectSelectionWizardPage_ParentObjectAssignPrompt_xmsg;
 	public static String TagParentObjectSelectionWizardPage_ParentTagColumn_xlbl;
 	public static String TagParentObjectSelectionWizardPage_SingleSelectionMode_xrbl;
 	public static String TagParentObjectSelectionWizardPage_Title_xtit;

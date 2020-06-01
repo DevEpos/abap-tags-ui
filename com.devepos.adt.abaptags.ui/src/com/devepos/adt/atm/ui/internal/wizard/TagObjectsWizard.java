@@ -20,7 +20,7 @@ import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.util.IImages;
 import com.devepos.adt.tools.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRefList;
-import com.devepos.adt.tools.base.util.AdtUtil;
+import com.devepos.adt.tools.base.project.ProjectUtil;
 import com.devepos.adt.tools.base.wizard.IBaseWizardPage;
 
 /**
@@ -37,6 +37,7 @@ public class TagObjectsWizard extends Wizard implements ITagObjectsWizard {
 	private boolean canFinish;
 	private final boolean skipObjectSelection;
 	private List<ITag> selectedTags;
+	private boolean success;
 
 	public TagObjectsWizard() {
 		this(false);
@@ -56,6 +57,15 @@ public class TagObjectsWizard extends Wizard implements ITagObjectsWizard {
 		}
 		addTagSelectionPage();
 		addParentObjectSelectionPage();
+	}
+
+	/**
+	 * Returns {@code true} if the tagging wizard completed with success
+	 *
+	 * @return {@code true} if the tagging wizard completed with success
+	 */
+	public boolean wasSuccessful() {
+		return this.success;
 	}
 
 	@Override
@@ -82,7 +92,8 @@ public class TagObjectsWizard extends Wizard implements ITagObjectsWizard {
 				monitor.beginTask(Messages.TagObjectsWizard_AddTagsToObjectsJob_xmsg, -1);
 				try {
 					AdtObjTaggingServiceFactory.createTaggingService()
-						.saveTaggedObjects(AdtUtil.getDestinationId(this.project), this.taggedObjectList);
+						.saveTaggedObjects(ProjectUtil.getDestinationId(this.project), this.taggedObjectList);
+					this.success = true;
 				} catch (final CoreException e) {
 					e.printStackTrace();
 				}

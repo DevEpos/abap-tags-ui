@@ -51,7 +51,6 @@ import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
 import com.devepos.adt.tools.base.AdtToolsBaseResources;
 import com.devepos.adt.tools.base.IAdtToolsBaseImages;
 import com.devepos.adt.tools.base.IAdtToolsBaseStrings;
-import com.devepos.adt.tools.base.adtobject.AdtTypeUtil;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
 import com.devepos.adt.tools.base.ui.StylerFactory;
 import com.devepos.adt.tools.base.ui.UIState;
@@ -68,11 +67,11 @@ import com.devepos.adt.tools.base.ui.tree.IStyledTreeNode;
 import com.devepos.adt.tools.base.ui.tree.ITreeNode;
 import com.devepos.adt.tools.base.ui.tree.LazyLoadingTreeContentProvider;
 import com.devepos.adt.tools.base.ui.tree.LoadingTreeItemsNode;
+import com.devepos.adt.tools.base.util.AdtTypeUtil;
 import com.devepos.adt.tools.base.util.StringUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 public class TaggedObjectSearchResultPage extends Page implements ISearchResultPage, ISearchResultListener {
-	private static final String GROUP_WHERE_USED = "group.whereUsed"; //$NON-NLS-1$
 	private String id;
 	private ISearchResultViewPart searchViewPart;
 	private Tree resultTree;
@@ -185,7 +184,6 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 			this.state = uiState instanceof UIState ? (UIState) uiState : null;
 			this.searchQuery = (TaggedObjectSearchQuery) this.result.getQuery();
 			this.projectProvider = this.searchQuery.getProjectProvider();
-//			checkFeatureAvailibility();
 			if (!NewSearchUI.isQueryRunning(this.searchQuery)) {
 				updateUiState();
 			}
@@ -202,12 +200,10 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 
 	@Override
 	public void restoreState(final IMemento memento) {
-
 	}
 
 	@Override
 	public void saveState(final IMemento memento) {
-
 	}
 
 	@Override
@@ -244,12 +240,8 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 			final IAbapProjectProvider projectProvider = this.searchQuery.getProjectProvider();
 			if (projectProvider != this.projectProvider) {
 				this.projectProvider = projectProvider;
-//				checkFeatureAvailibility();
 			}
 			this.resultTreeViewer.setInput(e.getSearchResult());
-//			if (this.groupByPackageAction.isChecked()) {
-//				expandAllPackages();
-//			}
 			updateUiState();
 		});
 
@@ -307,7 +299,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 		}
 
 		if (!adtObjRefs.isEmpty()) {
-			menu.add(new OpenAdtObjectAction(this.projectProvider, adtObjRefs));
+			menu.add(new OpenAdtObjectAction(this.projectProvider.getProject(), adtObjRefs));
 		}
 		if (!previewAdtObjRefs.isEmpty()) {
 			menu.add(new ExecuteAdtObjectAction(this.projectProvider.getProject(), previewAdtObjRefs, true));
@@ -317,8 +309,9 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 		}
 
 		if (!adtObjRefs.isEmpty()) {
-			menu.add(new Separator(GROUP_WHERE_USED));
-			MenuItemFactory.addCommandItem(menu, GROUP_WHERE_USED, "com.sap.adt.ris.whereused.ui.callWhereUsed", //$NON-NLS-1$
+			menu.add(new Separator(IContextMenuConstants.GROUP_ADDITIONS));
+			MenuItemFactory.addCommandItem(menu, IContextMenuConstants.GROUP_ADDITIONS,
+				"com.sap.adt.ris.whereused.ui.callWhereUsed", //$NON-NLS-1$
 				AdtToolsBaseResources.getImageDescriptor(IAdtToolsBaseImages.WHERE_USED_LIST),
 				AdtToolsBaseResources.getString(IAdtToolsBaseStrings.General_WhereUsedList_xmit), null);
 		}
@@ -414,7 +407,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 	 *
 	 * @author stockbal
 	 */
-	class ViewLabelProvider extends LabelProvider implements ILabelProvider, IStyledLabelProvider {
+	private class ViewLabelProvider extends LabelProvider implements ILabelProvider, IStyledLabelProvider {
 
 		@Override
 		public String getText(final Object element) {

@@ -8,14 +8,14 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.devepos.adt.atm.ui.internal.wizard.TagObjectsWizard;
-import com.devepos.adt.tools.base.util.AdtUtil;
+import com.devepos.adt.tools.base.project.ProjectUtil;
 
 public class AddTagsToObjectsHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final TagObjectsWizard wizard = new TagObjectsWizard();
-		final IProject project = AdtUtil.getCurrentAbapProject();
+		final IProject project = ProjectUtil.getCurrentAbapProject();
 		wizard.setProject(project);
 		final WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
 		dialog.open();
