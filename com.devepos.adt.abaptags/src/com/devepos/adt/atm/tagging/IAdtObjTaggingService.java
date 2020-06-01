@@ -33,4 +33,23 @@ public interface IAdtObjTaggingService {
 	 * @throws CoreException
 	 */
 	void saveTaggedObjects(String destinationId, ITaggedObjectList taggedObjectList) throws CoreException;
+
+	/**
+	 * Retrieves tagged object information about object with {@code objectUri}.
+	 *
+	 * @param  destinationId destination Id of ABAP Project
+	 * @param  objectUri     uri of an ADT object
+	 * @return               the found object information
+	 * @throws CoreException
+	 */
+	ITaggedObject getObject(String destinationId, String objectUri) throws CoreException;
+
+	/**
+	 * Deletes the tags from the ADT objects
+	 *
+	 * @param  destinationId destination Id of ABAP project
+	 * @param  tgobjList     list of tagged objects with tags that should be deleted
+	 * @throws CoreException
+	 */
+	void deleteTags(String destinationId, ITaggedObjectList tgobjList) throws CoreException;
 }

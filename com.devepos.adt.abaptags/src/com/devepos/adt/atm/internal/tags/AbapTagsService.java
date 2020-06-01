@@ -14,7 +14,7 @@ import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.tags.IAbapTagsService;
 import com.devepos.adt.tools.base.project.AbapProjectProviderAccessor;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
-import com.devepos.adt.tools.base.util.AdtUtil;
+import com.devepos.adt.tools.base.project.ProjectUtil;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
 import com.sap.adt.communication.resources.IQueryParameter;
 import com.sap.adt.communication.resources.IRestResource;
@@ -42,7 +42,7 @@ public class AbapTagsService implements IAbapTagsService {
 
 	@Override
 	public IStatus testTagsFeatureAvailability(final IProject project) {
-		final String destinationId = AdtUtil.getDestinationId(project);
+		final String destinationId = ProjectUtil.getDestinationId(project);
 		if (new AbapTagsUriDiscovery(destinationId).isResourceDiscoverySuccessful()) {
 			return Status.OK_STATUS;
 		} else {
