@@ -172,6 +172,31 @@
                style="push">
          </command>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.search.ui.views.SearchView?endof=group.new">
+         <command
+               commandId="com.devepos.adt.atm.ui.command.tagSelectedObjects"
+               icon="icons/NewTag.png"
+               label="%menu.cmd.tagObjects.label"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        operator="and">
+                     <adapt
+                           type="com.devepos.adt.tools.base.adtobject.IAdtObject">
+                        <test
+                              property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
+                        </test>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.core.expressions.propertyTesters">

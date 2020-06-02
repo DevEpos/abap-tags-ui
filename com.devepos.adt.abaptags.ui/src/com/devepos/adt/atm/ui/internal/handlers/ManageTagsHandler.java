@@ -12,8 +12,7 @@ public class ManageTagsHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final boolean globalTags = Boolean
-			.parseBoolean(event.getParameter("com.devepos.adt.abaptags.ui.commandParams.globalTags")); //$NON-NLS-1$
+		final boolean globalTags = Boolean.parseBoolean(event.getParameter("com.devepos.adt.atm.ui.commandParams.globalTags")); //$NON-NLS-1$
 		// get current project via dialog
 		final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 

@@ -159,6 +159,30 @@ public class AbapTagExplorerView extends ViewPart {
 					showTaggedObjectsForEditor(partRef.getPage().getActiveEditor());
 				}
 			}
+
+			@Override
+			public void partBroughtToTop(final IWorkbenchPartReference partRef) {
+			}
+
+			@Override
+			public void partClosed(final IWorkbenchPartReference partRef) {
+			}
+
+			@Override
+			public void partDeactivated(final IWorkbenchPartReference partRef) {
+			}
+
+			@Override
+			public void partOpened(final IWorkbenchPartReference partRef) {
+			}
+
+			@Override
+			public void partHidden(final IWorkbenchPartReference partRef) {
+			}
+
+			@Override
+			public void partInputChanged(final IWorkbenchPartReference partRef) {
+			}
 		});
 		getSite().setSelectionProvider(this.treeViewer);
 	}

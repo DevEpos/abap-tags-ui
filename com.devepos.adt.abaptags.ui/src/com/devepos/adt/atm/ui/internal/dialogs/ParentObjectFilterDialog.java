@@ -23,7 +23,6 @@ import com.devepos.adt.atm.search.TaggedObjectSearchFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
-import com.devepos.adt.tools.base.ui.StylerFactory;
 import com.devepos.adt.tools.base.util.AdtTypeUtil;
 import com.sap.ide.platform.common.ui.dialogs.ScopedFilteredItemsSelectionDialog;
 
@@ -128,10 +127,10 @@ public class ParentObjectFilterDialog extends ScopedFilteredItemsSelectionDialog
 
 		@Override
 		public StyledString getStyledText(final Object element) {
-			StyledString text = null;
+			final StyledString text = new StyledString();
 			if (element != null && element instanceof IAdtObjRef) {
 				final IAdtObjRef objRef = (IAdtObjRef) element;
-				text = getStyledStringHighlighter().highlight(objRef.getName(), getSearchPattern(), StylerFactory.BOLD_STYLER);
+				text.append(objRef.getName());
 
 				final String description = objRef.getDescription();
 				if (description != null && !description.isEmpty()) {

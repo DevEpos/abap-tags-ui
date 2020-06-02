@@ -311,7 +311,7 @@ public class AbapTagMasterDetailsBlock extends MasterDetailsBlock implements IMa
 		if (sel.isEmpty()) {
 			return;
 		}
-		for (final Object selected : sel) {
+		for (final Object selected : sel.toList()) {
 			this.model.removeTag((ITag) selected);
 		}
 

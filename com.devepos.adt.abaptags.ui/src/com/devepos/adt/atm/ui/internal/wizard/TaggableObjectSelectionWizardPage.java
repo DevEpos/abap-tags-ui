@@ -26,7 +26,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.PlatformUI;
 
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
@@ -35,12 +34,10 @@ import com.devepos.adt.tools.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.tools.base.project.ProjectUtil;
 import com.devepos.adt.tools.base.ui.project.ProjectInput;
+import com.devepos.adt.tools.base.ui.search.AdtRisSearchUtil;
+import com.devepos.adt.tools.base.ui.search.IAdtRisSearchResultProxy;
 import com.devepos.adt.tools.base.util.AdtTypeUtil;
 import com.devepos.adt.tools.base.wizard.AbstractBaseWizardPage;
-import com.sap.adt.ris.search.ui.AdtRepositorySearchServiceUIFactory;
-import com.sap.adt.ris.search.ui.IAdtRepositorySearchServiceUIParameters;
-import com.sap.adt.ris.search.ui.IAdtRepositorySearchServiceUIResult;
-import com.sap.adt.ris.search.ui.internal.preferences.SearchPreferences;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 /**
@@ -149,24 +146,14 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 		this.selectObjectsButton.setText(Messages.TaggableObjectSelectionWizardPage_SelectObjects_xbut);
 		this.selectObjectsButton.setEnabled(getWizard().getProject() != null);
 		this.selectObjectsButton.addSelectionListener(new SelectionAdapter() {
-			@SuppressWarnings("restriction")
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				final IAdtRepositorySearchServiceUIParameters parameters = AdtRepositorySearchServiceUIFactory
-					.createAdtRepositorySearchServiceUIParameters();
-				parameters.setTitle(Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit);
-				parameters.setFixedProject(getWizard().getProject());
-				parameters.setDescriptionVisible(true);
-				parameters.setSearchPreferences(new SearchPreferences());
-				final IAdtRepositorySearchServiceUIResult result = AdtRepositorySearchServiceUIFactory
-					.createAdtRepositorySearchServiceUI()
-					.openDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), parameters);
-
+				final IAdtRisSearchResultProxy result = AdtRisSearchUtil.searchAdtObjectViaDialog(
+					Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit, true, getWizard().getProject());
 				if (result == null) {
 					return;
 				}
-
-				for (final IAdtObjectReference ref : result.getAllSelectedObjectReferences()) {
+				for (final IAdtObjectReference ref : result.getAllSelectedResults()) {
 					TaggableObjectSelectionWizardPage.this.objects.add(new ObjectToBeTagged(ref));
 				}
 				TaggableObjectSelectionWizardPage.this.objectsViewer.refresh();
@@ -280,7 +267,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 			return;
 		}
 
-		for (final Object selObject : sel) {
+		for (final Object selObject : sel.toList()) {
 			this.objects.remove(selObject);
 		}
 		this.objectsViewer.refresh();
