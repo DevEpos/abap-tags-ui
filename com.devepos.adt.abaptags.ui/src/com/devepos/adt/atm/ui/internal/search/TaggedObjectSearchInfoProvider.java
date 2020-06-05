@@ -69,7 +69,7 @@ public class TaggedObjectSearchInfoProvider implements IElementInfoProvider {
 						new TaggedObjectSearchInfoProvider(this.destinationId, objRef, tag, this.maxResults));
 					objRefElemeInfo.getChildren().add(lazyTagElemInfo);
 				}
-				objRefElemeInfo.setLazyLoadingSupport(!taggedObject.getTags().isEmpty());
+				objRefElemeInfo.setLazyLoadingSupport(false);
 				elements.add(objRefElemeInfo);
 			}
 		}
