@@ -108,8 +108,8 @@
          </separator>
          <command
                commandId="com.devepos.adt.atm.ui.command.tagObjects"
-               icon="icons/NewTag.png"
-               label="%menu.cmd.tagObjects.label"
+               icon="icons/AssignTag.png"
+               label="%toolbar.menu.cmd.tagObjects.label"
                mnemonic="a"
                style="push">
          </command>
@@ -119,7 +119,7 @@
             locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?endof=group.open">
          <command
                commandId="com.devepos.adt.atm.ui.command.tagSelectedObjects"
-               icon="icons/NewTag.png"
+               icon="icons/AssignTag.png"
                label="%menu.cmd.tagObjects.label"
                mnemonic="a"
                style="push">
@@ -145,7 +145,7 @@
             locationURI="popup:#EditorContext?after=group.open">
          <command
                commandId="com.devepos.adt.atm.ui.command.tagSelectedObjects"
-               icon="icons/NewTag.png"
+               icon="icons/AssignTag.png"
                label="%menu.cmd.tagObjects.label"
                mnemonic="a"
                style="push">
@@ -177,7 +177,32 @@
             locationURI="popup:org.eclipse.search.ui.views.SearchView?endof=group.new">
          <command
                commandId="com.devepos.adt.atm.ui.command.tagSelectedObjects"
-               icon="icons/NewTag.png"
+               icon="icons/AssignTag.png"
+               label="%menu.cmd.tagObjects.label"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        operator="and">
+                     <adapt
+                           type="com.devepos.adt.tools.base.adtobject.IAdtObject">
+                        <test
+                              property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
+                        </test>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.devepos.adt.saat.views.cdsanalyzer?endof=group.new">
+         <command
+               commandId="com.devepos.adt.atm.ui.command.tagSelectedObjects"
+               icon="icons/AssignTag.png"
                label="%menu.cmd.tagObjects.label"
                style="push">
             <visibleWhen

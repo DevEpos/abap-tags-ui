@@ -88,10 +88,10 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 	private OpenInSearchDialogAction openInSearchDialog;
 	private IPropertyChangeListener prefStoreListener;
 	private IPreferenceStore prefStore;
-	private final List<String> compatibleObjectTypes;
+	private final List<String> executableObjectTypes;
 
 	public TaggedObjectSearchResultPage() {
-		this.compatibleObjectTypes = Stream.of("CLAS/OC", "PROG/P", "TRAN/T", "FUGR/FF", "WAPA/WO", "WDYA/YY", "WDCA/YA")
+		this.executableObjectTypes = Stream.of("CLAS/OC", "PROG/P", "TRAN/T", "FUGR/FF", "WAPA/WO", "WDYA/YY", "WDCA/YA")
 			.collect(Collectors.toList());
 	}
 
@@ -114,6 +114,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 			if (e.getProperty().equals(ITaggedObjectSearchPrefs.DISPLAY_DESCRIPTIONS)
 				|| e.getProperty().equals(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES)
 				|| e.getProperty().equals(ITaggedObjectSearchPrefs.DISPLAY_OBJECT_TYPES)) {
+
 				this.resultTreeViewer.refresh();
 			}
 		};
@@ -286,7 +287,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 				if (objRefNode.supportsDataPreview()) {
 					previewAdtObjRefs.add(adtObjectRef);
 				}
-				if (this.compatibleObjectTypes.contains(objRefNode.getAdtObjectType())) {
+				if (this.executableObjectTypes.contains(objRefNode.getAdtObjectType())) {
 					executableAdtObjRefs.add(adtObjectRef);
 				}
 				adtObjRefs.add(adtObjectRef);

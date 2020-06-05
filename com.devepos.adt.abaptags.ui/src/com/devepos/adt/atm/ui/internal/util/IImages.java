@@ -39,5 +39,9 @@ public interface IImages {
 	 * Image to indicate new tag assignments to ADT objects
 	 */
 	String NEW_TAG_ASSIGN_WIZ = "IMG_NEW_TAG_ASSIGN_WIZ";
+	/**
+	 * Image for assigning Tags to objects
+	 */
+	String ASSIGN_TAG = "IMG_ASSIGN_TAG";
 
 }

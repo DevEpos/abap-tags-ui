@@ -287,7 +287,7 @@ public class AbapTagExplorerView extends ViewPart {
 			}
 		});
 		this.addTagsAction = ActionUtil.createAction(Messages.AbapTagExplorerView_AddTagsAction_xtol,
-			AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.NEW_TAG_ASSIGN_WIZ), () -> {
+			AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.ASSIGN_TAG), () -> {
 				final TagObjectsWizard wizard = new TagObjectsWizard(this.currentAdtObject != null);
 				if (this.currentAdtObject != null) {
 					wizard.setProject(this.currentAdtObject.getProject());
