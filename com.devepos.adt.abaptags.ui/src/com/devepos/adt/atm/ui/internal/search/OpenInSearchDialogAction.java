@@ -30,6 +30,9 @@ public class OpenInSearchDialogAction extends Action {
 			final SearchDialog dialog = new SearchDialog(window, TaggedObjectSearchPage.PAGE_ID);
 			dialog.setBlockOnOpen(false);
 			dialog.open();
+			if (dialog.getSelectedPage() instanceof TaggedObjectSearchPage) {
+				((TaggedObjectSearchPage) dialog.getSelectedPage()).setInputFromPreviousQuery(objectSearchResultPage.getQuery());
+			}
 			dialog.setBlockOnOpen(true);
 		}
 	}

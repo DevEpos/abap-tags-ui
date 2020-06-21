@@ -1,6 +1,7 @@
 package com.devepos.adt.atm.ui.internal.search;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.databinding.AggregateValidationStatus;
@@ -69,6 +70,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 	private final TagFilter patternFilter;
 	private Button matchAllTagsButton;
 	private final IPreferenceStore prefStore;
+	private List<String> previouslyCheckedTagIds;
 
 	public TaggedObjectSearchPage() {
 		this.prefStore = AbapTagsUIPlugin.getDefault().getPreferenceStore();
@@ -101,6 +103,12 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 		if (this.tagsTree != null && !this.tagsTree.isDisposed()) {
 			this.tagsTree.setFocus();
 		}
+	}
+
+	public void setInputFromPreviousQuery(final TaggedObjectSearchQuery query) {
+		this.projectInput.setProjectName(query.getProjectProvider().getProjectName());
+		this.matchAllTagsButton.setSelection(query.getSearchParams().isMatchesAllTags());
+		this.previouslyCheckedTagIds = query.getSearchParams().getTagIds();
 	}
 
 	@Override
@@ -221,6 +229,30 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 
 	}
 
+	private void determineCheckedTagsFromPreviousSearch() {
+		if (this.previouslyCheckedTagIds == null || this.previouslyCheckedTagIds.isEmpty()) {
+			return;
+		}
+		if (this.tagList != null && !this.tagList.getTags().isEmpty()) {
+			this.tagList.getTags().stream().forEach(tag -> findAndSetTagAsChecked(tag));
+			if (!this.checkedTags.isEmpty()) {
+				setCheckedElements();
+				this.tagsTreeViewer.refresh();
+				updateOKStatus();
+			}
+		}
+		this.previouslyCheckedTagIds = null;
+	}
+
+	private void findAndSetTagAsChecked(final ITag tag) {
+		if (this.previouslyCheckedTagIds.contains(tag.getId())) {
+			this.checkedTags.add(tag);
+		}
+		for (final ITag childTag : tag.getChildTags()) {
+			findAndSetTagAsChecked(childTag);
+		}
+	}
+
 	private void setCheckedElements() {
 		for (final Object checkedItem : this.checkedTags) {
 			this.tagsTreeViewer.setChecked(checkedItem, true);
@@ -286,7 +318,9 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 				this.tagList.getTags().addAll(tagList.getTags());
 				Display.getDefault().asyncExec(() -> {
 					this.tagsTreeViewer.refresh();
+					determineCheckedTagsFromPreviousSearch();
 				});
+				this.loadTagsJob = null;
 			}
 		});
 		this.loadTagsJob.setSystem(true);
