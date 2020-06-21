@@ -70,7 +70,6 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 	private final Set<ITag> preCheckedTags = new HashSet<>();
 	private final Set<ITag> uncheckableTags = new HashSet<>();
 	private final List<ITag> newTags = new ArrayList<>();
-	private String alreadyCheckedTagName;
 	private boolean needsParentObjectSelection;
 	private String owner;
 	private Button removeTagButton;
@@ -219,7 +218,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
 	private void updateRemoveTagEnabled() {
 		boolean removeEnabled = false;
-		final IStructuredSelection sel = (IStructuredSelection) TagSelectionWizardPage.this.checkBoxViewer.getSelection();
+		final IStructuredSelection sel = (IStructuredSelection) TagSelectionWizardPage.this.checkBoxViewer
+			.getSelection();
 		if (sel != null && !sel.isEmpty()) {
 			final ITag selectedTag = (ITag) sel.getFirstElement();
 			removeEnabled = StringUtil.isEmpty(selectedTag.getId());
@@ -258,11 +258,11 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 		if (previewInfo != null) {
 			this.objectCount = previewInfo.getAdtObjectRefs().size();
 			if (this.objectCount > 1) {
-				((Wizard) getWizard())
-					.setWindowTitle(NLS.bind(Messages.TagObjectsWizard_MultipleObjectsWizardTitle_xtit, this.objectCount));
-			} else {
 				((Wizard) getWizard()).setWindowTitle(
-					Messages.TagObjectsWizard_SingleObjectWizardTitle_xtit + previewInfo.getAdtObjectRefs().get(0).getName());
+					NLS.bind(Messages.TagObjectsWizard_MultipleObjectsWizardTitle_xtit, this.objectCount));
+			} else {
+				((Wizard) getWizard()).setWindowTitle(Messages.TagObjectsWizard_SingleObjectWizardTitle_xtit
+					+ previewInfo.getAdtObjectRefs().get(0).getName());
 			}
 			determinePreCheckedTags(previewInfo.getTags());
 			this.checkBoxViewer.setInput(previewInfo.getTags());
@@ -369,7 +369,11 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 	private void createTagsCheckBoxTree(final Composite parent) {
 		this.checkBoxViewer = new CheckboxTreeViewer(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		this.tagsTree = this.checkBoxViewer.getTree();
-		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).minSize(250, 300).applyTo(this.tagsTree);
+		GridDataFactory.fillDefaults()
+			.align(SWT.FILL, SWT.FILL)
+			.grab(true, true)
+			.minSize(250, 300)
+			.applyTo(this.tagsTree);
 		this.checkBoxViewer.addFilter(this.patternFilter);
 		this.treeLabelProvider = new TreeViewerLabelProvider();
 		this.treeContentProvider = new TagTreeContentProvider();
@@ -383,22 +387,16 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 			final ITag tag = (ITag) event.getElement();
 			if (!event.getChecked() && this.uncheckableTags.contains(tag)) {
 				event.getCheckable().setChecked(tag, true);
-				setMessage(NLS.bind(Messages.TagSelectionWizardPage_TagSelectionNotReversable_xmsg, tag.getName()), INFORMATION);
+				setMessage(NLS.bind(Messages.TagSelectionWizardPage_TagSelectionNotReversable_xmsg, tag.getName()),
+					INFORMATION);
 				return;
 			}
-			this.alreadyCheckedTagName = ""; //$NON-NLS-1$
-			if (event.getChecked() && shouldRevertCheckedState(tag)) {
-				setMessage(NLS.bind(Messages.TagSelectionWizardPage_TagHierarchySelectionError_xmsg, this.alreadyCheckedTagName),
-					INFORMATION);
-				event.getCheckable().setChecked(tag, !event.getChecked());
+			if (event.getChecked()) {
+				this.checkedTags.add((ITag) event.getElement());
 			} else {
-				if (event.getChecked()) {
-					this.checkedTags.add((ITag) event.getElement());
-				} else {
-					this.checkedTags.remove(event.getElement());
-				}
-				setDirty(true);
+				this.checkedTags.remove(event.getElement());
 			}
+			setDirty(true);
 			updatePageStatus();
 		});
 		this.tagsTree.addKeyListener(new KeyAdapter() {
@@ -417,61 +415,6 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 				}
 			}
 		});
-	}
-
-	private boolean shouldRevertCheckedState(final ITag tag) {
-		/*
-		 * if a tag is in the list of pre checked tags and all selected objects have
-		 * this tag a selection makes no sense and should therefore be prevented
-		 */
-		return isParentChecked(tag) || hasCheckedChildren(tag);
-	}
-
-	private boolean isParentChecked(final ITag tag) {
-		final EObject container = tag.eContainer();
-		if (container instanceof ITag) {
-			if (this.checkedTags.contains(container) || this.preCheckedTags.contains(container)) {
-				this.alreadyCheckedTagName = ((ITag) container).getName();
-				return true;
-			}
-			return hasCheckedSiblings((ITag) container, tag) || isParentChecked((ITag) container);
-		}
-		return false;
-	}
-
-	private boolean hasCheckedSiblings(final ITag parent, final ITag excludedTag) {
-		if (parent.getChildTags().size() == 0) {
-			return false;
-		}
-		for (final ITag childTag : parent.getChildTags()) {
-			if (childTag == excludedTag) {
-				continue;
-			}
-			if (this.checkedTags.contains(childTag) || this.preCheckedTags.contains(childTag)) {
-				this.alreadyCheckedTagName = childTag.getName();
-				return true;
-			}
-			if (hasCheckedChildren(childTag)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean hasCheckedChildren(final ITag tag) {
-		if (tag.getChildTags().size() == 0) {
-			return false;
-		}
-		for (final ITag childTag : tag.getChildTags()) {
-			if (this.checkedTags.contains(childTag) || this.preCheckedTags.contains(childTag)) {
-				this.alreadyCheckedTagName = childTag.getName();
-				return true;
-			}
-			if (hasCheckedChildren(childTag)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private void updatePageStatus() {
@@ -528,7 +471,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 				} else {
 					text.append(tagNode.getName());
 				}
-				text.append(" (" + tagNode.getTaggedObjectCount() + " of " + TagSelectionWizardPage.this.objectCount + ")", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				text.append(
+					" (" + tagNode.getTaggedObjectCount() + " of " + TagSelectionWizardPage.this.objectCount + ")", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					StyledString.COUNTER_STYLER);
 			} else {
 				text.append(tagNode.getName(), StylerFactory.ITALIC_STYLER);
