@@ -248,6 +248,10 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 
 	}
 
+	public TaggedObjectSearchQuery getQuery() {
+		return this.result != null ? (TaggedObjectSearchQuery) this.result.getQuery() : null;
+	}
+
 	private void initializeActions() {
 		this.collapseAllNodesAction = new CollapseAllTreeNodesAction(this.resultTreeViewer);
 		this.collapseNodesAction = new CollapseTreeNodesAction(this.resultTreeViewer);
@@ -275,6 +279,9 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 		if (selection == null || selection.isEmpty()) {
 			return;
 		}
+		menu.add(new Separator(IContextMenuConstants.GROUP_NEW));
+		menu.add(new Separator(IContextMenuConstants.GROUP_OPEN));
+
 		boolean selectionHasExpandedNodes = false;
 		final List<IAdtObjectReference> adtObjRefs = new ArrayList<>();
 		final List<IAdtObjectReference> previewAdtObjRefs = new ArrayList<>();
@@ -300,13 +307,16 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 		}
 
 		if (!adtObjRefs.isEmpty()) {
-			menu.add(new OpenAdtObjectAction(this.projectProvider.getProject(), adtObjRefs));
+			menu.appendToGroup(IContextMenuConstants.GROUP_OPEN,
+				new OpenAdtObjectAction(this.projectProvider.getProject(), adtObjRefs));
 		}
 		if (!previewAdtObjRefs.isEmpty()) {
-			menu.add(new ExecuteAdtObjectAction(this.projectProvider.getProject(), previewAdtObjRefs, true));
+			menu.appendToGroup(IContextMenuConstants.GROUP_OPEN,
+				new ExecuteAdtObjectAction(this.projectProvider.getProject(), previewAdtObjRefs, true));
 		}
 		if (!executableAdtObjRefs.isEmpty()) {
-			menu.add(new ExecuteAdtObjectAction(this.projectProvider.getProject(), executableAdtObjRefs, false));
+			menu.appendToGroup(IContextMenuConstants.GROUP_OPEN,
+				new ExecuteAdtObjectAction(this.projectProvider.getProject(), executableAdtObjRefs, false));
 		}
 
 		if (!adtObjRefs.isEmpty()) {
