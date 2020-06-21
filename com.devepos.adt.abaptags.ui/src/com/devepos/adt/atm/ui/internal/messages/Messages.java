@@ -55,6 +55,9 @@ public class Messages extends NLS {
 	public static String AbapTagModel_UnlockMessageDialogText_xmsg;
 	public static String AbapTagModel_UnlockMessageDialogTitle_xtit;
 	public static String MainPreferencesPage_InfoLabel_xlbl;
+	public static String ObjectLabelDecorationMenu_DisplayDescription_xckl;
+	public static String ObjectLabelDecorationMenu_DisplayPackage_xckl;
+	public static String ObjectLabelDecorationMenu_DisplayType_xckl;
 	public static String ObjectLabelDecorationMenu_MenuLabel_xmit;
 	public static String OpenInSearchDialogAction_Label_xmit;
 	public static String OpenTaggedObjectSearchPreferences_ActionLabel_xmit;
