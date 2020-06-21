@@ -56,10 +56,11 @@ public class TaggedObjectSearchResult implements ISearchResult {
 			resultsLabel = AdtToolsBaseResources.getString(IAdtToolsBaseStrings.SearchUI_OneResult_xmsg);
 		} else if (this.resultCount > 1) {
 			if (this.hasMoreResults) {
-				resultsLabel = AdtToolsBaseResources.format(IAdtToolsBaseStrings.SearchUI_MoreThanOneResult_xmsg,
+				resultsLabel = AdtToolsBaseResources.format(IAdtToolsBaseStrings.SearchUI_ResultsExceedMaximum_xmsg,
 					this.query.getSearchParams().getMaxResults());
 			} else {
-				resultsLabel = AdtToolsBaseResources.format(IAdtToolsBaseStrings.SearchUI_SpecificResults_xmsg, this.resultCount);
+				resultsLabel = AdtToolsBaseResources.format(IAdtToolsBaseStrings.SearchUI_SpecificResults_xmsg,
+					this.resultCount);
 
 			}
 		} else {
@@ -146,8 +147,8 @@ public class TaggedObjectSearchResult implements ISearchResult {
 			 * if tags are present it means the ADT object has tags with child tags so an
 			 * expansion is possible
 			 */
-			final AdtObjectReferenceNode objRefNode = new AdtObjectReferenceNode(objectRef.getName(), objectRef.getName(),
-				objectRef.getDescription(),
+			final AdtObjectReferenceNode objRefNode = new AdtObjectReferenceNode(objectRef.getName(),
+				objectRef.getName(), objectRef.getDescription(),
 				AdtObjectReferenceModelFactory.createReference(this.query.getDestinationId(), objectRef));
 			nodes.add(objRefNode);
 
@@ -155,8 +156,8 @@ public class TaggedObjectSearchResult implements ISearchResult {
 				final ILazyLoadingNode lazyTagNode = new LazyLoadingFolderNode(tag.getName(),
 					new TaggedObjectSearchInfoProvider(this.query.getDestinationId(), objectRef, tag,
 						this.query.getSearchParams().getMaxResults()),
-					objRefNode,
-					AbapTagsUIPlugin.getDefault().getImage(StringUtil.isEmpty(tag.getOwner()) ? IImages.TAG : IImages.USER_TAG));
+					objRefNode, AbapTagsUIPlugin.getDefault()
+						.getImage(StringUtil.isEmpty(tag.getOwner()) ? IImages.TAG : IImages.USER_TAG));
 				objRefNode.getChildren().add(lazyTagNode);
 			}
 		}
