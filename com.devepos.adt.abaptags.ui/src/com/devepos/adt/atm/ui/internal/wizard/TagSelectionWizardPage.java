@@ -457,29 +457,29 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
 	private class TreeViewerLabelProvider extends TagLabelProvider {
 		public TreeViewerLabelProvider() {
-			super(false, false);
+			super(false, false, false);
 		}
 
 		@Override
-		public StyledString getStyledText(final Object element) {
-			final StyledString text = new StyledString();
-			final ITag tagNode = (ITag) element;
-
-			if (!StringUtil.isEmpty(tagNode.getId())) {
-				if (tagNode.getTaggedObjectCount() == TagSelectionWizardPage.this.objectCount) {
-					text.append(tagNode.getName(), StylerFactory.BOLD_STYLER);
+		protected void appendTagName(final ITag tag, final StyledString text) {
+			if (!StringUtil.isEmpty(tag.getId())) {
+				if (tag.getTaggedObjectCount() == TagSelectionWizardPage.this.objectCount) {
+					text.append(tag.getName(), StylerFactory.BOLD_STYLER);
 				} else {
-					text.append(tagNode.getName());
+					text.append(tag.getName());
 				}
-				text.append(
-					" (" + tagNode.getTaggedObjectCount() + " of " + TagSelectionWizardPage.this.objectCount + ")", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					StyledString.COUNTER_STYLER);
 			} else {
-				text.append(tagNode.getName(), StylerFactory.ITALIC_STYLER);
+				text.append(tag.getName(), StylerFactory.ITALIC_STYLER);
 				text.append(" **", StylerFactory.BOLD_STYLER); //$NON-NLS-1$
 			}
+		}
 
-			return text;
+		@Override
+		protected void appendCounterText(final ITag tag, final StyledString text) {
+			if (!StringUtil.isEmpty(tag.getId()) && TagSelectionWizardPage.this.objectCount > 1) {
+				text.append(" (" + tag.getTaggedObjectCount() + " of " + TagSelectionWizardPage.this.objectCount + ")", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					StyledString.COUNTER_STYLER);
+			}
 		}
 
 	}

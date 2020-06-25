@@ -91,7 +91,8 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 	private final List<String> executableObjectTypes;
 
 	public TaggedObjectSearchResultPage() {
-		this.executableObjectTypes = Stream.of("CLAS/OC", "PROG/P", "TRAN/T", "FUGR/FF", "WAPA/WO", "WDYA/YY", "WDCA/YA")
+		this.executableObjectTypes = Stream
+			.of("CLAS/OC", "PROG/P", "TRAN/T", "FUGR/FF", "WAPA/WO", "WDYA/YY", "WDCA/YA")
 			.collect(Collectors.toList());
 	}
 
@@ -234,7 +235,8 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 			 * be brought to the front so it has to be done manually
 			 */
 			final IWorkbenchPage activeSearchPage = SearchPlugin.getActivePage();
-			if (activeSearchPage != null && this.searchViewPart != null && activeSearchPage.isPartVisible(this.searchViewPart)) {
+			if (activeSearchPage != null && this.searchViewPart != null
+				&& activeSearchPage.isPartVisible(this.searchViewPart)) {
 				activeSearchPage.bringToTop(this.searchViewPart);
 			}
 			this.searchViewPart.updateLabel();
@@ -265,7 +267,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 		final MenuManager menuMgr = new MenuManager();
 		menuMgr.setRemoveAllWhenShown(true);
 
-		menuMgr.addMenuListener((menu) -> {
+		menuMgr.addMenuListener(menu -> {
 			fillContextMenu(menu);
 		});
 		final Control viewerControl = this.resultTree;
@@ -466,8 +468,10 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 					isAdtObjectRefNode = true;
 					final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) element;
 
-					if (TaggedObjectSearchResultPage.this.prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_OBJECT_TYPES)) {
-						String typeLabel = AdtTypeUtil.getInstance().getTypeDescription(adtObjRefNode.getAdtObjectType());
+					if (TaggedObjectSearchResultPage.this.prefStore
+						.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_OBJECT_TYPES)) {
+						String typeLabel = AdtTypeUtil.getInstance()
+							.getTypeDescription(adtObjRefNode.getAdtObjectType());
 						if (typeLabel == null) {
 							typeLabel = AdtTypeUtil.getInstance()
 								.getTypeDescriptionByProject(adtObjRefNode.getAdtObjectType(),
@@ -477,11 +481,13 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 							text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
 						}
 					}
-					if (TaggedObjectSearchResultPage.this.prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES)
+					if (TaggedObjectSearchResultPage.this.prefStore
+						.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES)
 						&& !adtObjRefNode.getAdtObjectType().startsWith("DEVC")) { //$NON-NLS-1$
 						if (!StringUtil.isEmpty(adtObjRefNode.getObjectReference().getPackageName())) {
 							text.append(" - ");
-							text.append(adtObjRefNode.getObjectReference().getPackageName(), StyledString.QUALIFIER_STYLER);
+							text.append(adtObjRefNode.getObjectReference().getPackageName(),
+								StyledString.QUALIFIER_STYLER);
 						}
 					}
 				}
@@ -496,10 +502,11 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 					}
 				}
 
-				if (TaggedObjectSearchResultPage.this.prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_DESCRIPTIONS)) {
+				if (TaggedObjectSearchResultPage.this.prefStore
+					.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_DESCRIPTIONS)) {
 					final String description = searchResult.getDescription();
 					if (!StringUtil.isEmpty(description)) {
-						text.append("  " + description + "  ", //$NON-NLS-1$ //$NON-NLS-2$
+						text.append("  " + description, //$NON-NLS-1$
 							StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR, null));
 					}
 				}

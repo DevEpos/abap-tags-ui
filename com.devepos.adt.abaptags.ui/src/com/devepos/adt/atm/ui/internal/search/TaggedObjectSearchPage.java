@@ -164,7 +164,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 		this.projectProvider = this.projectInput.getProjectProvider();
 
 		this.projectInput.createControl(parent);
-		this.projectInput.addProjectValidator((project) -> {
+		this.projectInput.addProjectValidator(project -> {
 			final IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(project);
 			if (!loggedOnStatus.isOK()) {
 				return loggedOnStatus;
@@ -185,7 +185,8 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 		this.tagsTree = this.tagsTreeViewer.getTree();
 		this.tagsTreeViewer.addFilter(this.patternFilter);
 		this.tagsTreeViewer.setContentProvider(new TagTreeContentProvider());
-		this.tagsTreeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new TagLabelProvider(false, true)));
+		this.tagsTreeViewer
+			.setLabelProvider(new DelegatingStyledCellLabelProvider(new TagLabelProvider(false, true, false)));
 		this.tagsTreeViewer.setInput(this.tagList);
 		this.tagsTree.setBackgroundMode(SWT.INHERIT_DEFAULT);
 		GridDataFactory.fillDefaults().grab(true, true).hint(1, 150).applyTo(this.tagsTree);
@@ -234,7 +235,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 			return;
 		}
 		if (this.tagList != null && !this.tagList.getTags().isEmpty()) {
-			this.tagList.getTags().stream().forEach(tag -> findAndSetTagAsChecked(tag));
+			this.tagList.getTags().stream().forEach(this::findAndSetTagAsChecked);
 			if (!this.checkedTags.isEmpty()) {
 				setCheckedElements();
 				this.tagsTreeViewer.refresh();
@@ -279,7 +280,8 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 		 * create aggregation status to collect max severity status and do some further
 		 * validation for the page
 		 */
-		this.projectAggrValStatus = new AggregateValidationStatus(projectContext, AggregateValidationStatus.MAX_SEVERITY);
+		this.projectAggrValStatus = new AggregateValidationStatus(projectContext,
+			AggregateValidationStatus.MAX_SEVERITY);
 		this.projectAggrValStatus.addValueChangeListener(e -> {
 			if (this.projectAggrValStatus.getValue().isOK()) {
 				final IProject newProject = this.projectInput.getProjectProvider().getProject();
@@ -330,7 +332,8 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 	private void setStatus(final IStatus status) {
 		this.currentStatus = status;
 		Display.getDefault().asyncExec(() -> {
-			if (this.mainComposite.isDisposed() || this.searchStatusImageLabel == null || this.searchStatusTextLabel == null) {
+			if (this.mainComposite.isDisposed() || this.searchStatusImageLabel == null
+				|| this.searchStatusTextLabel == null) {
 				return;
 			}
 			if (status.getSeverity() == IStatus.OK) {
