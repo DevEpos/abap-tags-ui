@@ -5,9 +5,11 @@ import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.preference.JFacePreferences;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 
@@ -20,8 +22,10 @@ import com.devepos.adt.atm.search.ITaggedObjectSearchService;
 import com.devepos.adt.atm.search.TaggedObjectSearchFactory;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
+import com.devepos.adt.tools.base.ui.StylerFactory;
 import com.devepos.adt.tools.base.ui.dialogs.AdtFilteredItemsSelectionDialog;
 import com.devepos.adt.tools.base.util.AdtTypeUtil;
+import com.devepos.adt.tools.base.util.StringUtil;
 
 public class ParentObjectFilterDialog extends AdtFilteredItemsSelectionDialog<IAdtObjRef> {
 	private final String tagId;
@@ -31,7 +35,7 @@ public class ParentObjectFilterDialog extends AdtFilteredItemsSelectionDialog<IA
 	private final ITaggedObjectSearchService service;
 
 	public ParentObjectFilterDialog(final Shell shell, final String destinationId, final String tagId,
-			final TagSearchScope searchScope) {
+		final TagSearchScope searchScope) {
 		super(shell, false);
 		this.tagId = tagId;
 		this.destinationId = destinationId;
@@ -54,21 +58,24 @@ public class ParentObjectFilterDialog extends AdtFilteredItemsSelectionDialog<IA
 
 	@Override
 	protected AdtFilteredItemsSelectionDialog<IAdtObjRef>.SearchResultObject<IAdtObjRef> performSearch(
-			final String pattern, final IProgressMonitor monitor) throws CoreException {
+		final String pattern, final IProgressMonitor monitor) throws CoreException {
 		this.parameters.setQuery(pattern);
 		final ITaggedObjectList taggedObjects = this.service.findObjects(ParentObjectFilterDialog.this.destinationId,
-				ParentObjectFilterDialog.this.parameters);
+			ParentObjectFilterDialog.this.parameters);
 		if (taggedObjects != null && !taggedObjects.getTaggedObjects().isEmpty()) {
 			return new SearchResultObject<>(
-					taggedObjects.getTaggedObjects().stream().limit(this.parameters.getMaxResults())
-							.map(ITaggedObject::getObjectRef).collect(Collectors.toList()),
-					taggedObjects.getTaggedObjects().size() <= this.parameters.getMaxResults());
+				taggedObjects.getTaggedObjects()
+					.stream()
+					.limit(this.parameters.getMaxResults())
+					.map(ITaggedObject::getObjectRef)
+					.collect(Collectors.toList()),
+				taggedObjects.getTaggedObjects().size() <= this.parameters.getMaxResults());
 		}
 		return new SearchResultObject<>(new ArrayList<>(), true);
 	}
 
 	private class ItemsLabelProvider extends LabelProvider
-			implements DelegatingStyledCellLabelProvider.IStyledLabelProvider {
+		implements DelegatingStyledCellLabelProvider.IStyledLabelProvider {
 
 		@Override
 		public StyledString getStyledText(final Object element) {
@@ -78,8 +85,9 @@ public class ParentObjectFilterDialog extends AdtFilteredItemsSelectionDialog<IA
 				text.append(objRef.getName());
 
 				final String description = objRef.getDescription();
-				if (description != null && !description.isEmpty()) {
-					text.append(" " + objRef.getDescription(), StyledString.DECORATIONS_STYLER); //$NON-NLS-1$
+				if (!StringUtil.isEmpty(description)) {
+					text.append("  " + objRef.getDescription(), //$NON-NLS-1$
+						StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR, null));
 				}
 			}
 			return text != null ? text : new StyledString();
