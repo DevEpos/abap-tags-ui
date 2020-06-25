@@ -18,9 +18,9 @@ import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.util.IImages;
+import com.devepos.adt.tools.base.destinations.DestinationUtil;
 import com.devepos.adt.tools.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRefList;
-import com.devepos.adt.tools.base.project.ProjectUtil;
 import com.devepos.adt.tools.base.wizard.IBaseWizardPage;
 
 /**
@@ -92,7 +92,7 @@ public class TagObjectsWizard extends Wizard implements ITagObjectsWizard {
 				monitor.beginTask(Messages.TagObjectsWizard_AddTagsToObjectsJob_xmsg, -1);
 				try {
 					AdtObjTaggingServiceFactory.createTaggingService()
-						.saveTaggedObjects(ProjectUtil.getDestinationId(this.project), this.taggedObjectList);
+						.saveTaggedObjects(DestinationUtil.getDestinationId(this.project), this.taggedObjectList);
 					this.success = true;
 				} catch (final CoreException e) {
 					e.printStackTrace();

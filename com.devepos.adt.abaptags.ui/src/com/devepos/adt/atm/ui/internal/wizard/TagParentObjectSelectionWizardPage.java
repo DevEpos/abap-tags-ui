@@ -38,8 +38,8 @@ import com.devepos.adt.atm.ui.internal.dialogs.ParentObjectFilterDialog;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.tree.TaggedObjectTreeContentProvider;
 import com.devepos.adt.atm.ui.internal.util.IImages;
+import com.devepos.adt.tools.base.destinations.DestinationUtil;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
-import com.devepos.adt.tools.base.project.ProjectUtil;
 import com.devepos.adt.tools.base.ui.celleditor.ExtendedDialogCellEditor;
 import com.devepos.adt.tools.base.util.AdtTypeUtil;
 import com.devepos.adt.tools.base.util.StringUtil;
@@ -198,7 +198,8 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 			for (final ITaggedObject taggedObj : getWizard().getTaggedObjectList().getTaggedObjects()) {
 				pageComplete = !taggedObj.getTags()
 					.stream()
-					.anyMatch(tag -> !StringUtil.isEmpty(tag.getParentTagId()) && StringUtil.isEmpty(tag.getParentObjectName()));
+					.anyMatch(tag -> !StringUtil.isEmpty(tag.getParentTagId())
+						&& StringUtil.isEmpty(tag.getParentObjectName()));
 			}
 		}
 		getWizard().setCanFinish(pageComplete);
@@ -242,13 +243,14 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 				@Override
 				protected Object openDialogBox(final Control cellEditorWindow) {
 					final IProject project = getWizard().getProject();
-					final String destinationId = ProjectUtil.getDestinationId(project);
+					final String destinationId = DestinationUtil.getDestinationId(project);
 
 					final IAdtObjectTag tag = (IAdtObjectTag) element;
-					final TagSearchScope scope = tag.getOwner() != null && !tag.getOwner().isEmpty() ? TagSearchScope.USER
+					final TagSearchScope scope = tag.getOwner() != null && !tag.getOwner().isEmpty()
+						? TagSearchScope.USER
 						: TagSearchScope.GLOBAL;
-					final ParentObjectFilterDialog filterDialog = new ParentObjectFilterDialog(getShell(), destinationId,
-						tag.getParentTagId(), scope);
+					final ParentObjectFilterDialog filterDialog = new ParentObjectFilterDialog(getShell(),
+						destinationId, tag.getParentTagId(), scope);
 					filterDialog.open();
 					final IAdtObjRef selectedObj = filterDialog.getFirstResult();
 					if (selectedObj != null) {

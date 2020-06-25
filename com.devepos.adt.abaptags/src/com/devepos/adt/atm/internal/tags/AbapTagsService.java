@@ -12,9 +12,9 @@ import com.devepos.adt.atm.AbapTagsPlugin;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.tags.IAbapTagsService;
+import com.devepos.adt.tools.base.destinations.DestinationUtil;
 import com.devepos.adt.tools.base.project.AbapProjectProviderAccessor;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
-import com.devepos.adt.tools.base.project.ProjectUtil;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
 import com.sap.adt.communication.resources.IQueryParameter;
 import com.sap.adt.communication.resources.IRestResource;
@@ -42,7 +42,7 @@ public class AbapTagsService implements IAbapTagsService {
 
 	@Override
 	public IStatus testTagsFeatureAvailability(final IProject project) {
-		final String destinationId = ProjectUtil.getDestinationId(project);
+		final String destinationId = DestinationUtil.getDestinationId(project);
 		if (new AbapTagsUriDiscovery(destinationId).isResourceDiscoverySuccessful()) {
 			return Status.OK_STATUS;
 		} else {
@@ -56,7 +56,8 @@ public class AbapTagsService implements IAbapTagsService {
 		if (tags == null || tags.getTags().isEmpty()) {
 			return Status.OK_STATUS;
 		}
-		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destinationId);
+		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor
+			.getProviderForDestination(destinationId);
 		if (projectProvider == null) {
 			return Status.CANCEL_STATUS;
 		}
@@ -80,7 +81,8 @@ public class AbapTagsService implements IAbapTagsService {
 
 	@Override
 	public ITagList findTags(final String destinationId, final TagSearchScope scope, final String query) {
-		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destinationId);
+		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor
+			.getProviderForDestination(destinationId);
 		if (projectProvider == null) {
 			return null;
 		}
@@ -105,7 +107,8 @@ public class AbapTagsService implements IAbapTagsService {
 
 	@Override
 	public ITagList readTags(final String destinationId, final TagSearchScope scope, final boolean withObjectCount) {
-		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destinationId);
+		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor
+			.getProviderForDestination(destinationId);
 		if (projectProvider == null) {
 			return null;
 		}
@@ -138,7 +141,8 @@ public class AbapTagsService implements IAbapTagsService {
 		if (tags == null || tags.getTags().isEmpty()) {
 			return Status.OK_STATUS;
 		}
-		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destinationId);
+		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor
+			.getProviderForDestination(destinationId);
 		if (projectProvider == null) {
 			return Status.CANCEL_STATUS;
 		}
@@ -164,7 +168,8 @@ public class AbapTagsService implements IAbapTagsService {
 
 	@Override
 	public IStatus lockTags(final String destinationId, final TagSearchScope scope) {
-		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destinationId);
+		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor
+			.getProviderForDestination(destinationId);
 		if (projectProvider == null) {
 			return Status.CANCEL_STATUS;
 		}
@@ -191,7 +196,8 @@ public class AbapTagsService implements IAbapTagsService {
 
 	@Override
 	public void unlockTags(final String destinationId, final TagSearchScope scope) {
-		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destinationId);
+		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor
+			.getProviderForDestination(destinationId);
 		if (projectProvider == null) {
 			return;
 		}

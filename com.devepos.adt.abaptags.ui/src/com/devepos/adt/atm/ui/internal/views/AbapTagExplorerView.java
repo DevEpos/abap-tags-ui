@@ -66,6 +66,7 @@ import com.devepos.adt.tools.base.IAdtToolsBaseStrings;
 import com.devepos.adt.tools.base.adtobject.AdtObjectFactory;
 import com.devepos.adt.tools.base.adtobject.AdtObjectReferenceModelFactory;
 import com.devepos.adt.tools.base.adtobject.IAdtObject;
+import com.devepos.adt.tools.base.destinations.DestinationUtil;
 import com.devepos.adt.tools.base.elementinfo.AdtObjectReferenceElementInfo;
 import com.devepos.adt.tools.base.elementinfo.ErrorElementInfo;
 import com.devepos.adt.tools.base.elementinfo.IElementInfo;
@@ -279,8 +280,8 @@ public class AbapTagExplorerView extends ViewPart {
 		this.copyToClipBoardAction = new CopyToClipboardAction();
 		this.copyToClipBoardAction.registerViewer(this.treeViewer);
 		this.linkToEditorAction = new PreferenceToggleAction(Messages.AbapTagExplorerView_LinkToEditorAction_xtol,
-			PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED), LINK_TO_EDITOR_PREF,
-			true, AbapTagsUIPlugin.getDefault().getPreferenceStore());
+			PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED),
+			LINK_TO_EDITOR_PREF, true, AbapTagsUIPlugin.getDefault().getPreferenceStore());
 		this.linkToEditorAction.addPropertyChangeListener(e -> {
 			if (e.getProperty().equals(Action.CHECKED) && (Boolean) e.getNewValue()) {
 				updateInputFromEditor();
@@ -301,8 +302,8 @@ public class AbapTagExplorerView extends ViewPart {
 				} else {
 					wizard.setProject(ProjectUtil.getCurrentAbapProject());
 				}
-				final WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-					wizard);
+				final WizardDialog dialog = new WizardDialog(
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), wizard);
 				dialog.open();
 				if (this.currentAdtObject != null && wizard.wasSuccessful()) {
 					refreshCurrentNode();
@@ -317,7 +318,7 @@ public class AbapTagExplorerView extends ViewPart {
 		final MenuManager menuMgr = new MenuManager();
 		menuMgr.setRemoveAllWhenShown(true);
 
-		menuMgr.addMenuListener((menu) -> {
+		menuMgr.addMenuListener(menu -> {
 			fillContextMenu(menu);
 		});
 		final Control viewerControl = this.tree;
@@ -471,7 +472,7 @@ public class AbapTagExplorerView extends ViewPart {
 					final IAdtObjTaggingService taggingService = AdtObjTaggingServiceFactory.createTaggingService();
 
 					try {
-						final String destinationId = ProjectUtil.getDestinationId(getProject());
+						final String destinationId = DestinationUtil.getDestinationId(getProject());
 						final IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(getProject());
 						if (!loggedOnStatus.isOK()) {
 							return Arrays.asList(new SimpleElementInfo(loggedOnStatus.getMessage()));
@@ -481,8 +482,8 @@ public class AbapTagExplorerView extends ViewPart {
 						if (taggedObject != null) {
 							final AdtObjectReferenceElementInfo adtObjRefElemInfo = new AdtObjectReferenceElementInfo(
 								taggedObject.getObjectRef().getName());
-							adtObjRefElemInfo.setAdtObjectReference(
-								AdtObjectReferenceModelFactory.createReference(destinationId, taggedObject.getObjectRef()));
+							adtObjRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory
+								.createReference(destinationId, taggedObject.getObjectRef()));
 
 							for (final IAdtObjectTag tag : taggedObject.getTags()) {
 								final IElementInfo tagElementInfo = new SimpleElementInfo(tag.getName(),
@@ -650,7 +651,7 @@ public class AbapTagExplorerView extends ViewPart {
 			return Job.create(Messages.AbapTagExplorerView_DeleteTagsJob_xmsg, monitor -> {
 
 				final IAdtObjTaggingService taggingService = AdtObjTaggingServiceFactory.createTaggingService();
-				taggingService.deleteTags(ProjectUtil.getDestinationId(getProject()), tgobjList);
+				taggingService.deleteTags(DestinationUtil.getDestinationId(getProject()), tgobjList);
 
 				Display.getDefault().asyncExec(() -> {
 					refreshCurrentNode();

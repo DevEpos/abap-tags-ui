@@ -52,7 +52,6 @@ import com.devepos.adt.atm.ui.internal.tree.TagTreeContentProvider;
 import com.devepos.adt.tools.base.destinations.DestinationUtil;
 import com.devepos.adt.tools.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
-import com.devepos.adt.tools.base.project.ProjectUtil;
 import com.devepos.adt.tools.base.ui.StylerFactory;
 import com.devepos.adt.tools.base.util.StringUtil;
 import com.devepos.adt.tools.base.wizard.AbstractBaseWizardPage;
@@ -288,7 +287,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 		if (project == null) {
 			return;
 		}
-		final String destinationId = ProjectUtil.getDestinationId(project);
+		final String destinationId = DestinationUtil.getDestinationId(project);
 		try {
 			getContainer().run(true, false, monitor -> {
 				monitor.beginTask(Messages.TagPreviewLoadingJob_JobTitle_xmsg, -1);
@@ -491,7 +490,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
 	private String getDestinationOwner() {
 		if (this.owner == null) {
-			final String destinationId = ProjectUtil.getDestinationId(getWizard().getProject());
+			final String destinationId = DestinationUtil.getDestinationId(getWizard().getProject());
 			this.owner = DestinationUtil.getDestinationData(destinationId).getUser();
 		}
 		return this.owner;

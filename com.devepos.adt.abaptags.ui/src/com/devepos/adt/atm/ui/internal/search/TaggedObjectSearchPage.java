@@ -42,6 +42,7 @@ import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
 import com.devepos.adt.atm.ui.internal.tree.TagFilter;
 import com.devepos.adt.atm.ui.internal.tree.TagLabelProvider;
 import com.devepos.adt.atm.ui.internal.tree.TagTreeContentProvider;
+import com.devepos.adt.tools.base.destinations.DestinationUtil;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
 import com.devepos.adt.tools.base.project.ProjectUtil;
 import com.devepos.adt.tools.base.ui.project.ProjectInput;
@@ -313,7 +314,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 		}
 		this.loadTagsJob = Job.create(Messages.TaggedObjectSearchPage_LoadingTagsJob_xmsg, monitor -> {
 			final ITagList tagList = AbapTagsServiceFactory.createTagsService()
-				.readTags(ProjectUtil.getDestinationId(project), TagSearchScope.ALL, false);
+				.readTags(DestinationUtil.getDestinationId(project), TagSearchScope.ALL, false);
 			monitor.done();
 			if (tagList != null) {
 				this.tagList.getTags().clear();
