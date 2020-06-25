@@ -39,11 +39,9 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.ViewPart;
@@ -79,6 +77,7 @@ import com.devepos.adt.tools.base.model.adtbase.IAdtObjRefList;
 import com.devepos.adt.tools.base.project.ProjectUtil;
 import com.devepos.adt.tools.base.ui.StylerFactory;
 import com.devepos.adt.tools.base.ui.ViewDescriptionLabel;
+import com.devepos.adt.tools.base.ui.ViewPartListener;
 import com.devepos.adt.tools.base.ui.action.ActionUtil;
 import com.devepos.adt.tools.base.ui.action.ChooseOtherAdtObjectAction;
 import com.devepos.adt.tools.base.ui.action.CopyToClipboardAction;
@@ -143,48 +142,21 @@ public class AbapTagExplorerView extends ViewPart {
 		initToolbar(getViewSite().getActionBars());
 		hookContextMenu();
 
-		getSite().getPage().addPartListener(new IPartListener2() {
-			@Override
-			public void partActivated(final IWorkbenchPartReference partRef) {
-				final IWorkbenchPart part = partRef.getPart(true);
-				if (part instanceof IEditorPart) {
-					showTaggedObjectsForEditor((IEditorPart) part);
-				} else if (part instanceof AbapTagExplorerView) {
-					showTaggedObjectsForEditor(partRef.getPage().getActiveEditor());
-				}
-			}
-
-			@Override
-			public void partVisible(final IWorkbenchPartReference partRef) {
-				if (VIEW_ID.equals(partRef.getId()) && partRef.getPart(false) instanceof AbapTagExplorerView) {
-					showTaggedObjectsForEditor(partRef.getPage().getActiveEditor());
-				}
-			}
-
-			@Override
-			public void partBroughtToTop(final IWorkbenchPartReference partRef) {
-			}
-
-			@Override
-			public void partClosed(final IWorkbenchPartReference partRef) {
-			}
-
-			@Override
-			public void partDeactivated(final IWorkbenchPartReference partRef) {
-			}
-
-			@Override
-			public void partOpened(final IWorkbenchPartReference partRef) {
-			}
-
-			@Override
-			public void partHidden(final IWorkbenchPartReference partRef) {
-			}
-
-			@Override
-			public void partInputChanged(final IWorkbenchPartReference partRef) {
+		final ViewPartListener partListener = new ViewPartListener();
+		partListener.setPartActivatedConsumer(partRef -> {
+			final IWorkbenchPart part = partRef.getPart(true);
+			if (part instanceof IEditorPart) {
+				showTaggedObjectsForEditor((IEditorPart) part);
+			} else if (part instanceof AbapTagExplorerView) {
+				showTaggedObjectsForEditor(partRef.getPage().getActiveEditor());
 			}
 		});
+		partListener.setPartVisibleConsumer(partRef -> {
+			if (VIEW_ID.equals(partRef.getId()) && partRef.getPart(false) instanceof AbapTagExplorerView) {
+				showTaggedObjectsForEditor(partRef.getPage().getActiveEditor());
+			}
+		});
+		getSite().getPage().addPartListener(partListener);
 		getSite().setSelectionProvider(this.treeViewer);
 	}
 
