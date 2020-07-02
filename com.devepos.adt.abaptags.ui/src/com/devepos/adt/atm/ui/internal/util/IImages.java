@@ -16,6 +16,14 @@ public interface IImages {
 	 */
 	String USER_TAG = "IMG_USER_TAG";
 	/**
+	 * Image id for creating a new User Tag
+	 */
+	String NEW_USER_TAG = "IMG_NEW_USER_TAG";
+	/**
+	 * Image id for creating a new global Tag
+	 */
+	String NEW_GLOBAL_TAG = "IMG_NEW_GLOBAL_TAG";
+	/**
 	 * Id for Globe Image
 	 */
 	String GLOBE = "IMG_GLOBE";

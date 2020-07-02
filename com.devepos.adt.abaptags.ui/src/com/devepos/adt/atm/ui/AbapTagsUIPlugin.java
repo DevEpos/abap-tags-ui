@@ -56,6 +56,8 @@ public class AbapTagsUIPlugin extends AbstractAdtUIPlugin {
 		registerImage(reg, IImages.TAGS_WIZBAN_DEFAULT, "icons/wizard/TaggingWizard_Banner_default.png");
 		registerImage(reg, IImages.NEW_TAG_ASSIGN_WIZ, "icons/NewTag.png");
 		registerImage(reg, IImages.ASSIGN_TAG, "icons/AssignTag.png");
+		registerImage(reg, IImages.NEW_USER_TAG, "icons/NewUserTag.png");
+		registerImage(reg, IImages.NEW_GLOBAL_TAG, "icons/NewTag.png");
 	}
 
 }
