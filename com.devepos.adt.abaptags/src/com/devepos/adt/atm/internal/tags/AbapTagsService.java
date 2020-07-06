@@ -38,6 +38,7 @@ public class AbapTagsService implements IAbapTagsService {
 	private static final String QUERY_PARAM_WITH_OBJECT_COUNT = "withObjectCount"; //$NON-NLS-1$
 	private static final String CUSTOM_ACTION_UNLOCK = "unlock"; //$NON-NLS-1$
 	private static final String CUSTOM_ACTION_LOCK = "lock"; //$NON-NLS-1$
+	private static final String CUSTOM_ACTION_MAKE_GLOBAL = "makeGlobal"; //$NON-NLS-1$
 	private static final String CUSTOM_ACTION_BATCH_DELETE = "batchDelete"; //$NON-NLS-1$
 
 	@Override
@@ -72,6 +73,35 @@ public class AbapTagsService implements IAbapTagsService {
 			restResource.addContentHandler(new AbapTagsContentHandler());
 
 			restResource.post(null, ITagList.class, tags, new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()));
+			return Status.OK_STATUS;
+		} catch (final ResourceException exc) {
+			exc.printStackTrace();
+			return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage());
+		}
+	}
+
+	@Override
+	public IStatus makeTagsGlobal(final String destinationId, final ITagList tagList) {
+		if (tagList == null || tagList.getTags().isEmpty()) {
+			return Status.OK_STATUS;
+		}
+		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor
+			.getProviderForDestination(destinationId);
+		if (projectProvider == null) {
+			return Status.CANCEL_STATUS;
+		}
+
+		try {
+
+			final AbapTagsUriDiscovery uriDiscovery = new AbapTagsUriDiscovery(destinationId);
+			final ISystemSession session = projectProvider.createStatelessSession();
+
+			final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
+				.createRestResource(uriDiscovery.getTagsUri(), session);
+			restResource.addContentHandler(new AbapTagsContentHandler());
+
+			restResource.post(null, ITagList.class, tagList,
+				new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_MAKE_GLOBAL));
 			return Status.OK_STATUS;
 		} catch (final ResourceException exc) {
 			exc.printStackTrace();

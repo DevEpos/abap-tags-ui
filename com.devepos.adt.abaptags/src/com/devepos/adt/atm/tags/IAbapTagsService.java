@@ -79,4 +79,13 @@ public interface IAbapTagsService {
 	 * @param scope         the scope of the tags
 	 */
 	void unlockTags(final String destinationId, TagSearchScope scope);
+
+	/**
+	 * Converts the list of user tags into global tags
+	 * 
+	 * @param  destinationId destination of ABAP project
+	 * @param  tagList       list of Tags
+	 * @return               the result status of the operation
+	 */
+	IStatus makeTagsGlobal(String destinationId, ITagList tagList);
 }
