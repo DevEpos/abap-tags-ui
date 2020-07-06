@@ -29,7 +29,6 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.search.ui.IContextMenuConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
@@ -75,6 +74,7 @@ import com.devepos.adt.tools.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRefList;
 import com.devepos.adt.tools.base.project.ProjectUtil;
+import com.devepos.adt.tools.base.ui.IGeneralContextMenuConstants;
 import com.devepos.adt.tools.base.ui.StylerFactory;
 import com.devepos.adt.tools.base.ui.ViewDescriptionLabel;
 import com.devepos.adt.tools.base.ui.ViewPartListener;
@@ -336,18 +336,18 @@ public class AbapTagExplorerView extends ViewPart {
 		}
 
 		if (!adtObjRefs.isEmpty()) {
-			menu.add(new Separator(IContextMenuConstants.GROUP_ADDITIONS));
-			MenuItemFactory.addCommandItem(menu, IContextMenuConstants.GROUP_ADDITIONS,
+			menu.add(new Separator(IGeneralContextMenuConstants.GROUP_ADDITIONS));
+			MenuItemFactory.addCommandItem(menu, IGeneralContextMenuConstants.GROUP_ADDITIONS,
 				"com.sap.adt.ris.whereused.ui.callWhereUsed", //$NON-NLS-1$
 				AdtToolsBaseResources.getImageDescriptor(IAdtToolsBaseImages.WHERE_USED_LIST),
 				AdtToolsBaseResources.getString(IAdtToolsBaseStrings.General_WhereUsedList_xmit), null);
 		}
 
-		menu.add(new Separator(IContextMenuConstants.GROUP_EDIT));
+		menu.add(new Separator(IGeneralContextMenuConstants.GROUP_EDIT));
 		if (deleteTagsAction != null) {
-			menu.appendToGroup(IContextMenuConstants.GROUP_EDIT, deleteTagsAction);
+			menu.appendToGroup(IGeneralContextMenuConstants.GROUP_EDIT, deleteTagsAction);
 		}
-		menu.appendToGroup(IContextMenuConstants.GROUP_EDIT, this.copyToClipBoardAction);
+		menu.appendToGroup(IGeneralContextMenuConstants.GROUP_EDIT, this.copyToClipBoardAction);
 	}
 
 	private void initToolbar(final IActionBars actionBars) {
