@@ -265,6 +265,12 @@
             id="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
             name="%preferences.page.main">
       </page>
+      <page
+            category="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
+            class="com.devepos.adt.atm.ui.internal.preferences.TaggingPreferencePage"
+            id="com.devepos.adt.atm.ui.preferencePages.ObjectTagging"
+            name="%preferences.page.objecttagging">
+      </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">

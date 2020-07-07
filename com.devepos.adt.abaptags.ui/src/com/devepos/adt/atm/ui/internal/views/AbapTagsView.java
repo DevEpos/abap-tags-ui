@@ -38,7 +38,9 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.ViewPart;
@@ -127,6 +129,12 @@ public class AbapTagsView extends ViewPart {
 		this.treeInput = new TagFolder[2];
 		this.treeInput[0] = new TagFolder(true);
 		this.treeInput[1] = new TagFolder(false);
+	}
+
+	@Override
+	public void init(final IViewSite site) throws PartInitException {
+		super.init(site);
+		this.lastSelection = getSite().getPage().getSelection();
 	}
 
 	@Override
