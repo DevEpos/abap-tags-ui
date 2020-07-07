@@ -103,26 +103,23 @@ public class AbapTagsView extends ViewPart {
 			}
 			try {
 				this.isUpdatingSelection = true;
-				// check whether the selection change is on the AbapGit Repositories view
+				// check whether the selection change is on this view
 				if (AbapTagsView.this == part) {
 					return;
 				}
 				// update selection
 				AbapTagsView.this.lastSelection = selection;
-				// check whether AbapGit Repositories view is visible in the workbench
+				// Further processing will only be done if this view is visible
 				if (!getViewSite().getPage().isPartVisible(AbapTagsView.this)) {
 					return;
 				}
 				// refresh view
-				final IProject project = ProjectUtil.getCurrentAbapProject(AbapTagsView.this.lastSelection);
-				if (project != AbapTagsView.this.lastProject) {
-					AbapTagsView.this.lastProject = project;
-					loadViewInput();
-				}
+				showTagsOfLastSelectedProject();
 			} finally {
 				this.isUpdatingSelection = false;
 			}
 		}
+
 	};
 
 	public AbapTagsView() {
@@ -136,6 +133,9 @@ public class AbapTagsView extends ViewPart {
 	public void setFocus() {
 		if (this.tree != null && !this.tree.isDisposed()) {
 			this.tree.setFocus();
+		}
+		if (this.lastSelection != null) {
+			showTagsOfLastSelectedProject();
 		}
 	}
 
@@ -191,6 +191,15 @@ public class AbapTagsView extends ViewPart {
 				handleEditTag((ITag) selObj);
 			}
 		});
+	}
+
+	private void showTagsOfLastSelectedProject() {
+		final IProject project = ProjectUtil.getCurrentAbapProject(this.lastSelection);
+		if (project != this.lastProject) {
+			this.lastProject = project;
+			loadViewInput();
+		}
+		this.lastSelection = null;
 	}
 
 	private void hookContextMenu() {
@@ -274,42 +283,52 @@ public class AbapTagsView extends ViewPart {
 	}
 
 	private boolean checkProjectStatus(final boolean ensureLogon) {
-		boolean projectStatusUnknown = false;
+		boolean tagsFeatureStatusUnknown = false;
 		if (this.lastProject == null) {
 			this.viewLabel.updateLabel(Messages.AbapTagsView_NoProjectAvailable_xmsg);
 			clearInput();
+			setControlsEnabled(false);
 			return false;
 		}
 		// check if the user is logged on to the project
 		if (ensureLogon) {
 			if (!ProjectUtil.ensureLoggedOnToProject(this.lastProject).isOK()) {
-				projectStatusUnknown = true;
+				tagsFeatureStatusUnknown = true;
 			}
 		} else {
 			if (!ProjectUtil.isLoggedOnToProject(this.lastProject)) {
-				projectStatusUnknown = true;
+				tagsFeatureStatusUnknown = true;
 			}
 		}
-		if (projectStatusUnknown) {
+		if (tagsFeatureStatusUnknown) {
 			this.viewLabel
 				.updateLabel(NLS.bind(Messages.AbapTagsView_TagsNotLoadedInProject_xmsg, this.lastProject.getName()));
 			clearInput();
+			setControlsEnabled(true);
 			return false;
 		}
 		final IStatus tagFeatureStatus = this.tagsService.testTagsFeatureAvailability(this.lastProject);
 		if (!tagFeatureStatus.isOK()) {
 			this.viewLabel.updateLabel(tagFeatureStatus.getMessage());
 			clearInput();
+			setControlsEnabled(false);
 			return false;
 		} else {
+			setControlsEnabled(true);
 			this.viewLabel
 				.updateLabel(NLS.bind(Messages.AbapTagsView_TagListInProject_xmsg, this.lastProject.getName()));
 			return true;
 		}
 	}
 
+	private void setControlsEnabled(final boolean enabled) {
+		this.createGlobalTagAction.setEnabled(enabled);
+		this.createUserTagAction.setEnabled(enabled);
+		this.refreshAction.setEnabled(enabled);
+	}
+
 	private void loadViewInput() {
-		if (!checkProjectStatus(true)) {
+		if (!checkProjectStatus(false)) {
 			return;
 		}
 		refreshTags();
