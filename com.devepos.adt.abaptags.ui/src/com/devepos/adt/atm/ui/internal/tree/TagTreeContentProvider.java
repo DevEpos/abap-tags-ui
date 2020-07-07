@@ -9,24 +9,16 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagList;
+import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.ui.internal.forms.AbapTagModel;
+import com.devepos.adt.tools.base.util.StringUtil;
 
 public class TagTreeContentProvider implements ITreeContentProvider {
 
-	private boolean showUserTags = true;
+	private TagSearchScope visibleTagScope = TagSearchScope.ALL;
 
-	/**
-	 * @return the showUserTags value
-	 */
-	public boolean isShowUserTags() {
-		return this.showUserTags;
-	}
-
-	/**
-	 * @param showUserTags the showUserTags to set
-	 */
-	public void setShowUserTags(final boolean showUserTags) {
-		this.showUserTags = showUserTags;
+	public void setVisbleTagScope(final TagSearchScope scope) {
+		this.visibleTagScope = scope;
 	}
 
 	@Override
@@ -40,9 +32,10 @@ public class TagTreeContentProvider implements ITreeContentProvider {
 			tagList = ((ITagList) inputElement).getTags();
 		}
 		if (tagList != null) {
-			if (!this.showUserTags) {
+			if (this.visibleTagScope != TagSearchScope.ALL && this.visibleTagScope != null) {
 				final List<ITag> filteredList = tagList.stream()
-					.filter(t -> t.getOwner() == null || t.getOwner() != null && t.getOwner().isBlank())
+					.filter(t -> this.visibleTagScope == TagSearchScope.GLOBAL ? StringUtil.isEmpty(t.getOwner())
+						: !StringUtil.isEmpty(t.getOwner()))
 					.collect(Collectors.toList());
 				if (filteredList != null && filteredList.size() > 0) {
 					return filteredList.toArray();

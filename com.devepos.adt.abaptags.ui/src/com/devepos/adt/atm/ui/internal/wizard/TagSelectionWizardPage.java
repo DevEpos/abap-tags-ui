@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -31,8 +32,10 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.dialogs.PatternFilter;
@@ -42,10 +45,13 @@ import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
+import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.model.validation.TagListValidator;
 import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
 import com.devepos.adt.atm.tagging.IAdtObjTaggingService;
+import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
+import com.devepos.adt.atm.ui.internal.preferences.IObjectTaggingPrefs;
 import com.devepos.adt.atm.ui.internal.tree.TagFilter;
 import com.devepos.adt.atm.ui.internal.tree.TagLabelProvider;
 import com.devepos.adt.atm.ui.internal.tree.TagTreeContentProvider;
@@ -176,11 +182,31 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
 	private void createTreeButtons(final Composite parent) {
 		final Composite buttonComposite = new Composite(parent, SWT.NONE);
-		GridLayoutFactory.swtDefaults().margins(0, 0).extendedMargins(0, 0, 62, 0).applyTo(buttonComposite);
+		GridLayoutFactory.swtDefaults().margins(0, 0).extendedMargins(0, 0, 68, 0).applyTo(buttonComposite);
 		GridDataFactory.fillDefaults().grab(true, true).align(SWT.BEGINNING, SWT.BEGINNING).applyTo(buttonComposite);
 
+		final Button expandAll = new Button(buttonComposite, SWT.PUSH);
+		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).applyTo(expandAll);
+		expandAll.setText(Messages.TagSelectionWizardPage_ExpandAll_xbut);
+		expandAll.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				TagSelectionWizardPage.this.checkBoxViewer.expandAll();
+			}
+		});
+
+		final Button collapseAll = new Button(buttonComposite, SWT.PUSH);
+		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).applyTo(collapseAll);
+		collapseAll.setText(Messages.TagSelectionWizardPage_CollapseAll_xbut);
+		collapseAll.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				TagSelectionWizardPage.this.checkBoxViewer.collapseAll();
+			}
+		});
+
 		final Button addTag = new Button(buttonComposite, SWT.PUSH);
-		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).applyTo(addTag);
+		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).indent(SWT.DEFAULT, 15).applyTo(addTag);
 		addTag.setText(Messages.TagSelectionWizardPage_AddGlobalTag_xbut);
 		addTag.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -265,7 +291,9 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 			}
 			determinePreCheckedTags(previewInfo.getTags());
 			this.checkBoxViewer.setInput(previewInfo.getTags());
-			this.checkBoxViewer.expandAll();
+			if (AbapTagsUIPlugin.getDefault().getPreferenceStore().getBoolean(IObjectTaggingPrefs.AUTO_EXPAND_TAGS)) {
+				this.checkBoxViewer.expandAll();
+			}
 			setCheckedElements();
 		}
 	}
@@ -322,13 +350,29 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 	}
 
 	private void createShowUserTagsCheckbox(final Composite parent) {
-		final Button showUserTagsFilter = new Button(parent, SWT.CHECK);
-		showUserTagsFilter.setText(Messages.TagSelectionWizardPage_ShowUserTags_xchk);
-		showUserTagsFilter.setSelection(true);
-		showUserTagsFilter.addSelectionListener(new SelectionAdapter() {
+		final Composite tagScopeContainer = new Composite(parent, SWT.NONE);
+		GridLayoutFactory.swtDefaults().numColumns(2).margins(0, 0).applyTo(tagScopeContainer);
+		final Label tagScopeLabel = new Label(tagScopeContainer, SWT.NONE);
+		tagScopeLabel.setText(Messages.TagSelectionWizardPage_TagScope_xlbl);
+		final Combo tagTypeCombo = new Combo(tagScopeContainer, SWT.READ_ONLY);
+		tagTypeCombo.setItems(Stream.of(TagSearchScope.values()).map(scope -> {
+			switch (scope) {
+			case ALL:
+				return Messages.TagSelectionWizardPage_TagScopeAll_xlbl;
+			case GLOBAL:
+				return Messages.TagSelectionWizardPage_TagScopeGlobal_xlbl;
+			case USER:
+				return Messages.TagSelectionWizardPage_TagScopeUser_xlbl;
+			default:
+				return ""; //$NON-NLS-1$
+			}
+		}).toArray(String[]::new));
+		tagTypeCombo.select(0);
+		tagTypeCombo.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				TagSelectionWizardPage.this.treeContentProvider.setShowUserTags(showUserTagsFilter.getSelection());
+				TagSelectionWizardPage.this.treeContentProvider
+					.setVisbleTagScope(TagSearchScope.get(tagTypeCombo.getSelectionIndex()));
 				TagSelectionWizardPage.this.checkBoxViewer.refresh();
 				setCheckedElements();
 			}
@@ -354,10 +398,9 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 		});
 		this.filterText.addModifyListener(e -> {
 			this.patternFilter.setPattern(this.filterText.getText());
+
 			Display.getDefault().timerExec(500, (Runnable) () -> {
-				if (this.filterText != null && this.filterText.getText().length() == 0) {
-					this.checkBoxViewer.expandAll();
-				}
+				this.checkBoxViewer.expandAll();
 			});
 			this.checkBoxViewer.refresh();
 			setCheckedElements();

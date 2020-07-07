@@ -22,6 +22,8 @@ public class Messages extends NLS {
 	public static String TaggedObjectSearchResult_SearchLabel_xmsg;
 	public static String TaggingObjectWizard_NoTagsAvailableMessage_xmsg;
 	public static String TaggingObjectWizard_TagsServiceError_xtit;
+	public static String TaggingPreferencePage_AutoExpandTagsOnTagSelectionPage_xchk;
+	public static String TaggingPreferencePage_TagWizardSettings_xgrp;
 	public static String General_TagsTitle_TagsTitle;
 	public static String AbapTagDetailsPage_ChangedByLabel_xlbl;
 	public static String AbapTagDetailsPage_ChangedOnLabel_xlbl;
@@ -124,11 +126,17 @@ public class Messages extends NLS {
 	public static String TagPreviewLoadingJob_JobTitle_xmsg;
 	public static String TagSelectionWizardPage_AddGlobalTag_xbut;
 	public static String TagSelectionWizardPage_AddUserTag_xbut;
+	public static String TagSelectionWizardPage_CollapseAll_xbut;
+	public static String TagSelectionWizardPage_ExpandAll_xbut;
 	public static String TagSelectionWizardPage_NewTagDefaultName_xmsg;
 	public static String TagSelectionWizardPage_RemoveTag_xbut;
 	public static String TagSelectionWizardPage_ShowUserTags_xchk;
 	public static String TagSelectionWizardPage_TagFilterPrompt_xmsg;
 	public static String TagSelectionWizardPage_TagHierarchySelectionError_xmsg;
+	public static String TagSelectionWizardPage_TagScope_xlbl;
+	public static String TagSelectionWizardPage_TagScopeAll_xlbl;
+	public static String TagSelectionWizardPage_TagScopeGlobal_xlbl;
+	public static String TagSelectionWizardPage_TagScopeUser_xlbl;
 	public static String TagSelectionWizardPage_TagSelectionNotReversable_xmsg;
 	public static String TagSelectionWizardPage_Title_xtit;
 	static {
