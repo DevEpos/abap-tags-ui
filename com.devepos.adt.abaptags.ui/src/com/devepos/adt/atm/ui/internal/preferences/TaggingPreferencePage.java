@@ -30,14 +30,15 @@ public class TaggingPreferencePage extends BaseFieldEditorPrefPage {
 	 * @param parent the parent composite
 	 */
 	private void createSettings(final Composite parent) {
-		final Group searchGroup = new Group(parent, SWT.NONE);
-		searchGroup.setText(Messages.TaggingPreferencePage_TagWizardSettings_xgrp);
+		final Group wizardGroup = new Group(parent, SWT.NONE);
+		wizardGroup.setText(Messages.TaggingPreferencePage_TagWizardSettings_xgrp);
 
-		GridDataFactory.fillDefaults().grab(true, false).applyTo(searchGroup);
+		GridDataFactory.fillDefaults().grab(true, false).applyTo(wizardGroup);
 
-		addBooleanEditor(IObjectTaggingPrefs.AUTO_EXPAND_TAGS, Messages.TaggingPreferencePage_AutoExpandTagsOnTagSelectionPage_xchk, searchGroup);
+		addBooleanEditor(IObjectTaggingPrefs.AUTO_EXPAND_TAGS,
+			Messages.TaggingPreferencePage_AutoExpandTagsOnTagSelectionPage_xchk, wizardGroup);
 
 		// reset group margins because of field editors
-		adjustMargins(searchGroup);
+		adjustMargins(wizardGroup);
 	}
 }

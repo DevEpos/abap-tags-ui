@@ -78,6 +78,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 	private boolean needsParentObjectSelection;
 	private String owner;
 	private Button removeTagButton;
+	private Combo tagTypeCombo;
 
 	public TagSelectionWizardPage() {
 		super(PAGE_NAME);
@@ -172,7 +173,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 		GridLayoutFactory.swtDefaults().margins(0, 0).extendedMargins(0, 5, 0, 0).applyTo(rightComposite);
 		GridDataFactory.fillDefaults().applyTo(rightComposite);
 
-		createShowUserTagsCheckbox(leftComposite);
+		createTagScopeCombo(leftComposite);
 		createFilterText(leftComposite);
 		createTagsCheckBoxTree(leftComposite);
 		createTreeButtons(rightComposite);
@@ -263,6 +264,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 	}
 
 	private void addTag(final boolean userTag) {
+		resetAllFilters();
 		final ITag newTag = IAbapTagsFactory.eINSTANCE.createTag();
 		newTag.setName(Messages.TagSelectionWizardPage_NewTagDefaultName_xmsg);
 		if (userTag) {
@@ -276,6 +278,14 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 		this.checkBoxViewer.setSelection(new StructuredSelection(newTag));
 		this.checkBoxViewer.editElement(newTag, 0);
 		setMessage(null);
+	}
+
+	private void resetAllFilters() {
+		if (!StringUtil.isEmpty(this.filterText.getText())) {
+			this.filterText.setText("");
+		}
+		this.tagTypeCombo.select(0);
+		this.checkBoxViewer.refresh();
 	}
 
 	private void fillTagsFromPreviewInfo() {
@@ -349,13 +359,13 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
 	}
 
-	private void createShowUserTagsCheckbox(final Composite parent) {
+	private void createTagScopeCombo(final Composite parent) {
 		final Composite tagScopeContainer = new Composite(parent, SWT.NONE);
 		GridLayoutFactory.swtDefaults().numColumns(2).margins(0, 0).applyTo(tagScopeContainer);
 		final Label tagScopeLabel = new Label(tagScopeContainer, SWT.NONE);
 		tagScopeLabel.setText(Messages.TagSelectionWizardPage_TagScope_xlbl);
-		final Combo tagTypeCombo = new Combo(tagScopeContainer, SWT.READ_ONLY);
-		tagTypeCombo.setItems(Stream.of(TagSearchScope.values()).map(scope -> {
+		this.tagTypeCombo = new Combo(tagScopeContainer, SWT.READ_ONLY);
+		this.tagTypeCombo.setItems(Stream.of(TagSearchScope.values()).map(scope -> {
 			switch (scope) {
 			case ALL:
 				return Messages.TagSelectionWizardPage_TagScopeAll_xlbl;
@@ -367,15 +377,11 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 				return ""; //$NON-NLS-1$
 			}
 		}).toArray(String[]::new));
-		tagTypeCombo.select(0);
-		tagTypeCombo.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(final SelectionEvent e) {
-				TagSelectionWizardPage.this.treeContentProvider
-					.setVisbleTagScope(TagSearchScope.get(tagTypeCombo.getSelectionIndex()));
-				TagSelectionWizardPage.this.checkBoxViewer.refresh();
-				setCheckedElements();
-			}
+		this.tagTypeCombo.select(0);
+		this.tagTypeCombo.addModifyListener(e -> {
+			this.treeContentProvider.setVisbleTagScope(TagSearchScope.get(this.tagTypeCombo.getSelectionIndex()));
+			this.checkBoxViewer.refresh();
+			setCheckedElements();
 		});
 	}
 
@@ -401,6 +407,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
 			Display.getDefault().timerExec(500, (Runnable) () -> {
 				this.checkBoxViewer.expandAll();
+				this.tagsTree.showSelection();
 			});
 			this.checkBoxViewer.refresh();
 			setCheckedElements();

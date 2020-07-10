@@ -66,7 +66,7 @@ public abstract class BaseFieldEditorPrefPage extends PreferencePage
 		this.fields.add(booleanEditor);
 
 		// adjust control layouts
-		GridDataFactory.fillDefaults().span(rowSpan, colSpan).applyTo(booleanEditor.getDescriptionControl(parent));
+		GridDataFactory.fillDefaults().span(colSpan, rowSpan).applyTo(booleanEditor.getDescriptionControl(parent));
 
 		return booleanEditor;
 	}
