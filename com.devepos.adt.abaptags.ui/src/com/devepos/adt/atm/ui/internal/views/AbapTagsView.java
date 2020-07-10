@@ -267,7 +267,7 @@ public class AbapTagsView extends ViewPart {
 			AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.NEW_GLOBAL_TAG), () -> handleCreateTag(false));
 		this.createUserTagAction = ActionUtil.createAction(Messages.AbapTagsView_NewUserTagAction_xtol,
 			AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.NEW_USER_TAG), () -> handleCreateTag(true));
-		this.deleteTagsAction = ActionUtil.createAction("Delete Tags", //$NON-NLS-1$
+		this.deleteTagsAction = ActionUtil.createAction(Messages.AbapTagsView_DeleteTagsAction_xmit,
 			PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE),
 			this::handleDeleteTags);
 		this.editTagAction = ActionUtil.createAction(Messages.AbapTagsView_EditTagAction_xmit,
@@ -412,6 +412,10 @@ public class AbapTagsView extends ViewPart {
 		}
 		final ITag newTag = IAbapTagsFactory.eINSTANCE.createTag();
 		final List<ITag> tagList = isUserTag ? this.treeInput[0].getTags() : this.treeInput[1].getTags();
+		if (isUserTag) {
+			final String destinationId = DestinationUtil.getDestinationId(this.lastProject);
+			newTag.setOwner(DestinationUtil.getDestinationData(destinationId).getUser());
+		}
 		tagList.add(newTag);
 		final EditTagDataDialog createDialog = new EditTagDataDialog(getSite().getShell(), newTag, tagList, isUserTag);
 		if (createDialog.open() == Window.OK) {
