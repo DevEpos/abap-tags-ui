@@ -24,14 +24,6 @@ public interface IImages {
 	 */
 	String NEW_GLOBAL_TAG = "IMG_NEW_GLOBAL_TAG";
 	/**
-	 * Id for Globe Image
-	 */
-	String GLOBE = "IMG_GLOBE";
-	/**
-	 * Id for User Image
-	 */
-	String USER = "IMG_USER";
-	/**
 	 * Default banner for Tagging wizard
 	 */
 	String TAGS_WIZBAN_DEFAULT = "IMG_TAGS_WIZBAN_DEFAULT";

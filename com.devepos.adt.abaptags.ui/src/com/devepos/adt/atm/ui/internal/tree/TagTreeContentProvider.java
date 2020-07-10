@@ -10,7 +10,6 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
-import com.devepos.adt.atm.ui.internal.forms.AbapTagModel;
 import com.devepos.adt.tools.base.util.StringUtil;
 
 public class TagTreeContentProvider implements ITreeContentProvider {
@@ -24,9 +23,7 @@ public class TagTreeContentProvider implements ITreeContentProvider {
 	@Override
 	public Object[] getElements(final Object inputElement) {
 		List<ITag> tagList = null;
-		if (inputElement instanceof AbapTagModel) {
-			tagList = ((AbapTagModel) inputElement).getTags().getTags();
-		} else if (inputElement instanceof EList<?>) {
+		if (inputElement instanceof EList<?>) {
 			tagList = (EList<ITag>) inputElement;
 		} else if (inputElement instanceof ITagList) {
 			tagList = ((ITagList) inputElement).getTags();
