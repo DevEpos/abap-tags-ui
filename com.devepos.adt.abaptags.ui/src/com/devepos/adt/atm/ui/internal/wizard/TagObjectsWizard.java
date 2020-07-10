@@ -6,9 +6,11 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.ITag;
@@ -95,15 +97,22 @@ public class TagObjectsWizard extends Wizard implements ITagObjectsWizard {
 						.saveTaggedObjects(DestinationUtil.getDestinationId(this.project), this.taggedObjectList);
 					this.success = true;
 				} catch (final CoreException e) {
-					e.printStackTrace();
+					throw new InvocationTargetException(e);
 				}
 			});
 		} catch (final InvocationTargetException e) {
 			if (e.getTargetException() instanceof RuntimeException) {
 				throw (RuntimeException) e.getTargetException();
+			} else {
+				Display.getDefault().asyncExec(() -> {
+					final String message = e.getCause() == null ? e.getMessage() : e.getCause().getMessage();
+					MessageDialog.openError(getShell(), Messages.AbapTagsView_ErrorMessageTitle_xtit, message);
+				});
+				return false;
 			}
 		} catch (final InterruptedException e) {
 			e.printStackTrace();
+			return false;
 		}
 		return true;
 	}
