@@ -130,7 +130,7 @@ public class EditTagDataDialog extends TitleAreaDialog {
 
 	private void onModifyTagName(final ModifyEvent e) {
 		this.tag.setName(this.nameInput.getText());
-		if (this.nameInput.getText().isEmpty()) {
+		if (StringUtil.isBlank(this.nameInput.getText())) {
 			setMessage(Messages.EditTagDataDialog_MandotoryFieldsNotFilled_xmsg, IMessageProvider.INFORMATION);
 			enableOkButton(false);
 		} else {
