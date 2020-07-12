@@ -29,6 +29,8 @@ import org.eclipse.swt.widgets.Label;
 
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.atm.ui.internal.help.HelpContexts;
+import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.tools.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
@@ -76,13 +78,14 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 	@Override
 	public void createControl(final Composite parent) {
 		final Composite root = new Composite(parent, SWT.NONE);
+		HelpUtil.setHelp(root, HelpContexts.TAG_WIZARD_OBJECT_SELECTION);
 		GridLayoutFactory.swtDefaults().applyTo(root);
 		this.projectInput.createControl(root);
 		this.projectInput.getProjectProvider().setProject(getWizard().getProject());
 		createObjectsList(root);
 		this.objectsViewer.setInput(this.objects);
 
-		this.projectInput.addProjectValidator((project) -> {
+		this.projectInput.addProjectValidator(project -> {
 			final IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(project);
 			if (!loggedOnStatus.isOK()) {
 				return loggedOnStatus;
@@ -125,7 +128,11 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 
 		final Label objectsViewerLabel = new Label(container, SWT.NONE);
 		objectsViewerLabel.setText(Messages.TaggableObjectSelectionWizardPage_SelectedObjectsTableTitle_xtit);
-		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).span(2, 1).grab(true, false).applyTo(objectsViewerLabel);
+		GridDataFactory.fillDefaults()
+			.align(SWT.FILL, SWT.CENTER)
+			.span(2, 1)
+			.grab(true, false)
+			.applyTo(objectsViewerLabel);
 
 		this.objectsViewer = new TableViewer(container, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.VIRTUAL);
 		this.objectsViewer.setContentProvider(new ArrayContentProvider());
@@ -138,7 +145,11 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 			.applyTo(this.objectsViewer.getControl());
 
 		final Composite buttonComposite = new Composite(container, SWT.NONE);
-		GridLayoutFactory.swtDefaults().numColumns(1).margins(0, 0).extendedMargins(2, 2, 0, 2).applyTo(buttonComposite);
+		GridLayoutFactory.swtDefaults()
+			.numColumns(1)
+			.margins(0, 0)
+			.extendedMargins(2, 2, 0, 2)
+			.applyTo(buttonComposite);
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).grab(false, true).applyTo(buttonComposite);
 
 		this.selectObjectsButton = new Button(buttonComposite, SWT.PUSH);
@@ -149,7 +160,8 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				final IAdtRisSearchResultProxy result = AdtRisSearchUtil.searchAdtObjectViaDialog(
-					Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit, true, getWizard().getProject());
+					Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit, true,
+					getWizard().getProject());
 				if (result == null) {
 					return;
 				}
@@ -181,7 +193,8 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 		 * create aggregation status to collect max severity status and do some further
 		 * validation for the page
 		 */
-		this.projectAggrValStatus = new AggregateValidationStatus(projectContext, AggregateValidationStatus.MAX_SEVERITY);
+		this.projectAggrValStatus = new AggregateValidationStatus(projectContext,
+			AggregateValidationStatus.MAX_SEVERITY);
 		this.projectAggrValStatus.addValueChangeListener(e -> {
 			if (this.projectAggrValStatus.getValue().isOK()) {
 				final IProject newProject = this.projectInput.getProjectProvider().getProject();
@@ -298,7 +311,8 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 			text.append(ref.getName());
 			String typeLabel = AdtTypeUtil.getInstance().getTypeDescription(ref.getType());
 			if (typeLabel == null) {
-				typeLabel = AdtTypeUtil.getInstance().getTypeDescriptionByProject(ref.getType(), getWizard().getProject());
+				typeLabel = AdtTypeUtil.getInstance()
+					.getTypeDescriptionByProject(ref.getType(), getWizard().getProject());
 			}
 			if (typeLabel != null) {
 				text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$

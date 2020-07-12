@@ -47,6 +47,8 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.Page;
 
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.atm.ui.internal.help.HelpContexts;
+import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
 import com.devepos.adt.tools.base.AdtToolsBaseResources;
 import com.devepos.adt.tools.base.IAdtToolsBaseImages;
@@ -99,6 +101,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 	@Override
 	public void createControl(final Composite parent) {
 		this.mainComposite = new Composite(parent, SWT.NONE);
+		HelpUtil.setHelp(this.mainComposite, HelpContexts.TAG_SEARCH);
 		this.mainComposite.setLayout(new FillLayout());
 		this.mainComposite.setSize(100, 100);
 		GridDataFactory.fillDefaults().applyTo(this.mainComposite);

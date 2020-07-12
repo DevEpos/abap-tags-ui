@@ -50,6 +50,8 @@ import com.devepos.adt.atm.model.validation.TagListValidator;
 import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
 import com.devepos.adt.atm.tagging.IAdtObjTaggingService;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.atm.ui.internal.help.HelpContexts;
+import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.preferences.IObjectTaggingPrefs;
 import com.devepos.adt.atm.ui.internal.tree.TagFilter;
@@ -163,6 +165,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 	@Override
 	public void createControl(final Composite parent) {
 		final Composite root = new Composite(parent, SWT.NONE);
+		HelpUtil.setHelp(root, HelpContexts.TAG_WIZARD_TAG_SELECTION);
 		GridLayoutFactory.swtDefaults().margins(0, 0).numColumns(2).applyTo(root);
 
 		final Composite leftComposite = new Composite(root, SWT.NONE);

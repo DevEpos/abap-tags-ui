@@ -37,6 +37,8 @@ import com.devepos.adt.atm.model.abaptags.TagInfoType;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.atm.ui.internal.help.HelpContexts;
+import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
 import com.devepos.adt.atm.ui.internal.tree.TagFilter;
@@ -85,6 +87,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 	public void createControl(final Composite parent) {
 		initializeDialogUnits(parent);
 		this.mainComposite = new SearchComposite(parent, SWT.NONE);
+		HelpUtil.setHelp(this.mainComposite, HelpContexts.TAG_SEARCH);
 		GridDataFactory.fillDefaults().grab(true, true).applyTo(this.mainComposite);
 		GridLayoutFactory.swtDefaults().applyTo(this.mainComposite);
 		setControl(this.mainComposite);

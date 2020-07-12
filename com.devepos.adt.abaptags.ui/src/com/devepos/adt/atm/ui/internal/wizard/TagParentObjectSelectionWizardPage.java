@@ -35,6 +35,8 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.dialogs.ParentObjectFilterDialog;
+import com.devepos.adt.atm.ui.internal.help.HelpContexts;
+import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.tree.TaggedObjectTreeContentProvider;
 import com.devepos.adt.atm.ui.internal.util.IImages;
@@ -119,6 +121,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 	@Override
 	public void createControl(final Composite parent) {
 		final Composite root = new Composite(parent, SWT.NONE);
+		HelpUtil.setHelp(root, HelpContexts.TAG_WIZARD_PARENT_OBJECT_SELECTION);
 		GridLayoutFactory.swtDefaults().applyTo(root);
 
 		createSelectionModeComposite(root);

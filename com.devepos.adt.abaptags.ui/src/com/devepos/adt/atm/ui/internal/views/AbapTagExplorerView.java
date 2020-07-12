@@ -54,6 +54,8 @@ import com.devepos.adt.atm.tagging.IAdtObjTaggingService;
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.tags.IAbapTagsService;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.atm.ui.internal.help.HelpContexts;
+import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.util.IImages;
 import com.devepos.adt.atm.ui.internal.wizard.TagObjectsWizard;
@@ -130,6 +132,7 @@ public class AbapTagExplorerView extends ViewPart {
 	@Override
 	public void createPartControl(final Composite parent) {
 		this.mainComposite = new Composite(parent, SWT.NONE);
+		HelpUtil.setHelp(this.mainComposite, HelpContexts.TAG_EXPLORER);
 		GridDataFactory.fillDefaults().grab(true, true).applyTo(this.mainComposite);
 		GridLayoutFactory.swtDefaults().margins(0, 0).applyTo(this.mainComposite);
 
