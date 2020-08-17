@@ -7,7 +7,7 @@ Bundle-Activator: com.devepos.adt.atm.ui.AbapTagsUIPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: OSGI-INF/l10n/bundle
 Require-Bundle: com.devepos.adt.abaptags.model,
- com.devepos.adt.abaptags,
+ com.devepos.adt.abaptags.backend,
  com.devepos.adt.tools.base,
  com.sap.adt.project.ui,
  com.sap.adt.ris.search.ui,
