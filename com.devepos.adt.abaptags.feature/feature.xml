@@ -75,13 +75,6 @@ END OF TERMS AND CONDITIONS
          unpack="false"/>
 
    <plugin
-         id="com.devepos.adt.abaptags"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="com.devepos.adt.abaptags.model"
          download-size="0"
          install-size="0"
@@ -90,6 +83,13 @@ END OF TERMS AND CONDITIONS
 
    <plugin
          id="com.devepos.adt.tools.base"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.devepos.adt.abaptags.backend"
          download-size="0"
          install-size="0"
          version="0.0.0"
