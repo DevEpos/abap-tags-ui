@@ -15,10 +15,10 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.util.IImages;
-import com.devepos.adt.tools.base.AdtToolsBaseResources;
-import com.devepos.adt.tools.base.IAdtToolsBaseStrings;
 import com.devepos.adt.tools.base.adtobject.AdtObjectReferenceModelFactory;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
+import com.devepos.adt.tools.base.ui.AdtToolsBaseUIResources;
+import com.devepos.adt.tools.base.ui.IAdtToolsBaseStrings;
 import com.devepos.adt.tools.base.ui.tree.AdtObjectReferenceNode;
 import com.devepos.adt.tools.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.tools.base.ui.tree.ILazyLoadingNode;
@@ -53,18 +53,18 @@ public class TaggedObjectSearchResult implements ISearchResult {
 	public String getLabel() {
 		String resultsLabel = null;
 		if (this.resultCount == 1) {
-			resultsLabel = AdtToolsBaseResources.getString(IAdtToolsBaseStrings.SearchUI_OneResult_xmsg);
+			resultsLabel = AdtToolsBaseUIResources.getString(IAdtToolsBaseStrings.SearchUI_OneResult_xmsg);
 		} else if (this.resultCount > 1) {
 			if (this.hasMoreResults) {
-				resultsLabel = AdtToolsBaseResources.format(IAdtToolsBaseStrings.SearchUI_ResultsExceedMaximum_xmsg,
+				resultsLabel = AdtToolsBaseUIResources.format(IAdtToolsBaseStrings.SearchUI_ResultsExceedMaximum_xmsg,
 					this.query.getSearchParams().getMaxResults());
 			} else {
-				resultsLabel = AdtToolsBaseResources.format(IAdtToolsBaseStrings.SearchUI_SpecificResults_xmsg,
+				resultsLabel = AdtToolsBaseUIResources.format(IAdtToolsBaseStrings.SearchUI_SpecificResults_xmsg,
 					this.resultCount);
 
 			}
 		} else {
-			resultsLabel = AdtToolsBaseResources.getString(IAdtToolsBaseStrings.SearchUI_NoResults_xmsg);
+			resultsLabel = AdtToolsBaseUIResources.getString(IAdtToolsBaseStrings.SearchUI_NoResults_xmsg);
 		}
 		final String label = NLS.bind(Messages.TaggedObjectSearchResult_SearchLabel_xmsg, this.query, resultsLabel);
 		return label;

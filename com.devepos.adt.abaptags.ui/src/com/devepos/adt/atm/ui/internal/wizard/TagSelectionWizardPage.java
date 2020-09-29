@@ -61,8 +61,8 @@ import com.devepos.adt.tools.base.destinations.DestinationUtil;
 import com.devepos.adt.tools.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.tools.base.ui.StylerFactory;
+import com.devepos.adt.tools.base.ui.wizard.AbstractBaseWizardPage;
 import com.devepos.adt.tools.base.util.StringUtil;
-import com.devepos.adt.tools.base.wizard.AbstractBaseWizardPage;
 
 public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 	public static final String PAGE_NAME = TaggableObjectSelectionWizardPage.class.getCanonicalName();
@@ -425,6 +425,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 			.align(SWT.FILL, SWT.FILL)
 			.grab(true, true)
 			.minSize(250, 300)
+			.hint(SWT.DEFAULT, this.tagsTree.getItemHeight() * 20)
 			.applyTo(this.tagsTree);
 		this.checkBoxViewer.addFilter(this.patternFilter);
 		this.treeLabelProvider = new TreeViewerLabelProvider();

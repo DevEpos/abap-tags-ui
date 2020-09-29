@@ -43,9 +43,9 @@ import com.devepos.adt.atm.ui.internal.util.IImages;
 import com.devepos.adt.tools.base.destinations.DestinationUtil;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.tools.base.ui.celleditor.ExtendedDialogCellEditor;
-import com.devepos.adt.tools.base.util.AdtTypeUtil;
+import com.devepos.adt.tools.base.ui.util.AdtTypeUtil;
+import com.devepos.adt.tools.base.ui.wizard.AbstractBaseWizardPage;
 import com.devepos.adt.tools.base.util.StringUtil;
-import com.devepos.adt.tools.base.wizard.AbstractBaseWizardPage;
 
 public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 	public static final String PAGE_NAME = TagParentObjectSelectionWizardPage.class.getCanonicalName();

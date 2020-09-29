@@ -9,12 +9,12 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
 import com.devepos.adt.atm.ui.internal.messages.Messages;
-import com.devepos.adt.tools.base.AdtToolsBaseResources;
-import com.devepos.adt.tools.base.IAdtToolsBaseImages;
+import com.devepos.adt.tools.base.ui.AdtToolsBaseUIResources;
+import com.devepos.adt.tools.base.ui.IAdtToolsBaseImages;
 
 public class OpenInSearchDialogAction extends Action {
 	public OpenInSearchDialogAction() {
-		super(Messages.OpenInSearchDialogAction_Label_xmit, AdtToolsBaseResources.getImageDescriptor(IAdtToolsBaseImages.SEARCH));
+		super(Messages.OpenInSearchDialogAction_Label_xmit, AdtToolsBaseUIResources.getImageDescriptor(IAdtToolsBaseImages.SEARCH));
 	}
 
 	@Override

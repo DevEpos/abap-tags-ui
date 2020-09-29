@@ -34,12 +34,12 @@ import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.tools.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
-import com.devepos.adt.tools.base.project.ProjectUtil;
 import com.devepos.adt.tools.base.ui.project.ProjectInput;
+import com.devepos.adt.tools.base.ui.project.ProjectUtil;
 import com.devepos.adt.tools.base.ui.search.AdtRisSearchUtil;
 import com.devepos.adt.tools.base.ui.search.IAdtRisSearchResultProxy;
-import com.devepos.adt.tools.base.util.AdtTypeUtil;
-import com.devepos.adt.tools.base.wizard.AbstractBaseWizardPage;
+import com.devepos.adt.tools.base.ui.util.AdtTypeUtil;
+import com.devepos.adt.tools.base.ui.wizard.AbstractBaseWizardPage;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 /**
