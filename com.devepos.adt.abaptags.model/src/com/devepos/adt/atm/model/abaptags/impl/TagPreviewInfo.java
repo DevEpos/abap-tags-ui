@@ -5,9 +5,7 @@ package com.devepos.adt.atm.model.abaptags.impl;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
-
-import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
-
+import com.devepos.adt.base.model.adtbase.IAdtObjRef;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;

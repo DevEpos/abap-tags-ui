@@ -74,6 +74,7 @@ public class Messages extends NLS {
 	public static String AbapTagsView_NewGlobalTagAction_xtol;
 	public static String AbapTagsView_NewUserTagAction_xtol;
 	public static String AbapTagsView_NoProjectAvailable_xmsg;
+	public static String AbapTagsView_SharedTagsFolder_xlbl;
 	public static String AbapTagsView_TagListInProject_xmsg;
 	public static String AbapTagsView_TagsLoadingJobTitle_xmsg;
 	public static String AbapTagsView_TagsNotLoadedInProject_xmsg;

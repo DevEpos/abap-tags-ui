@@ -1,6 +1,5 @@
 package com.devepos.adt.atm.ui.internal.views;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -42,7 +41,6 @@ import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.ViewPart;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
@@ -52,21 +50,26 @@ import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.tags.IAbapTagsService;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.atm.ui.internal.TagFolder;
 import com.devepos.adt.atm.ui.internal.dialogs.EditTagDataDialog;
 import com.devepos.adt.atm.ui.internal.help.HelpContexts;
 import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.util.IImages;
-import com.devepos.adt.tools.base.AdtToolsBaseResources;
-import com.devepos.adt.tools.base.IAdtToolsBaseImages;
-import com.devepos.adt.tools.base.IAdtToolsBaseStrings;
-import com.devepos.adt.tools.base.destinations.DestinationUtil;
-import com.devepos.adt.tools.base.project.ProjectUtil;
-import com.devepos.adt.tools.base.ui.IGeneralContextMenuConstants;
-import com.devepos.adt.tools.base.ui.StylerFactory;
-import com.devepos.adt.tools.base.ui.ViewDescriptionLabel;
-import com.devepos.adt.tools.base.ui.action.ActionUtil;
-import com.devepos.adt.tools.base.util.StringUtil;
+import com.devepos.adt.base.destinations.DestinationUtil;
+import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
+import com.devepos.adt.base.model.adtbase.IUser;
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseImages;
+import com.devepos.adt.base.ui.IAdtBaseStrings;
+import com.devepos.adt.base.ui.IGeneralContextMenuConstants;
+import com.devepos.adt.base.ui.StylerFactory;
+import com.devepos.adt.base.ui.ViewDescriptionLabel;
+import com.devepos.adt.base.ui.action.ActionFactory;
+import com.devepos.adt.base.ui.project.ProjectUtil;
+import com.devepos.adt.base.ui.userinfo.IUserService;
+import com.devepos.adt.base.ui.userinfo.UserServiceFactory;
+import com.devepos.adt.base.util.StringUtil;
 
 /**
  * View to manage all available tags of a given ABAP project
@@ -76,26 +79,17 @@ import com.devepos.adt.tools.base.util.StringUtil;
 public class AbapTagsView extends ViewPart {
 
 	public static final String VIEW_ID = "com.devepos.adt.atm.ui.views.AbapTags"; //$NON-NLS-1$
-	private Composite mainComposite;
-	private Action refreshAction;
-	private Action createUserTagAction;
+//	private static final String MENU_SEP_GROUP_SHARE = "group.share"; //$NON-NLS-1$
+	protected ISelection lastSelection;
+	private Action convertTagAction;
 	private Action createGlobalTagAction;
+	private Action createSubTagAction;
+	private Action createUserTagAction;
 	private Action deleteTagsAction;
 	private Action editTagAction;
-	private Action createSubTagAction;
-	private Action convertTagAction;
-	private ViewDescriptionLabel viewLabel;
-	private Tree tree;
-	private Job tagLoadingJob;
-	private final TagFolder[] treeInput;
-
-	private TreeViewer treeViewer;
-
 	private IProject lastProject;
-	protected ISelection lastSelection;
-
-	private final IAbapTagsService tagsService;
-
+	private Composite mainComposite;
+	private Action refreshAction;
 	private final ISelectionListener selectionListener = new ISelectionListener() {
 		private boolean isUpdatingSelection = false;
 
@@ -125,34 +119,22 @@ public class AbapTagsView extends ViewPart {
 		}
 
 	};
+//	private Action shareTagAction;
+//	private Action unshareTagAction;
+
+	private final TagFolder[] tagFolders;
+
+	private Job tagLoadingJob;
+	private final IAbapTagsService tagsService;
+
+	private Tree tree;
+
+	private TreeViewer treeViewer;
+	private ViewDescriptionLabel viewLabel;
 
 	public AbapTagsView() {
 		this.tagsService = AbapTagsServiceFactory.createTagsService();
-		this.treeInput = new TagFolder[2];
-		this.treeInput[0] = new TagFolder(true);
-		this.treeInput[1] = new TagFolder(false);
-	}
-
-	@Override
-	public void init(final IViewSite site) throws PartInitException {
-		super.init(site);
-		this.lastSelection = getSite().getPage().getSelection();
-	}
-
-	@Override
-	public void setFocus() {
-		if (this.tree != null && !this.tree.isDisposed()) {
-			this.tree.setFocus();
-		}
-		if (this.lastSelection != null) {
-			showTagsOfLastSelectedProject();
-		}
-	}
-
-	@Override
-	public void dispose() {
-		getSite().getPage().removePostSelectionListener(this.selectionListener);
-		super.dispose();
+		this.tagFolders = TagFolder.values();
 	}
 
 	@Override
@@ -176,9 +158,90 @@ public class AbapTagsView extends ViewPart {
 		checkProjectStatus(false);
 	}
 
+	@Override
+	public void dispose() {
+		getSite().getPage().removePostSelectionListener(this.selectionListener);
+		super.dispose();
+	}
+
+	@Override
+	public void init(final IViewSite site) throws PartInitException {
+		super.init(site);
+		this.lastSelection = getSite().getPage().getSelection();
+	}
+
+	@Override
+	public void setFocus() {
+		if (this.tree != null && !this.tree.isDisposed()) {
+			this.tree.setFocus();
+		}
+		if (this.lastSelection != null) {
+			showTagsOfLastSelectedProject();
+		}
+	}
+
+	private boolean checkProjectStatus(final boolean ensureLogon) {
+		boolean tagsFeatureStatusUnknown = false;
+		if (this.lastProject == null) {
+			this.viewLabel.updateLabel(Messages.AbapTagsView_NoProjectAvailable_xmsg);
+			clearInput();
+			setControlsEnabled(false);
+			return false;
+		}
+		// check if the user is logged on to the project
+		if (ensureLogon) {
+			if (!ProjectUtil.ensureLoggedOnToProject(this.lastProject).isOK()) {
+				tagsFeatureStatusUnknown = true;
+			}
+		} else {
+			if (!ProjectUtil.isLoggedOnToProject(this.lastProject)) {
+				tagsFeatureStatusUnknown = true;
+			}
+		}
+		if (tagsFeatureStatusUnknown) {
+			this.viewLabel.updateLabel(NLS.bind(Messages.AbapTagsView_TagsNotLoadedInProject_xmsg, this.lastProject.getName()));
+			clearInput();
+			setControlsEnabled(true);
+			return false;
+		}
+		final IStatus tagFeatureStatus = this.tagsService.testTagsFeatureAvailability(this.lastProject);
+		if (!tagFeatureStatus.isOK()) {
+			this.viewLabel.updateLabel(tagFeatureStatus.getMessage());
+			clearInput();
+			setControlsEnabled(false);
+			return false;
+		} else {
+			setControlsEnabled(true);
+			this.viewLabel.updateLabel(NLS.bind(Messages.AbapTagsView_TagListInProject_xmsg, this.lastProject.getName()));
+			return true;
+		}
+	}
+
 	private void clearInput() {
 		this.treeViewer.setInput(null);
 		this.treeViewer.refresh();
+	}
+
+	private void createOrUpdateTag(final ITag newTag, final boolean isUserTag) {
+		final ITagList updateList = IAbapTagsFactory.eINSTANCE.createTagList();
+		updateList.getTags().add(newTag);
+
+		if (!ProjectUtil.ensureLoggedOnToProject(this.lastProject).isOK()) {
+			return;
+		}
+		final Job updateJob = Job.create(Messages.AbapTagsView_UpdateTagJobTitle_xmsg, monitor -> {
+			final IStatus status = this.tagsService.updateTags(updateList, DestinationUtil.getDestinationId(this.lastProject),
+				isUserTag ? TagSearchScope.USER : TagSearchScope.GLOBAL);
+			if (!status.isOK()) {
+				Display.getDefault().asyncExec(() -> {
+					MessageDialog.openError(getSite().getShell(), Messages.AbapTagsView_ErrorMessageTitle_xtit,
+						Messages.AbapTagsView_ErrorDuringTagUpdate_xmsg + status.getMessage());
+				});
+			}
+			refreshTags();
+			monitor.done();
+		});
+		updateJob.schedule();
 	}
 
 	private void createViewer(final Composite parent) {
@@ -204,28 +267,6 @@ public class AbapTagsView extends ViewPart {
 		});
 	}
 
-	private void showTagsOfLastSelectedProject() {
-		final IProject project = ProjectUtil.getCurrentAbapProject(this.lastSelection);
-		if (project != this.lastProject) {
-			this.lastProject = project;
-			loadViewInput();
-		}
-		this.lastSelection = null;
-	}
-
-	private void hookContextMenu() {
-		final MenuManager menuMgr = new MenuManager();
-		menuMgr.setRemoveAllWhenShown(true);
-
-		menuMgr.addMenuListener(menu -> {
-			fillContextMenu(menu);
-		});
-		final Control viewerControl = this.tree;
-		final Menu menu = menuMgr.createContextMenu(viewerControl);
-		viewerControl.setMenu(menu);
-		getSite().registerContextMenu(getViewSite().getId(), menuMgr, this.treeViewer);
-	}
-
 	private void fillContextMenu(final IMenuManager menu) {
 		final IStructuredSelection sel = this.treeViewer.getStructuredSelection();
 		if (sel.isEmpty()) {
@@ -233,22 +274,28 @@ public class AbapTagsView extends ViewPart {
 		}
 		menu.add(new Separator(IGeneralContextMenuConstants.GROUP_NEW));
 		menu.add(new Separator(IGeneralContextMenuConstants.GROUP_EDIT));
+//		menu.add(new Separator(MENU_SEP_GROUP_SHARE));
 
 		if (sel.size() == 1) {
 			final Object selObj = sel.getFirstElement();
 			if (selObj instanceof TagFolder) {
-				if (((TagFolder) selObj) == this.treeInput[0]) {
+				final TagFolder folder = (TagFolder) selObj;
+				if (folder == TagFolder.USER) {
 					menu.appendToGroup(IGeneralContextMenuConstants.GROUP_NEW, this.createUserTagAction);
-				} else {
+				} else if (folder == TagFolder.GLOBAL) {
 					menu.appendToGroup(IGeneralContextMenuConstants.GROUP_NEW, this.createGlobalTagAction);
 				}
 				return;
 			}
 			menu.appendToGroup(IGeneralContextMenuConstants.GROUP_EDIT, this.editTagAction);
 			final ITag tag = (ITag) selObj;
-			if (!(tag.eContainer() instanceof ITag) && !StringUtil.isEmpty(tag.getOwner())) {
-				menu.appendToGroup(IGeneralContextMenuConstants.GROUP_EDIT, this.convertTagAction);
-			}
+//			if (!(tag.eContainer() instanceof ITag) && !StringUtil.isEmpty(tag.getOwner())) {
+//				menu.appendToGroup(IGeneralContextMenuConstants.GROUP_EDIT, this.convertTagAction);
+//				menu.appendToGroup(MENU_SEP_GROUP_SHARE, this.shareTagAction);
+//				if (tag.isShared()) {
+//					menu.appendToGroup(MENU_SEP_GROUP_SHARE, this.unshareTagAction);
+//				}
+//			}
 			this.deleteTagsAction.setText(Messages.AbapTagsView_DeleteTagAction_xmit);
 			menu.appendToGroup(IGeneralContextMenuConstants.GROUP_EDIT, this.deleteTagsAction);
 			menu.appendToGroup(IGeneralContextMenuConstants.GROUP_NEW, this.createSubTagAction);
@@ -263,121 +310,12 @@ public class AbapTagsView extends ViewPart {
 		}
 	}
 
-	private void initializeActions() {
-		this.refreshAction = ActionUtil.createAction(AdtToolsBaseResources.getString(IAdtToolsBaseStrings.Refresh),
-			AdtToolsBaseResources.getImageDescriptor(IAdtToolsBaseImages.REFRESH), this::handleRefresh);
-		this.createGlobalTagAction = ActionUtil.createAction(Messages.AbapTagsView_NewGlobalTagAction_xtol,
-			AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.NEW_GLOBAL_TAG), () -> handleCreateTag(false));
-		this.createUserTagAction = ActionUtil.createAction(Messages.AbapTagsView_NewUserTagAction_xtol,
-			AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.NEW_USER_TAG), () -> handleCreateTag(true));
-		this.deleteTagsAction = ActionUtil.createAction(Messages.AbapTagsView_DeleteTagsAction_xmit,
-			PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE),
-			this::handleDeleteTags);
-		this.editTagAction = ActionUtil.createAction(Messages.AbapTagsView_EditTagAction_xmit,
-			AdtToolsBaseResources.getImageDescriptor(IAdtToolsBaseImages.EDIT_ACTION), () -> handleEditTag(null));
-		this.createSubTagAction = ActionUtil.createAction(Messages.AbapTagsView_AddSubTagAction_xmit,
-			PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJ_ADD),
-			this::handleCreateTagOnSelectedNode);
-		this.convertTagAction = ActionUtil.createAction(Messages.AbapTagsView_ConvertToGlobalTagAction_xmit,
-			PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_TOOL_FORWARD),
-			this::handleConvertTag);
-	}
-
-	private void initToolbar(final IActionBars actionBars) {
-		actionBars.setGlobalActionHandler(ActionFactory.REFRESH.getId(), this.refreshAction);
-
-		final IToolBarManager tbm = actionBars.getToolBarManager();
-		tbm.add(this.refreshAction);
-		tbm.add(new Separator());
-		tbm.add(this.createUserTagAction);
-		tbm.add(this.createGlobalTagAction);
-	}
-
-	private boolean checkProjectStatus(final boolean ensureLogon) {
-		boolean tagsFeatureStatusUnknown = false;
-		if (this.lastProject == null) {
-			this.viewLabel.updateLabel(Messages.AbapTagsView_NoProjectAvailable_xmsg);
-			clearInput();
-			setControlsEnabled(false);
-			return false;
+	private ITag getSelectedTag() {
+		final IStructuredSelection sel = this.treeViewer.getStructuredSelection();
+		if (sel.isEmpty() || sel.size() > 1) {
+			return null;
 		}
-		// check if the user is logged on to the project
-		if (ensureLogon) {
-			if (!ProjectUtil.ensureLoggedOnToProject(this.lastProject).isOK()) {
-				tagsFeatureStatusUnknown = true;
-			}
-		} else {
-			if (!ProjectUtil.isLoggedOnToProject(this.lastProject)) {
-				tagsFeatureStatusUnknown = true;
-			}
-		}
-		if (tagsFeatureStatusUnknown) {
-			this.viewLabel
-				.updateLabel(NLS.bind(Messages.AbapTagsView_TagsNotLoadedInProject_xmsg, this.lastProject.getName()));
-			clearInput();
-			setControlsEnabled(true);
-			return false;
-		}
-		final IStatus tagFeatureStatus = this.tagsService.testTagsFeatureAvailability(this.lastProject);
-		if (!tagFeatureStatus.isOK()) {
-			this.viewLabel.updateLabel(tagFeatureStatus.getMessage());
-			clearInput();
-			setControlsEnabled(false);
-			return false;
-		} else {
-			setControlsEnabled(true);
-			this.viewLabel
-				.updateLabel(NLS.bind(Messages.AbapTagsView_TagListInProject_xmsg, this.lastProject.getName()));
-			return true;
-		}
-	}
-
-	private void setControlsEnabled(final boolean enabled) {
-		this.createGlobalTagAction.setEnabled(enabled);
-		this.createUserTagAction.setEnabled(enabled);
-		this.refreshAction.setEnabled(enabled);
-	}
-
-	private void loadViewInput() {
-		if (!checkProjectStatus(false)) {
-			return;
-		}
-		refreshTags();
-	}
-
-	private void refreshTags() {
-		if (this.tagLoadingJob != null && this.tagLoadingJob.getResult() == null) {
-			this.tagLoadingJob.cancel();
-		}
-		this.tagLoadingJob = Job.create(Messages.AbapTagsView_TagsLoadingJobTitle_xmsg, monitor -> {
-			final ITagList tagList = this.tagsService.readTags(DestinationUtil.getDestinationId(this.lastProject),
-				TagSearchScope.ALL, true);
-
-			this.treeInput[0].getTags().clear();
-			this.treeInput[1].getTags().clear();
-
-			for (final ITag tag : tagList.getTags()) {
-				if (StringUtil.isEmpty(tag.getOwner())) {
-					this.treeInput[1].addTag(tag);
-				} else {
-					this.treeInput[0].addTag(tag);
-				}
-			}
-			Display.getDefault().asyncExec(() -> {
-				AbapTagsView.this.treeViewer.setInput(this.treeInput);
-				AbapTagsView.this.treeViewer.refresh();
-				AbapTagsView.this.treeViewer.expandAll();
-			});
-			monitor.done();
-		});
-		this.tagLoadingJob.schedule();
-	}
-
-	private void handleRefresh() {
-		if (!checkProjectStatus(true)) {
-			return;
-		}
-		refreshTags();
+		return (ITag) sel.getFirstElement();
 	}
 
 	private void handleConvertTag() {
@@ -395,8 +333,8 @@ public class AbapTagsView extends ViewPart {
 		final ITagList userTagList = IAbapTagsFactory.eINSTANCE.createTagList();
 		userTagList.getTags().add(tag);
 		final Job job = Job.create(Messages.AbapTagsView_ConvertToGlobalTagJobTitle_xmsg, monitor -> {
-			final IStatus serviceStatus = this.tagsService
-				.makeTagsGlobal(DestinationUtil.getDestinationId(this.lastProject), userTagList);
+			final IStatus serviceStatus = this.tagsService.makeTagsGlobal(DestinationUtil.getDestinationId(this.lastProject),
+				userTagList);
 			if (!serviceStatus.isOK()) {
 				Display.getDefault().asyncExec(() -> {
 					MessageDialog.openError(getSite().getShell(), Messages.AbapTagsView_ErrorMessageTitle_xtit,
@@ -414,10 +352,9 @@ public class AbapTagsView extends ViewPart {
 			return;
 		}
 		final ITag newTag = IAbapTagsFactory.eINSTANCE.createTag();
-		final List<ITag> tagList = isUserTag ? this.treeInput[0].getTags() : this.treeInput[1].getTags();
+		final List<ITag> tagList = isUserTag ? TagFolder.USER.getTags() : TagFolder.GLOBAL.getTags();
 		if (isUserTag) {
-			final String destinationId = DestinationUtil.getDestinationId(this.lastProject);
-			newTag.setOwner(DestinationUtil.getDestinationData(destinationId).getUser());
+			newTag.setOwner(DestinationUtil.getDestinationOwner(this.lastProject));
 		}
 		tagList.add(newTag);
 		final EditTagDataDialog createDialog = new EditTagDataDialog(getSite().getShell(), newTag, tagList, isUserTag);
@@ -448,47 +385,6 @@ public class AbapTagsView extends ViewPart {
 		}
 	}
 
-	private void createOrUpdateTag(final ITag newTag, final boolean isUserTag) {
-		final ITagList updateList = IAbapTagsFactory.eINSTANCE.createTagList();
-		updateList.getTags().add(newTag);
-
-		if (!ProjectUtil.ensureLoggedOnToProject(this.lastProject).isOK()) {
-			return;
-		}
-		final Job updateJob = Job.create(Messages.AbapTagsView_UpdateTagJobTitle_xmsg, monitor -> {
-			final IStatus status = this.tagsService.updateTags(updateList,
-				DestinationUtil.getDestinationId(this.lastProject),
-				isUserTag ? TagSearchScope.USER : TagSearchScope.GLOBAL);
-			if (!status.isOK()) {
-				Display.getDefault().asyncExec(() -> {
-					MessageDialog.openError(getSite().getShell(), Messages.AbapTagsView_ErrorMessageTitle_xtit,
-						Messages.AbapTagsView_ErrorDuringTagUpdate_xmsg + status.getMessage());
-				});
-			}
-			refreshTags();
-			monitor.done();
-		});
-		updateJob.schedule();
-	}
-
-	private void handleEditTag(final ITag t) {
-		final ITag tag = t != null ? t : getSelectedTag();
-		if (tag == null) {
-			return;
-		}
-		final boolean isUserTag = !StringUtil.isEmpty(tag.getOwner());
-		List<ITag> tagList = null;
-		if (tag.eContainer() instanceof ITag) {
-			tagList = ((ITag) tag.eContainer()).getChildTags();
-		} else {
-			tagList = isUserTag ? this.treeInput[0].getTags() : this.treeInput[1].getTags();
-		}
-		final EditTagDataDialog createDialog = new EditTagDataDialog(getSite().getShell(), tag, tagList, isUserTag);
-		if (createDialog.open() == Window.OK) {
-			createOrUpdateTag(tag, isUserTag);
-		}
-	}
-
 	private void handleDeleteTags() {
 		final ITagList tagList = IAbapTagsFactory.eINSTANCE.createTagList();
 		final IStructuredSelection sel = this.treeViewer.getStructuredSelection();
@@ -509,8 +405,8 @@ public class AbapTagsView extends ViewPart {
 			return;
 		}
 		final Job deleteJob = Job.create(Messages.AbapTagsView_DeleteTagsJobTitle_xmsg, monitor -> {
-			final IStatus status = this.tagsService.deleteTags(tagList,
-				DestinationUtil.getDestinationId(this.lastProject), TagSearchScope.ALL);
+			final IStatus status = this.tagsService.deleteTags(tagList, DestinationUtil.getDestinationId(this.lastProject),
+				TagSearchScope.ALL);
 			if (!status.isOK()) {
 				MessageDialog.openError(getSite().getShell(), Messages.AbapTagsView_ErrorMessageTitle_xtit,
 					Messages.AbapTagsView_ErrorDuringTagDeletion_xmsg + status.getMessage());
@@ -521,62 +417,178 @@ public class AbapTagsView extends ViewPart {
 		deleteJob.schedule();
 	}
 
-	private ITag getSelectedTag() {
-		final IStructuredSelection sel = this.treeViewer.getStructuredSelection();
-		if (sel.isEmpty() || sel.size() > 1) {
-			return null;
+	private void handleEditTag(final ITag t) {
+		final ITag tag = t != null ? t : getSelectedTag();
+		if (tag == null) {
+			return;
 		}
-		return (ITag) sel.getFirstElement();
+		final boolean isUserTag = !StringUtil.isEmpty(tag.getOwner());
+		List<ITag> tagList = null;
+		if (tag.eContainer() instanceof ITag) {
+			tagList = ((ITag) tag.eContainer()).getChildTags();
+		} else {
+			tagList = isUserTag ? this.tagFolders[0].getTags() : this.tagFolders[1].getTags();
+		}
+		final EditTagDataDialog createDialog = new EditTagDataDialog(getSite().getShell(), tag, tagList, isUserTag);
+		if (createDialog.open() == Window.OK) {
+			createOrUpdateTag(tag, isUserTag);
+		}
 	}
 
-	private class TagFolder {
-		private final boolean hasUserTags;
-		private final List<ITag> tags;
-
-		public TagFolder(final boolean hasUserTags) {
-			this.tags = new ArrayList<>();
-			this.hasUserTags = hasUserTags;
+	private void handleRefresh() {
+		if (!checkProjectStatus(true)) {
+			return;
 		}
+		refreshTags();
+	}
 
-		public void addTag(final ITag tag) {
-			this.tags.add(tag);
+//	private void handleShareTag() {
+//		final ITag tag = getSelectedTag();
+//		if (tag == null) {
+//			return;
+//		}
+//		final IUserService userService = UserServiceFactory.createUserService();
+//		final List<String> usersForSharing = userService.showUserSelectionDialog(getSite().getShell(), "Select Users for Sharing",
+//			true, null, DestinationUtil.getDestinationId(this.lastProject));
+//		if (usersForSharing == null || usersForSharing.isEmpty()) {
+//			return;
+//		}
+//		final ITagList sharedTagList = IAbapTagsFactory.eINSTANCE.createTagList();
+//		final ITag sharedTag = IAbapTagsFactory.eINSTANCE.createTag();
+//		sharedTag.setId(tag.getId());
+//		sharedTagList.getTags().add(sharedTag);
+//		usersForSharing.forEach(u -> {
+//			final IUser user = IAdtBaseFactory.eINSTANCE.createUser();
+//			user.setName(u);
+//			sharedTag.getSharedUsers().add(user);
+//		});
+//		final Job job = Job.create("Share Tag...", monitor -> {
+//			final IStatus serviceStatus = this.tagsService.shareTags(DestinationUtil.getDestinationId(this.lastProject),
+//				sharedTagList);
+//			if (!serviceStatus.isOK()) {
+//				Display.getDefault().asyncExec(() -> {
+//					MessageDialog.openError(getSite().getShell(), Messages.AbapTagsView_ErrorMessageTitle_xtit,
+//						"During sharing the tag, the following error occurred\n\nError:\n" + serviceStatus.getMessage());
+//				});
+//			}
+//			refreshTags();
+//			monitor.done();
+//		});
+//		job.schedule();
+//	}
+
+	private void handleUnshareTag() {
+		final ITag tag = getSelectedTag();
+		if (tag == null) {
+			return;
 		}
+	}
 
-		public String getName() {
-			return this.hasUserTags ? Messages.AbapTagsView_UserTagsFolder_xlbl
-				: Messages.AbapTagsView_GlobalTagsFolder_xlbl;
+	private void hookContextMenu() {
+		final MenuManager menuMgr = new MenuManager();
+		menuMgr.setRemoveAllWhenShown(true);
+
+		menuMgr.addMenuListener(menu -> {
+			fillContextMenu(menu);
+		});
+		final Control viewerControl = this.tree;
+		final Menu menu = menuMgr.createContextMenu(viewerControl);
+		viewerControl.setMenu(menu);
+		getSite().registerContextMenu(getViewSite().getId(), menuMgr, this.treeViewer);
+	}
+
+	private void initializeActions() {
+		this.refreshAction = ActionFactory.createAction(AdtBaseUIResources.getString(IAdtBaseStrings.Refresh),
+			AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.REFRESH), this::handleRefresh);
+		this.createGlobalTagAction = ActionFactory.createAction(Messages.AbapTagsView_NewGlobalTagAction_xtol,
+			AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.NEW_GLOBAL_TAG), () -> handleCreateTag(false));
+		this.createUserTagAction = ActionFactory.createAction(Messages.AbapTagsView_NewUserTagAction_xtol,
+			AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.NEW_USER_TAG), () -> handleCreateTag(true));
+		this.deleteTagsAction = ActionFactory.createAction(Messages.AbapTagsView_DeleteTagsAction_xmit,
+			PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE),
+			this::handleDeleteTags);
+		this.editTagAction = ActionFactory.createAction(Messages.AbapTagsView_EditTagAction_xmit,
+			AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.EDIT_ACTION), () -> handleEditTag(null));
+		this.createSubTagAction = ActionFactory.createAction(Messages.AbapTagsView_AddSubTagAction_xmit,
+			PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJ_ADD),
+			this::handleCreateTagOnSelectedNode);
+		this.convertTagAction = ActionFactory.createAction(Messages.AbapTagsView_ConvertToGlobalTagAction_xmit,
+			PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_TOOL_FORWARD),
+			this::handleConvertTag);
+//		this.shareTagAction = ActionFactory.createAction("Share Tag...",
+//			AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.SHARE), this::handleShareTag);
+//		this.unshareTagAction = ActionFactory.createAction("Unshare Tag",
+//			AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.UNSHARE), this::handleShareTag);
+	}
+
+	private void initToolbar(final IActionBars actionBars) {
+		actionBars.setGlobalActionHandler(org.eclipse.ui.actions.ActionFactory.REFRESH.getId(), this.refreshAction);
+
+		final IToolBarManager tbm = actionBars.getToolBarManager();
+		tbm.add(this.refreshAction);
+		tbm.add(new Separator());
+		tbm.add(this.createUserTagAction);
+		tbm.add(this.createGlobalTagAction);
+	}
+
+	private void loadViewInput() {
+		if (!checkProjectStatus(false)) {
+			return;
 		}
+		refreshTags();
+	}
 
-		public Image getImage() {
-			return AbapTagsUIPlugin.getDefault()
-				.getImage(this.hasUserTags ? IImages.USER_TAGS_FOLDER : IImages.GLOBAL_TAGS_FOLDER);
+	private void refreshTags() {
+		if (this.tagLoadingJob != null && this.tagLoadingJob.getResult() == null) {
+			this.tagLoadingJob.cancel();
 		}
+		this.tagLoadingJob = Job.create(Messages.AbapTagsView_TagsLoadingJobTitle_xmsg, monitor -> {
+			final ITagList tagList = this.tagsService.readTags(DestinationUtil.getDestinationId(this.lastProject),
+				TagSearchScope.ALL, true);
 
-		public List<ITag> getTags() {
-			return this.tags;
+			for (final TagFolder folder : TagFolder.values()) {
+				folder.getTags().clear();
+			}
+
+			final String destinationOwner = DestinationUtil.getDestinationOwner(this.lastProject);
+
+			for (final ITag tag : tagList.getTags()) {
+				if (StringUtil.isEmpty(tag.getOwner())) {
+					TagFolder.GLOBAL.getTags().add(tag);
+				} else if (tag.getOwner().equals(destinationOwner)) {
+					TagFolder.USER.getTags().add(tag);
+//				} else if (tag.isShared()) {
+//					TagFolder.SHARED.getTags().add(tag);
+				}
+			}
+			Display.getDefault().asyncExec(() -> {
+				AbapTagsView.this.treeViewer.setInput(this.tagFolders);
+				AbapTagsView.this.treeViewer.refresh();
+				AbapTagsView.this.treeViewer.expandAll();
+			});
+			monitor.done();
+		});
+		this.tagLoadingJob.schedule();
+	}
+
+	private void setControlsEnabled(final boolean enabled) {
+		this.createGlobalTagAction.setEnabled(enabled);
+		this.createUserTagAction.setEnabled(enabled);
+		this.refreshAction.setEnabled(enabled);
+	}
+
+	private void showTagsOfLastSelectedProject() {
+		final IProject project = ProjectUtil.getCurrentAbapProject(this.lastSelection);
+		if (project != this.lastProject) {
+			this.lastProject = project;
+			loadViewInput();
 		}
-
-		public boolean hasTags() {
-			return !this.tags.isEmpty();
-		}
-
+		this.lastSelection = null;
 	}
 
 	private class TreeContentProvider implements ITreeContentProvider {
 
 		private TagFolder[] input;
-
-		private Object findParentInTopLevelNodes(final ITag element) {
-			if (this.input == null) {
-				return null;
-			}
-			for (final TagFolder folder : this.input) {
-				if (folder.getTags().contains(element)) {
-					return folder;
-				}
-			}
-			return null;
-		}
 
 		@Override
 		public Object[] getChildren(final Object parentElement) {
@@ -623,6 +635,18 @@ public class AbapTagsView extends ViewPart {
 			} else {
 				this.input = null;
 			}
+		}
+
+		private Object findParentInTopLevelNodes(final ITag element) {
+			if (this.input == null) {
+				return null;
+			}
+			for (final TagFolder folder : this.input) {
+				if (folder.getTags().contains(element)) {
+					return folder;
+				}
+			}
+			return null;
 		}
 
 	}

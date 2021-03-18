@@ -8,8 +8,8 @@ import org.eclipse.jface.wizard.IWizard;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
-import com.devepos.adt.tools.base.model.adtbase.IAdtObjRefList;
-import com.devepos.adt.tools.base.ui.wizard.IBaseWizardPage;
+import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
+import com.devepos.adt.base.ui.wizard.IBaseWizardPage;
 
 /**
  * Model for the Tag Objects Wizard

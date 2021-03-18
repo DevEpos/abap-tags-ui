@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.preference.JFacePreferences;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -20,19 +21,21 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.search.ITaggedObjectSearchService;
 import com.devepos.adt.atm.search.TaggedObjectSearchFactory;
+import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
-import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
-import com.devepos.adt.tools.base.ui.StylerFactory;
-import com.devepos.adt.tools.base.ui.dialogs.AdtFilteredItemsSelectionDialog;
-import com.devepos.adt.tools.base.util.AdtTypeUtil;
-import com.devepos.adt.tools.base.util.StringUtil;
+import com.devepos.adt.base.model.adtbase.IAdtObjRef;
+import com.devepos.adt.base.ui.StylerFactory;
+import com.devepos.adt.base.ui.dialogs.SearchSelectionDialog;
+import com.devepos.adt.base.ui.util.AdtTypeUtil;
+import com.devepos.adt.base.util.StringUtil;
 
-public class ParentObjectFilterDialog extends AdtFilteredItemsSelectionDialog<IAdtObjRef> {
-	private final String tagId;
-	private final TagSearchScope searchScope;
+public class ParentObjectFilterDialog extends SearchSelectionDialog<IAdtObjRef, String> {
+	private static final String DIALOG_SETTINGS_NAME = ParentObjectFilterDialog.class.getCanonicalName();
 	private final String destinationId;
 	private final ITaggedObjectSearchParams parameters;
+	private final TagSearchScope searchScope;
 	private final ITaggedObjectSearchService service;
+	private final String tagId;
 
 	public ParentObjectFilterDialog(final Shell shell, final String destinationId, final String tagId,
 		final TagSearchScope searchScope) {
@@ -42,10 +45,9 @@ public class ParentObjectFilterDialog extends AdtFilteredItemsSelectionDialog<IA
 		this.searchScope = searchScope;
 
 		setTitle(Messages.ParentObjectFilterDialog_Title_xtit);
-		setMessage(Messages.ParentObjectFilterDialog_FilterText_xmsg);
-		setListLabelProvider(new ItemsLabelProvider());
+		setFilterLabel(Messages.ParentObjectFilterDialog_FilterText_xmsg);
+		setResultLabelProvider(new DelegatingStyledCellLabelProvider(new ItemsLabelProvider()));
 		setDetailsLabelProvider(new ItemsLabelProvider());
-		setInitialPattern("*");
 		setInitialJobDelay(0L);
 
 		this.parameters = IAbapTagsFactory.eINSTANCE.createTaggedObjectSearchParams();
@@ -57,25 +59,41 @@ public class ParentObjectFilterDialog extends AdtFilteredItemsSelectionDialog<IA
 	}
 
 	@Override
-	protected AdtFilteredItemsSelectionDialog<IAdtObjRef>.SearchResultObject<IAdtObjRef> performSearch(
-		final String pattern, final IProgressMonitor monitor) throws CoreException {
-		this.parameters.setQuery(pattern);
+	protected IDialogSettings getDialogSettings() {
+		return AbapTagsUIPlugin.getDefault().getDialogSettingsSection(DIALOG_SETTINGS_NAME);
+	}
+
+	@Override
+	protected boolean matchesFilter(final IAdtObjRef result, final String filter) {
+		return true;
+	}
+
+	@Override
+	protected SearchSelectionDialog<IAdtObjRef, String>.SearchResultObject performSearch(final String filter,
+		final IProgressMonitor monitor) throws CoreException {
+		this.parameters.setQuery(StringUtil.isEmpty(filter) ? "*" : filter);
 		final ITaggedObjectList taggedObjects = this.service.findObjects(ParentObjectFilterDialog.this.destinationId,
 			ParentObjectFilterDialog.this.parameters);
 		if (taggedObjects != null && !taggedObjects.getTaggedObjects().isEmpty()) {
-			return new SearchResultObject<>(
-				taggedObjects.getTaggedObjects()
-					.stream()
-					.limit(this.parameters.getMaxResults())
-					.map(ITaggedObject::getObjectRef)
-					.collect(Collectors.toList()),
-				taggedObjects.getTaggedObjects().size() <= this.parameters.getMaxResults());
+			return new SearchResultObject(taggedObjects.getTaggedObjects()
+				.stream()
+				.limit(this.parameters.getMaxResults())
+				.map(ITaggedObject::getObjectRef)
+				.collect(Collectors.toList()), taggedObjects.getTaggedObjects().size() <= this.parameters.getMaxResults());
 		}
-		return new SearchResultObject<>(new ArrayList<>(), true);
+		return new SearchResultObject(new ArrayList<>(), true);
 	}
 
-	private class ItemsLabelProvider extends LabelProvider
-		implements DelegatingStyledCellLabelProvider.IStyledLabelProvider {
+	private class ItemsLabelProvider extends LabelProvider implements DelegatingStyledCellLabelProvider.IStyledLabelProvider {
+
+		@Override
+		public Image getImage(final Object element) {
+			if (element != null && element instanceof IAdtObjRef) {
+				final IAdtObjRef ref = (IAdtObjRef) element;
+				return AdtTypeUtil.getInstance().getTypeImage(ref.getType());
+			}
+			return null;
+		}
 
 		@Override
 		public StyledString getStyledText(final Object element) {
@@ -100,15 +118,6 @@ public class ParentObjectFilterDialog extends AdtFilteredItemsSelectionDialog<IA
 				return objRef.getName();
 			}
 			return super.getText(element);
-		}
-
-		@Override
-		public Image getImage(final Object element) {
-			if (element != null && element instanceof IAdtObjRef) {
-				final IAdtObjRef ref = (IAdtObjRef) element;
-				return AdtTypeUtil.getInstance().getTypeImage(ref.getType());
-			}
-			return null;
 		}
 
 	}

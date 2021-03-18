@@ -16,14 +16,14 @@ import com.devepos.adt.atm.search.TaggedObjectSearchFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.util.IImages;
-import com.devepos.adt.tools.base.adtobject.AdtObjectReferenceModelFactory;
-import com.devepos.adt.tools.base.elementinfo.AdtObjectReferenceElementInfo;
-import com.devepos.adt.tools.base.elementinfo.IElementInfo;
-import com.devepos.adt.tools.base.elementinfo.IElementInfoProvider;
-import com.devepos.adt.tools.base.elementinfo.ILazyLoadingElementInfo;
-import com.devepos.adt.tools.base.elementinfo.LazyLoadingElementInfo;
-import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
-import com.devepos.adt.tools.base.util.StringUtil;
+import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
+import com.devepos.adt.base.elementinfo.AdtObjectReferenceElementInfo;
+import com.devepos.adt.base.elementinfo.IElementInfo;
+import com.devepos.adt.base.elementinfo.IElementInfoProvider;
+import com.devepos.adt.base.elementinfo.ILazyLoadingElementInfo;
+import com.devepos.adt.base.elementinfo.LazyLoadingElementInfo;
+import com.devepos.adt.base.model.adtbase.IAdtObjRef;
+import com.devepos.adt.base.util.StringUtil;
 
 public class TaggedObjectSearchInfoProvider implements IElementInfoProvider {
 

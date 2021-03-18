@@ -43,5 +43,13 @@ public interface IImages {
 	 * Image for assigning Tags to objects
 	 */
 	String ASSIGN_TAG = "IMG_ASSIGN_TAG";
+	/**
+	 * Image for a shared tag
+	 */
+	String SHARED_TAG = "IMG_SHARED_TAG";
+	/**
+	 * Image for a folder with shared tags
+	 */
+	String SHARED_TAGS_FOLDER = "IMG_SHARED_TAGS_FOLDER";
 
 }

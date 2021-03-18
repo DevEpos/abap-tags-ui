@@ -11,7 +11,7 @@ import org.eclipse.osgi.util.NLS;
 import com.devepos.adt.atm.model.AbapTagsModelPlugin;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.internal.messages.Messages;
-import com.devepos.adt.tools.base.util.StringUtil;
+import com.devepos.adt.base.util.StringUtil;
 
 /**
  * Validator for a List of {@link ITag}s

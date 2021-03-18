@@ -5,7 +5,7 @@ import org.eclipse.core.runtime.CoreException;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
-import com.devepos.adt.tools.base.model.adtbase.IAdtObjRefList;
+import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
 
 /**
  * Service to handle all things concerning tagging ADT objects

@@ -1,11 +1,14 @@
 package com.devepos.adt.atm.tags;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
+import com.devepos.adt.base.model.adtbase.IUser;
 
 /**
  * Public interface for ABAP Tags service
@@ -22,6 +25,17 @@ public interface IAbapTagsService {
 	 *                 feature is available at the given destination
 	 */
 	IStatus testTagsFeatureAvailability(IProject project);
+
+	/**
+	 * Returns {@link Status#OK_STATUS} if the Share feature in the ABAP Tags Plugin
+	 * is available in the given ABAP project
+	 * 
+	 * @param  project ABAP project
+	 * @return         Status with severity {@link IStatus#OK} if the Share feature
+	 *                 in the ABAP Tags Plugin is available in the given ABAP
+	 *                 project
+	 */
+	IStatus testShareTagsFeatureAvailability(IProject project);
 
 	/**
 	 * Creates/updates tags
@@ -88,4 +102,31 @@ public interface IAbapTagsService {
 	 * @return               the result status of the operation
 	 */
 	IStatus makeTagsGlobal(String destinationId, ITagList tagList);
+
+	/**
+	 * Shares the tags with other users
+	 * 
+	 * @param  destinationId destination of ABAP Project
+	 * @param  tagList       list of Tags
+	 * @return               the result status of the operation
+	 */
+	IStatus shareTags(String destinationId, ITagList tagList);
+
+	/**
+	 * Unshares the list of tags
+	 * 
+	 * @param  destinationId destination of ABAP Project
+	 * @param  tagList       list of Tags
+	 * @return               the result of the status of the operation
+	 */
+	IStatus unshareTags(String destinationId, ITagList tagList);
+
+	/**
+	 * Retrieves list of shared users for the given tag id
+	 * 
+	 * @param  destinationId destination of ABAP Project
+	 * @param  tagId         id of Tag
+	 * @return               List of shared users
+	 */
+	List<IUser> getSharedUsers(String destinationId, String tagId);
 }

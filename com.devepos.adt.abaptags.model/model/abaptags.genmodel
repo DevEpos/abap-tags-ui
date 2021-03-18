@@ -3,7 +3,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.devepos.adt.abaptags.model/src" modelPluginID="com.devepos.adt.abaptags.model"
     modelName="ABAP Tags" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
-    runtimeVersion="2.10" usedGenPackages="platform:/plugin/com.devepos.adt.tools.base/model/adtbase.genmodel#//adtbase"
+    runtimeVersion="2.10" usedGenPackages="platform:/plugin/com.devepos.adt.base/model/adtbase.genmodel#//adtbase"
     interfaceNamePattern="I{0}" classNamePattern="{0}" operationReflection="true"
     importOrganizing="true">
   <foreignModel>abaptags.ecore</foreignModel>
@@ -40,8 +40,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/changedBy"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/changedDateTime"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/taggedObjectCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/shared"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/changed"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/parentTagId"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//Tag/sharedUsers"/>
+    </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TagList">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TagList/tags"/>
     </genClasses>
     <genClasses ecoreClass="abaptags.ecore#//AdtObjectTag">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/parentObjectName"/>
@@ -50,9 +55,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/parentTagId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/parentTagName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/userTag"/>
-    </genClasses>
-    <genClasses ecoreClass="abaptags.ecore#//TagList">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TagList/tags"/>
     </genClasses>
     <genClasses ecoreClass="abaptags.ecore#//TagPreviewInfo">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TagPreviewInfo/tags"/>

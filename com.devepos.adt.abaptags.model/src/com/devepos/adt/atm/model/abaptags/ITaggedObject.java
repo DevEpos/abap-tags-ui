@@ -2,8 +2,7 @@
  */
 package com.devepos.adt.atm.model.abaptags;
 
-import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
-
+import com.devepos.adt.base.model.adtbase.IAdtObjRef;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;

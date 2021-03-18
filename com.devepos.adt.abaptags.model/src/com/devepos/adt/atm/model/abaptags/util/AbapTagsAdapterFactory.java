@@ -76,12 +76,12 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
 				return createTagAdapter();
 			}
 			@Override
-			public Adapter caseAdtObjectTag(IAdtObjectTag object) {
-				return createAdtObjectTagAdapter();
-			}
-			@Override
 			public Adapter caseTagList(ITagList object) {
 				return createTagListAdapter();
+			}
+			@Override
+			public Adapter caseAdtObjectTag(IAdtObjectTag object) {
+				return createAdtObjectTagAdapter();
 			}
 			@Override
 			public Adapter caseTagPreviewInfo(ITagPreviewInfo object) {

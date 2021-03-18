@@ -50,27 +50,27 @@ import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.help.HelpContexts;
 import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
-import com.devepos.adt.tools.base.ui.AdtToolsBaseUIResources;
-import com.devepos.adt.tools.base.ui.IAdtToolsBaseImages;
-import com.devepos.adt.tools.base.ui.IAdtToolsBaseStrings;
-import com.devepos.adt.tools.base.ui.StylerFactory;
-import com.devepos.adt.tools.base.ui.UIState;
-import com.devepos.adt.tools.base.ui.action.CollapseAllTreeNodesAction;
-import com.devepos.adt.tools.base.ui.action.CollapseTreeNodesAction;
-import com.devepos.adt.tools.base.ui.action.CopyToClipboardAction;
-import com.devepos.adt.tools.base.ui.action.ExecuteAdtObjectAction;
-import com.devepos.adt.tools.base.ui.action.OpenAdtObjectAction;
-import com.devepos.adt.tools.base.ui.menu.MenuItemFactory;
-import com.devepos.adt.tools.base.ui.project.IAbapProjectProvider;
-import com.devepos.adt.tools.base.ui.tree.ActionTreeNode;
-import com.devepos.adt.tools.base.ui.tree.IAdtObjectReferenceNode;
-import com.devepos.adt.tools.base.ui.tree.ICollectionTreeNode;
-import com.devepos.adt.tools.base.ui.tree.IStyledTreeNode;
-import com.devepos.adt.tools.base.ui.tree.ITreeNode;
-import com.devepos.adt.tools.base.ui.tree.LazyLoadingTreeContentProvider;
-import com.devepos.adt.tools.base.ui.tree.LoadingTreeItemsNode;
-import com.devepos.adt.tools.base.ui.util.AdtTypeUtil;
-import com.devepos.adt.tools.base.util.StringUtil;
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseImages;
+import com.devepos.adt.base.ui.IAdtBaseStrings;
+import com.devepos.adt.base.ui.StylerFactory;
+import com.devepos.adt.base.ui.UIState;
+import com.devepos.adt.base.ui.action.CollapseAllTreeNodesAction;
+import com.devepos.adt.base.ui.action.CollapseTreeNodesAction;
+import com.devepos.adt.base.ui.action.CopyToClipboardAction;
+import com.devepos.adt.base.ui.action.ExecuteAdtObjectAction;
+import com.devepos.adt.base.ui.action.OpenAdtObjectAction;
+import com.devepos.adt.base.ui.menu.MenuItemFactory;
+import com.devepos.adt.base.ui.project.IAbapProjectProvider;
+import com.devepos.adt.base.ui.tree.ActionTreeNode;
+import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
+import com.devepos.adt.base.ui.tree.ICollectionTreeNode;
+import com.devepos.adt.base.ui.tree.IStyledTreeNode;
+import com.devepos.adt.base.ui.tree.ITreeNode;
+import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
+import com.devepos.adt.base.ui.tree.LoadingTreeItemsNode;
+import com.devepos.adt.base.ui.util.AdtTypeUtil;
+import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 public class TaggedObjectSearchResultPage extends Page implements ISearchResultPage, ISearchResultListener {
@@ -328,8 +328,8 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 			menu.add(new Separator(IContextMenuConstants.GROUP_ADDITIONS));
 			MenuItemFactory.addCommandItem(menu, IContextMenuConstants.GROUP_ADDITIONS,
 				"com.sap.adt.ris.whereused.ui.callWhereUsed", //$NON-NLS-1$
-				AdtToolsBaseUIResources.getImageDescriptor(IAdtToolsBaseImages.WHERE_USED_LIST),
-				AdtToolsBaseUIResources.getString(IAdtToolsBaseStrings.General_WhereUsedList_xmit), null);
+				AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.WHERE_USED_LIST),
+				AdtBaseUIResources.getString(IAdtBaseStrings.General_WhereUsedList_xmit), null);
 		}
 
 		if (selectionHasExpandedNodes) {

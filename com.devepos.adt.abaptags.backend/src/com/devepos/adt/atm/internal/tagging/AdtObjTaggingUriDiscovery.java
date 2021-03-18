@@ -5,7 +5,7 @@ import java.net.URI;
 import org.eclipse.core.runtime.Assert;
 
 import com.devepos.adt.atm.internal.util.AbapTagsUriDiscoveryBase;
-import com.devepos.adt.tools.base.util.StringUtil;
+import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.compatibility.uritemplate.IAdtUriTemplate;
 
 /**

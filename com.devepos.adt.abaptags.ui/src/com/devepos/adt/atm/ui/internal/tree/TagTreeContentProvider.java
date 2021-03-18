@@ -10,7 +10,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
-import com.devepos.adt.tools.base.util.StringUtil;
+import com.devepos.adt.base.util.StringUtil;
 
 public class TagTreeContentProvider implements ITreeContentProvider {
 

@@ -11,8 +11,8 @@ import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagBase;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.util.IImages;
-import com.devepos.adt.tools.base.ui.StylerFactory;
-import com.devepos.adt.tools.base.util.StringUtil;
+import com.devepos.adt.base.ui.StylerFactory;
+import com.devepos.adt.base.util.StringUtil;
 
 /**
  * Label Provider for Viewer which holds instances of type {@link ITagBase}

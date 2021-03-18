@@ -32,14 +32,14 @@ import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.help.HelpContexts;
 import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
-import com.devepos.adt.tools.base.model.adtbase.IAdtBaseFactory;
-import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
-import com.devepos.adt.tools.base.ui.project.ProjectInput;
-import com.devepos.adt.tools.base.ui.project.ProjectUtil;
-import com.devepos.adt.tools.base.ui.search.AdtRisSearchUtil;
-import com.devepos.adt.tools.base.ui.search.IAdtRisSearchResultProxy;
-import com.devepos.adt.tools.base.ui.util.AdtTypeUtil;
-import com.devepos.adt.tools.base.ui.wizard.AbstractBaseWizardPage;
+import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
+import com.devepos.adt.base.model.adtbase.IAdtObjRef;
+import com.devepos.adt.base.ui.project.ProjectInput;
+import com.devepos.adt.base.ui.project.ProjectUtil;
+import com.devepos.adt.base.ui.search.AdtRisSearchUtil;
+import com.devepos.adt.base.ui.search.IAdtRisSearchResultProxy;
+import com.devepos.adt.base.ui.util.AdtTypeUtil;
+import com.devepos.adt.base.ui.wizard.AbstractBaseWizardPage;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 /**

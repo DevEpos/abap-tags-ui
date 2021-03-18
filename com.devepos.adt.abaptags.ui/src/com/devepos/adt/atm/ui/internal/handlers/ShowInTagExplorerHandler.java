@@ -19,9 +19,9 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.tags.IAbapTagsService;
 import com.devepos.adt.atm.ui.internal.views.AbapTagExplorerView;
-import com.devepos.adt.tools.base.adtobject.IAdtObject;
-import com.devepos.adt.tools.base.util.EditorUtil;
-import com.devepos.adt.tools.base.util.Logging;
+import com.devepos.adt.base.ui.adtobject.IAdtObject;
+import com.devepos.adt.base.ui.util.EditorUtil;
+import com.devepos.adt.base.util.Logging;
 
 public class ShowInTagExplorerHandler extends AbstractHandler {
 

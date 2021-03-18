@@ -79,16 +79,16 @@ public class AbapTagsSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case IAbapTagsPackage.TAG_LIST: {
+				ITagList tagList = (ITagList)theEObject;
+				T result = caseTagList(tagList);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case IAbapTagsPackage.ADT_OBJECT_TAG: {
 				IAdtObjectTag adtObjectTag = (IAdtObjectTag)theEObject;
 				T result = caseAdtObjectTag(adtObjectTag);
 				if (result == null) result = caseTagBase(adtObjectTag);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case IAbapTagsPackage.TAG_LIST: {
-				ITagList tagList = (ITagList)theEObject;
-				T result = caseTagList(tagList);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

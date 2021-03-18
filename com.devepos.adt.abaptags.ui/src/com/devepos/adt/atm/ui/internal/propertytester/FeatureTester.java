@@ -4,7 +4,7 @@ import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.core.resources.IProject;
 
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
-import com.devepos.adt.tools.base.ui.adtobject.IAdtObject;
+import com.devepos.adt.base.ui.adtobject.IAdtObject;
 
 public class FeatureTester extends PropertyTester {
 

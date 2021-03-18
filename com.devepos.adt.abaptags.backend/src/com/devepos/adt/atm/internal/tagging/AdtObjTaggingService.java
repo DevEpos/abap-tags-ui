@@ -10,7 +10,7 @@ import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.tagging.IAdtObjTaggingService;
-import com.devepos.adt.tools.base.model.adtbase.IAdtObjRefList;
+import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
 import com.sap.adt.communication.resources.IRestResource;
 import com.sap.adt.communication.resources.QueryParameter;

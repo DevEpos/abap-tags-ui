@@ -2,6 +2,7 @@
  */
 package com.devepos.adt.atm.model.abaptags;
 
+import com.devepos.adt.base.model.adtbase.IUser;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
 
@@ -20,8 +21,10 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getChangedBy <em>Changed By</em>}</li>
  *   <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getChangedDateTime <em>Changed Date Time</em>}</li>
  *   <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getTaggedObjectCount <em>Tagged Object Count</em>}</li>
+ *   <li>{@link com.devepos.adt.atm.model.abaptags.ITag#isShared <em>Shared</em>}</li>
  *   <li>{@link com.devepos.adt.atm.model.abaptags.ITag#isChanged <em>Changed</em>}</li>
  *   <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getParentTagId <em>Parent Tag Id</em>}</li>
+ *   <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getSharedUsers <em>Shared Users</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTag()
@@ -189,6 +192,28 @@ public interface ITag extends ITagBase {
 	void setTaggedObjectCount(int value);
 
 	/**
+	 * Returns the value of the '<em><b>Shared</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Shared</em>' attribute.
+	 * @see #setShared(boolean)
+	 * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTag_Shared()
+	 * @model extendedMetaData="kind='attribute' name='shared' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	boolean isShared();
+
+	/**
+	 * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.ITag#isShared <em>Shared</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Shared</em>' attribute.
+	 * @see #isShared()
+	 * @generated
+	 */
+	void setShared(boolean value);
+
+	/**
 	 * Returns the value of the '<em><b>Changed</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -231,5 +256,18 @@ public interface ITag extends ITagBase {
 	 * @generated
 	 */
 	void setParentTagId(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Shared Users</b></em>' containment reference list.
+	 * The list contents are of type {@link com.devepos.adt.base.model.adtbase.IUser}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Shared Users</em>' containment reference list.
+	 * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTag_SharedUsers()
+	 * @model containment="true"
+	 *        extendedMetaData="kind='element' name='user' namespace='http://www.devepos.com/adt/base'"
+	 * @generated
+	 */
+	EList<IUser> getSharedUsers();
 
 } // ITag

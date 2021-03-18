@@ -58,8 +58,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case IAbapTagsPackage.TAG: return createTag();
-			case IAbapTagsPackage.ADT_OBJECT_TAG: return createAdtObjectTag();
 			case IAbapTagsPackage.TAG_LIST: return createTagList();
+			case IAbapTagsPackage.ADT_OBJECT_TAG: return createAdtObjectTag();
 			case IAbapTagsPackage.TAG_PREVIEW_INFO: return createTagPreviewInfo();
 			case IAbapTagsPackage.TAGGED_OBJECT: return createTaggedObject();
 			case IAbapTagsPackage.TAGGED_OBJECT_LIST: return createTaggedObjectList();

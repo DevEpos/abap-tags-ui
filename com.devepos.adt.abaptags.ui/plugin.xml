@@ -71,7 +71,7 @@
                   <iterate
                         operator="and">
                      <adapt
-                           type="com.devepos.adt.tools.base.adtobject.IAdtObject">
+                           type="com.devepos.adt.base.ui.adtobject.IAdtObject">
                         <test
                               property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
                         </test>
@@ -95,7 +95,7 @@
                <with
                      variable="activeEditorInput">
                   <adapt
-                        type="com.devepos.adt.tools.base.adtobject.IAdtObject">
+                        type="com.devepos.adt.base.ui.adtobject.IAdtObject">
                      <test
                            property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
                      </test>
@@ -128,7 +128,7 @@
                   <iterate
                         operator="and">
                      <adapt
-                           type="com.devepos.adt.tools.base.adtobject.IAdtObject">
+                           type="com.devepos.adt.base.ui.adtobject.IAdtObject">
                         <test
                               property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
                         </test>
@@ -153,7 +153,7 @@
                   <iterate
                         operator="and">
                      <adapt
-                           type="com.devepos.adt.tools.base.adtobject.IAdtObject">
+                           type="com.devepos.adt.base.ui.adtobject.IAdtObject">
                         <test
                               property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
                         </test>
@@ -171,7 +171,7 @@
             id="com.devepos.adt.atm.ui.ProjectFeatureTester"
             namespace="com.devepos.adt.atm.ui.features"
             properties="abaptagsAvailable"
-            type="com.devepos.adt.tools.base.adtobject.IAdtObject">
+            type="com.devepos.adt.base.ui.adtobject.IAdtObject">
       </propertyTester>
    </extension>
    <extension

@@ -15,15 +15,15 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.util.IImages;
-import com.devepos.adt.tools.base.adtobject.AdtObjectReferenceModelFactory;
-import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
-import com.devepos.adt.tools.base.ui.AdtToolsBaseUIResources;
-import com.devepos.adt.tools.base.ui.IAdtToolsBaseStrings;
-import com.devepos.adt.tools.base.ui.tree.AdtObjectReferenceNode;
-import com.devepos.adt.tools.base.ui.tree.IAdtObjectReferenceNode;
-import com.devepos.adt.tools.base.ui.tree.ILazyLoadingNode;
-import com.devepos.adt.tools.base.ui.tree.LazyLoadingFolderNode;
-import com.devepos.adt.tools.base.util.StringUtil;
+import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
+import com.devepos.adt.base.model.adtbase.IAdtObjRef;
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseStrings;
+import com.devepos.adt.base.ui.tree.AdtObjectReferenceNode;
+import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
+import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
+import com.devepos.adt.base.ui.tree.LazyLoadingFolderNode;
+import com.devepos.adt.base.util.StringUtil;
 
 public class TaggedObjectSearchResult implements ISearchResult {
 	private final TaggedObjectSearchQuery query;
@@ -53,18 +53,18 @@ public class TaggedObjectSearchResult implements ISearchResult {
 	public String getLabel() {
 		String resultsLabel = null;
 		if (this.resultCount == 1) {
-			resultsLabel = AdtToolsBaseUIResources.getString(IAdtToolsBaseStrings.SearchUI_OneResult_xmsg);
+			resultsLabel = AdtBaseUIResources.getString(IAdtBaseStrings.SearchUI_OneResult_xmsg);
 		} else if (this.resultCount > 1) {
 			if (this.hasMoreResults) {
-				resultsLabel = AdtToolsBaseUIResources.format(IAdtToolsBaseStrings.SearchUI_ResultsExceedMaximum_xmsg,
+				resultsLabel = AdtBaseUIResources.format(IAdtBaseStrings.SearchUI_ResultsExceedMaximum_xmsg,
 					this.query.getSearchParams().getMaxResults());
 			} else {
-				resultsLabel = AdtToolsBaseUIResources.format(IAdtToolsBaseStrings.SearchUI_SpecificResults_xmsg,
+				resultsLabel = AdtBaseUIResources.format(IAdtBaseStrings.SearchUI_SpecificResults_xmsg,
 					this.resultCount);
 
 			}
 		} else {
-			resultsLabel = AdtToolsBaseUIResources.getString(IAdtToolsBaseStrings.SearchUI_NoResults_xmsg);
+			resultsLabel = AdtBaseUIResources.getString(IAdtBaseStrings.SearchUI_NoResults_xmsg);
 		}
 		final String label = NLS.bind(Messages.TaggedObjectSearchResult_SearchLabel_xmsg, this.query, resultsLabel);
 		return label;

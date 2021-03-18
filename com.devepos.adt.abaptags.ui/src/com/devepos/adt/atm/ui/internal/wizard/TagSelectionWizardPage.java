@@ -57,12 +57,12 @@ import com.devepos.adt.atm.ui.internal.preferences.IObjectTaggingPrefs;
 import com.devepos.adt.atm.ui.internal.tree.TagFilter;
 import com.devepos.adt.atm.ui.internal.tree.TagLabelProvider;
 import com.devepos.adt.atm.ui.internal.tree.TagTreeContentProvider;
-import com.devepos.adt.tools.base.destinations.DestinationUtil;
-import com.devepos.adt.tools.base.model.adtbase.IAdtBaseFactory;
-import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
-import com.devepos.adt.tools.base.ui.StylerFactory;
-import com.devepos.adt.tools.base.ui.wizard.AbstractBaseWizardPage;
-import com.devepos.adt.tools.base.util.StringUtil;
+import com.devepos.adt.base.destinations.DestinationUtil;
+import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
+import com.devepos.adt.base.model.adtbase.IAdtObjRef;
+import com.devepos.adt.base.ui.StylerFactory;
+import com.devepos.adt.base.ui.wizard.AbstractBaseWizardPage;
+import com.devepos.adt.base.util.StringUtil;
 
 public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 	public static final String PAGE_NAME = TaggableObjectSelectionWizardPage.class.getCanonicalName();

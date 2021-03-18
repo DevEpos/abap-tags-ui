@@ -16,9 +16,7 @@ import com.devepos.adt.atm.model.abaptags.TagInfoType;
 import com.devepos.adt.atm.model.abaptags.TagQueryFocus;
 import com.devepos.adt.atm.model.abaptags.TagQueryType;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
-
-import com.devepos.adt.tools.base.model.adtbase.IAdtBasePackage;
-
+import com.devepos.adt.base.model.adtbase.IAdtBasePackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
@@ -308,7 +306,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTag_Changed() {
+	public EAttribute getTag_Shared() {
 		return (EAttribute)tagEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -318,8 +316,28 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTag_ParentTagId() {
+	public EAttribute getTag_Changed() {
 		return (EAttribute)tagEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTag_ParentTagId() {
+		return (EAttribute)tagEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getTag_SharedUsers() {
+		return (EReference)tagEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -674,8 +692,13 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		createEAttribute(tagEClass, TAG__CHANGED_BY);
 		createEAttribute(tagEClass, TAG__CHANGED_DATE_TIME);
 		createEAttribute(tagEClass, TAG__TAGGED_OBJECT_COUNT);
+		createEAttribute(tagEClass, TAG__SHARED);
 		createEAttribute(tagEClass, TAG__CHANGED);
 		createEAttribute(tagEClass, TAG__PARENT_TAG_ID);
+		createEReference(tagEClass, TAG__SHARED_USERS);
+
+		tagListEClass = createEClass(TAG_LIST);
+		createEReference(tagListEClass, TAG_LIST__TAGS);
 
 		adtObjectTagEClass = createEClass(ADT_OBJECT_TAG);
 		createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__PARENT_OBJECT_NAME);
@@ -684,9 +707,6 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__PARENT_TAG_ID);
 		createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__PARENT_TAG_NAME);
 		createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__USER_TAG);
-
-		tagListEClass = createEClass(TAG_LIST);
-		createEReference(tagListEClass, TAG_LIST__TAGS);
 
 		tagPreviewInfoEClass = createEClass(TAG_PREVIEW_INFO);
 		createEReference(tagPreviewInfoEClass, TAG_PREVIEW_INFO__TAGS);
@@ -765,8 +785,13 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		initEAttribute(getTag_ChangedBy(), ecorePackage.getEString(), "changedBy", "", 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_ChangedDateTime(), ecorePackage.getEString(), "changedDateTime", "", 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_TaggedObjectCount(), ecorePackage.getEInt(), "taggedObjectCount", null, 0, 1, ITag.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTag_Shared(), ecorePackage.getEBoolean(), "shared", null, 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_Changed(), ecorePackage.getEBoolean(), "changed", null, 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_ParentTagId(), ecorePackage.getEString(), "parentTagId", null, 0, 1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTag_SharedUsers(), theAdtBasePackage.getUser(), null, "sharedUsers", null, 0, -1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(tagListEClass, ITagList.class, "TagList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTagList_Tags(), this.getTag(), null, "tags", null, 0, -1, ITagList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(adtObjectTagEClass, IAdtObjectTag.class, "AdtObjectTag", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAdtObjectTag_ParentObjectName(), ecorePackage.getEString(), "parentObjectName", null, 0, 1, IAdtObjectTag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -775,9 +800,6 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		initEAttribute(getAdtObjectTag_ParentTagId(), ecorePackage.getEString(), "parentTagId", null, 0, 1, IAdtObjectTag.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAdtObjectTag_ParentTagName(), ecorePackage.getEString(), "parentTagName", null, 0, 1, IAdtObjectTag.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAdtObjectTag_UserTag(), ecorePackage.getEBoolean(), "userTag", null, 0, 1, IAdtObjectTag.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(tagListEClass, ITagList.class, "TagList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTagList_Tags(), this.getTag(), null, "tags", null, 0, -1, ITagList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(tagPreviewInfoEClass, ITagPreviewInfo.class, "TagPreviewInfo", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTagPreviewInfo_Tags(), this.getTag(), null, "tags", null, 0, -1, ITagPreviewInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -931,6 +953,14 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 			   "namespace", "##targetNamespace"
 		   });
 		addAnnotation
+		  (getTag_Shared(),
+		   source,
+		   new String[] {
+			   "kind", "attribute",
+			   "name", "shared",
+			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
 		  (getTag_Changed(),
 		   source,
 		   new String[] {
@@ -944,6 +974,29 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		   new String[] {
 			   "kind", "attribute",
 			   "name", "parentTagId",
+			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
+		  (getTag_SharedUsers(),
+		   source,
+		   new String[] {
+			   "kind", "element",
+			   "name", "user",
+			   "namespace", "http://www.devepos.com/adt/base"
+		   });
+		addAnnotation
+		  (tagListEClass,
+		   source,
+		   new String[] {
+			   "kind", "elementOnly",
+			   "name", "tags"
+		   });
+		addAnnotation
+		  (getTagList_Tags(),
+		   source,
+		   new String[] {
+			   "kind", "element",
+			   "name", "tag",
 			   "namespace", "##targetNamespace"
 		   });
 		addAnnotation
@@ -975,21 +1028,6 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 		   new String[] {
 			   "kind", "attribute",
 			   "name", "parentObjectUri",
-			   "namespace", "##targetNamespace"
-		   });
-		addAnnotation
-		  (tagListEClass,
-		   source,
-		   new String[] {
-			   "kind", "elementOnly",
-			   "name", "tags"
-		   });
-		addAnnotation
-		  (getTagList_Tags(),
-		   source,
-		   new String[] {
-			   "kind", "element",
-			   "name", "tag",
 			   "namespace", "##targetNamespace"
 		   });
 		addAnnotation

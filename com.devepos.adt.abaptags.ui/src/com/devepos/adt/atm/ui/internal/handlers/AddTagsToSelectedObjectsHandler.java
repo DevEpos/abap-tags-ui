@@ -10,17 +10,17 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.devepos.adt.atm.ui.internal.wizard.TagObjectsWizard;
-import com.devepos.adt.tools.base.adtobject.IAdtObject;
-import com.devepos.adt.tools.base.model.adtbase.IAdtBaseFactory;
-import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
-import com.devepos.adt.tools.base.model.adtbase.IAdtObjRefList;
-import com.devepos.adt.tools.base.util.AdtUtil;
+import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
+import com.devepos.adt.base.model.adtbase.IAdtObjRef;
+import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
+import com.devepos.adt.base.ui.adtobject.IAdtObject;
+import com.devepos.adt.base.ui.util.AdtUIUtil;
 
 public class AddTagsToSelectedObjectsHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final List<IAdtObject> selectedObjects = AdtUtil.getAdtObjectsFromSelection(false);
+		final List<IAdtObject> selectedObjects = AdtUIUtil.getAdtObjectsFromSelection(false);
 		if (selectedObjects == null || selectedObjects.isEmpty()) {
 			return null;
 		}

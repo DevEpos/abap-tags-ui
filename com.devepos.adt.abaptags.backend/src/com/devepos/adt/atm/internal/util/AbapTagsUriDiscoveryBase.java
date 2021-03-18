@@ -1,6 +1,6 @@
 package com.devepos.adt.atm.internal.util;
 
-import com.devepos.adt.tools.base.util.UriDiscoveryBase;
+import com.devepos.adt.base.util.UriDiscoveryBase;
 
 /**
  * URI discovery base for ABAP Tags/Tagging API

@@ -213,13 +213,22 @@ public interface IAbapTagsPackage extends EPackage {
 	int TAG__TAGGED_OBJECT_COUNT = TAG_BASE_FEATURE_COUNT + 6;
 
 	/**
+	 * The feature id for the '<em><b>Shared</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG__SHARED = TAG_BASE_FEATURE_COUNT + 7;
+
+	/**
 	 * The feature id for the '<em><b>Changed</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__CHANGED = TAG_BASE_FEATURE_COUNT + 7;
+	int TAG__CHANGED = TAG_BASE_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Parent Tag Id</b></em>' attribute.
@@ -228,7 +237,16 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG__PARENT_TAG_ID = TAG_BASE_FEATURE_COUNT + 8;
+	int TAG__PARENT_TAG_ID = TAG_BASE_FEATURE_COUNT + 9;
+
+	/**
+	 * The feature id for the '<em><b>Shared Users</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG__SHARED_USERS = TAG_BASE_FEATURE_COUNT + 10;
 
 	/**
 	 * The number of structural features of the '<em>Tag</em>' class.
@@ -237,7 +255,7 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 9;
+	int TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 11;
 
 	/**
 	 * The number of operations of the '<em>Tag</em>' class.
@@ -256,7 +274,44 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getAdtObjectTag()
 	 * @generated
 	 */
-	int ADT_OBJECT_TAG = 2;
+	int ADT_OBJECT_TAG = 3;
+
+	/**
+	 * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.impl.TagList <em>Tag List</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.devepos.adt.atm.model.abaptags.impl.TagList
+	 * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagList()
+	 * @generated
+	 */
+	int TAG_LIST = 2;
+
+	/**
+	 * The feature id for the '<em><b>Tags</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG_LIST__TAGS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Tag List</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG_LIST_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Tag List</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG_LIST_OPERATION_COUNT = 0;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -356,43 +411,6 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @ordered
 	 */
 	int ADT_OBJECT_TAG_OPERATION_COUNT = TAG_BASE_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.impl.TagList <em>Tag List</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see com.devepos.adt.atm.model.abaptags.impl.TagList
-	 * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagList()
-	 * @generated
-	 */
-	int TAG_LIST = 3;
-
-	/**
-	 * The feature id for the '<em><b>Tags</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TAG_LIST__TAGS = 0;
-
-	/**
-	 * The number of structural features of the '<em>Tag List</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TAG_LIST_FEATURE_COUNT = 1;
-
-	/**
-	 * The number of operations of the '<em>Tag List</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TAG_LIST_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.impl.TagPreviewInfo <em>Tag Preview Info</em>}' class.
@@ -806,6 +824,17 @@ public interface IAbapTagsPackage extends EPackage {
 	EAttribute getTag_TaggedObjectCount();
 
 	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.atm.model.abaptags.ITag#isShared <em>Shared</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Shared</em>'.
+	 * @see com.devepos.adt.atm.model.abaptags.ITag#isShared()
+	 * @see #getTag()
+	 * @generated
+	 */
+	EAttribute getTag_Shared();
+
+	/**
 	 * Returns the meta object for the attribute '{@link com.devepos.adt.atm.model.abaptags.ITag#isChanged <em>Changed</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -826,6 +855,17 @@ public interface IAbapTagsPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTag_ParentTagId();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link com.devepos.adt.atm.model.abaptags.ITag#getSharedUsers <em>Shared Users</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Shared Users</em>'.
+	 * @see com.devepos.adt.atm.model.abaptags.ITag#getSharedUsers()
+	 * @see #getTag()
+	 * @generated
+	 */
+	EReference getTag_SharedUsers();
 
 	/**
 	 * Returns the meta object for class '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag <em>Adt Object Tag</em>}'.
@@ -1282,6 +1322,14 @@ public interface IAbapTagsPackage extends EPackage {
 		EAttribute TAG__TAGGED_OBJECT_COUNT = eINSTANCE.getTag_TaggedObjectCount();
 
 		/**
+		 * The meta object literal for the '<em><b>Shared</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAG__SHARED = eINSTANCE.getTag_Shared();
+
+		/**
 		 * The meta object literal for the '<em><b>Changed</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1296,6 +1344,14 @@ public interface IAbapTagsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TAG__PARENT_TAG_ID = eINSTANCE.getTag_ParentTagId();
+
+		/**
+		 * The meta object literal for the '<em><b>Shared Users</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TAG__SHARED_USERS = eINSTANCE.getTag_SharedUsers();
 
 		/**
 		 * The meta object literal for the '{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag <em>Adt Object Tag</em>}' class.

@@ -44,11 +44,11 @@ import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
 import com.devepos.adt.atm.ui.internal.tree.TagFilter;
 import com.devepos.adt.atm.ui.internal.tree.TagLabelProvider;
 import com.devepos.adt.atm.ui.internal.tree.TagTreeContentProvider;
-import com.devepos.adt.tools.base.destinations.DestinationUtil;
-import com.devepos.adt.tools.base.ui.project.IAbapProjectProvider;
-import com.devepos.adt.tools.base.ui.project.ProjectInput;
-import com.devepos.adt.tools.base.ui.project.ProjectUtil;
-import com.devepos.adt.tools.base.ui.util.StatusUtil;
+import com.devepos.adt.base.destinations.DestinationUtil;
+import com.devepos.adt.base.ui.project.IAbapProjectProvider;
+import com.devepos.adt.base.ui.project.ProjectInput;
+import com.devepos.adt.base.ui.project.ProjectUtil;
+import com.devepos.adt.base.ui.util.StatusUtil;
 
 public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
 

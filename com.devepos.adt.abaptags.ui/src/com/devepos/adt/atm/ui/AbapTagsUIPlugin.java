@@ -4,7 +4,7 @@ import org.eclipse.jface.resource.ImageRegistry;
 import org.osgi.framework.BundleContext;
 
 import com.devepos.adt.atm.ui.internal.util.IImages;
-import com.devepos.adt.tools.base.plugin.AbstractAdtUIPlugin;
+import com.devepos.adt.base.plugin.AbstractAdtUIPlugin;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -56,6 +56,8 @@ public class AbapTagsUIPlugin extends AbstractAdtUIPlugin {
 		registerImage(reg, IImages.ASSIGN_TAG, "icons/AssignTag.png");
 		registerImage(reg, IImages.NEW_USER_TAG, "icons/NewUserTag.png");
 		registerImage(reg, IImages.NEW_GLOBAL_TAG, "icons/NewTag.png");
+		registerImage(reg, IImages.SHARED_TAG, "icons/SharedTag.png");
+		registerImage(reg, IImages.SHARED_TAGS_FOLDER, "icons/SharedTagsFolder.png");
 	}
 
 }

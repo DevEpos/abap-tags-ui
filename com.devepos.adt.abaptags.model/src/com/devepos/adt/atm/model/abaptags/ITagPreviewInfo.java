@@ -2,8 +2,7 @@
  */
 package com.devepos.adt.atm.model.abaptags;
 
-import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
-
+import com.devepos.adt.base.model.adtbase.IAdtObjRef;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -41,7 +40,7 @@ public interface ITagPreviewInfo extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Adt Object Refs</b></em>' containment reference list.
-	 * The list contents are of type {@link com.devepos.adt.tools.base.model.adtbase.IAdtObjRef}.
+	 * The list contents are of type {@link com.devepos.adt.base.model.adtbase.IAdtObjRef}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Adt Object Refs</em>' containment reference list.

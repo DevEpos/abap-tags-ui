@@ -5,7 +5,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
 import com.devepos.adt.atm.model.abaptags.util.AbapTagsResourceFactory;
-import com.devepos.adt.tools.base.content.AbstractEmfContentHandler;
+import com.devepos.adt.base.content.AbstractEmfContentHandler;
 import com.sap.adt.communication.content.AdtMediaType;
 
 public class TagSearchParamsContentHandler extends AbstractEmfContentHandler<ITaggedObjectSearchParams> {

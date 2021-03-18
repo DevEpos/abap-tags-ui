@@ -42,7 +42,6 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.ViewPart;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
@@ -59,48 +58,48 @@ import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.util.IImages;
 import com.devepos.adt.atm.ui.internal.wizard.TagObjectsWizard;
-import com.devepos.adt.tools.base.AdtToolsBaseResources;
-import com.devepos.adt.tools.base.IAdtToolsBaseImages;
-import com.devepos.adt.tools.base.IAdtToolsBaseStrings;
-import com.devepos.adt.tools.base.adtobject.AdtObjectFactory;
-import com.devepos.adt.tools.base.adtobject.AdtObjectReferenceModelFactory;
-import com.devepos.adt.tools.base.adtobject.IAdtObject;
-import com.devepos.adt.tools.base.destinations.DestinationUtil;
-import com.devepos.adt.tools.base.elementinfo.AdtObjectReferenceElementInfo;
-import com.devepos.adt.tools.base.elementinfo.ErrorElementInfo;
-import com.devepos.adt.tools.base.elementinfo.IElementInfo;
-import com.devepos.adt.tools.base.elementinfo.IElementInfoProvider;
-import com.devepos.adt.tools.base.elementinfo.LazyLoadingRefreshMode;
-import com.devepos.adt.tools.base.elementinfo.SimpleElementInfo;
-import com.devepos.adt.tools.base.model.adtbase.IAdtBaseFactory;
-import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
-import com.devepos.adt.tools.base.model.adtbase.IAdtObjRefList;
-import com.devepos.adt.tools.base.project.ProjectUtil;
-import com.devepos.adt.tools.base.ui.IGeneralContextMenuConstants;
-import com.devepos.adt.tools.base.ui.StylerFactory;
-import com.devepos.adt.tools.base.ui.ViewDescriptionLabel;
-import com.devepos.adt.tools.base.ui.ViewPartListener;
-import com.devepos.adt.tools.base.ui.action.ActionUtil;
-import com.devepos.adt.tools.base.ui.action.ChooseOtherAdtObjectAction;
-import com.devepos.adt.tools.base.ui.action.CopyToClipboardAction;
-import com.devepos.adt.tools.base.ui.action.ExecuteAdtObjectAction;
-import com.devepos.adt.tools.base.ui.action.OpenAdtObjectAction;
-import com.devepos.adt.tools.base.ui.action.PreferenceToggleAction;
-import com.devepos.adt.tools.base.ui.menu.MenuItemFactory;
-import com.devepos.adt.tools.base.ui.search.IAdtRisSearchResultProxy;
-import com.devepos.adt.tools.base.ui.tree.IAdtObjectReferenceNode;
-import com.devepos.adt.tools.base.ui.tree.ICollectionTreeNode;
-import com.devepos.adt.tools.base.ui.tree.ILazyLoadingNode;
-import com.devepos.adt.tools.base.ui.tree.IStyledTreeNode;
-import com.devepos.adt.tools.base.ui.tree.ITreeNode;
-import com.devepos.adt.tools.base.ui.tree.LazyLoadingFolderNode;
-import com.devepos.adt.tools.base.ui.tree.LazyLoadingTreeContentProvider;
-import com.devepos.adt.tools.base.ui.tree.LoadingTreeItemsNode;
-import com.devepos.adt.tools.base.util.AdtTypeUtil;
-import com.devepos.adt.tools.base.util.AdtUtil;
-import com.devepos.adt.tools.base.util.EditorUtil;
-import com.devepos.adt.tools.base.util.ObjectUtil;
-import com.devepos.adt.tools.base.util.StringUtil;
+import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
+import com.devepos.adt.base.destinations.DestinationUtil;
+import com.devepos.adt.base.elementinfo.AdtObjectReferenceElementInfo;
+import com.devepos.adt.base.elementinfo.ErrorElementInfo;
+import com.devepos.adt.base.elementinfo.IElementInfo;
+import com.devepos.adt.base.elementinfo.IElementInfoProvider;
+import com.devepos.adt.base.elementinfo.LazyLoadingRefreshMode;
+import com.devepos.adt.base.elementinfo.SimpleElementInfo;
+import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
+import com.devepos.adt.base.model.adtbase.IAdtObjRef;
+import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseImages;
+import com.devepos.adt.base.ui.IAdtBaseStrings;
+import com.devepos.adt.base.ui.IGeneralContextMenuConstants;
+import com.devepos.adt.base.ui.StylerFactory;
+import com.devepos.adt.base.ui.ViewDescriptionLabel;
+import com.devepos.adt.base.ui.ViewPartListener;
+import com.devepos.adt.base.ui.action.ActionFactory;
+import com.devepos.adt.base.ui.action.ChooseOtherAdtObjectAction;
+import com.devepos.adt.base.ui.action.CopyToClipboardAction;
+import com.devepos.adt.base.ui.action.ExecuteAdtObjectAction;
+import com.devepos.adt.base.ui.action.OpenAdtObjectAction;
+import com.devepos.adt.base.ui.action.PreferenceToggleAction;
+import com.devepos.adt.base.ui.adtobject.AdtObjectFactory;
+import com.devepos.adt.base.ui.adtobject.IAdtObject;
+import com.devepos.adt.base.ui.menu.MenuItemFactory;
+import com.devepos.adt.base.ui.project.ProjectUtil;
+import com.devepos.adt.base.ui.search.IAdtRisSearchResultProxy;
+import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
+import com.devepos.adt.base.ui.tree.ICollectionTreeNode;
+import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
+import com.devepos.adt.base.ui.tree.IStyledTreeNode;
+import com.devepos.adt.base.ui.tree.ITreeNode;
+import com.devepos.adt.base.ui.tree.LazyLoadingFolderNode;
+import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
+import com.devepos.adt.base.ui.tree.LoadingTreeItemsNode;
+import com.devepos.adt.base.ui.util.AdtTypeUtil;
+import com.devepos.adt.base.ui.util.AdtUIUtil;
+import com.devepos.adt.base.ui.util.EditorUtil;
+import com.devepos.adt.base.util.ObjectUtil;
+import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 /**
@@ -112,18 +111,18 @@ public class AbapTagExplorerView extends ViewPart {
 
 	public static final String VIEW_ID = "com.devepos.adt.atm.ui.views.AbapTagsExplorer"; //$NON-NLS-1$
 	private static final String LINK_TO_EDITOR_PREF = "com.devepos.adt.atm.ui.views.AbapTagsExplorer.linkToEditor"; //$NON-NLS-1$
-	private Composite mainComposite;
-	private PreferenceToggleAction linkToEditorAction;
-	private Action refreshAction;
+	private final IAbapTagsService abapTagsService;
+	private Action addTagsAction;
+	private CopyToClipboardAction copyToClipBoardAction;
 	private IAdtObject currentAdtObject;
-	private TreeViewer treeViewer;
+	private PreferenceToggleAction linkToEditorAction;
+	private Composite mainComposite;
+	private Action otherObjectAction;
+	private Action refreshAction;
 	private Tree tree;
 	private TreeInput treeResult;
+	private TreeViewer treeViewer;
 	private ViewDescriptionLabel viewLabel;
-	private Action addTagsAction;
-	private Action otherObjectAction;
-	private final IAbapTagsService abapTagsService;
-	private CopyToClipboardAction copyToClipBoardAction;
 
 	public AbapTagExplorerView() {
 		this.abapTagsService = AbapTagsServiceFactory.createTagsService();
@@ -170,28 +169,14 @@ public class AbapTagExplorerView extends ViewPart {
 		}
 	}
 
-	private void showTaggedObjectsForEditor(final IEditorPart editor) {
-		if (editor == null) {
-			return;
-		}
-		final IWorkbenchPage page = editor.getSite().getPage();
-		if (this.linkToEditorAction.isChecked() && page.isPartVisible(this)) {
-			final IAdtObject selObj = EditorUtil.getAdtObjectFromEditor(editor);
-			updateInput(selObj, false);
-		}
-	}
-
 	public void setInput(final IAdtObject newAdtObject) {
 		updateInput(newAdtObject, true);
 	}
 
-	private void updateInputFromEditor() {
-		final IAdtObject adtObject = EditorUtil.getAdtObjectFromActiveEditor();
-		updateInput(adtObject, false);
-	}
-
-	private IProject getProject() {
-		return this.currentAdtObject != null ? this.currentAdtObject.getProject() : null;
+	private void clearInput() {
+		this.currentAdtObject = null;
+		this.treeResult.clearInput();
+		this.viewLabel.updateLabel(Messages.AbapTagExplorerView_NoInputAvailable_xmsg);
 	}
 
 	private void createViewer(final Composite parent) {
@@ -213,93 +198,13 @@ public class AbapTagExplorerView extends ViewPart {
 					final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) node;
 
 					if (adtObjRefNode != null) {
-						AdtUtil.navigateWithObjectReference(adtObjRefNode.getObjectReference(), getProject());
+						AdtUIUtil.navigateWithObjectReference(adtObjRefNode.getObjectReference(), getProject());
 					}
 				}
 			}
 		});
 
 		this.treeResult = new TreeInput(this.treeViewer);
-	}
-
-	private void updateInput(final IAdtObject newAdtObject, final boolean forceUpdate) {
-		if (!this.linkToEditorAction.isChecked() && !forceUpdate) {
-			return;
-		}
-		if (ObjectUtil.equals(this.currentAdtObject, newAdtObject)) {
-			return;
-		}
-		this.currentAdtObject = newAdtObject;
-		if (this.currentAdtObject == null) {
-			clearInput();
-		} else {
-			if (!ProjectUtil.isLoggedOnToProject(getProject())) {
-				clearInput();
-				return;
-			}
-			final IStatus abapTagsFeatureStatus = this.abapTagsService
-				.testTagsFeatureAvailability(this.currentAdtObject.getProject());
-			if (!abapTagsFeatureStatus.isOK()) {
-				clearInput();
-				this.viewLabel.updateLabel(abapTagsFeatureStatus.getMessage());
-				return;
-			}
-			this.treeResult.updateInput(this.currentAdtObject.getReference().getUri());
-			this.viewLabel.updateLabel(
-				" [" + this.currentAdtObject.getProject().getName() + "] " + this.currentAdtObject.getName(), //$NON-NLS-1$ //$NON-NLS-2$
-				this.currentAdtObject.getImage());
-		}
-	}
-
-	private void initializeActions() {
-		this.copyToClipBoardAction = new CopyToClipboardAction();
-		this.copyToClipBoardAction.registerViewer(this.treeViewer);
-		this.linkToEditorAction = new PreferenceToggleAction(Messages.AbapTagExplorerView_LinkToEditorAction_xtol,
-			PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED),
-			LINK_TO_EDITOR_PREF, true, AbapTagsUIPlugin.getDefault().getPreferenceStore());
-		this.linkToEditorAction.addPropertyChangeListener(e -> {
-			if (e.getProperty().equals(Action.CHECKED) && (Boolean) e.getNewValue()) {
-				updateInputFromEditor();
-			}
-		});
-		this.addTagsAction = ActionUtil.createAction(Messages.AbapTagExplorerView_AddTagsAction_xtol,
-			AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.ASSIGN_TAG), () -> {
-				final TagObjectsWizard wizard = new TagObjectsWizard(this.currentAdtObject != null);
-				if (this.currentAdtObject != null) {
-					wizard.setProject(this.currentAdtObject.getProject());
-					final IAdtObjRefList adtObjRefList = IAdtBaseFactory.eINSTANCE.createAdtObjRefList();
-					final IAdtObjRef adtObjRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
-					adtObjRef.setUri(this.currentAdtObject.getReference().getUri());
-					adtObjRef.setName(this.currentAdtObject.getReference().getName());
-					adtObjRef.setType(this.currentAdtObject.getReference().getType());
-					adtObjRefList.getObjectReferences().add(adtObjRef);
-					wizard.setSelectedObjects(adtObjRefList);
-				} else {
-					wizard.setProject(ProjectUtil.getCurrentAbapProject());
-				}
-				final WizardDialog dialog = new WizardDialog(
-					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), wizard);
-				dialog.open();
-				if (this.currentAdtObject != null && wizard.wasSuccessful()) {
-					refreshCurrentNode();
-				}
-			});
-		this.refreshAction = ActionUtil.createAction(AdtToolsBaseResources.getString(IAdtToolsBaseStrings.Refresh),
-			AdtToolsBaseResources.getImageDescriptor(IAdtToolsBaseImages.REFRESH), this::refreshCurrentNode);
-		this.otherObjectAction = new ChooseOtherAdtObjectAction(false, this::onOtherObjectAction);
-	}
-
-	private void hookContextMenu() {
-		final MenuManager menuMgr = new MenuManager();
-		menuMgr.setRemoveAllWhenShown(true);
-
-		menuMgr.addMenuListener(menu -> {
-			fillContextMenu(menu);
-		});
-		final Control viewerControl = this.tree;
-		final Menu menu = menuMgr.createContextMenu(viewerControl);
-		viewerControl.setMenu(menu);
-		getSite().registerContextMenu(getViewSite().getId(), menuMgr, this.treeViewer);
 	}
 
 	private void fillContextMenu(final IMenuManager menu) {
@@ -342,8 +247,8 @@ public class AbapTagExplorerView extends ViewPart {
 			menu.add(new Separator(IGeneralContextMenuConstants.GROUP_ADDITIONS));
 			MenuItemFactory.addCommandItem(menu, IGeneralContextMenuConstants.GROUP_ADDITIONS,
 				"com.sap.adt.ris.whereused.ui.callWhereUsed", //$NON-NLS-1$
-				AdtToolsBaseResources.getImageDescriptor(IAdtToolsBaseImages.WHERE_USED_LIST),
-				AdtToolsBaseResources.getString(IAdtToolsBaseStrings.General_WhereUsedList_xmit), null);
+				AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.WHERE_USED_LIST),
+				AdtBaseUIResources.getString(IAdtBaseStrings.General_WhereUsedList_xmit), null);
 		}
 
 		menu.add(new Separator(IGeneralContextMenuConstants.GROUP_EDIT));
@@ -353,8 +258,63 @@ public class AbapTagExplorerView extends ViewPart {
 		menu.appendToGroup(IGeneralContextMenuConstants.GROUP_EDIT, this.copyToClipBoardAction);
 	}
 
+	private IProject getProject() {
+		return this.currentAdtObject != null ? this.currentAdtObject.getProject() : null;
+	}
+
+	private void hookContextMenu() {
+		final MenuManager menuMgr = new MenuManager();
+		menuMgr.setRemoveAllWhenShown(true);
+
+		menuMgr.addMenuListener(menu -> {
+			fillContextMenu(menu);
+		});
+		final Control viewerControl = this.tree;
+		final Menu menu = menuMgr.createContextMenu(viewerControl);
+		viewerControl.setMenu(menu);
+		getSite().registerContextMenu(getViewSite().getId(), menuMgr, this.treeViewer);
+	}
+
+	private void initializeActions() {
+		this.copyToClipBoardAction = new CopyToClipboardAction();
+		this.copyToClipBoardAction.registerViewer(this.treeViewer);
+		this.linkToEditorAction = new PreferenceToggleAction(Messages.AbapTagExplorerView_LinkToEditorAction_xtol,
+			PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED), LINK_TO_EDITOR_PREF,
+			true, AbapTagsUIPlugin.getDefault().getPreferenceStore());
+		this.linkToEditorAction.addPropertyChangeListener(e -> {
+			if (e.getProperty().equals(Action.CHECKED) && (Boolean) e.getNewValue()) {
+				updateInputFromEditor();
+			}
+		});
+		this.addTagsAction = ActionFactory.createAction(Messages.AbapTagExplorerView_AddTagsAction_xtol,
+			AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.ASSIGN_TAG), () -> {
+				final TagObjectsWizard wizard = new TagObjectsWizard(this.currentAdtObject != null);
+				if (this.currentAdtObject != null) {
+					wizard.setProject(this.currentAdtObject.getProject());
+					final IAdtObjRefList adtObjRefList = IAdtBaseFactory.eINSTANCE.createAdtObjRefList();
+					final IAdtObjRef adtObjRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
+					adtObjRef.setUri(this.currentAdtObject.getReference().getUri());
+					adtObjRef.setName(this.currentAdtObject.getReference().getName());
+					adtObjRef.setType(this.currentAdtObject.getReference().getType());
+					adtObjRefList.getObjectReferences().add(adtObjRef);
+					wizard.setSelectedObjects(adtObjRefList);
+				} else {
+					wizard.setProject(ProjectUtil.getCurrentAbapProject());
+				}
+				final WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+					wizard);
+				dialog.open();
+				if (this.currentAdtObject != null && wizard.wasSuccessful()) {
+					refreshCurrentNode();
+				}
+			});
+		this.refreshAction = ActionFactory.createAction(AdtBaseUIResources.getString(IAdtBaseStrings.Refresh),
+			AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.REFRESH), this::refreshCurrentNode);
+		this.otherObjectAction = new ChooseOtherAdtObjectAction(false, this::onOtherObjectAction);
+	}
+
 	private void initToolbar(final IActionBars actionBars) {
-		actionBars.setGlobalActionHandler(ActionFactory.REFRESH.getId(), this.refreshAction);
+		actionBars.setGlobalActionHandler(org.eclipse.ui.actions.ActionFactory.REFRESH.getId(), this.refreshAction);
 		final IToolBarManager tbm = actionBars.getToolBarManager();
 		tbm.add(this.linkToEditorAction);
 		tbm.add(new Separator());
@@ -363,16 +323,6 @@ public class AbapTagExplorerView extends ViewPart {
 		tbm.add(this.otherObjectAction);
 		tbm.add(new Separator());
 		tbm.add(this.refreshAction);
-	}
-
-	private void clearInput() {
-		this.currentAdtObject = null;
-		this.treeResult.clearInput();
-		this.viewLabel.updateLabel(Messages.AbapTagExplorerView_NoInputAvailable_xmsg);
-	}
-
-	private void refreshCurrentNode() {
-		this.treeResult.refresh();
 	}
 
 	private void onOtherObjectAction(final IAdtRisSearchResultProxy result) {
@@ -396,6 +346,55 @@ public class AbapTagExplorerView extends ViewPart {
 		}
 	}
 
+	private void refreshCurrentNode() {
+		this.treeResult.refresh();
+	}
+
+	private void showTaggedObjectsForEditor(final IEditorPart editor) {
+		if (editor == null) {
+			return;
+		}
+		final IWorkbenchPage page = editor.getSite().getPage();
+		if (this.linkToEditorAction.isChecked() && page.isPartVisible(this)) {
+			final IAdtObject selObj = EditorUtil.getAdtObjectFromEditor(editor);
+			updateInput(selObj, false);
+		}
+	}
+
+	private void updateInput(final IAdtObject newAdtObject, final boolean forceUpdate) {
+		if (!this.linkToEditorAction.isChecked() && !forceUpdate) {
+			return;
+		}
+		if (ObjectUtil.equals(this.currentAdtObject, newAdtObject)) {
+			return;
+		}
+		this.currentAdtObject = newAdtObject;
+		if (this.currentAdtObject == null) {
+			clearInput();
+		} else {
+			if (!ProjectUtil.isLoggedOnToProject(getProject())) {
+				clearInput();
+				return;
+			}
+			final IStatus abapTagsFeatureStatus = this.abapTagsService
+				.testTagsFeatureAvailability(this.currentAdtObject.getProject());
+			if (!abapTagsFeatureStatus.isOK()) {
+				clearInput();
+				this.viewLabel.updateLabel(abapTagsFeatureStatus.getMessage());
+				return;
+			}
+			this.treeResult.updateInput(this.currentAdtObject.getReference().getUri());
+			this.viewLabel.updateLabel(
+				" [" + this.currentAdtObject.getProject().getName() + "] " + this.currentAdtObject.getName(), //$NON-NLS-1$ //$NON-NLS-2$
+				this.currentAdtObject.getImage());
+		}
+	}
+
+	private void updateInputFromEditor() {
+		final IAdtObject adtObject = EditorUtil.getAdtObjectFromActiveEditor();
+		updateInput(adtObject, false);
+	}
+
 	private class ContentProvider extends LazyLoadingTreeContentProvider {
 		@Override
 		public Object[] getElements(final Object inputElement) {
@@ -412,9 +411,72 @@ public class AbapTagExplorerView extends ViewPart {
 		}
 	}
 
+	private class DeleteTagsAction extends Action {
+		private final Map<String, List<IAdtObjectTag>> tagMap = new HashMap<>();
+		private ITaggedObjectList tgobjList;
+
+		public DeleteTagsAction() {
+			super(Messages.AbapTagExplorerView_DeleteTagAction_xmit,
+				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
+		}
+
+		public void addTag(final IAdtObjectTag tag, final ITreeNode tagNode) {
+			if (this.tgobjList == null) {
+				this.tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
+			}
+			final ITreeNode parent = tagNode.getParent();
+			String objectUri = null;
+			if (parent != null && parent instanceof IAdtObjectReferenceNode) {
+				objectUri = ((IAdtObjectReferenceNode) parent).getObjectReference().getUri();
+			}
+
+			List<IAdtObjectTag> tagList = null;
+			if (objectUri != null) {
+				tagList = this.tagMap.get(objectUri);
+				if (tagList == null) {
+					tagList = new ArrayList<>();
+					this.tagMap.put(objectUri, tagList);
+				}
+			} else {
+				return;
+			}
+			tagList.add(tag);
+		}
+
+		@Override
+		public void run() {
+			final ITaggedObjectList tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
+
+			for (final String objectUri : this.tagMap.keySet()) {
+				final ITaggedObject taggedObject = IAbapTagsFactory.eINSTANCE.createTaggedObject();
+				final IAdtObjRef objectRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
+				objectRef.setUri(objectUri);
+				taggedObject.setObjectRef(objectRef);
+				taggedObject.getTags().addAll(this.tagMap.get(objectUri));
+				tgobjList.getTaggedObjects().add(taggedObject);
+			}
+
+			final Job deleteTagsJob = createDeleteTagsJob(tgobjList);
+			deleteTagsJob.schedule();
+		}
+
+		private Job createDeleteTagsJob(final ITaggedObjectList tgobjList) {
+			return Job.create(Messages.AbapTagExplorerView_DeleteTagsJob_xmsg, monitor -> {
+
+				final IAdtObjTaggingService taggingService = AdtObjTaggingServiceFactory.createTaggingService();
+				taggingService.deleteTags(DestinationUtil.getDestinationId(getProject()), tgobjList);
+
+				Display.getDefault().asyncExec(() -> {
+					refreshCurrentNode();
+				});
+			});
+		}
+
+	}
+
 	private class TreeInput {
-		private final TreeViewer viewer;
 		private ITreeNode currentInput;
+		private final TreeViewer viewer;
 
 		public TreeInput(final TreeViewer viewer) {
 			this.viewer = viewer;
@@ -438,11 +500,6 @@ public class AbapTagExplorerView extends ViewPart {
 			final ILazyLoadingNode lazyLoadingNode = new LazyLoadingFolderNode("", new IElementInfoProvider() { //$NON-NLS-1$
 
 				@Override
-				public String getProviderDescription() {
-					return Messages.AbapTagExplorerView_LoadingTaggedObjectInfoJob_xmsg;
-				}
-
-				@Override
 				public List<IElementInfo> getElements() {
 					final IAdtObjTaggingService taggingService = AdtObjTaggingServiceFactory.createTaggingService();
 
@@ -457,8 +514,8 @@ public class AbapTagExplorerView extends ViewPart {
 						if (taggedObject != null) {
 							final AdtObjectReferenceElementInfo adtObjRefElemInfo = new AdtObjectReferenceElementInfo(
 								taggedObject.getObjectRef().getName());
-							adtObjRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory
-								.createReference(destinationId, taggedObject.getObjectRef()));
+							adtObjRefElemInfo.setAdtObjectReference(
+								AdtObjectReferenceModelFactory.createReference(destinationId, taggedObject.getObjectRef()));
 
 							for (final IAdtObjectTag tag : taggedObject.getTags()) {
 								final IElementInfo tagElementInfo = new SimpleElementInfo(tag.getName(),
@@ -478,6 +535,11 @@ public class AbapTagExplorerView extends ViewPart {
 					}
 					return null;
 				}
+
+				@Override
+				public String getProviderDescription() {
+					return Messages.AbapTagExplorerView_LoadingTaggedObjectInfoJob_xmsg;
+				}
 			}, null, null);
 			lazyLoadingNode.setContentRefreshMode(LazyLoadingRefreshMode.ROOT_AND_NON_LAZY_CHILDREN);
 			this.currentInput = lazyLoadingNode;
@@ -492,13 +554,6 @@ public class AbapTagExplorerView extends ViewPart {
 	 * @author stockbal
 	 */
 	private class ViewLabelProvider extends LabelProvider implements ILabelProvider, IStyledLabelProvider {
-
-		@Override
-		public String getText(final Object element) {
-			final ITreeNode searchResult = (ITreeNode) element;
-
-			return searchResult.getName();
-		}
 
 		@Override
 		public Image getImage(final Object element) {
@@ -571,69 +626,13 @@ public class AbapTagExplorerView extends ViewPart {
 
 			return text;
 		}
-	}
-
-	private class DeleteTagsAction extends Action {
-		private ITaggedObjectList tgobjList;
-		private final Map<String, List<IAdtObjectTag>> tagMap = new HashMap<>();
-
-		public DeleteTagsAction() {
-			super(Messages.AbapTagExplorerView_DeleteTagAction_xmit,
-				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
-		}
-
-		public void addTag(final IAdtObjectTag tag, final ITreeNode tagNode) {
-			if (this.tgobjList == null) {
-				this.tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
-			}
-			final ITreeNode parent = tagNode.getParent();
-			String objectUri = null;
-			if (parent != null && parent instanceof IAdtObjectReferenceNode) {
-				objectUri = ((IAdtObjectReferenceNode) parent).getObjectReference().getUri();
-			}
-
-			List<IAdtObjectTag> tagList = null;
-			if (objectUri != null) {
-				tagList = this.tagMap.get(objectUri);
-				if (tagList == null) {
-					tagList = new ArrayList<>();
-					this.tagMap.put(objectUri, tagList);
-				}
-			} else {
-				return;
-			}
-			tagList.add(tag);
-		}
 
 		@Override
-		public void run() {
-			final ITaggedObjectList tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
+		public String getText(final Object element) {
+			final ITreeNode searchResult = (ITreeNode) element;
 
-			for (final String objectUri : this.tagMap.keySet()) {
-				final ITaggedObject taggedObject = IAbapTagsFactory.eINSTANCE.createTaggedObject();
-				final IAdtObjRef objectRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
-				objectRef.setUri(objectUri);
-				taggedObject.setObjectRef(objectRef);
-				taggedObject.getTags().addAll(this.tagMap.get(objectUri));
-				tgobjList.getTaggedObjects().add(taggedObject);
-			}
-
-			final Job deleteTagsJob = createDeleteTagsJob(tgobjList);
-			deleteTagsJob.schedule();
+			return searchResult.getName();
 		}
-
-		private Job createDeleteTagsJob(final ITaggedObjectList tgobjList) {
-			return Job.create(Messages.AbapTagExplorerView_DeleteTagsJob_xmsg, monitor -> {
-
-				final IAdtObjTaggingService taggingService = AdtObjTaggingServiceFactory.createTaggingService();
-				taggingService.deleteTags(DestinationUtil.getDestinationId(getProject()), tgobjList);
-
-				Display.getDefault().asyncExec(() -> {
-					refreshCurrentNode();
-				});
-			});
-		}
-
 	}
 
 }

@@ -22,7 +22,7 @@ import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.validation.TagListValidator;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
-import com.devepos.adt.tools.base.util.StringUtil;
+import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.util.ui.SWTUtil;
 
 public class EditTagDataDialog extends TitleAreaDialog {

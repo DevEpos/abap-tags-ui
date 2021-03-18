@@ -5,7 +5,7 @@ import org.eclipse.jface.action.MenuManager;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
-import com.devepos.adt.tools.base.ui.action.PreferenceToggleAction;
+import com.devepos.adt.base.ui.action.PreferenceToggleAction;
 
 public class ObjectLabelDecorationMenu extends MenuManager {
 
