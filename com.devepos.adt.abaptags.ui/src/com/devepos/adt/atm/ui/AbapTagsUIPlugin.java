@@ -11,53 +11,53 @@ import com.devepos.adt.base.plugin.AbstractAdtUIPlugin;
  */
 public class AbapTagsUIPlugin extends AbstractAdtUIPlugin {
 
-	// The plug-in ID
-	public static final String PLUGIN_ID = "com.devepos.adt.abaptags.ui"; // $NON-1$
+    // The plug-in ID
+    public static final String PLUGIN_ID = "com.devepos.adt.abaptags.ui"; // $NON-1$
 
-	// The shared instance
-	private static AbapTagsUIPlugin plugin;
+    // The shared instance
+    private static AbapTagsUIPlugin plugin;
 
-	/**
-	 * The constructor
-	 */
-	public AbapTagsUIPlugin() {
-		super(PLUGIN_ID);
-	}
+    /**
+     * The constructor
+     */
+    public AbapTagsUIPlugin() {
+        super(PLUGIN_ID);
+    }
 
-	@Override
-	public void start(final BundleContext context) throws Exception {
-		super.start(context);
-		plugin = this;
-	}
+    @Override
+    public void start(final BundleContext context) throws Exception {
+        super.start(context);
+        plugin = this;
+    }
 
-	@Override
-	public void stop(final BundleContext context) throws Exception {
-		plugin = null;
-		super.stop(context);
-	}
+    @Override
+    public void stop(final BundleContext context) throws Exception {
+        plugin = null;
+        super.stop(context);
+    }
 
-	/**
-	 * Returns the shared instance
-	 *
-	 * @return the shared instance
-	 */
-	public static AbapTagsUIPlugin getDefault() {
-		return plugin;
-	}
+    /**
+     * Returns the shared instance
+     *
+     * @return the shared instance
+     */
+    public static AbapTagsUIPlugin getDefault() {
+        return plugin;
+    }
 
-	@Override
-	protected void initializeImageRegistry(final ImageRegistry reg) {
-		registerImage(reg, IImages.TAG, "icons/Tag.png");
-		registerImage(reg, IImages.USER_TAG, "icons/UserTag.png");
-		registerImage(reg, IImages.USER_TAGS_FOLDER, "icons/UserTagsFolder.png");
-		registerImage(reg, IImages.GLOBAL_TAGS_FOLDER, "icons/TagsFolder.png");
-		registerImage(reg, IImages.TAGS_WIZBAN_DEFAULT, "icons/wizard/TaggingWizard_Banner_default.png");
-		registerImage(reg, IImages.NEW_TAG_ASSIGN_WIZ, "icons/NewTag.png");
-		registerImage(reg, IImages.ASSIGN_TAG, "icons/AssignTag.png");
-		registerImage(reg, IImages.NEW_USER_TAG, "icons/NewUserTag.png");
-		registerImage(reg, IImages.NEW_GLOBAL_TAG, "icons/NewTag.png");
-		registerImage(reg, IImages.SHARED_TAG, "icons/SharedTag.png");
-		registerImage(reg, IImages.SHARED_TAGS_FOLDER, "icons/SharedTagsFolder.png");
-	}
+    @Override
+    protected void initializeImageRegistry(final ImageRegistry reg) {
+        registerImage(reg, IImages.TAG, "icons/Tag.png");
+        registerImage(reg, IImages.USER_TAG, "icons/UserTag.png");
+        registerImage(reg, IImages.USER_TAGS_FOLDER, "icons/UserTagsFolder.png");
+        registerImage(reg, IImages.GLOBAL_TAGS_FOLDER, "icons/TagsFolder.png");
+        registerImage(reg, IImages.TAGS_WIZBAN_DEFAULT, "icons/wizard/TaggingWizard_Banner_default.png");
+        registerImage(reg, IImages.NEW_TAG_ASSIGN_WIZ, "icons/NewTag.png");
+        registerImage(reg, IImages.ASSIGN_TAG, "icons/AssignTag.png");
+        registerImage(reg, IImages.NEW_USER_TAG, "icons/NewUserTag.png");
+        registerImage(reg, IImages.NEW_GLOBAL_TAG, "icons/NewTag.png");
+        registerImage(reg, IImages.SHARED_TAG, "icons/SharedTag.png");
+        registerImage(reg, IImages.SHARED_TAGS_FOLDER, "icons/SharedTagsFolder.png");
+    }
 
 }

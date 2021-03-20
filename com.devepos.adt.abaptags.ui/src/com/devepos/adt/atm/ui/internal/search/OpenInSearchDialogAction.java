@@ -13,37 +13,42 @@ import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 
 public class OpenInSearchDialogAction extends Action {
-	public OpenInSearchDialogAction() {
-		super(Messages.OpenInSearchDialogAction_Label_xmit, AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.SEARCH));
-	}
+    public OpenInSearchDialogAction() {
+        super(Messages.OpenInSearchDialogAction_Label_xmit, AdtBaseUIResources.getImageDescriptor(
+                IAdtBaseImages.SEARCH));
+    }
 
-	@Override
-	public void run() {
-		final SearchView activeSearchView = getSearchView();
-		if (activeSearchView == null) {
-			return;
-		}
-		final ISearchResultPage resultPage = activeSearchView.getActivePage();
-		if (resultPage != null && resultPage instanceof TaggedObjectSearchResultPage) {
-			final TaggedObjectSearchResultPage objectSearchResultPage = (TaggedObjectSearchResultPage) resultPage;
-			final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-			final SearchDialog dialog = new SearchDialog(window, TaggedObjectSearchPage.PAGE_ID);
-			dialog.setBlockOnOpen(false);
-			dialog.open();
-			if (dialog.getSelectedPage() instanceof TaggedObjectSearchPage) {
-				((TaggedObjectSearchPage) dialog.getSelectedPage()).setInputFromPreviousQuery(objectSearchResultPage.getQuery());
-			}
-			dialog.setBlockOnOpen(true);
-		}
-	}
+    @Override
+    public void run() {
+        final SearchView activeSearchView = getSearchView();
+        if (activeSearchView == null) {
+            return;
+        }
+        final ISearchResultPage resultPage = activeSearchView.getActivePage();
+        if (resultPage instanceof TaggedObjectSearchResultPage) {
+            final TaggedObjectSearchResultPage objectSearchResultPage = (TaggedObjectSearchResultPage) resultPage;
+            final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+            final SearchDialog dialog = new SearchDialog(window, TaggedObjectSearchPage.PAGE_ID);
+            dialog.setBlockOnOpen(false);
+            dialog.open();
+            if (dialog.getSelectedPage() instanceof TaggedObjectSearchPage) {
+                ((TaggedObjectSearchPage) dialog.getSelectedPage()).setInputFromPreviousQuery(objectSearchResultPage
+                        .getQuery());
+            }
+            dialog.setBlockOnOpen(true);
+        }
+    }
 
-	protected SearchView getSearchView() {
+    protected SearchView getSearchView() {
 
-		final IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
-		if (activePart instanceof SearchView) {
-			return (SearchView) activePart;
-		}
-		return null;
-	}
+        final IWorkbenchPart activePart = PlatformUI.getWorkbench()
+                .getActiveWorkbenchWindow()
+                .getActivePage()
+                .getActivePart();
+        if (activePart instanceof SearchView) {
+            return (SearchView) activePart;
+        }
+        return null;
+    }
 
 }

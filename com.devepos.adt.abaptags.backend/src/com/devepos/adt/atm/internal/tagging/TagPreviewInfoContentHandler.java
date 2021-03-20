@@ -15,23 +15,23 @@ import com.sap.adt.communication.content.AdtMediaType;
  */
 public class TagPreviewInfoContentHandler extends AbstractEmfContentHandler<ITagPreviewInfo> {
 
-	public TagPreviewInfoContentHandler() {
-		super(AdtMediaType.APPLICATION_XML, ".abaptagprevinfo");
-	}
+    public TagPreviewInfoContentHandler() {
+        super(AdtMediaType.APPLICATION_XML, ".abaptagprevinfo");
+    }
 
-	@Override
-	public Class<ITagPreviewInfo> getSupportedDataType() {
-		return ITagPreviewInfo.class;
-	}
+    @Override
+    public Class<ITagPreviewInfo> getSupportedDataType() {
+        return ITagPreviewInfo.class;
+    }
 
-	@Override
-	protected Resource createResource() {
-		return new AbapTagsResourceFactory().createResource(getVirtualResourceUri());
-	}
+    @Override
+    protected Resource createResource() {
+        return new AbapTagsResourceFactory().createResource(getVirtualResourceUri());
+    }
 
-	@Override
-	protected ITagPreviewInfo getRootElement(final EObject rootElement) {
-		return (ITagPreviewInfo) rootElement;
-	}
+    @Override
+    protected ITagPreviewInfo getRootElement(final EObject rootElement) {
+        return (ITagPreviewInfo) rootElement;
+    }
 
 }

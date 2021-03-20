@@ -14,68 +14,68 @@ import com.devepos.adt.base.util.StringUtil;
 
 public class TagTreeContentProvider implements ITreeContentProvider {
 
-	private TagSearchScope visibleTagScope = TagSearchScope.ALL;
+    private TagSearchScope visibleTagScope = TagSearchScope.ALL;
 
-	public void setVisbleTagScope(final TagSearchScope scope) {
-		this.visibleTagScope = scope;
-	}
+    public void setVisbleTagScope(final TagSearchScope scope) {
+        visibleTagScope = scope;
+    }
 
-	@Override
-	public Object[] getElements(final Object inputElement) {
-		List<ITag> tagList = null;
-		if (inputElement instanceof EList<?>) {
-			tagList = (EList<ITag>) inputElement;
-		} else if (inputElement instanceof ITagList) {
-			tagList = ((ITagList) inputElement).getTags();
-		}
-		if (tagList != null) {
-			if (this.visibleTagScope != TagSearchScope.ALL && this.visibleTagScope != null) {
-				final List<ITag> filteredList = tagList.stream()
-					.filter(t -> this.visibleTagScope == TagSearchScope.GLOBAL ? StringUtil.isEmpty(t.getOwner())
-						: !StringUtil.isEmpty(t.getOwner()))
-					.collect(Collectors.toList());
-				if (filteredList != null && filteredList.size() > 0) {
-					return filteredList.toArray();
-				}
-			} else {
-				return tagList.toArray();
-			}
-		}
+    @Override
+    public Object[] getElements(final Object inputElement) {
+        List<ITag> tagList = null;
+        if (inputElement instanceof EList<?>) {
+            tagList = (EList<ITag>) inputElement;
+        } else if (inputElement instanceof ITagList) {
+            tagList = ((ITagList) inputElement).getTags();
+        }
+        if (tagList != null) {
+            if ((visibleTagScope == TagSearchScope.ALL) || (visibleTagScope == null)) {
+                return tagList.toArray();
+            }
+            final List<ITag> filteredList = tagList.stream()
+                    .filter(t -> visibleTagScope == TagSearchScope.GLOBAL ? StringUtil.isEmpty(t.getOwner())
+                            : !StringUtil.isEmpty(t.getOwner()))
+                    .collect(Collectors.toList());
+            if (filteredList != null && filteredList.size() > 0) {
+                return filteredList.toArray();
+            }
+        }
 
-		return new Object[0];
-	}
+        return new Object[0];
+    }
 
-	@Override
-	public Object[] getChildren(final Object parentElement) {
-		if (parentElement instanceof ITag) {
-			return ((ITag) parentElement).getChildTags().toArray();
-		}
-		return null;
-	}
+    @Override
+    public Object[] getChildren(final Object parentElement) {
+        if (parentElement instanceof ITag) {
+            return ((ITag) parentElement).getChildTags().toArray();
+        }
+        return null;
+    }
 
-	@Override
-	public Object getParent(final Object element) {
-		if (!(element instanceof ITag)) {
-			return null;
-		}
-		final ITag tag = (ITag) element;
-		final EObject container = tag.eContainer();
-		if (container == null || container instanceof ITagList) {
-			return null;
-		} else if (container instanceof ITag) {
-			return container;
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public Object getParent(final Object element) {
+        if (!(element instanceof ITag)) {
+            return null;
+        }
+        final ITag tag = (ITag) element;
+        final EObject container = tag.eContainer();
+        if (container == null || container instanceof ITagList) {
+            return null;
+        }
+        if (container instanceof ITag) {
+            return container;
+        } else {
+            return null;
+        }
+    }
 
-	@Override
-	public boolean hasChildren(final Object element) {
-		if (element instanceof ITag) {
-			final ITag tag = (ITag) element;
-			return tag.getChildTags().size() > 0;
-		}
-		return false;
-	}
+    @Override
+    public boolean hasChildren(final Object element) {
+        if (element instanceof ITag) {
+            final ITag tag = (ITag) element;
+            return tag.getChildTags().size() > 0;
+        }
+        return false;
+    }
 
 }

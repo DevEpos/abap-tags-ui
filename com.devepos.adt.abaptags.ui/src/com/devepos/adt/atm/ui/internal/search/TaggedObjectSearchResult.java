@@ -26,147 +26,147 @@ import com.devepos.adt.base.ui.tree.LazyLoadingFolderNode;
 import com.devepos.adt.base.util.StringUtil;
 
 public class TaggedObjectSearchResult implements ISearchResult {
-	private final TaggedObjectSearchQuery query;
-	private final List<ISearchResultListener> resultListeners = new ArrayList<>();
-	private ITaggedObjectList internalSearchResult;
-	private IAdtObjectReferenceNode[] treeResult;
-	private static final IAdtObjectReferenceNode[] EMPTY_RESULT = new IAdtObjectReferenceNode[0];
-	private int resultCount;
-	private boolean hasMoreResults;
-	private boolean isGroupedResult;
+    private final TaggedObjectSearchQuery query;
+    private final List<ISearchResultListener> resultListeners = new ArrayList<>();
+    private ITaggedObjectList internalSearchResult;
+    private IAdtObjectReferenceNode[] treeResult;
+    private static final IAdtObjectReferenceNode[] EMPTY_RESULT = new IAdtObjectReferenceNode[0];
+    private int resultCount;
+    private boolean hasMoreResults;
+    private boolean isGroupedResult;
 
-	public TaggedObjectSearchResult(final TaggedObjectSearchQuery tagSearchQuery) {
-		this.query = tagSearchQuery;
-	}
+    public TaggedObjectSearchResult(final TaggedObjectSearchQuery tagSearchQuery) {
+        query = tagSearchQuery;
+    }
 
-	@Override
-	public void addListener(final ISearchResultListener l) {
-		this.resultListeners.add(l);
-	}
+    @Override
+    public void addListener(final ISearchResultListener l) {
+        resultListeners.add(l);
+    }
 
-	@Override
-	public void removeListener(final ISearchResultListener l) {
-		this.resultListeners.remove(l);
-	}
+    @Override
+    public void removeListener(final ISearchResultListener l) {
+        resultListeners.remove(l);
+    }
 
-	@Override
-	public String getLabel() {
-		String resultsLabel = null;
-		if (this.resultCount == 1) {
-			resultsLabel = AdtBaseUIResources.getString(IAdtBaseStrings.SearchUI_OneResult_xmsg);
-		} else if (this.resultCount > 1) {
-			if (this.hasMoreResults) {
-				resultsLabel = AdtBaseUIResources.format(IAdtBaseStrings.SearchUI_ResultsExceedMaximum_xmsg,
-					this.query.getSearchParams().getMaxResults());
-			} else {
-				resultsLabel = AdtBaseUIResources.format(IAdtBaseStrings.SearchUI_SpecificResults_xmsg,
-					this.resultCount);
+    @Override
+    public String getLabel() {
+        String resultsLabel = null;
+        if (resultCount == 1) {
+            resultsLabel = AdtBaseUIResources.getString(IAdtBaseStrings.SearchUI_OneResult_xmsg);
+        } else if (resultCount > 1) {
+            if (hasMoreResults) {
+                resultsLabel = AdtBaseUIResources.format(IAdtBaseStrings.SearchUI_ResultsExceedMaximum_xmsg, query
+                        .getSearchParams()
+                        .getMaxResults());
+            } else {
+                resultsLabel = AdtBaseUIResources.format(IAdtBaseStrings.SearchUI_SpecificResults_xmsg, resultCount);
 
-			}
-		} else {
-			resultsLabel = AdtBaseUIResources.getString(IAdtBaseStrings.SearchUI_NoResults_xmsg);
-		}
-		final String label = NLS.bind(Messages.TaggedObjectSearchResult_SearchLabel_xmsg, this.query, resultsLabel);
-		return label;
-	}
+            }
+        } else {
+            resultsLabel = AdtBaseUIResources.getString(IAdtBaseStrings.SearchUI_NoResults_xmsg);
+        }
+        final String label = NLS.bind(Messages.TaggedObjectSearchResult_SearchLabel_xmsg, query, resultsLabel);
+        return label;
+    }
 
-	@Override
-	public String getTooltip() {
-		return getLabel();
-	}
+    @Override
+    public String getTooltip() {
+        return getLabel();
+    }
 
-	@Override
-	public ImageDescriptor getImageDescriptor() {
-		return AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.TAG);
-	}
+    @Override
+    public ImageDescriptor getImageDescriptor() {
+        return AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.TAG);
+    }
 
-	@Override
-	public ISearchQuery getQuery() {
-		return this.query;
-	}
+    @Override
+    public ISearchQuery getQuery() {
+        return query;
+    }
 
-	public void cleanup() {
-		this.hasMoreResults = false;
-		this.internalSearchResult = null;
-		this.treeResult = null;
-		this.resultCount = 0;
-		final TaggedObjectSearchResultEvent resultEvent = new TaggedObjectSearchResultEvent(this);
-		resultEvent.setCleanup(true);
-		informListener(resultEvent);
-	}
+    public void cleanup() {
+        hasMoreResults = false;
+        internalSearchResult = null;
+        treeResult = null;
+        resultCount = 0;
+        final TaggedObjectSearchResultEvent resultEvent = new TaggedObjectSearchResultEvent(this);
+        resultEvent.setCleanup(true);
+        informListener(resultEvent);
+    }
 
-	public void setHasMoreResults(final boolean hasMoreResults) {
-		this.hasMoreResults = hasMoreResults;
-	}
+    public void setHasMoreResults(final boolean hasMoreResults) {
+        this.hasMoreResults = hasMoreResults;
+    }
 
-	public void addSearchResult(final ITaggedObjectList result) {
-		if (result != null && result.getTaggedObjects().size() > 0) {
-			this.internalSearchResult = result;
-			this.resultCount = result.getTaggedObjects().size();
-		} else {
-			this.internalSearchResult = null;
-			this.treeResult = null;
-			this.resultCount = 0;
-		}
-		informListener(new TaggedObjectSearchResultEvent(this));
-	}
+    public void addSearchResult(final ITaggedObjectList result) {
+        if (result != null && result.getTaggedObjects().size() > 0) {
+            internalSearchResult = result;
+            resultCount = result.getTaggedObjects().size();
+        } else {
+            internalSearchResult = null;
+            treeResult = null;
+            resultCount = 0;
+        }
+        informListener(new TaggedObjectSearchResultEvent(this));
+    }
 
-	protected void informListener(final TaggedObjectSearchResultEvent resultEvent) {
-		this.resultListeners.stream().forEach(l -> l.searchResultChanged(resultEvent));
-	}
+    protected void informListener(final TaggedObjectSearchResultEvent resultEvent) {
+        resultListeners.stream().forEach(l -> l.searchResultChanged(resultEvent));
+    }
 
-	/**
-	 * Returns an Array of Tree Nodes
-	 *
-	 * @param  groupByPackage if <code>true</code> the search result should be
-	 *                        grouped by their packages
-	 * @return                an Array of Tree Nodes, where the root nodes are
-	 *                        either CDS Views, Database Tables or Views
-	 */
-	public IAdtObjectReferenceNode[] getResultForTree(final boolean groupByPackage) {
-		if (this.resultCount == 0) {
-			return EMPTY_RESULT;
-		}
-		if (this.treeResult == null || this.treeResult == EMPTY_RESULT || groupByPackage != this.isGroupedResult) {
-			this.isGroupedResult = groupByPackage;
-			if (groupByPackage) {
-				createGroupedResult();
-			} else {
-				createResult();
-			}
-		}
-		return this.treeResult;
-	}
+    /**
+     * Returns an Array of Tree Nodes
+     *
+     * @param groupByPackage if <code>true</code> the search result should be
+     *                       grouped by their packages
+     * @return an Array of Tree Nodes, where the root nodes are either CDS Views,
+     *         Database Tables or Views
+     */
+    public IAdtObjectReferenceNode[] getResultForTree(final boolean groupByPackage) {
+        if (resultCount == 0) {
+            return EMPTY_RESULT;
+        }
+        if (treeResult == null || treeResult == EMPTY_RESULT || groupByPackage != isGroupedResult) {
+            isGroupedResult = groupByPackage;
+            if (groupByPackage) {
+                createGroupedResult();
+            } else {
+                createResult();
+            }
+        }
+        return treeResult;
+    }
 
-	private void createResult() {
-		final List<IAdtObjectReferenceNode> nodes = new ArrayList<>();
+    private void createResult() {
+        final List<IAdtObjectReferenceNode> nodes = new ArrayList<>();
 
-		for (final ITaggedObject taggedObject : this.internalSearchResult.getTaggedObjects()) {
-			final IAdtObjRef objectRef = taggedObject.getObjectRef();
-			/*
-			 * if tags are present it means the ADT object has tags with child tags so an
-			 * expansion is possible
-			 */
-			final AdtObjectReferenceNode objRefNode = new AdtObjectReferenceNode(objectRef.getName(),
-				objectRef.getName(), objectRef.getDescription(),
-				AdtObjectReferenceModelFactory.createReference(this.query.getDestinationId(), objectRef));
-			nodes.add(objRefNode);
+        for (final ITaggedObject taggedObject : internalSearchResult.getTaggedObjects()) {
+            final IAdtObjRef objectRef = taggedObject.getObjectRef();
+            /*
+             * if tags are present it means the ADT object has tags with child tags so an
+             * expansion is possible
+             */
+            final AdtObjectReferenceNode objRefNode = new AdtObjectReferenceNode(objectRef.getName(), objectRef
+                    .getName(), objectRef.getDescription(), AdtObjectReferenceModelFactory.createReference(query
+                            .getDestinationId(), objectRef));
+            nodes.add(objRefNode);
 
-			for (final IAdtObjectTag tag : taggedObject.getTags()) {
-				final ILazyLoadingNode lazyTagNode = new LazyLoadingFolderNode(tag.getName(),
-					new TaggedObjectSearchInfoProvider(this.query.getDestinationId(), objectRef, tag,
-						this.query.getSearchParams().getMaxResults()),
-					objRefNode, AbapTagsUIPlugin.getDefault()
-						.getImage(StringUtil.isEmpty(tag.getOwner()) ? IImages.TAG : IImages.USER_TAG));
-				objRefNode.getChildren().add(lazyTagNode);
-			}
-		}
-		this.treeResult = nodes.toArray(new IAdtObjectReferenceNode[nodes.size()]);
-	}
+            for (final IAdtObjectTag tag : taggedObject.getTags()) {
+                final ILazyLoadingNode lazyTagNode = new LazyLoadingFolderNode(tag.getName(),
+                        new TaggedObjectSearchInfoProvider(query.getDestinationId(), objectRef, tag, query
+                                .getSearchParams()
+                                .getMaxResults()), objRefNode, AbapTagsUIPlugin.getDefault()
+                                        .getImage(StringUtil.isEmpty(tag.getOwner()) ? IImages.TAG : IImages.USER_TAG));
+                objRefNode.getChildren().add(lazyTagNode);
+            }
+        }
+        treeResult = nodes.toArray(new IAdtObjectReferenceNode[nodes.size()]);
+    }
 
-	private void createGroupedResult() {
-		// TODO Auto-generated method stub
+    private void createGroupedResult() {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
 }

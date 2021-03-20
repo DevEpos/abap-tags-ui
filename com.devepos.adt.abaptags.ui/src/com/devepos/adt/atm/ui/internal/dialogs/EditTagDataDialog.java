@@ -26,154 +26,153 @@ import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.util.ui.SWTUtil;
 
 public class EditTagDataDialog extends TitleAreaDialog {
-	private static final String DIALOG_SETTINGS_NAME = EditTagDataDialog.class.getCanonicalName();
-	private Composite mainComposite;
-	private final ITag tag;
-	private final boolean isUserTag;
-	private Text nameInput;
-	private Text descriptionInput;
-	private final List<ITag> tagListForValidation;
-	private final String oldTagName;
-	private final String oldTagDescription;
+    private static final String DIALOG_SETTINGS_NAME = EditTagDataDialog.class.getCanonicalName();
+    private Composite mainComposite;
+    private final ITag tag;
+    private final boolean isUserTag;
+    private Text nameInput;
+    private Text descriptionInput;
+    private final List<ITag> tagListForValidation;
+    private final String oldTagName;
+    private final String oldTagDescription;
 
-	public EditTagDataDialog(final Shell shell, final ITag tag, final List<ITag> tagListForValidation,
-		final boolean isUserTag) {
-		super(shell);
-		this.tag = tag;
-		this.oldTagName = tag.getName();
-		this.oldTagDescription = tag.getDescription();
-		this.tagListForValidation = tagListForValidation;
-		this.isUserTag = isUserTag;
-		this.setShellStyle(this.getShellStyle() | SWT.RESIZE);
-		setHelpAvailable(false);
-	}
+    public EditTagDataDialog(final Shell shell, final ITag tag, final List<ITag> tagListForValidation,
+            final boolean isUserTag) {
+        super(shell);
+        this.tag = tag;
+        oldTagName = tag.getName();
+        oldTagDescription = tag.getDescription();
+        this.tagListForValidation = tagListForValidation;
+        this.isUserTag = isUserTag;
+        setShellStyle(getShellStyle() | SWT.RESIZE);
+        setHelpAvailable(false);
+    }
 
-	@Override
-	protected void configureShell(final Shell shell) {
-		super.configureShell(shell);
-		shell.setText(getTitle());
-	}
+    @Override
+    protected void configureShell(final Shell shell) {
+        super.configureShell(shell);
+        shell.setText(getTitle());
+    }
 
-	@Override
-	protected int getDialogBoundsStrategy() {
-		return DIALOG_PERSISTSIZE;
-	}
+    @Override
+    protected int getDialogBoundsStrategy() {
+        return DIALOG_PERSISTSIZE;
+    }
 
-	@Override
-	protected IDialogSettings getDialogBoundsSettings() {
-		return AbapTagsUIPlugin.getDefault().getDialogSettingsSection(DIALOG_SETTINGS_NAME);
-	}
+    @Override
+    protected IDialogSettings getDialogBoundsSettings() {
+        return AbapTagsUIPlugin.getDefault().getDialogSettingsSection(DIALOG_SETTINGS_NAME);
+    }
 
-	@Override
-	protected Control createDialogArea(final Composite parent) {
-		setTitle(getTitle());
-		final Composite dialogArea = (Composite) super.createDialogArea(parent);
-		this.mainComposite = new Composite(dialogArea, SWT.NONE);
-		GridLayoutFactory.swtDefaults().numColumns(2).applyTo(this.mainComposite);
-		GridDataFactory.fillDefaults().grab(true, true).applyTo(this.mainComposite);
+    @Override
+    protected Control createDialogArea(final Composite parent) {
+        setTitle(getTitle());
+        final Composite dialogArea = (Composite) super.createDialogArea(parent);
+        mainComposite = new Composite(dialogArea, SWT.NONE);
+        GridLayoutFactory.swtDefaults().numColumns(2).applyTo(mainComposite);
+        GridDataFactory.fillDefaults().grab(true, true).applyTo(mainComposite);
 
-		final Label nameLabel = new Label(this.mainComposite, SWT.NONE);
-		nameLabel.setText(Messages.EditTagDataDialog_NameInput_xlbl);
-		SWTUtil.setMandatory(nameLabel, true);
+        final Label nameLabel = new Label(mainComposite, SWT.NONE);
+        nameLabel.setText(Messages.EditTagDataDialog_NameInput_xlbl);
+        SWTUtil.setMandatory(nameLabel, true);
 
-		this.nameInput = new Text(this.mainComposite, SWT.BORDER);
-		GridDataFactory.fillDefaults().grab(true, false).applyTo(this.nameInput);
-		this.nameInput.setTextLimit(60);
-		if (this.tag.getName() != null) {
-			this.nameInput.setText(this.tag.getName());
-		}
-		this.nameInput.addModifyListener(this::onModifyTagName);
+        nameInput = new Text(mainComposite, SWT.BORDER);
+        GridDataFactory.fillDefaults().grab(true, false).applyTo(nameInput);
+        nameInput.setTextLimit(60);
+        if (tag.getName() != null) {
+            nameInput.setText(tag.getName());
+        }
+        nameInput.addModifyListener(this::onModifyTagName);
 
-		final Label descriptionLabel = new Label(this.mainComposite, SWT.NONE);
-		descriptionLabel.setText(Messages.EditTagDataDialog_DescriptionInput_xlbl);
+        final Label descriptionLabel = new Label(mainComposite, SWT.NONE);
+        descriptionLabel.setText(Messages.EditTagDataDialog_DescriptionInput_xlbl);
 
-		this.descriptionInput = new Text(this.mainComposite, SWT.BORDER);
-		GridDataFactory.fillDefaults().grab(true, false).applyTo(this.descriptionInput);
-		this.descriptionInput.setTextLimit(100);
-		if (this.tag.getDescription() != null) {
-			this.descriptionInput.setText(this.tag.getDescription());
-		}
-		this.descriptionInput.addModifyListener(e -> {
-			this.tag.setDescription(this.descriptionInput.getText());
-			if (!StringUtil.isEmpty(this.tag.getCreatedBy())) {
-				enableOkButton(isDirty());
-			}
-		});
+        descriptionInput = new Text(mainComposite, SWT.BORDER);
+        GridDataFactory.fillDefaults().grab(true, false).applyTo(descriptionInput);
+        descriptionInput.setTextLimit(100);
+        if (tag.getDescription() != null) {
+            descriptionInput.setText(tag.getDescription());
+        }
+        descriptionInput.addModifyListener(e -> {
+            tag.setDescription(descriptionInput.getText());
+            if (!StringUtil.isEmpty(tag.getCreatedBy())) {
+                enableOkButton(isDirty());
+            }
+        });
 
-		return dialogArea;
-	}
+        return dialogArea;
+    }
 
-	@Override
-	protected Control createButtonBar(final Composite parent) {
-		final Control buttonBar = super.createButtonBar(parent);
-		onModifyTagName(null);
-		return buttonBar;
-	}
+    @Override
+    protected Control createButtonBar(final Composite parent) {
+        final Control buttonBar = super.createButtonBar(parent);
+        onModifyTagName(null);
+        return buttonBar;
+    }
 
-	@Override
-	protected void okPressed() {
-		final IStatus status = new TagListValidator(this.tagListForValidation).validate(true, false);
-		if (!status.isOK()) {
-			setErrorMessage(status.getMessage());
-			this.nameInput.setFocus();
-			return;
-		}
-		super.okPressed();
-	}
+    @Override
+    protected void okPressed() {
+        final IStatus status = new TagListValidator(tagListForValidation).validate(true, false);
+        if (!status.isOK()) {
+            setErrorMessage(status.getMessage());
+            nameInput.setFocus();
+            return;
+        }
+        super.okPressed();
+    }
 
-	@Override
-	protected void cancelPressed() {
-		this.tag.setName(this.oldTagName);
-		this.tag.setDescription(this.oldTagDescription);
-		super.cancelPressed();
-	}
+    @Override
+    protected void cancelPressed() {
+        tag.setName(oldTagName);
+        tag.setDescription(oldTagDescription);
+        super.cancelPressed();
+    }
 
-	private void onModifyTagName(final ModifyEvent e) {
-		this.tag.setName(this.nameInput.getText());
-		if (StringUtil.isBlank(this.nameInput.getText())) {
-			setMessage(Messages.EditTagDataDialog_MandotoryFieldsNotFilled_xmsg, IMessageProvider.INFORMATION);
-			enableOkButton(false);
-		} else {
-			setErrorMessage(null);
-			setMessage(Messages.EditTagDataDialog_DialogInfoText);
-			if (!StringUtil.isEmpty(this.tag.getCreatedBy())) {
-				enableOkButton(isDirty());
-			} else {
-				enableOkButton(true);
-			}
-		}
-	}
+    private void onModifyTagName(final ModifyEvent e) {
+        tag.setName(nameInput.getText());
+        if (StringUtil.isBlank(nameInput.getText())) {
+            setMessage(Messages.EditTagDataDialog_MandotoryFieldsNotFilled_xmsg, IMessageProvider.INFORMATION);
+            enableOkButton(false);
+        } else {
+            setErrorMessage(null);
+            setMessage(Messages.EditTagDataDialog_DialogInfoText);
+            if (!StringUtil.isEmpty(tag.getCreatedBy())) {
+                enableOkButton(isDirty());
+            } else {
+                enableOkButton(true);
+            }
+        }
+    }
 
-	private boolean isDirty() {
-		if (!this.nameInput.getText().equals(this.oldTagName)) {
-			return true;
-		}
-		if (!this.descriptionInput.getText().equals(this.oldTagDescription)) {
-			return true;
-		}
-		return false;
-	}
+    private boolean isDirty() {
+        if (!nameInput.getText().equals(oldTagName)) {
+            return true;
+        }
+        if (!descriptionInput.getText().equals(oldTagDescription)) {
+            return true;
+        }
+        return false;
+    }
 
-	private void enableOkButton(final boolean enable) {
-		final Button okButton = getButton(IDialogConstants.OK_ID);
-		if (okButton != null && !okButton.isDisposed()) {
-			okButton.setEnabled(enable);
-		}
-	}
+    private void enableOkButton(final boolean enable) {
+        final Button okButton = getButton(IDialogConstants.OK_ID);
+        if (okButton != null && !okButton.isDisposed()) {
+            okButton.setEnabled(enable);
+        }
+    }
 
-	private String getTitle() {
-		if (!StringUtil.isEmpty(this.tag.getId())) {
-			if (this.isUserTag) {
-				return Messages.EditTagDataDialog_EditUserTagDialogTitle_xtit;
-			} else {
-				return Messages.EditTagDataDialog_EditGlobalTagTitle_xtit;
-			}
-		} else {
-			if (this.isUserTag) {
-				return Messages.EditTagDataDialog_CreateUserTagTitle_xtit;
-			} else {
-				return Messages.EditTagDataDialog_CreateGlobalTagTitle_xtit;
-			}
-		}
-	}
+    private String getTitle() {
+        if (!StringUtil.isEmpty(tag.getId())) {
+            if (isUserTag) {
+                return Messages.EditTagDataDialog_EditUserTagDialogTitle_xtit;
+            } else {
+                return Messages.EditTagDataDialog_EditGlobalTagTitle_xtit;
+            }
+        }
+        if (isUserTag) {
+            return Messages.EditTagDataDialog_CreateUserTagTitle_xtit;
+        } else {
+            return Messages.EditTagDataDialog_CreateGlobalTagTitle_xtit;
+        }
+    }
 }

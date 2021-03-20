@@ -74,448 +74,436 @@ import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 public class TaggedObjectSearchResultPage extends Page implements ISearchResultPage, ISearchResultListener {
-	private String id;
-	private ISearchResultViewPart searchViewPart;
-	private Tree resultTree;
-	private TreeViewer resultTreeViewer;
-	private TaggedObjectSearchResult result;
-	private UIState state;
-	private Composite mainComposite;
-	private TaggedObjectSearchQuery searchQuery;
-	private IAbapProjectProvider projectProvider;
-	private CollapseAllTreeNodesAction collapseAllNodesAction;
-	private CollapseTreeNodesAction collapseNodesAction;
-	private CopyToClipboardAction copyToClipBoardAction;
-	private OpenTaggedObjectSearchPreferences openPreferencesAction;
-	private OpenInSearchDialogAction openInSearchDialog;
-	private IPropertyChangeListener prefStoreListener;
-	private IPreferenceStore prefStore;
-	private final List<String> executableObjectTypes;
+    private String id;
+    private ISearchResultViewPart searchViewPart;
+    private Tree resultTree;
+    private TreeViewer resultTreeViewer;
+    private TaggedObjectSearchResult result;
+    private UIState state;
+    private Composite mainComposite;
+    private TaggedObjectSearchQuery searchQuery;
+    private IAbapProjectProvider projectProvider;
+    private CollapseAllTreeNodesAction collapseAllNodesAction;
+    private CollapseTreeNodesAction collapseNodesAction;
+    private CopyToClipboardAction copyToClipBoardAction;
+    private OpenTaggedObjectSearchPreferences openPreferencesAction;
+    private OpenInSearchDialogAction openInSearchDialog;
+    private IPropertyChangeListener prefStoreListener;
+    private IPreferenceStore prefStore;
+    private final List<String> executableObjectTypes;
 
-	public TaggedObjectSearchResultPage() {
-		this.executableObjectTypes = Stream
-			.of("CLAS/OC", "PROG/P", "TRAN/T", "FUGR/FF", "WAPA/WO", "WDYA/YY", "WDCA/YA")
-			.collect(Collectors.toList());
-	}
+    public TaggedObjectSearchResultPage() {
+        executableObjectTypes = Stream.of("CLAS/OC", "PROG/P", "TRAN/T", "FUGR/FF", "WAPA/WO", "WDYA/YY", "WDCA/YA")
+                .collect(Collectors.toList());
+    }
 
-	@Override
-	public void createControl(final Composite parent) {
-		this.mainComposite = new Composite(parent, SWT.NONE);
-		HelpUtil.setHelp(this.mainComposite, HelpContexts.TAG_SEARCH);
-		this.mainComposite.setLayout(new FillLayout());
-		this.mainComposite.setSize(100, 100);
-		GridDataFactory.fillDefaults().applyTo(this.mainComposite);
+    @Override
+    public void createControl(final Composite parent) {
+        mainComposite = new Composite(parent, SWT.NONE);
+        HelpUtil.setHelp(mainComposite, HelpContexts.TAG_SEARCH);
+        mainComposite.setLayout(new FillLayout());
+        mainComposite.setSize(100, 100);
+        GridDataFactory.fillDefaults().applyTo(mainComposite);
 
-		createResultTree(this.mainComposite);
+        createResultTree(mainComposite);
 
-		initializeActions();
-		hookContextMenu();
+        initializeActions();
+        hookContextMenu();
 
-		this.prefStoreListener = e -> {
-			if (this.resultTree == null || this.resultTree.isDisposed()) {
-				return;
-			}
-			if (e.getProperty().equals(ITaggedObjectSearchPrefs.DISPLAY_DESCRIPTIONS)
-				|| e.getProperty().equals(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES)
-				|| e.getProperty().equals(ITaggedObjectSearchPrefs.DISPLAY_OBJECT_TYPES)) {
+        prefStoreListener = e -> {
+            if (resultTree == null || resultTree.isDisposed()) {
+                return;
+            }
+            if (e.getProperty().equals(ITaggedObjectSearchPrefs.DISPLAY_DESCRIPTIONS) || e.getProperty()
+                    .equals(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES) || e.getProperty()
+                            .equals(ITaggedObjectSearchPrefs.DISPLAY_OBJECT_TYPES)) {
 
-				this.resultTreeViewer.refresh();
-			}
-		};
-		this.prefStore = AbapTagsUIPlugin.getDefault().getPreferenceStore();
-		this.prefStore.addPropertyChangeListener(this.prefStoreListener);
+                resultTreeViewer.refresh();
+            }
+        };
+        prefStore = AbapTagsUIPlugin.getDefault().getPreferenceStore();
+        prefStore.addPropertyChangeListener(prefStoreListener);
 
-		getSite().setSelectionProvider(this.resultTreeViewer);
-	}
+        getSite().setSelectionProvider(resultTreeViewer);
+    }
 
-	@Override
-	public void dispose() {
-		if (this.prefStoreListener != null) {
-			this.prefStore.removePropertyChangeListener(this.prefStoreListener);
-		}
-		super.dispose();
-	}
+    @Override
+    public void dispose() {
+        if (prefStoreListener != null) {
+            prefStore.removePropertyChangeListener(prefStoreListener);
+        }
+        super.dispose();
+    }
 
-	@Override
-	public Control getControl() {
-		return this.mainComposite;
-	}
+    @Override
+    public Control getControl() {
+        return mainComposite;
+    }
 
-	@Override
-	public void setActionBars(final IActionBars actionBars) {
-		final IToolBarManager tbm = actionBars.getToolBarManager();
-		tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, this.openInSearchDialog);
-		tbm.appendToGroup(IContextMenuConstants.GROUP_EDIT, this.collapseAllNodesAction);
-		this.copyToClipBoardAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_COPY);
-		actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), this.copyToClipBoardAction);
-		actionBars.updateActionBars();
+    @Override
+    public void setActionBars(final IActionBars actionBars) {
+        final IToolBarManager tbm = actionBars.getToolBarManager();
+        tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, openInSearchDialog);
+        tbm.appendToGroup(IContextMenuConstants.GROUP_EDIT, collapseAllNodesAction);
+        copyToClipBoardAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_COPY);
+        actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), copyToClipBoardAction);
+        actionBars.updateActionBars();
 
-		actionBars.getMenuManager().add(new ObjectLabelDecorationMenu());
-		actionBars.getMenuManager().add(new Separator());
-		actionBars.getMenuManager().add(this.openPreferencesAction);
+        actionBars.getMenuManager().add(new ObjectLabelDecorationMenu());
+        actionBars.getMenuManager().add(new Separator());
+        actionBars.getMenuManager().add(openPreferencesAction);
 
-	}
+    }
 
-	@Override
-	public void setFocus() {
-		if (this.resultTree != null && !this.resultTree.isDisposed()) {
-			this.resultTree.setFocus();
-		}
+    @Override
+    public void setFocus() {
+        if (resultTree != null && !resultTree.isDisposed()) {
+            resultTree.setFocus();
+        }
 
-	}
+    }
 
-	@Override
-	public Object getUIState() {
-		if (this.resultTree != null && !this.resultTree.isDisposed()) {
-			final UIState uiState = new UIState();
-			uiState.setExpandedPaths(this.resultTreeViewer.getExpandedTreePaths());
-			uiState.setSelection(this.resultTreeViewer.getSelection());
-			return uiState;
-		}
-		return null;
-	}
+    @Override
+    public Object getUIState() {
+        if (resultTree != null && !resultTree.isDisposed()) {
+            final UIState uiState = new UIState();
+            uiState.setExpandedPaths(resultTreeViewer.getExpandedTreePaths());
+            uiState.setSelection(resultTreeViewer.getSelection());
+            return uiState;
+        }
+        return null;
+    }
 
-	@Override
-	public void setInput(final ISearchResult search, final Object uiState) {
-		if (this.result != null) {
-			// clean up old search
-			this.result.removeListener(this);
-			this.resultTreeViewer.setInput(null);
-		}
-		this.result = (TaggedObjectSearchResult) search;
-		if (this.result != null) {
-			this.result.addListener(this);
-			this.resultTreeViewer.setInput(this.result);
-			this.state = uiState instanceof UIState ? (UIState) uiState : null;
-			this.searchQuery = (TaggedObjectSearchQuery) this.result.getQuery();
-			this.projectProvider = this.searchQuery.getProjectProvider();
-			if (!NewSearchUI.isQueryRunning(this.searchQuery)) {
-				updateUiState();
-			}
-		} else {
-			this.searchViewPart.updateLabel();
-		}
+    @Override
+    public void setInput(final ISearchResult search, final Object uiState) {
+        if (result != null) {
+            // clean up old search
+            result.removeListener(this);
+            resultTreeViewer.setInput(null);
+        }
+        result = (TaggedObjectSearchResult) search;
+        if (result != null) {
+            result.addListener(this);
+            resultTreeViewer.setInput(result);
+            state = uiState instanceof UIState ? (UIState) uiState : null;
+            searchQuery = (TaggedObjectSearchQuery) result.getQuery();
+            projectProvider = searchQuery.getProjectProvider();
+            if (!NewSearchUI.isQueryRunning(searchQuery)) {
+                updateUiState();
+            }
+        } else {
+            searchViewPart.updateLabel();
+        }
 
-	}
+    }
 
-	@Override
-	public void setViewPart(final ISearchResultViewPart part) {
-		this.searchViewPart = part;
-	}
+    @Override
+    public void setViewPart(final ISearchResultViewPart part) {
+        searchViewPart = part;
+    }
 
-	@Override
-	public void restoreState(final IMemento memento) {
-	}
+    @Override
+    public void restoreState(final IMemento memento) {
+    }
 
-	@Override
-	public void saveState(final IMemento memento) {
-	}
+    @Override
+    public void saveState(final IMemento memento) {
+    }
 
-	@Override
-	public void setID(final String id) {
-		this.id = id;
-	}
+    @Override
+    public void setID(final String id) {
+        this.id = id;
+    }
 
-	@Override
-	public String getID() {
-		return this.id;
-	}
+    @Override
+    public String getID() {
+        return id;
+    }
 
-	@Override
-	public String getLabel() {
-		return this.result != null ? this.result.getLabel() : "";
-	}
+    @Override
+    public String getLabel() {
+        return result != null ? result.getLabel() : "";
+    }
 
-	@Override
-	public void searchResultChanged(final SearchResultEvent e) {
-		if (e instanceof TaggedObjectSearchResultEvent && ((TaggedObjectSearchResultEvent) e).isCleanup()) {
-			return;
-		}
-		this.state = null;
-		Display.getDefault().asyncExec(() -> {
-			/*
-			 * If there is no active page in the workbench window the search view will not
-			 * be brought to the front so it has to be done manually
-			 */
-			final IWorkbenchPage activeSearchPage = SearchPlugin.getActivePage();
-			if (activeSearchPage != null && this.searchViewPart != null
-				&& activeSearchPage.isPartVisible(this.searchViewPart)) {
-				activeSearchPage.bringToTop(this.searchViewPart);
-			}
-			this.searchViewPart.updateLabel();
-			final IAbapProjectProvider projectProvider = this.searchQuery.getProjectProvider();
-			if (projectProvider != this.projectProvider) {
-				this.projectProvider = projectProvider;
-			}
-			this.resultTreeViewer.setInput(e.getSearchResult());
-			updateUiState();
-		});
+    @Override
+    public void searchResultChanged(final SearchResultEvent e) {
+        if (e instanceof TaggedObjectSearchResultEvent && ((TaggedObjectSearchResultEvent) e).isCleanup()) {
+            return;
+        }
+        state = null;
+        Display.getDefault().asyncExec(() -> {
+            /*
+             * If there is no active page in the workbench window the search view will not
+             * be brought to the front so it has to be done manually
+             */
+            final IWorkbenchPage activeSearchPage = SearchPlugin.getActivePage();
+            if (activeSearchPage != null && searchViewPart != null && activeSearchPage.isPartVisible(searchViewPart)) {
+                activeSearchPage.bringToTop(searchViewPart);
+            }
+            searchViewPart.updateLabel();
+            final IAbapProjectProvider projectProvider = searchQuery.getProjectProvider();
+            if (projectProvider != this.projectProvider) {
+                this.projectProvider = projectProvider;
+            }
+            resultTreeViewer.setInput(e.getSearchResult());
+            updateUiState();
+        });
 
-	}
+    }
 
-	public TaggedObjectSearchQuery getQuery() {
-		return this.result != null ? (TaggedObjectSearchQuery) this.result.getQuery() : null;
-	}
+    public TaggedObjectSearchQuery getQuery() {
+        return result != null ? (TaggedObjectSearchQuery) result.getQuery() : null;
+    }
 
-	private void initializeActions() {
-		this.collapseAllNodesAction = new CollapseAllTreeNodesAction(this.resultTreeViewer);
-		this.collapseNodesAction = new CollapseTreeNodesAction(this.resultTreeViewer);
-		this.copyToClipBoardAction = new CopyToClipboardAction();
-		this.copyToClipBoardAction.registerViewer(this.resultTreeViewer);
-		this.openPreferencesAction = new OpenTaggedObjectSearchPreferences();
-		this.openInSearchDialog = new OpenInSearchDialogAction();
-	}
+    private void initializeActions() {
+        collapseAllNodesAction = new CollapseAllTreeNodesAction(resultTreeViewer);
+        collapseNodesAction = new CollapseTreeNodesAction(resultTreeViewer);
+        copyToClipBoardAction = new CopyToClipboardAction();
+        copyToClipBoardAction.registerViewer(resultTreeViewer);
+        openPreferencesAction = new OpenTaggedObjectSearchPreferences();
+        openInSearchDialog = new OpenInSearchDialogAction();
+    }
 
-	private void hookContextMenu() {
-		final MenuManager menuMgr = new MenuManager();
-		menuMgr.setRemoveAllWhenShown(true);
+    private void hookContextMenu() {
+        final MenuManager menuMgr = new MenuManager();
+        menuMgr.setRemoveAllWhenShown(true);
 
-		menuMgr.addMenuListener(menu -> {
-			fillContextMenu(menu);
-		});
-		final Control viewerControl = this.resultTree;
-		final Menu menu = menuMgr.createContextMenu(viewerControl);
-		viewerControl.setMenu(menu);
-		getSite().registerContextMenu(this.searchViewPart.getViewSite().getId(), menuMgr, this.resultTreeViewer);
-	}
+        menuMgr.addMenuListener(menu -> {
+            fillContextMenu(menu);
+        });
+        final Control viewerControl = resultTree;
+        final Menu menu = menuMgr.createContextMenu(viewerControl);
+        viewerControl.setMenu(menu);
+        getSite().registerContextMenu(searchViewPart.getViewSite().getId(), menuMgr, resultTreeViewer);
+    }
 
-	private void fillContextMenu(final IMenuManager menu) {
-		final IStructuredSelection selection = this.resultTreeViewer.getStructuredSelection();
-		if (selection == null || selection.isEmpty()) {
-			return;
-		}
-		menu.add(new Separator(IContextMenuConstants.GROUP_NEW));
-		menu.add(new Separator(IContextMenuConstants.GROUP_OPEN));
+    private void fillContextMenu(final IMenuManager menu) {
+        final IStructuredSelection selection = resultTreeViewer.getStructuredSelection();
+        if (selection == null || selection.isEmpty()) {
+            return;
+        }
+        menu.add(new Separator(IContextMenuConstants.GROUP_NEW));
+        menu.add(new Separator(IContextMenuConstants.GROUP_OPEN));
 
-		boolean selectionHasExpandedNodes = false;
-		final List<IAdtObjectReference> adtObjRefs = new ArrayList<>();
-		final List<IAdtObjectReference> previewAdtObjRefs = new ArrayList<>();
-		final List<IAdtObjectReference> executableAdtObjRefs = new ArrayList<>();
+        boolean selectionHasExpandedNodes = false;
+        final List<IAdtObjectReference> adtObjRefs = new ArrayList<>();
+        final List<IAdtObjectReference> previewAdtObjRefs = new ArrayList<>();
+        final List<IAdtObjectReference> executableAdtObjRefs = new ArrayList<>();
 
-		for (final Object selectedObject : selection.toList()) {
-			if (selectedObject instanceof IAdtObjectReferenceNode) {
-				final IAdtObjectReferenceNode objRefNode = (IAdtObjectReferenceNode) selectedObject;
-				final IAdtObjectReference adtObjectRef = objRefNode.getObjectReference();
-				if (objRefNode.supportsDataPreview()) {
-					previewAdtObjRefs.add(adtObjectRef);
-				}
-				if (this.executableObjectTypes.contains(objRefNode.getAdtObjectType())) {
-					executableAdtObjRefs.add(adtObjectRef);
-				}
-				adtObjRefs.add(adtObjectRef);
-			}
+        for (final Object selectedObject : selection.toList()) {
+            if (selectedObject instanceof IAdtObjectReferenceNode) {
+                final IAdtObjectReferenceNode objRefNode = (IAdtObjectReferenceNode) selectedObject;
+                final IAdtObjectReference adtObjectRef = objRefNode.getObjectReference();
+                if (objRefNode.supportsDataPreview()) {
+                    previewAdtObjRefs.add(adtObjectRef);
+                }
+                if (executableObjectTypes.contains(objRefNode.getAdtObjectType())) {
+                    executableAdtObjRefs.add(adtObjectRef);
+                }
+                adtObjRefs.add(adtObjectRef);
+            }
 
-			if (!selectionHasExpandedNodes && selectedObject instanceof ICollectionTreeNode
-				&& this.resultTreeViewer.getExpandedState(selectedObject)) {
-				selectionHasExpandedNodes = true;
-			}
-		}
+            if (!selectionHasExpandedNodes && selectedObject instanceof ICollectionTreeNode && resultTreeViewer
+                    .getExpandedState(selectedObject)) {
+                selectionHasExpandedNodes = true;
+            }
+        }
 
-		if (!adtObjRefs.isEmpty()) {
-			menu.appendToGroup(IContextMenuConstants.GROUP_OPEN,
-				new OpenAdtObjectAction(this.projectProvider.getProject(), adtObjRefs));
-		}
-		if (!previewAdtObjRefs.isEmpty()) {
-			menu.appendToGroup(IContextMenuConstants.GROUP_OPEN,
-				new ExecuteAdtObjectAction(this.projectProvider.getProject(), previewAdtObjRefs, true));
-		}
-		if (!executableAdtObjRefs.isEmpty()) {
-			menu.appendToGroup(IContextMenuConstants.GROUP_OPEN,
-				new ExecuteAdtObjectAction(this.projectProvider.getProject(), executableAdtObjRefs, false));
-		}
+        if (!adtObjRefs.isEmpty()) {
+            menu.appendToGroup(IContextMenuConstants.GROUP_OPEN, new OpenAdtObjectAction(projectProvider.getProject(),
+                    adtObjRefs));
+        }
+        if (!previewAdtObjRefs.isEmpty()) {
+            menu.appendToGroup(IContextMenuConstants.GROUP_OPEN, new ExecuteAdtObjectAction(projectProvider
+                    .getProject(), previewAdtObjRefs, true));
+        }
+        if (!executableAdtObjRefs.isEmpty()) {
+            menu.appendToGroup(IContextMenuConstants.GROUP_OPEN, new ExecuteAdtObjectAction(projectProvider
+                    .getProject(), executableAdtObjRefs, false));
+        }
 
-		if (!adtObjRefs.isEmpty()) {
-			menu.add(new Separator(IContextMenuConstants.GROUP_ADDITIONS));
-			MenuItemFactory.addCommandItem(menu, IContextMenuConstants.GROUP_ADDITIONS,
-				"com.sap.adt.ris.whereused.ui.callWhereUsed", //$NON-NLS-1$
-				AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.WHERE_USED_LIST),
-				AdtBaseUIResources.getString(IAdtBaseStrings.General_WhereUsedList_xmit), null);
-		}
+        if (!adtObjRefs.isEmpty()) {
+            menu.add(new Separator(IContextMenuConstants.GROUP_ADDITIONS));
+            MenuItemFactory.addCommandItem(menu, IContextMenuConstants.GROUP_ADDITIONS,
+                    "com.sap.adt.ris.whereused.ui.callWhereUsed", //$NON-NLS-1$
+                    AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.WHERE_USED_LIST), AdtBaseUIResources.getString(
+                            IAdtBaseStrings.General_WhereUsedList_xmit), null);
+        }
 
-		if (selectionHasExpandedNodes) {
-			if (selectionHasExpandedNodes) {
-				menu.add(this.collapseNodesAction);
-			}
-		}
+        if (selectionHasExpandedNodes && selectionHasExpandedNodes) {
+            menu.add(collapseNodesAction);
+        }
 
-		menu.add(new Separator(IContextMenuConstants.GROUP_EDIT));
-		menu.appendToGroup(IContextMenuConstants.GROUP_EDIT, this.copyToClipBoardAction);
-	}
+        menu.add(new Separator(IContextMenuConstants.GROUP_EDIT));
+        menu.appendToGroup(IContextMenuConstants.GROUP_EDIT, copyToClipBoardAction);
+    }
 
-	/*
-	 * Creates the result tree of the object search
-	 */
-	private void createResultTree(final Composite parent) {
+    /*
+     * Creates the result tree of the object search
+     */
+    private void createResultTree(final Composite parent) {
 
-		this.resultTreeViewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-		this.resultTree = this.resultTreeViewer.getTree();
-		this.resultTreeViewer.setContentProvider(new TreeContentProvider());
-		this.resultTreeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new ViewLabelProvider()));
-		this.resultTreeViewer.addOpenListener(event -> {
-			final ITreeSelection sel = (ITreeSelection) event.getSelection();
-			final Iterator<?> selIter = sel.iterator();
-			while (selIter.hasNext()) {
-				handleOpenOnTreeNode(selIter.next());
-			}
-		});
-	}
+        resultTreeViewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+        resultTree = resultTreeViewer.getTree();
+        resultTreeViewer.setContentProvider(new TreeContentProvider());
+        resultTreeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new ViewLabelProvider()));
+        resultTreeViewer.addOpenListener(event -> {
+            final ITreeSelection sel = (ITreeSelection) event.getSelection();
+            final Iterator<?> selIter = sel.iterator();
+            while (selIter.hasNext()) {
+                handleOpenOnTreeNode(selIter.next());
+            }
+        });
+    }
 
-	private void handleOpenOnTreeNode(final Object node) {
-		if (node == null) {
-			return;
-		}
-		if (node instanceof IAdtObjectReferenceNode) {
-			final IAdtObjectReferenceNode selectedAdtObject = (IAdtObjectReferenceNode) node;
+    private void handleOpenOnTreeNode(final Object node) {
+        if (node == null) {
+            return;
+        }
+        if (node instanceof IAdtObjectReferenceNode) {
+            final IAdtObjectReferenceNode selectedAdtObject = (IAdtObjectReferenceNode) node;
 
-			if (selectedAdtObject != null) {
-				this.searchQuery.getProjectProvider().openObjectReference(selectedAdtObject.getObjectReference());
-			}
-		} else if (node instanceof ICollectionTreeNode) {
-			final boolean isExpanded = this.resultTreeViewer.getExpandedState(node);
-			if (isExpanded) {
-				this.resultTreeViewer.collapseToLevel(node, 1);
-			} else {
-				this.resultTreeViewer.expandToLevel(node, 1);
-			}
-		} else if (node instanceof ActionTreeNode) {
-			((ActionTreeNode) node).getAction().execute();
-		}
-	}
+            if (selectedAdtObject != null) {
+                searchQuery.getProjectProvider().openObjectReference(selectedAdtObject.getObjectReference());
+            }
+        } else if (node instanceof ICollectionTreeNode) {
+            final boolean isExpanded = resultTreeViewer.getExpandedState(node);
+            if (isExpanded) {
+                resultTreeViewer.collapseToLevel(node, 1);
+            } else {
+                resultTreeViewer.expandToLevel(node, 1);
+            }
+        } else if (node instanceof ActionTreeNode) {
+            ((ActionTreeNode) node).getAction().execute();
+        }
+    }
 
-	private void updateUiState() {
-		Display.getDefault().asyncExec(() -> {
-			if (this.resultTreeViewer == null || this.resultTreeViewer.getControl().isDisposed()) {
-				return;
-			}
-			if (this.state != null) {
-				this.resultTreeViewer.getControl().setRedraw(false);
-				try {
-					this.resultTreeViewer.setExpandedTreePaths(this.state.getExpandedPaths());
-				} finally {
-					this.resultTreeViewer.getControl().setRedraw(true);
-				}
-			}
-			this.resultTreeViewer.getControl().setFocus();
-			final IAdtObjectReferenceNode[] result = this.result.getResultForTree(false);
-			if (result != null && result.length > 0) {
-				if (this.state != null && this.state.hasSelection()) {
-					this.resultTreeViewer.setSelection(this.state.getSelection());
-				} else {
-					this.resultTreeViewer.setSelection(new StructuredSelection(result[0]));
-				}
-			}
-			this.resultTreeViewer.refresh();
-		});
-	}
+    private void updateUiState() {
+        Display.getDefault().asyncExec(() -> {
+            if (resultTreeViewer == null || resultTreeViewer.getControl().isDisposed()) {
+                return;
+            }
+            if (state != null) {
+                resultTreeViewer.getControl().setRedraw(false);
+                try {
+                    resultTreeViewer.setExpandedTreePaths(state.getExpandedPaths());
+                } finally {
+                    resultTreeViewer.getControl().setRedraw(true);
+                }
+            }
+            resultTreeViewer.getControl().setFocus();
+            final IAdtObjectReferenceNode[] result = this.result.getResultForTree(false);
+            if (result != null && result.length > 0) {
+                if (state != null && state.hasSelection()) {
+                    resultTreeViewer.setSelection(state.getSelection());
+                } else {
+                    resultTreeViewer.setSelection(new StructuredSelection(result[0]));
+                }
+            }
+            resultTreeViewer.refresh();
+        });
+    }
 
-	private class TreeContentProvider extends LazyLoadingTreeContentProvider {
-		@Override
-		public Object[] getElements(final Object inputElement) {
-			if (TaggedObjectSearchResultPage.this.result != null) {
-				return TaggedObjectSearchResultPage.this.result.getResultForTree(false);
-			}
-			return new Object[0];
-		}
-	}
+    private class TreeContentProvider extends LazyLoadingTreeContentProvider {
+        @Override
+        public Object[] getElements(final Object inputElement) {
+            if (result != null) {
+                return result.getResultForTree(false);
+            }
+            return new Object[0];
+        }
+    }
 
-	/**
-	 * Custom view label provider for the Result Tree
-	 *
-	 * @author stockbal
-	 */
-	private class ViewLabelProvider extends LabelProvider implements ILabelProvider, IStyledLabelProvider {
+    /**
+     * Custom view label provider for the Result Tree
+     *
+     * @author stockbal
+     */
+    private class ViewLabelProvider extends LabelProvider implements ILabelProvider, IStyledLabelProvider {
 
-		@Override
-		public String getText(final Object element) {
-			final ITreeNode searchResult = (ITreeNode) element;
+        @Override
+        public String getText(final Object element) {
+            final ITreeNode searchResult = (ITreeNode) element;
 
-			return searchResult.getName();
-		}
+            return searchResult.getName();
+        }
 
-		@Override
-		public Image getImage(final Object element) {
-			Image image = null;
-			final ITreeNode searchResult = (ITreeNode) element;
-			image = searchResult.getImage();
-			if (image == null) {
+        @Override
+        public Image getImage(final Object element) {
+            Image image;
+            final ITreeNode searchResult = (ITreeNode) element;
+            image = searchResult.getImage();
+            if ((image == null) && (element instanceof IAdtObjectReferenceNode)) {
+                final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) element;
+                final IAdtObjectReference objRef = adtObjRefNode.getObjectReference();
+                image = AdtTypeUtil.getInstance().getTypeImage(objRef.getType());
+            }
+            return image;
+        }
 
-				if (element instanceof IAdtObjectReferenceNode) {
-					final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) element;
-					final IAdtObjectReference objRef = adtObjRefNode.getObjectReference();
-					image = AdtTypeUtil.getInstance().getTypeImage(objRef.getType());
-				}
-			}
-			return image;
-		}
+        @Override
+        public StyledString getStyledText(final Object element) {
+            boolean isAdtObjectRefNode = false;
+            StyledString text = new StyledString();
+            final ITreeNode searchResult = (ITreeNode) element;
 
-		@Override
-		public StyledString getStyledText(final Object element) {
-			boolean isAdtObjectRefNode = false;
-			StyledString text = new StyledString();
-			final ITreeNode searchResult = (ITreeNode) element;
+            if (element instanceof IStyledTreeNode) {
+                text = ((IStyledTreeNode) element).getStyledText();
+                if (text == null) {
+                    text = new StyledString();
+                }
+            } else {
+                if (element instanceof LoadingTreeItemsNode) {
+                    text.append(searchResult.getDisplayName(), StylerFactory.ITALIC_STYLER);
+                    return text;
+                }
+                text.append(searchResult.getDisplayName());
 
-			if (element instanceof IStyledTreeNode) {
-				text = ((IStyledTreeNode) element).getStyledText();
-				if (text == null) {
-					text = new StyledString();
-				}
-			} else {
-				if (element instanceof LoadingTreeItemsNode) {
-					text.append(searchResult.getDisplayName(), StylerFactory.ITALIC_STYLER);
-					return text;
-				} else {
-					text.append(searchResult.getDisplayName());
-				}
+                if (element instanceof IAdtObjectReferenceNode) {
+                    isAdtObjectRefNode = true;
+                    final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) element;
 
-				if (element instanceof IAdtObjectReferenceNode) {
-					isAdtObjectRefNode = true;
-					final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) element;
+                    if (prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_OBJECT_TYPES)) {
+                        String typeLabel = AdtTypeUtil.getInstance()
+                                .getTypeDescription(adtObjRefNode.getAdtObjectType());
+                        if (typeLabel == null) {
+                            typeLabel = AdtTypeUtil.getInstance()
+                                    .getTypeDescriptionByProject(adtObjRefNode.getAdtObjectType(), projectProvider
+                                            .getProject());
+                        }
+                        if (typeLabel != null) {
+                            text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
+                        }
+                    }
+                    if ((prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES) && !adtObjRefNode
+                            .getAdtObjectType()
+                            .startsWith("DEVC")) && !StringUtil.isEmpty(adtObjRefNode.getObjectReference()
+                                    .getPackageName())) {
+                        text.append(" - ");
+                        text.append(adtObjRefNode.getObjectReference().getPackageName(), StyledString.QUALIFIER_STYLER);
+                    }
+                }
 
-					if (TaggedObjectSearchResultPage.this.prefStore
-						.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_OBJECT_TYPES)) {
-						String typeLabel = AdtTypeUtil.getInstance()
-							.getTypeDescription(adtObjRefNode.getAdtObjectType());
-						if (typeLabel == null) {
-							typeLabel = AdtTypeUtil.getInstance()
-								.getTypeDescriptionByProject(adtObjRefNode.getAdtObjectType(),
-									TaggedObjectSearchResultPage.this.projectProvider.getProject());
-						}
-						if (typeLabel != null) {
-							text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
-						}
-					}
-					if (TaggedObjectSearchResultPage.this.prefStore
-						.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES)
-						&& !adtObjRefNode.getAdtObjectType().startsWith("DEVC")) { //$NON-NLS-1$
-						if (!StringUtil.isEmpty(adtObjRefNode.getObjectReference().getPackageName())) {
-							text.append(" - ");
-							text.append(adtObjRefNode.getObjectReference().getPackageName(),
-								StyledString.QUALIFIER_STYLER);
-						}
-					}
-				}
+                if (element instanceof ICollectionTreeNode && !isAdtObjectRefNode) {
+                    final ICollectionTreeNode collectionNode = (ICollectionTreeNode) element;
+                    if (collectionNode.hasChildren()) {
+                        final String size = ((ICollectionTreeNode) element).getSizeAsString();
+                        if (size != null) {
+                            text.append(" (" + size + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
+                        }
+                    }
+                }
 
-				if (element instanceof ICollectionTreeNode && !isAdtObjectRefNode) {
-					final ICollectionTreeNode collectionNode = (ICollectionTreeNode) element;
-					if (collectionNode.hasChildren()) {
-						final String size = ((ICollectionTreeNode) element).getSizeAsString();
-						if (size != null) {
-							text.append(" (" + size + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
-						}
-					}
-				}
+                if (prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_DESCRIPTIONS)) {
+                    final String description = searchResult.getDescription();
+                    if (!StringUtil.isEmpty(description)) {
+                        text.append("  " + description, //$NON-NLS-1$
+                                StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR, null));
+                    }
+                }
+            }
 
-				if (TaggedObjectSearchResultPage.this.prefStore
-					.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_DESCRIPTIONS)) {
-					final String description = searchResult.getDescription();
-					if (!StringUtil.isEmpty(description)) {
-						text.append("  " + description, //$NON-NLS-1$
-							StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR, null));
-					}
-				}
-			}
-
-			return text;
-		}
-	}
+            return text;
+        }
+    }
 }

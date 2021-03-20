@@ -14,21 +14,21 @@ import com.devepos.adt.atm.ui.internal.messages.Messages;
 
 public class MainPreferencesPage extends PreferencePage implements IWorkbenchPreferencePage {
 
-	@Override
-	public void init(final IWorkbench workbench) {
+    @Override
+    public void init(final IWorkbench workbench) {
 
-	}
+    }
 
-	@Override
-	protected Control createContents(final Composite parent) {
-		final Composite main = new Composite(parent, SWT.NONE);
-		GridDataFactory.fillDefaults().grab(true, true).applyTo(main);
-		GridLayoutFactory.fillDefaults().applyTo(main);
+    @Override
+    protected Control createContents(final Composite parent) {
+        final Composite main = new Composite(parent, SWT.NONE);
+        GridDataFactory.fillDefaults().grab(true, true).applyTo(main);
+        GridLayoutFactory.fillDefaults().applyTo(main);
 
-		final Label label = new Label(main, SWT.NONE);
-		label.setText(Messages.MainPreferencesPage_InfoLabel_xlbl);
-		GridDataFactory.fillDefaults().applyTo(label);
-		return main;
-	}
+        final Label label = new Label(main, SWT.NONE);
+        label.setText(Messages.MainPreferencesPage_InfoLabel_xlbl);
+        GridDataFactory.fillDefaults().applyTo(label);
+        return main;
+    }
 
 }
