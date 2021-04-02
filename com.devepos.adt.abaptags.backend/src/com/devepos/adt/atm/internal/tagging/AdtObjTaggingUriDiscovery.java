@@ -55,7 +55,7 @@ public class AdtObjTaggingUriDiscovery extends AbapTagsUriDiscoveryBase {
      */
     public URI getTagPreviewUri() {
         final IAdtUriTemplate template = getTemplate(DISCOVERY_TERM_TAGS, DISCOVERY_RELATION_TAGS
-                + DISCOVERY_TEMPLATE_TAG_PREVIEW);
+            + DISCOVERY_TEMPLATE_TAG_PREVIEW);
         if (template != null) {
             return URI.create(template.getTemplate());
         }

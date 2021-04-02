@@ -57,8 +57,8 @@ public class TaggedObjectSearchResult implements ISearchResult {
         } else if (resultCount > 1) {
             if (hasMoreResults) {
                 resultsLabel = AdtBaseUIResources.format(IAdtBaseStrings.SearchUI_ResultsExceedMaximum_xmsg, query
-                        .getSearchParams()
-                        .getMaxResults());
+                    .getSearchParams()
+                    .getMaxResults());
             } else {
                 resultsLabel = AdtBaseUIResources.format(IAdtBaseStrings.SearchUI_SpecificResults_xmsg, resultCount);
 
@@ -148,16 +148,15 @@ public class TaggedObjectSearchResult implements ISearchResult {
              * expansion is possible
              */
             final AdtObjectReferenceNode objRefNode = new AdtObjectReferenceNode(objectRef.getName(), objectRef
-                    .getName(), objectRef.getDescription(), AdtObjectReferenceModelFactory.createReference(query
-                            .getDestinationId(), objectRef));
+                .getName(), objectRef.getDescription(), AdtObjectReferenceModelFactory.createReference(query
+                    .getDestinationId(), objectRef));
             nodes.add(objRefNode);
 
             for (final IAdtObjectTag tag : taggedObject.getTags()) {
                 final ILazyLoadingNode lazyTagNode = new LazyLoadingFolderNode(tag.getName(),
-                        new TaggedObjectSearchInfoProvider(query.getDestinationId(), objectRef, tag, query
-                                .getSearchParams()
-                                .getMaxResults()), objRefNode, AbapTagsUIPlugin.getDefault()
-                                        .getImage(StringUtil.isEmpty(tag.getOwner()) ? IImages.TAG : IImages.USER_TAG));
+                    new TaggedObjectSearchInfoProvider(query.getDestinationId(), objectRef, tag, query.getSearchParams()
+                        .getMaxResults()), objRefNode, AbapTagsUIPlugin.getDefault()
+                            .getImage(StringUtil.isEmpty(tag.getOwner()) ? IImages.TAG : IImages.USER_TAG));
                 objRefNode.getChildren().add(lazyTagNode);
             }
         }

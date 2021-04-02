@@ -17,7 +17,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 
 public abstract class BaseFieldEditorPrefPage extends PreferencePage implements IWorkbenchPreferencePage,
-        IPropertyChangeListener {
+    IPropertyChangeListener {
 
     protected final List<FieldEditor> fields = new ArrayList<>();
 
@@ -61,7 +61,7 @@ public abstract class BaseFieldEditorPrefPage extends PreferencePage implements 
     }
 
     protected BooleanFieldEditor addBooleanEditor(final String preferenceId, final String labelText,
-            final Composite parent, final int colSpan, final int rowSpan) {
+        final Composite parent, final int colSpan, final int rowSpan) {
         final BooleanFieldEditor booleanEditor = new BooleanFieldEditor(preferenceId, labelText, parent);
         fields.add(booleanEditor);
 
@@ -72,7 +72,7 @@ public abstract class BaseFieldEditorPrefPage extends PreferencePage implements 
     }
 
     protected BooleanFieldEditor addBooleanEditor(final String preferenceId, final String labelText,
-            final Composite parent) {
+        final Composite parent) {
         return addBooleanEditor(preferenceId, labelText, parent, 1, 1);
     }
 

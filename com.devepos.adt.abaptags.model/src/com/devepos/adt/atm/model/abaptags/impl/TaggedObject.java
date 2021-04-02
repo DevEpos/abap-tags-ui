@@ -94,7 +94,7 @@ public class TaggedObject extends MinimalEObjectImpl.Container implements ITagge
         objectRef = newObjectRef;
         if (eNotificationRequired()) {
             ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-                    IAbapTagsPackage.TAGGED_OBJECT__OBJECT_REF, oldObjectRef, newObjectRef);
+                IAbapTagsPackage.TAGGED_OBJECT__OBJECT_REF, oldObjectRef, newObjectRef);
             if (msgs == null) {
                 msgs = notification;
             } else {
@@ -115,11 +115,11 @@ public class TaggedObject extends MinimalEObjectImpl.Container implements ITagge
             NotificationChain msgs = null;
             if (objectRef != null) {
                 msgs = ((InternalEObject) objectRef).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-                        - IAbapTagsPackage.TAGGED_OBJECT__OBJECT_REF, null, msgs);
+                    - IAbapTagsPackage.TAGGED_OBJECT__OBJECT_REF, null, msgs);
             }
             if (newObjectRef != null) {
                 msgs = ((InternalEObject) newObjectRef).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-                        - IAbapTagsPackage.TAGGED_OBJECT__OBJECT_REF, null, msgs);
+                    - IAbapTagsPackage.TAGGED_OBJECT__OBJECT_REF, null, msgs);
             }
             msgs = basicSetObjectRef(newObjectRef, msgs);
             if (msgs != null) {
@@ -127,7 +127,7 @@ public class TaggedObject extends MinimalEObjectImpl.Container implements ITagge
             }
         } else if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAGGED_OBJECT__OBJECT_REF,
-                    newObjectRef, newObjectRef));
+                newObjectRef, newObjectRef));
         }
     }
 
@@ -151,7 +151,7 @@ public class TaggedObject extends MinimalEObjectImpl.Container implements ITagge
      */
     @Override
     public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
-            final NotificationChain msgs) {
+        final NotificationChain msgs) {
         switch (featureID) {
         case IAbapTagsPackage.TAGGED_OBJECT__OBJECT_REF:
             return basicSetObjectRef(null, msgs);

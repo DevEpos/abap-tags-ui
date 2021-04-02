@@ -17,7 +17,7 @@ public class TaggedObjectSearchService implements ITaggedObjectSearchService {
     @Override
     public ITaggedObjectList findObjects(final String destinationId, final ITaggedObjectSearchParams parameters) {
         final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(
-                destinationId);
+            destinationId);
         if (projectProvider == null) {
             return null;
         }
@@ -28,7 +28,7 @@ public class TaggedObjectSearchService implements ITaggedObjectSearchService {
             final ISystemSession session = projectProvider.createStatelessSession();
 
             final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                    .createRestResource(uriDiscovery.getTaggedObjectSearchUri(), session);
+                .createRestResource(uriDiscovery.getTaggedObjectSearchUri(), session);
             restResource.addContentHandler(new TaggedObjectListContentHandler());
             restResource.addContentHandler(new TagSearchParamsContentHandler());
 

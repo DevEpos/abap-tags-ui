@@ -38,7 +38,7 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<IAdtObjRef, 
     private final String tagId;
 
     public ParentObjectFilterDialog(final Shell shell, final String destinationId, final String tagId,
-            final TagSearchScope searchScope) {
+        final TagSearchScope searchScope) {
         super(shell, false);
         this.tagId = tagId;
         this.destinationId = destinationId;
@@ -70,23 +70,22 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<IAdtObjRef, 
 
     @Override
     protected SearchSelectionDialog<IAdtObjRef, String>.SearchResultObject performSearch(final String filter,
-            final IProgressMonitor monitor) throws CoreException {
+        final IProgressMonitor monitor) throws CoreException {
         parameters.setQuery(StringUtil.isEmpty(filter) ? "*" : filter);
         final ITaggedObjectList taggedObjects = service.findObjects(ParentObjectFilterDialog.this.destinationId,
-                ParentObjectFilterDialog.this.parameters);
+            ParentObjectFilterDialog.this.parameters);
         if (taggedObjects != null && !taggedObjects.getTaggedObjects().isEmpty()) {
             return new SearchResultObject(taggedObjects.getTaggedObjects()
-                    .stream()
-                    .limit(parameters.getMaxResults())
-                    .map(ITaggedObject::getObjectRef)
-                    .collect(Collectors.toList()), taggedObjects.getTaggedObjects().size() <= parameters
-                            .getMaxResults());
+                .stream()
+                .limit(parameters.getMaxResults())
+                .map(ITaggedObject::getObjectRef)
+                .collect(Collectors.toList()), taggedObjects.getTaggedObjects().size() <= parameters.getMaxResults());
         }
         return new SearchResultObject(new ArrayList<>(), true);
     }
 
     private class ItemsLabelProvider extends LabelProvider implements
-            DelegatingStyledCellLabelProvider.IStyledLabelProvider {
+        DelegatingStyledCellLabelProvider.IStyledLabelProvider {
 
         @Override
         public Image getImage(final Object element) {
@@ -107,7 +106,7 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<IAdtObjRef, 
                 final String description = objRef.getDescription();
                 if (!StringUtil.isEmpty(description)) {
                     text.append("  " + objRef.getDescription(), //$NON-NLS-1$
-                            StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR, null));
+                        StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR, null));
                 }
             }
             return text != null ? text : new StyledString();

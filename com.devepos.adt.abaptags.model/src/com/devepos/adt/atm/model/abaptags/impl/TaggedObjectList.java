@@ -68,7 +68,7 @@ public class TaggedObjectList extends MinimalEObjectImpl.Container implements IT
     public EList<ITaggedObject> getTaggedObjects() {
         if (taggedObjects == null) {
             taggedObjects = new EObjectContainmentEList<>(ITaggedObject.class, this,
-                    IAbapTagsPackage.TAGGED_OBJECT_LIST__TAGGED_OBJECTS);
+                IAbapTagsPackage.TAGGED_OBJECT_LIST__TAGGED_OBJECTS);
         }
         return taggedObjects;
     }
@@ -80,7 +80,7 @@ public class TaggedObjectList extends MinimalEObjectImpl.Container implements IT
      */
     @Override
     public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
-            final NotificationChain msgs) {
+        final NotificationChain msgs) {
         switch (featureID) {
         case IAbapTagsPackage.TAGGED_OBJECT_LIST__TAGGED_OBJECTS:
             return ((InternalEList<?>) getTaggedObjects()).basicRemove(otherEnd, msgs);

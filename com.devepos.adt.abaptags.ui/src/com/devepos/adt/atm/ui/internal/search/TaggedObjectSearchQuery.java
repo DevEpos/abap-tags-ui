@@ -36,13 +36,13 @@ public class TaggedObjectSearchQuery implements ISearchQuery {
         searchResult.cleanup();
         // update the max results parameter as it could have changed in the mean time
         searchParams.setMaxResults(AbapTagsUIPlugin.getDefault()
-                .getPreferenceStore()
-                .getInt(ITaggedObjectSearchPrefs.MAX_RESULTS));
+            .getPreferenceStore()
+            .getInt(ITaggedObjectSearchPrefs.MAX_RESULTS));
 
         // perform object search
         if (projectProvider == null || !projectProvider.hasProject()) {
             return new Status(IStatus.ERROR, AbapTagsUIPlugin.PLUGIN_ID,
-                    Messages.TaggedObjectSearchQuery_NoProjectError_xmsg);
+                Messages.TaggedObjectSearchQuery_NoProjectError_xmsg);
         }
         final IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(projectProvider.getProject());
         if (!loggedOnStatus.isOK()) {
@@ -53,7 +53,7 @@ public class TaggedObjectSearchQuery implements ISearchQuery {
                                                                                     // 1);
 
         final ITaggedObjectList result = TaggedObjectSearchFactory.createTaggedObjectSearchService()
-                .findObjects(projectProvider.getDestinationId(), searchParams);
+            .findObjects(projectProvider.getDestinationId(), searchParams);
 
         if (result != null && result.getTaggedObjects().size() > searchParams.getMaxResults()) {
             searchResult.setHasMoreResults(true);

@@ -22,7 +22,6 @@ import com.sap.adt.communication.resources.IQueryParameter;
 import com.sap.adt.communication.resources.IRestResource;
 import com.sap.adt.communication.resources.QueryParameter;
 import com.sap.adt.communication.resources.ResourceException;
-import com.sap.adt.communication.resources.ResourceForbiddenException;
 import com.sap.adt.communication.session.AdtSystemSessionFactory;
 import com.sap.adt.communication.session.IEnqueueSystemSession;
 import com.sap.adt.communication.session.ISystemSession;
@@ -52,7 +51,7 @@ public class AbapTagsService implements IAbapTagsService {
             return Status.OK_STATUS;
         }
         return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(
-                "ABAP Tags are not available in Project {0}", project.getName()));
+            "ABAP Tags are not available in Project {0}", project.getName()));
     }
 
     @Override
@@ -63,7 +62,7 @@ public class AbapTagsService implements IAbapTagsService {
             return Status.OK_STATUS;
         }
         return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(
-                "The Share feature is not available in Project {0}", project.getName()));
+            "The Share feature is not available in Project {0}", project.getName()));
     }
 
     @Override
@@ -72,7 +71,7 @@ public class AbapTagsService implements IAbapTagsService {
             return Status.OK_STATUS;
         }
         final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(
-                destinationId);
+            destinationId);
         if (projectProvider == null) {
             return Status.CANCEL_STATUS;
         }
@@ -83,7 +82,7 @@ public class AbapTagsService implements IAbapTagsService {
             final ISystemSession session = projectProvider.createStatelessSession();
 
             final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                    .createRestResource(uriDiscovery.getTagsUri(), session);
+                .createRestResource(uriDiscovery.getTagsUri(), session);
             restResource.addContentHandler(new AbapTagsContentHandler());
 
             restResource.post(null, ITagList.class, tags, new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()));
@@ -100,7 +99,7 @@ public class AbapTagsService implements IAbapTagsService {
             return Status.OK_STATUS;
         }
         final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(
-                destinationId);
+            destinationId);
         if (projectProvider == null) {
             return Status.CANCEL_STATUS;
         }
@@ -111,11 +110,11 @@ public class AbapTagsService implements IAbapTagsService {
             final ISystemSession session = projectProvider.createStatelessSession();
 
             final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                    .createRestResource(uriDiscovery.getTagsUri(), session);
+                .createRestResource(uriDiscovery.getTagsUri(), session);
             restResource.addContentHandler(new AbapTagsContentHandler());
 
             restResource.post(null, ITagList.class, tagList, new QueryParameter(QUERY_PARAM_ACTION,
-                    CUSTOM_ACTION_MAKE_GLOBAL));
+                CUSTOM_ACTION_MAKE_GLOBAL));
             return Status.OK_STATUS;
         } catch (final ResourceException exc) {
             exc.printStackTrace();
@@ -129,7 +128,7 @@ public class AbapTagsService implements IAbapTagsService {
             return Status.OK_STATUS;
         }
         final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(
-                destinationId);
+            destinationId);
         if (projectProvider == null) {
             return Status.CANCEL_STATUS;
         }
@@ -140,7 +139,7 @@ public class AbapTagsService implements IAbapTagsService {
             final ISystemSession session = projectProvider.createStatelessSession();
 
             final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                    .createRestResource(uriDiscovery.getShareTagsUri(), session);
+                .createRestResource(uriDiscovery.getShareTagsUri(), session);
             restResource.addContentHandler(new AbapTagsContentHandler());
 
             restResource.post(null, ITagList.class, tagList);
@@ -157,7 +156,7 @@ public class AbapTagsService implements IAbapTagsService {
             return Status.OK_STATUS;
         }
         final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(
-                destinationId);
+            destinationId);
         if (projectProvider == null) {
             return Status.CANCEL_STATUS;
         }
@@ -168,7 +167,7 @@ public class AbapTagsService implements IAbapTagsService {
             final ISystemSession session = projectProvider.createStatelessSession();
 
             final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                    .createRestResource(uriDiscovery.getShareTagsUri(), session);
+                .createRestResource(uriDiscovery.getShareTagsUri(), session);
             restResource.addContentHandler(new AbapTagsContentHandler());
 
             restResource.post(null, ITagList.class, tagList, new QueryParameter(QUERY_PARAM_UNSHARE, "X")); //$NON-NLS-1$
@@ -185,7 +184,7 @@ public class AbapTagsService implements IAbapTagsService {
             return null;
         }
         final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(
-                destinationId);
+            destinationId);
         if (projectProvider == null) {
             return null;
         }
@@ -196,7 +195,7 @@ public class AbapTagsService implements IAbapTagsService {
             final ISystemSession session = projectProvider.createStatelessSession();
 
             final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                    .createRestResource(uriDiscovery.getSharedTagInfoUri(tagId), session);
+                .createRestResource(uriDiscovery.getSharedTagInfoUri(tagId), session);
             restResource.addContentHandler(new AbapTagsContentHandler());
 
             final ITagList tagList = restResource.get(null, ITagList.class);
@@ -212,7 +211,7 @@ public class AbapTagsService implements IAbapTagsService {
     @Override
     public ITagList findTags(final String destinationId, final TagSearchScope scope, final String query) {
         final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(
-                destinationId);
+            destinationId);
         if (projectProvider == null) {
             return null;
         }
@@ -223,11 +222,11 @@ public class AbapTagsService implements IAbapTagsService {
             final ISystemSession session = projectProvider.createStatelessSession();
 
             final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                    .createRestResource(uriDiscovery.getTagsUri(), session);
+                .createRestResource(uriDiscovery.getTagsUri(), session);
             restResource.addContentHandler(new AbapTagsContentHandler());
 
             return restResource.get(null, ITagList.class, new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()),
-                    new QueryParameter(QUERY_PARAM_QUERY, query));
+                new QueryParameter(QUERY_PARAM_QUERY, query));
 
         } catch (final ResourceException exc) {
             exc.printStackTrace();
@@ -238,7 +237,7 @@ public class AbapTagsService implements IAbapTagsService {
     @Override
     public ITagList readTags(final String destinationId, final TagSearchScope scope, final boolean withObjectCount) {
         final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(
-                destinationId);
+            destinationId);
         if (projectProvider == null) {
             return null;
         }
@@ -249,7 +248,7 @@ public class AbapTagsService implements IAbapTagsService {
             final ISystemSession session = projectProvider.createStatelessSession();
 
             final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                    .createRestResource(uriDiscovery.getTagsUri(), session);
+                .createRestResource(uriDiscovery.getTagsUri(), session);
             restResource.addContentHandler(new AbapTagsContentHandler());
 
             final List<IQueryParameter> params = new ArrayList<>();
@@ -272,7 +271,7 @@ public class AbapTagsService implements IAbapTagsService {
             return Status.OK_STATUS;
         }
         final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(
-                destinationId);
+            destinationId);
         if (projectProvider == null) {
             return Status.CANCEL_STATUS;
         }
@@ -283,11 +282,11 @@ public class AbapTagsService implements IAbapTagsService {
             final ISystemSession session = projectProvider.createStatelessSession();
 
             final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                    .createRestResource(uriDiscovery.getTagsUri(), session);
+                .createRestResource(uriDiscovery.getTagsUri(), session);
             restResource.addContentHandler(new AbapTagsContentHandler());
 
             restResource.post(null, ITagList.class, tags, new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()),
-                    new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_BATCH_DELETE));
+                new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_BATCH_DELETE));
             return Status.OK_STATUS;
         } catch (final ResourceException exc) {
             exc.printStackTrace();
@@ -299,7 +298,7 @@ public class AbapTagsService implements IAbapTagsService {
     @Override
     public IStatus lockTags(final String destinationId, final TagSearchScope scope) {
         final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(
-                destinationId);
+            destinationId);
         if (projectProvider == null) {
             return Status.CANCEL_STATUS;
         }
@@ -308,14 +307,14 @@ public class AbapTagsService implements IAbapTagsService {
 
             final AbapTagsUriDiscovery uriDiscovery = new AbapTagsUriDiscovery(destinationId);
             final IEnqueueSystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
-                    .getEnqueueSession(destinationId);
+                .getEnqueueSession(destinationId);
 
             final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                    .createRestResource(uriDiscovery.getTagsUri(), session);
+                .createRestResource(uriDiscovery.getTagsUri(), session);
             restResource.addContentHandler(new AbapTagsContentHandler());
 
             restResource.post(null, ITagList.class, new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()),
-                    new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_LOCK));
+                new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_LOCK));
             return Status.OK_STATUS;
         } catch (final ResourceException exc) {
             return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage(), exc);
@@ -325,7 +324,7 @@ public class AbapTagsService implements IAbapTagsService {
     @Override
     public void unlockTags(final String destinationId, final TagSearchScope scope) {
         final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(
-                destinationId);
+            destinationId);
         if (projectProvider == null) {
             return;
         }
@@ -334,14 +333,14 @@ public class AbapTagsService implements IAbapTagsService {
 
             final AbapTagsUriDiscovery uriDiscovery = new AbapTagsUriDiscovery(destinationId);
             final IEnqueueSystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
-                    .getEnqueueSession(destinationId);
+                .getEnqueueSession(destinationId);
 
             final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                    .createRestResource(uriDiscovery.getTagsUri(), session);
+                .createRestResource(uriDiscovery.getTagsUri(), session);
             restResource.addContentHandler(new AbapTagsContentHandler());
 
             restResource.post(null, ITagList.class, new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()),
-                    new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_UNLOCK));
+                new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_UNLOCK));
 
         } catch (final ResourceException exc) {
             exc.printStackTrace();

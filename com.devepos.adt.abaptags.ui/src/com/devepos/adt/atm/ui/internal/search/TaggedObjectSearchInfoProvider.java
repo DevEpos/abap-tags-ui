@@ -33,7 +33,7 @@ public class TaggedObjectSearchInfoProvider implements IElementInfoProvider {
     private final IAdtObjectTag tag;
 
     public TaggedObjectSearchInfoProvider(final String destinationId, final IAdtObjRef adtObjRef,
-            final IAdtObjectTag tag, final int maxResults) {
+        final IAdtObjectTag tag, final int maxResults) {
         this.destinationId = destinationId;
         parentObjRef = adtObjRef;
         this.tag = tag;
@@ -59,15 +59,15 @@ public class TaggedObjectSearchInfoProvider implements IElementInfoProvider {
             for (final ITaggedObject taggedObject : taggedObjectList.getTaggedObjects()) {
                 final IAdtObjRef objRef = taggedObject.getObjectRef();
                 final AdtObjectReferenceElementInfo objRefElemeInfo = new AdtObjectReferenceElementInfo(objRef
-                        .getName(), objRef.getName(), objRef.getDescription());
+                    .getName(), objRef.getName(), objRef.getDescription());
                 objRefElemeInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(destinationId,
-                        objRef));
+                    objRef));
 
                 for (final IAdtObjectTag tag : taggedObject.getTags()) {
                     final ILazyLoadingElementInfo lazyTagElemInfo = new LazyLoadingElementInfo(tag.getName(),
-                            AbapTagsUIPlugin.getDefault()
-                                    .getImage(StringUtil.isEmpty(tag.getOwner()) ? IImages.TAG : IImages.USER_TAG),
-                            new TaggedObjectSearchInfoProvider(destinationId, objRef, tag, maxResults));
+                        AbapTagsUIPlugin.getDefault()
+                            .getImage(StringUtil.isEmpty(tag.getOwner()) ? IImages.TAG : IImages.USER_TAG),
+                        new TaggedObjectSearchInfoProvider(destinationId, objRef, tag, maxResults));
                     objRefElemeInfo.getChildren().add(lazyTagElemInfo);
                 }
                 objRefElemeInfo.setLazyLoadingSupport(false);

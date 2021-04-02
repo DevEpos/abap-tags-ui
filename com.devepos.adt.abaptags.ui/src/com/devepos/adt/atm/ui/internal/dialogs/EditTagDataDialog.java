@@ -37,7 +37,7 @@ public class EditTagDataDialog extends TitleAreaDialog {
     private final String oldTagDescription;
 
     public EditTagDataDialog(final Shell shell, final ITag tag, final List<ITag> tagListForValidation,
-            final boolean isUserTag) {
+        final boolean isUserTag) {
         super(shell);
         this.tag = tag;
         oldTagName = tag.getName();
@@ -165,14 +165,12 @@ public class EditTagDataDialog extends TitleAreaDialog {
         if (!StringUtil.isEmpty(tag.getId())) {
             if (isUserTag) {
                 return Messages.EditTagDataDialog_EditUserTagDialogTitle_xtit;
-            } else {
-                return Messages.EditTagDataDialog_EditGlobalTagTitle_xtit;
             }
+            return Messages.EditTagDataDialog_EditGlobalTagTitle_xtit;
         }
         if (isUserTag) {
             return Messages.EditTagDataDialog_CreateUserTagTitle_xtit;
-        } else {
-            return Messages.EditTagDataDialog_CreateGlobalTagTitle_xtit;
         }
+        return Messages.EditTagDataDialog_CreateGlobalTagTitle_xtit;
     }
 }

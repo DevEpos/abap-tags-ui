@@ -23,8 +23,8 @@ public class HelpUtil {
             return;
         }
         PlatformUI.getWorkbench()
-                .getHelpSystem()
-                .setHelp(control, AbapTagsUIPlugin.PLUGIN_ID + "." + context.getHelpContextId());
+            .getHelpSystem()
+            .setHelp(control, AbapTagsUIPlugin.PLUGIN_ID + "." + context.getHelpContextId());
     }
 
     /**

@@ -30,10 +30,10 @@ public class TaggedObjectTreeContentProvider implements ITreeContentProvider {
     public Object[] getChildren(final Object parentElement) {
         if (parentElement instanceof ITaggedObject) {
             return ((ITaggedObject) parentElement).getTags()
-                    .stream()
-                    .filter(t -> t.getParentTagName() != null && !t.getParentTagName().isEmpty())
-                    .collect(Collectors.toList())
-                    .toArray();
+                .stream()
+                .filter(t -> t.getParentTagName() != null && !t.getParentTagName().isEmpty())
+                .collect(Collectors.toList())
+                .toArray();
         }
         return null;
     }

@@ -15,7 +15,7 @@ import com.devepos.adt.base.ui.IAdtBaseImages;
 public class OpenInSearchDialogAction extends Action {
     public OpenInSearchDialogAction() {
         super(Messages.OpenInSearchDialogAction_Label_xmit, AdtBaseUIResources.getImageDescriptor(
-                IAdtBaseImages.SEARCH));
+            IAdtBaseImages.SEARCH));
     }
 
     @Override
@@ -33,7 +33,7 @@ public class OpenInSearchDialogAction extends Action {
             dialog.open();
             if (dialog.getSelectedPage() instanceof TaggedObjectSearchPage) {
                 ((TaggedObjectSearchPage) dialog.getSelectedPage()).setInputFromPreviousQuery(objectSearchResultPage
-                        .getQuery());
+                    .getQuery());
             }
             dialog.setBlockOnOpen(true);
         }
@@ -42,9 +42,9 @@ public class OpenInSearchDialogAction extends Action {
     protected SearchView getSearchView() {
 
         final IWorkbenchPart activePart = PlatformUI.getWorkbench()
-                .getActiveWorkbenchWindow()
-                .getActivePage()
-                .getActivePart();
+            .getActiveWorkbenchWindow()
+            .getActivePage()
+            .getActivePart();
         if (activePart instanceof SearchView) {
             return (SearchView) activePart;
         }

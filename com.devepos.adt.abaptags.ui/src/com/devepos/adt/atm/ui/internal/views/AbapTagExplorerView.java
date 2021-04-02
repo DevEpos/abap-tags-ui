@@ -247,9 +247,9 @@ public class AbapTagExplorerView extends ViewPart {
         if (!adtObjRefs.isEmpty()) {
             menu.add(new Separator(IGeneralContextMenuConstants.GROUP_ADDITIONS));
             MenuItemFactory.addCommandItem(menu, IGeneralContextMenuConstants.GROUP_ADDITIONS,
-                    "com.sap.adt.ris.whereused.ui.callWhereUsed", //$NON-NLS-1$
-                    AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.WHERE_USED_LIST), AdtBaseUIResources.getString(
-                            IAdtBaseStrings.General_WhereUsedList_xmit), null);
+                "com.sap.adt.ris.whereused.ui.callWhereUsed", //$NON-NLS-1$
+                AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.WHERE_USED_LIST), AdtBaseUIResources.getString(
+                    IAdtBaseStrings.General_WhereUsedList_xmit), null);
         }
 
         menu.add(new Separator(IGeneralContextMenuConstants.GROUP_EDIT));
@@ -280,42 +280,41 @@ public class AbapTagExplorerView extends ViewPart {
         copyToClipBoardAction = new CopyToClipboardAction();
         copyToClipBoardAction.registerViewer(treeViewer);
         linkToEditorAction = new PreferenceToggleAction(Messages.AbapTagExplorerView_LinkToEditorAction_xtol, PlatformUI
-                .getWorkbench()
-                .getSharedImages()
-                .getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED), LINK_TO_EDITOR_PREF, true, AbapTagsUIPlugin
-                        .getDefault()
-                        .getPreferenceStore());
+            .getWorkbench()
+            .getSharedImages()
+            .getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED), LINK_TO_EDITOR_PREF, true, AbapTagsUIPlugin.getDefault()
+                .getPreferenceStore());
         linkToEditorAction.addPropertyChangeListener(e -> {
             if (e.getProperty().equals(IAction.CHECKED) && (Boolean) e.getNewValue()) {
                 updateInputFromEditor();
             }
         });
         addTagsAction = ActionFactory.createAction(Messages.AbapTagExplorerView_AddTagsAction_xtol, AbapTagsUIPlugin
-                .getDefault()
-                .getImageDescriptor(IImages.ASSIGN_TAG), () -> {
-                    final TagObjectsWizard wizard = new TagObjectsWizard(currentAdtObject != null);
-                    if (currentAdtObject != null) {
-                        wizard.setProject(currentAdtObject.getProject());
-                        final IAdtObjRefList adtObjRefList = IAdtBaseFactory.eINSTANCE.createAdtObjRefList();
-                        final IAdtObjRef adtObjRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
-                        adtObjRef.setUri(currentAdtObject.getReference().getUri());
-                        adtObjRef.setName(currentAdtObject.getReference().getName());
-                        adtObjRef.setType(currentAdtObject.getReference().getType());
-                        adtObjRefList.getObjectReferences().add(adtObjRef);
-                        wizard.setSelectedObjects(adtObjRefList);
-                    } else {
-                        wizard.setProject(ProjectUtil.getCurrentAbapProject());
-                    }
-                    final WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench()
-                            .getActiveWorkbenchWindow()
-                            .getShell(), wizard);
-                    dialog.open();
-                    if (currentAdtObject != null && wizard.wasSuccessful()) {
-                        refreshCurrentNode();
-                    }
-                });
+            .getDefault()
+            .getImageDescriptor(IImages.ASSIGN_TAG), () -> {
+                final TagObjectsWizard wizard = new TagObjectsWizard(currentAdtObject != null);
+                if (currentAdtObject != null) {
+                    wizard.setProject(currentAdtObject.getProject());
+                    final IAdtObjRefList adtObjRefList = IAdtBaseFactory.eINSTANCE.createAdtObjRefList();
+                    final IAdtObjRef adtObjRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
+                    adtObjRef.setUri(currentAdtObject.getReference().getUri());
+                    adtObjRef.setName(currentAdtObject.getReference().getName());
+                    adtObjRef.setType(currentAdtObject.getReference().getType());
+                    adtObjRefList.getObjectReferences().add(adtObjRef);
+                    wizard.setSelectedObjects(adtObjRefList);
+                } else {
+                    wizard.setProject(ProjectUtil.getCurrentAbapProject());
+                }
+                final WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench()
+                    .getActiveWorkbenchWindow()
+                    .getShell(), wizard);
+                dialog.open();
+                if (currentAdtObject != null && wizard.wasSuccessful()) {
+                    refreshCurrentNode();
+                }
+            });
         refreshAction = ActionFactory.createAction(AdtBaseUIResources.getString(IAdtBaseStrings.Refresh),
-                AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.REFRESH), this::refreshCurrentNode);
+            AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.REFRESH), this::refreshCurrentNode);
         otherObjectAction = new ChooseOtherAdtObjectAction(false, this::onOtherObjectAction);
     }
 
@@ -382,7 +381,7 @@ public class AbapTagExplorerView extends ViewPart {
                 return;
             }
             final IStatus abapTagsFeatureStatus = abapTagsService.testTagsFeatureAvailability(currentAdtObject
-                    .getProject());
+                .getProject());
             if (!abapTagsFeatureStatus.isOK()) {
                 clearInput();
                 viewLabel.updateLabel(abapTagsFeatureStatus.getMessage());
@@ -390,7 +389,7 @@ public class AbapTagExplorerView extends ViewPart {
             }
             treeResult.updateInput(currentAdtObject.getReference().getUri());
             viewLabel.updateLabel(" [" + currentAdtObject.getProject().getName() + "] " + currentAdtObject.getName(), //$NON-NLS-1$ //$NON-NLS-2$
-                    currentAdtObject.getImage());
+                currentAdtObject.getImage());
         }
     }
 
@@ -420,8 +419,8 @@ public class AbapTagExplorerView extends ViewPart {
 
         public DeleteTagsAction() {
             super(Messages.AbapTagExplorerView_DeleteTagAction_xmit, PlatformUI.getWorkbench()
-                    .getSharedImages()
-                    .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
+                .getSharedImages()
+                .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
         }
 
         public void addTag(final IAdtObjectTag tag, final ITreeNode tagNode) {
@@ -516,21 +515,20 @@ public class AbapTagExplorerView extends ViewPart {
                         final ITaggedObject taggedObject = taggingService.getObject(destinationId, objectUri);
                         if (taggedObject != null) {
                             final AdtObjectReferenceElementInfo adtObjRefElemInfo = new AdtObjectReferenceElementInfo(
-                                    taggedObject.getObjectRef().getName());
+                                taggedObject.getObjectRef().getName());
                             adtObjRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
-                                    destinationId, taggedObject.getObjectRef()));
+                                destinationId, taggedObject.getObjectRef()));
 
                             for (final IAdtObjectTag tag : taggedObject.getTags()) {
                                 final IElementInfo tagElementInfo = new SimpleElementInfo(tag.getName(),
-                                        AbapTagsUIPlugin.getDefault()
-                                                .getImage(StringUtil.isEmpty(tag.getOwner()) ? IImages.TAG
-                                                        : IImages.USER_TAG));
+                                    AbapTagsUIPlugin.getDefault()
+                                        .getImage(StringUtil.isEmpty(tag.getOwner()) ? IImages.TAG : IImages.USER_TAG));
                                 tagElementInfo.setAdditionalInfo(tag);
                                 adtObjRefElemInfo.getChildren().add(tagElementInfo);
                             }
                             if (taggedObject.getTags().isEmpty()) {
                                 adtObjRefElemInfo.getChildren()
-                                        .add(new SimpleElementInfo(Messages.AbapTagExplorerView_NoTagsAssigned_xmsg));
+                                    .add(new SimpleElementInfo(Messages.AbapTagExplorerView_NoTagsAssigned_xmsg));
                             }
                             return Arrays.asList(adtObjRefElemInfo);
                         }
@@ -564,7 +562,7 @@ public class AbapTagExplorerView extends ViewPart {
             Image image;
             final ITreeNode searchResult = (ITreeNode) element;
             image = searchResult.getImage();
-            if ((image == null) && (element instanceof IAdtObjectReferenceNode)) {
+            if (image == null && element instanceof IAdtObjectReferenceNode) {
                 final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) element;
                 final IAdtObjectReference objRef = adtObjRefNode.getObjectReference();
                 image = AdtTypeUtil.getInstance().getTypeImage(objRef.getType());
@@ -597,7 +595,7 @@ public class AbapTagExplorerView extends ViewPart {
                     String typeLabel = AdtTypeUtil.getInstance().getTypeDescription(adtObjRefNode.getAdtObjectType());
                     if (typeLabel == null) {
                         typeLabel = AdtTypeUtil.getInstance()
-                                .getTypeDescriptionByProject(adtObjRefNode.getAdtObjectType(), getProject());
+                            .getTypeDescriptionByProject(adtObjRefNode.getAdtObjectType(), getProject());
                     }
                     if (typeLabel != null) {
                         text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
@@ -620,7 +618,7 @@ public class AbapTagExplorerView extends ViewPart {
                 }
                 if (!StringUtil.isEmpty(description)) {
                     text.append("  " + description + "  ", //$NON-NLS-1$ //$NON-NLS-2$
-                            StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR, null));
+                        StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR, null));
                 }
             }
 

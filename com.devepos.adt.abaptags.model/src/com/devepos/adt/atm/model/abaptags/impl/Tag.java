@@ -304,7 +304,7 @@ public class Tag extends TagBase implements ITag {
         description = newDescription;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__DESCRIPTION, oldDescription,
-                    description));
+                description));
         }
     }
 
@@ -342,7 +342,7 @@ public class Tag extends TagBase implements ITag {
         createdBy = newCreatedBy;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__CREATED_BY, oldCreatedBy,
-                    createdBy));
+                createdBy));
         }
     }
 
@@ -367,7 +367,7 @@ public class Tag extends TagBase implements ITag {
         createdDateTime = newCreatedDateTime;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__CREATED_DATE_TIME,
-                    oldCreatedDateTime, createdDateTime));
+                oldCreatedDateTime, createdDateTime));
         }
     }
 
@@ -392,7 +392,7 @@ public class Tag extends TagBase implements ITag {
         changedBy = newChangedBy;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__CHANGED_BY, oldChangedBy,
-                    changedBy));
+                changedBy));
         }
     }
 
@@ -417,7 +417,7 @@ public class Tag extends TagBase implements ITag {
         changedDateTime = newChangedDateTime;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__CHANGED_DATE_TIME,
-                    oldChangedDateTime, changedDateTime));
+                oldChangedDateTime, changedDateTime));
         }
     }
 
@@ -442,7 +442,7 @@ public class Tag extends TagBase implements ITag {
         taggedObjectCount = newTaggedObjectCount;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__TAGGED_OBJECT_COUNT,
-                    oldTaggedObjectCount, taggedObjectCount));
+                oldTaggedObjectCount, taggedObjectCount));
         }
     }
 
@@ -515,7 +515,7 @@ public class Tag extends TagBase implements ITag {
         parentTagId = newParentTagId;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__PARENT_TAG_ID, oldParentTagId,
-                    parentTagId));
+                parentTagId));
         }
     }
 
@@ -539,7 +539,7 @@ public class Tag extends TagBase implements ITag {
      */
     @Override
     public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
-            final NotificationChain msgs) {
+        final NotificationChain msgs) {
         switch (featureID) {
         case IAbapTagsPackage.TAG__CHILD_TAGS:
             return ((InternalEList<?>) getChildTags()).basicRemove(otherEnd, msgs);
@@ -692,12 +692,12 @@ public class Tag extends TagBase implements ITag {
             return CREATED_BY_EDEFAULT == null ? createdBy != null : !CREATED_BY_EDEFAULT.equals(createdBy);
         case IAbapTagsPackage.TAG__CREATED_DATE_TIME:
             return CREATED_DATE_TIME_EDEFAULT == null ? createdDateTime != null
-                    : !CREATED_DATE_TIME_EDEFAULT.equals(createdDateTime);
+                : !CREATED_DATE_TIME_EDEFAULT.equals(createdDateTime);
         case IAbapTagsPackage.TAG__CHANGED_BY:
             return CHANGED_BY_EDEFAULT == null ? changedBy != null : !CHANGED_BY_EDEFAULT.equals(changedBy);
         case IAbapTagsPackage.TAG__CHANGED_DATE_TIME:
             return CHANGED_DATE_TIME_EDEFAULT == null ? changedDateTime != null
-                    : !CHANGED_DATE_TIME_EDEFAULT.equals(changedDateTime);
+                : !CHANGED_DATE_TIME_EDEFAULT.equals(changedDateTime);
         case IAbapTagsPackage.TAG__TAGGED_OBJECT_COUNT:
             return taggedObjectCount != TAGGED_OBJECT_COUNT_EDEFAULT;
         case IAbapTagsPackage.TAG__SHARED:

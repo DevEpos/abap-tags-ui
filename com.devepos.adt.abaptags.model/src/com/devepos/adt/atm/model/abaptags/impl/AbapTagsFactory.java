@@ -39,7 +39,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
     public static IAbapTagsFactory init() {
         try {
             IAbapTagsFactory theAbapTagsFactory = (IAbapTagsFactory) EPackage.Registry.INSTANCE.getEFactory(
-                    IAbapTagsPackage.eNS_URI);
+                IAbapTagsPackage.eNS_URI);
             if (theAbapTagsFactory != null) {
                 return theAbapTagsFactory;
             }
@@ -214,7 +214,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
         TagSearchScope result = TagSearchScope.get(initialValue);
         if (result == null) {
             throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-                    + eDataType.getName() + "'");
+                + eDataType.getName() + "'");
         }
         return result;
     }
@@ -237,7 +237,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
         TagQueryType result = TagQueryType.get(initialValue);
         if (result == null) {
             throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-                    + eDataType.getName() + "'");
+                + eDataType.getName() + "'");
         }
         return result;
     }
@@ -260,7 +260,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
         TagInfoType result = TagInfoType.get(initialValue);
         if (result == null) {
             throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-                    + eDataType.getName() + "'");
+                + eDataType.getName() + "'");
         }
         return result;
     }
@@ -283,7 +283,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
         TagQueryFocus result = TagQueryFocus.get(initialValue);
         if (result == null) {
             throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-                    + eDataType.getName() + "'");
+                + eDataType.getName() + "'");
         }
         return result;
     }

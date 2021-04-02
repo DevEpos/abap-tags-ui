@@ -34,7 +34,7 @@ public class AbapTagsUriDiscovery extends AbapTagsUriDiscoveryBase {
 
     /**
      * Retrieves Resource URI for sharing/unsharing Tags
-     * 
+     *
      * @return Resource URI for sharing/unsharing Tags
      */
     public URI getShareTagsUri() {
@@ -43,7 +43,7 @@ public class AbapTagsUriDiscovery extends AbapTagsUriDiscoveryBase {
 
     /**
      * Returns URI for retrieving information about shared tag
-     * 
+     *
      * @param tagId identifier of user tag
      * @return URI for retrieving information about shared tag
      */

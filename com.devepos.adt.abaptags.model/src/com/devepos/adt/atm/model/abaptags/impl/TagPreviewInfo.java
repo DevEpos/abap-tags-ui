@@ -95,7 +95,7 @@ public class TagPreviewInfo extends MinimalEObjectImpl.Container implements ITag
     public EList<IAdtObjRef> getAdtObjectRefs() {
         if (adtObjectRefs == null) {
             adtObjectRefs = new EObjectContainmentEList<>(IAdtObjRef.class, this,
-                    IAbapTagsPackage.TAG_PREVIEW_INFO__ADT_OBJECT_REFS);
+                IAbapTagsPackage.TAG_PREVIEW_INFO__ADT_OBJECT_REFS);
         }
         return adtObjectRefs;
     }
@@ -107,7 +107,7 @@ public class TagPreviewInfo extends MinimalEObjectImpl.Container implements ITag
      */
     @Override
     public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
-            final NotificationChain msgs) {
+        final NotificationChain msgs) {
         switch (featureID) {
         case IAbapTagsPackage.TAG_PREVIEW_INFO__TAGS:
             return ((InternalEList<?>) getTags()).basicRemove(otherEnd, msgs);

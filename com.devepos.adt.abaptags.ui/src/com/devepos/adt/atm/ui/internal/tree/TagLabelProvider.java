@@ -45,7 +45,7 @@ public class TagLabelProvider extends LabelProvider implements IStyledLabelProvi
      *                                 tag
      */
     public TagLabelProvider(final boolean grayScaleImageForNewTags, final boolean noCounterText,
-            final boolean noDescription) {
+        final boolean noDescription) {
         this.grayScaleImageForNewTags = grayScaleImageForNewTags;
         this.noCounterText = noCounterText;
         this.noDescription = noDescription;
@@ -66,9 +66,8 @@ public class TagLabelProvider extends LabelProvider implements IStyledLabelProvi
             }
             if (!StringUtil.isEmpty(tag.getOwner())) {
                 return AbapTagsUIPlugin.getDefault().getImage(IImages.USER_TAG);
-            } else {
-                return AbapTagsUIPlugin.getDefault().getImage(IImages.TAG);
             }
+            return AbapTagsUIPlugin.getDefault().getImage(IImages.TAG);
         }
         return null;
     }
@@ -91,7 +90,7 @@ public class TagLabelProvider extends LabelProvider implements IStyledLabelProvi
         }
         if (tagNode.getDescription() != null) {
             text.append("  " + tagNode.getDescription(), StylerFactory.createCustomStyler(SWT.ITALIC,
-                    JFacePreferences.DECORATIONS_COLOR, null));
+                JFacePreferences.DECORATIONS_COLOR, null));
         }
     }
 

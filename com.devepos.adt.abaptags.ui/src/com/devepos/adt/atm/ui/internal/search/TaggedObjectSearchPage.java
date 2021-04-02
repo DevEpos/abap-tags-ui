@@ -190,7 +190,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
         tagsTreeViewer.addFilter(patternFilter);
         tagsTreeViewer.setContentProvider(new TagTreeContentProvider());
         tagsTreeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new TagLabelProvider(false, true,
-                false)));
+            false)));
         tagsTreeViewer.setInput(tagList);
         tagsTree.setBackgroundMode(SWT.INHERIT_DEFAULT);
         GridDataFactory.fillDefaults().grab(true, true).hint(1, 150).applyTo(tagsTree);
@@ -315,7 +315,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
         }
         loadTagsJob = Job.create(Messages.TaggedObjectSearchPage_LoadingTagsJob_xmsg, monitor -> {
             final ITagList tagList = AbapTagsServiceFactory.createTagsService()
-                    .readTags(DestinationUtil.getDestinationId(project), TagSearchScope.ALL, false);
+                .readTags(DestinationUtil.getDestinationId(project), TagSearchScope.ALL, false);
             monitor.done();
             if (tagList != null) {
                 this.tagList.getTags().clear();

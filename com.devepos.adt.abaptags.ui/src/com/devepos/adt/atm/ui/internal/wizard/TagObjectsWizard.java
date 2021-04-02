@@ -94,7 +94,7 @@ public class TagObjectsWizard extends Wizard implements ITagObjectsWizard {
                 monitor.beginTask(Messages.TagObjectsWizard_AddTagsToObjectsJob_xmsg, -1);
                 try {
                     AdtObjTaggingServiceFactory.createTaggingService()
-                            .saveTaggedObjects(DestinationUtil.getDestinationId(project), taggedObjectList);
+                        .saveTaggedObjects(DestinationUtil.getDestinationId(project), taggedObjectList);
                     success = true;
                 } catch (final CoreException e) {
                     throw new InvocationTargetException(e);

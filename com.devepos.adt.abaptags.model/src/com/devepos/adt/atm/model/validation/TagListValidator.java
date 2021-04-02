@@ -49,15 +49,15 @@ public class TagListValidator {
         for (final ITag tag : tags) {
             if (StringUtil.isBlank(tag.getName())) {
                 return new Status(IStatus.ERROR, AbapTagsModelPlugin.PLUGIN_ID,
-                        Messages.TagListValidator_NoTagName_xmsg);
+                    Messages.TagListValidator_NoTagName_xmsg);
             }
             if (tag.getName().length() > 60) {
                 return new Status(IStatus.ERROR, AbapTagsModelPlugin.PLUGIN_ID, NLS.bind(
-                        Messages.TagListValidator_TagLengthInvalid_xmsg, 60));
+                    Messages.TagListValidator_TagLengthInvalid_xmsg, 60));
             }
             if (tag.getName().contains(">")) { //$NON-NLS-1$
                 return new Status(IStatus.ERROR, AbapTagsModelPlugin.PLUGIN_ID, NLS.bind(
-                        Messages.TagListValidator_InvalidCharactersInTag_xmsg, ">"));
+                    Messages.TagListValidator_InvalidCharactersInTag_xmsg, ">"));
             }
             boolean tagWasAdded = false;
             boolean addTag = false;
@@ -77,7 +77,7 @@ public class TagListValidator {
             }
             if (!tagWasAdded) {
                 return new Status(IStatus.ERROR, AbapTagsModelPlugin.PLUGIN_ID, NLS.bind(
-                        Messages.TagListValidator_DuplicateTagNameFound_xmsg, tag.getName().toUpperCase()));
+                    Messages.TagListValidator_DuplicateTagNameFound_xmsg, tag.getName().toUpperCase()));
             }
         }
 

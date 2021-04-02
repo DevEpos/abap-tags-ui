@@ -38,16 +38,16 @@ public class SearchPreferencesPage extends BaseFieldEditorPrefPage {
         GridDataFactory.fillDefaults().grab(true, false).applyTo(searchGroup);
 
         final FieldEditor maxSearchResultsEditor = new IntegerFieldEditor(ITaggedObjectSearchPrefs.MAX_RESULTS,
-                Messages.SearchPreferencesPage_MaxNumberOfResults_xlbl, searchGroup, 4);
+            Messages.SearchPreferencesPage_MaxNumberOfResults_xlbl, searchGroup, 4);
         fields.add(maxSearchResultsEditor);
         addEditor(maxSearchResultsEditor);
 
         addBooleanEditor(ITaggedObjectSearchPrefs.DISPLAY_OBJECT_TYPES,
-                Messages.SearchPreferencesPage_DisplayObjectTypes_xckl, searchGroup, 2, 1);
+            Messages.SearchPreferencesPage_DisplayObjectTypes_xckl, searchGroup, 2, 1);
         addBooleanEditor(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES, Messages.SearchPreferencesPage_DisplayPackages_xckl,
-                searchGroup, 2, 1);
+            searchGroup, 2, 1);
         addBooleanEditor(ITaggedObjectSearchPrefs.DISPLAY_DESCRIPTIONS,
-                Messages.SearchPreferencesPage_DisplayShortDescriptions_xckl, searchGroup, 2, 1);
+            Messages.SearchPreferencesPage_DisplayShortDescriptions_xckl, searchGroup, 2, 1);
         /*
          * Layout of group needs to be set at last as the field editors will change it
          * final during their creation

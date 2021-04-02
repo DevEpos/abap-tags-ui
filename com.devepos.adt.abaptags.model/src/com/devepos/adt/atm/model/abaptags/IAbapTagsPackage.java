@@ -1632,7 +1632,7 @@ public interface IAbapTagsPackage extends EPackage {
          * @generated
          */
         EAttribute TAGGED_OBJECT_SEARCH_PARAMS__MATCHES_ALL_TAGS = eINSTANCE
-                .getTaggedObjectSearchParams_MatchesAllTags();
+            .getTaggedObjectSearchParams_MatchesAllTags();
 
         /**
          * The meta object literal for the '<em><b>With Tag Info</b></em>' attribute

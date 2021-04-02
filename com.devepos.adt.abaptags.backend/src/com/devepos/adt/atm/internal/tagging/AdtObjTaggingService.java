@@ -27,7 +27,7 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
 
     @Override
     public ITagPreviewInfo getInformationForTagging(final String destinationId, final IAdtObjRefList adtObjRefs)
-            throws CoreException {
+        throws CoreException {
         if (adtObjRefs == null || adtObjRefs.getObjectReferences().isEmpty()) {
             return null;
         }
@@ -38,10 +38,10 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
             previewInfo.getAdtObjectRefs().addAll(adtObjRefs.getObjectReferences());
             final AdtObjTaggingUriDiscovery uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
             final ISystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
-                    .createStatelessSession(destinationId);
+                .createStatelessSession(destinationId);
 
             final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                    .createRestResource(uriDiscovery.getTagPreviewUri(), session);
+                .createRestResource(uriDiscovery.getTagPreviewUri(), session);
             restResource.addContentHandler(new TagPreviewInfoContentHandler());
 
             return restResource.post(null, ITagPreviewInfo.class, previewInfo);
@@ -53,7 +53,7 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
 
     @Override
     public void saveTaggedObjects(final String destinationId, final ITaggedObjectList taggedObjectList)
-            throws CoreException {
+        throws CoreException {
         if (taggedObjectList == null || taggedObjectList.getTaggedObjects().isEmpty()) {
             return;
         }
@@ -62,10 +62,10 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
 
             final AdtObjTaggingUriDiscovery uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
             final ISystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
-                    .createStatelessSession(destinationId);
+                .createStatelessSession(destinationId);
 
             final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                    .createRestResource(uriDiscovery.getTaggingUri(), session);
+                .createRestResource(uriDiscovery.getTaggingUri(), session);
             restResource.addContentHandler(new TaggedObjectListContentHandler());
 
             restResource.post(null, ITaggedObjectList.class, taggedObjectList);
@@ -81,16 +81,16 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
 
             final AdtObjTaggingUriDiscovery uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
             final ISystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
-                    .createStatelessSession(destinationId);
+                .createStatelessSession(destinationId);
 
             final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                    .createRestResource(uriDiscovery.getTaggingUri(), session);
+                .createRestResource(uriDiscovery.getTaggingUri(), session);
             restResource.addContentHandler(new TaggedObjectListContentHandler());
 
             final ITaggedObjectList objectList = restResource.get(null, ITaggedObjectList.class, new QueryParameter(
-                    "objectUri", objectUri));
+                "objectUri", objectUri));
             return objectList != null && !objectList.getTaggedObjects().isEmpty() ? objectList.getTaggedObjects().get(0)
-                    : null;
+                : null;
         } catch (final ResourceException exc) {
             exc.printStackTrace();
             throw new CoreException(new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage()));
@@ -107,10 +107,10 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
 
             final AdtObjTaggingUriDiscovery uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
             final ISystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
-                    .createStatelessSession(destinationId);
+                .createStatelessSession(destinationId);
 
             final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                    .createRestResource(uriDiscovery.getTaggingUri(), session);
+                .createRestResource(uriDiscovery.getTaggingUri(), session);
             restResource.addContentHandler(new TaggedObjectListContentHandler());
 
             restResource.post(null, ITaggedObjectList.class, tgobjList, new QueryParameter("action", "batchDelete")); //$NON-NLS-1$ //$NON-NLS-2$

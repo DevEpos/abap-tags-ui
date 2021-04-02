@@ -55,9 +55,9 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
     private boolean multipleSelectionMode = true;
 
     private enum Column {
-        OBJECT_NAME(280, Messages.TagParentObjectSelectionWizardPage_ObjectTagColumn_xlbl), PARENT_TAG(150,
-                Messages.TagParentObjectSelectionWizardPage_ParentTagColumn_xlbl), PARENT_OBJECT(300,
-                        Messages.TagParentObjectSelectionWizardPage_ParentObject_xlbl);
+        OBJECT_NAME(280, Messages.TagParentObjectSelectionWizardPage_ObjectTagColumn_xlbl),
+        PARENT_TAG(150, Messages.TagParentObjectSelectionWizardPage_ParentTagColumn_xlbl),
+        PARENT_OBJECT(300, Messages.TagParentObjectSelectionWizardPage_ParentObject_xlbl);
 
         Column(final int width, final String headerText) {
             this(width, headerText, headerText);
@@ -154,7 +154,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
     private void createParentObjectSelectionTree(final Composite root) {
 
         parentObjectSelectionTree = new Tree(root, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.SINGLE
-                | SWT.FULL_SELECTION);
+            | SWT.FULL_SELECTION);
         parentObjectSelectionTree.setHeaderVisible(true);
         GridDataFactory.fillDefaults().grab(true, true).applyTo(parentObjectSelectionTree);
         treeViewer = new TreeViewer(parentObjectSelectionTree);
@@ -171,7 +171,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
     }
 
     private TreeViewerColumn createColumn(final TreeViewer treeViewer, final Column column,
-            final ColumnLabelProvider cellLabelProvider) {
+        final ColumnLabelProvider cellLabelProvider) {
         final TreeViewerColumn viewerColumn = new TreeViewerColumn(treeViewer, SWT.NONE);
         viewerColumn.getColumn().setText(column.headerText);
         viewerColumn.getColumn().setToolTipText(column.tooltip);
@@ -196,13 +196,13 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
         boolean pageComplete = true;
         if (multipleSelectionMode) {
             pageComplete = !adtObjectTags.stream()
-                    .anyMatch(tag -> tag.getParentObjectName() == null || tag.getParentObjectName().isEmpty());
+                .anyMatch(tag -> tag.getParentObjectName() == null || tag.getParentObjectName().isEmpty());
         } else {
             for (final ITaggedObject taggedObj : getWizard().getTaggedObjectList().getTaggedObjects()) {
                 pageComplete = !taggedObj.getTags()
-                        .stream()
-                        .anyMatch(tag -> !StringUtil.isEmpty(tag.getParentTagId()) && StringUtil.isEmpty(tag
-                                .getParentObjectName()));
+                    .stream()
+                    .anyMatch(tag -> !StringUtil.isEmpty(tag.getParentTagId()) && StringUtil.isEmpty(tag
+                        .getParentObjectName()));
             }
         }
         getWizard().setCanFinish(pageComplete);
@@ -214,7 +214,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
     public void completePage() {
         if (multipleSelectionMode) {
             final Map<String, IAdtObjectTag> tagMap = adtObjectTags.stream()
-                    .collect(Collectors.toMap(IAdtObjectTag::getId, Function.identity()));
+                .collect(Collectors.toMap(IAdtObjectTag::getId, Function.identity()));
 
             for (final ITaggedObject taggedObj : getWizard().getTaggedObjectList().getTaggedObjects()) {
                 for (final IAdtObjectTag tag : taggedObj.getTags()) {
@@ -250,10 +250,10 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 
                     final IAdtObjectTag tag = (IAdtObjectTag) element;
                     final TagSearchScope scope = tag.getOwner() != null && !tag.getOwner().isEmpty()
-                            ? TagSearchScope.USER
-                            : TagSearchScope.GLOBAL;
+                        ? TagSearchScope.USER
+                        : TagSearchScope.GLOBAL;
                     final ParentObjectFilterDialog filterDialog = new ParentObjectFilterDialog(getShell(),
-                            destinationId, tag.getParentTagId(), scope);
+                        destinationId, tag.getParentTagId(), scope);
                     filterDialog.open();
                     final IAdtObjRef selectedObj = filterDialog.getFirstResult();
                     if (selectedObj != null) {
@@ -284,7 +284,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 
         @Override
         protected void setValue(final Object element, final Object value) {
-            if ((element instanceof IAdtObjectTag) && (value instanceof IAdtObjRef)) {
+            if (element instanceof IAdtObjectTag && value instanceof IAdtObjRef) {
                 final IAdtObjectTag objectTag = (IAdtObjectTag) element;
                 final IAdtObjRef parentObjRef = (IAdtObjRef) value;
                 objectTag.setParentObjectName(parentObjRef.getName());
@@ -303,7 +303,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
      * @author stockbal
      */
     class ColumnLabelProvider extends CellLabelProvider implements
-            DelegatingStyledCellLabelProvider.IStyledLabelProvider, ILabelProvider {
+        DelegatingStyledCellLabelProvider.IStyledLabelProvider, ILabelProvider {
 
         private final Column column;
 
@@ -327,7 +327,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
                         text.append(parentObject);
                     } else {
                         text.append(Messages.TagParentObjectSelectionWizardPage_ParentObjectAssignPrompt_xmsg,
-                                StyledString.QUALIFIER_STYLER);
+                            StyledString.QUALIFIER_STYLER);
                     }
                 }
                 break;

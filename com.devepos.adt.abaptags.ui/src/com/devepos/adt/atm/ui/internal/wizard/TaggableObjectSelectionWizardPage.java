@@ -128,27 +128,27 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
         final Label objectsViewerLabel = new Label(container, SWT.NONE);
         objectsViewerLabel.setText(Messages.TaggableObjectSelectionWizardPage_SelectedObjectsTableTitle_xtit);
         GridDataFactory.fillDefaults()
-                .align(SWT.FILL, SWT.CENTER)
-                .span(2, 1)
-                .grab(true, false)
-                .applyTo(objectsViewerLabel);
+            .align(SWT.FILL, SWT.CENTER)
+            .span(2, 1)
+            .grab(true, false)
+            .applyTo(objectsViewerLabel);
 
         objectsViewer = new TableViewer(container, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.VIRTUAL);
         objectsViewer.setContentProvider(new ArrayContentProvider());
         objectsViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new AdtObjectLabelProvider()));
 
         GridDataFactory.fillDefaults()
-                .align(SWT.FILL, SWT.FILL)
-                .grab(true, true)
-                .minSize(250, 300)
-                .applyTo(objectsViewer.getControl());
+            .align(SWT.FILL, SWT.FILL)
+            .grab(true, true)
+            .minSize(250, 300)
+            .applyTo(objectsViewer.getControl());
 
         final Composite buttonComposite = new Composite(container, SWT.NONE);
         GridLayoutFactory.swtDefaults()
-                .numColumns(1)
-                .margins(0, 0)
-                .extendedMargins(2, 2, 0, 2)
-                .applyTo(buttonComposite);
+            .numColumns(1)
+            .margins(0, 0)
+            .extendedMargins(2, 2, 0, 2)
+            .applyTo(buttonComposite);
         GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).grab(false, true).applyTo(buttonComposite);
 
         selectObjectsButton = new Button(buttonComposite, SWT.PUSH);
@@ -159,8 +159,8 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
             @Override
             public void widgetSelected(final SelectionEvent e) {
                 final IAdtRisSearchResultProxy result = AdtRisSearchUtil.searchAdtObjectViaDialog(
-                        Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit, true, getWizard()
-                                .getProject());
+                    Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit, true, getWizard()
+                        .getProject());
                 if (result == null) {
                     return;
                 }
@@ -241,7 +241,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
         if (validateObjects) {
             if (objects == null || objects.isEmpty()) {
                 pageStatus = new Status(IStatus.ERROR, AbapTagsUIPlugin.PLUGIN_ID, IStatus.INFO,
-                        Messages.TaggableObjectSelectionWizardPage_NoObjectSelectedWarning_xmsg, null);
+                    Messages.TaggableObjectSelectionWizardPage_NoObjectSelectedWarning_xmsg, null);
             } else {
                 pageStatus = Status.OK_STATUS;
             }
@@ -310,7 +310,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
             String typeLabel = AdtTypeUtil.getInstance().getTypeDescription(ref.getType());
             if (typeLabel == null) {
                 typeLabel = AdtTypeUtil.getInstance()
-                        .getTypeDescriptionByProject(ref.getType(), getWizard().getProject());
+                    .getTypeDescriptionByProject(ref.getType(), getWizard().getProject());
             }
             if (typeLabel != null) {
                 text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$

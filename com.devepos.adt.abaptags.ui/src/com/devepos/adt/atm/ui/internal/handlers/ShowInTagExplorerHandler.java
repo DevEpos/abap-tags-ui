@@ -81,7 +81,7 @@ public class ShowInTagExplorerHandler extends AbstractHandler {
             }
         } else if (contextOrEvent instanceof ExecutionEvent) {
             final IStructuredSelection selection = HandlerUtil.getCurrentStructuredSelection(
-                    (ExecutionEvent) contextOrEvent);
+                (ExecutionEvent) contextOrEvent);
             return selection.getFirstElement();
         }
         return null;

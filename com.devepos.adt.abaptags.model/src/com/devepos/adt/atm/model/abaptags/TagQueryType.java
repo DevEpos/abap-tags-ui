@@ -88,7 +88,7 @@ public enum TagQueryType implements Enumerator {
      * @generated
      */
     private static final TagQueryType[] VALUES_ARRAY = new TagQueryType[] { OBJECT_NAME, OBJECT_URI,
-            OBJECT_NAME_TYPE_COMBO, };
+        OBJECT_NAME_TYPE_COMBO, };
 
     /**
      * A public read-only list of all the '<em><b>Tag Query Type</b></em>'

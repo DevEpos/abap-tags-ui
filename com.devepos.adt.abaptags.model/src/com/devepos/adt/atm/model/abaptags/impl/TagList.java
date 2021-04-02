@@ -79,7 +79,7 @@ public class TagList extends MinimalEObjectImpl.Container implements ITagList {
      */
     @Override
     public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
-            final NotificationChain msgs) {
+        final NotificationChain msgs) {
         switch (featureID) {
         case IAbapTagsPackage.TAG_LIST__TAGS:
             return ((InternalEList<?>) getTags()).basicRemove(otherEnd, msgs);

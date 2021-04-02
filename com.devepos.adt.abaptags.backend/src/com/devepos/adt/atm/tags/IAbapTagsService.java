@@ -29,7 +29,7 @@ public interface IAbapTagsService {
     /**
      * Returns {@link Status#OK_STATUS} if the Share feature in the ABAP Tags Plugin
      * is available in the given ABAP project
-     * 
+     *
      * @param project ABAP project
      * @return Status with severity {@link IStatus#OK} if the Share feature in the
      *         ABAP Tags Plugin is available in the given ABAP project
@@ -95,7 +95,7 @@ public interface IAbapTagsService {
 
     /**
      * Converts the list of user tags into global tags
-     * 
+     *
      * @param destinationId destination of ABAP project
      * @param tagList       list of Tags
      * @return the result status of the operation
@@ -104,7 +104,7 @@ public interface IAbapTagsService {
 
     /**
      * Shares the tags with other users
-     * 
+     *
      * @param destinationId destination of ABAP Project
      * @param tagList       list of Tags
      * @return the result status of the operation
@@ -113,7 +113,7 @@ public interface IAbapTagsService {
 
     /**
      * Unshares the list of tags
-     * 
+     *
      * @param destinationId destination of ABAP Project
      * @param tagList       list of Tags
      * @return the result of the status of the operation
@@ -122,7 +122,7 @@ public interface IAbapTagsService {
 
     /**
      * Retrieves list of shared users for the given tag id
-     * 
+     *
      * @param destinationId destination of ABAP Project
      * @param tagId         id of Tag
      * @return List of shared users

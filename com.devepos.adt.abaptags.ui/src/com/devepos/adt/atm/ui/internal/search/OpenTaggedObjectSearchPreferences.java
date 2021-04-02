@@ -20,6 +20,6 @@ public class OpenTaggedObjectSearchPreferences extends Action {
     @Override
     public void run() {
         PreferencesUtil.createPreferenceDialogOn(null, IPreferences.SEARCH_PREF_PAGE_ID, new String[] {
-                IPreferences.SEARCH_PREF_PAGE_ID }, (Object) null).open();
+            IPreferences.SEARCH_PREF_PAGE_ID }, (Object) null).open();
     }
 }

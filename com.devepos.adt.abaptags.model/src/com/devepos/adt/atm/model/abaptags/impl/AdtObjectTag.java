@@ -193,7 +193,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
         parentObjectName = newParentObjectName;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_NAME,
-                    oldParentObjectName, parentObjectName));
+                oldParentObjectName, parentObjectName));
         }
     }
 
@@ -218,7 +218,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
         parentObjectType = newParentObjectType;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_TYPE,
-                    oldParentObjectType, parentObjectType));
+                oldParentObjectType, parentObjectType));
         }
     }
 
@@ -243,7 +243,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
         parentObjectUri = newParentObjectUri;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_URI,
-                    oldParentObjectUri, parentObjectUri));
+                oldParentObjectUri, parentObjectUri));
         }
     }
 
@@ -268,7 +268,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
         parentTagId = newParentTagId;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_TAG_ID,
-                    oldParentTagId, parentTagId));
+                oldParentTagId, parentTagId));
         }
     }
 
@@ -293,7 +293,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
         parentTagName = newParentTagName;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_TAG_NAME,
-                    oldParentTagName, parentTagName));
+                oldParentTagName, parentTagName));
         }
     }
 
@@ -318,7 +318,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
         userTag = newUserTag;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.ADT_OBJECT_TAG__USER_TAG, oldUserTag,
-                    userTag));
+                userTag));
         }
     }
 
@@ -416,18 +416,18 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
         switch (featureID) {
         case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_NAME:
             return PARENT_OBJECT_NAME_EDEFAULT == null ? parentObjectName != null
-                    : !PARENT_OBJECT_NAME_EDEFAULT.equals(parentObjectName);
+                : !PARENT_OBJECT_NAME_EDEFAULT.equals(parentObjectName);
         case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_TYPE:
             return PARENT_OBJECT_TYPE_EDEFAULT == null ? parentObjectType != null
-                    : !PARENT_OBJECT_TYPE_EDEFAULT.equals(parentObjectType);
+                : !PARENT_OBJECT_TYPE_EDEFAULT.equals(parentObjectType);
         case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_URI:
             return PARENT_OBJECT_URI_EDEFAULT == null ? parentObjectUri != null
-                    : !PARENT_OBJECT_URI_EDEFAULT.equals(parentObjectUri);
+                : !PARENT_OBJECT_URI_EDEFAULT.equals(parentObjectUri);
         case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_TAG_ID:
             return PARENT_TAG_ID_EDEFAULT == null ? parentTagId != null : !PARENT_TAG_ID_EDEFAULT.equals(parentTagId);
         case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_TAG_NAME:
             return PARENT_TAG_NAME_EDEFAULT == null ? parentTagName != null
-                    : !PARENT_TAG_NAME_EDEFAULT.equals(parentTagName);
+                : !PARENT_TAG_NAME_EDEFAULT.equals(parentTagName);
         case IAbapTagsPackage.ADT_OBJECT_TAG__USER_TAG:
             return userTag != USER_TAG_EDEFAULT;
         }

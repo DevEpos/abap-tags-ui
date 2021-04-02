@@ -266,7 +266,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
     public EList<String> getTagIds() {
         if (tagIds == null) {
             tagIds = new EDataTypeUniqueEList<>(String.class, this,
-                    IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__TAG_IDS);
+                IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__TAG_IDS);
         }
         return tagIds;
     }
@@ -292,7 +292,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
         searchScope = newSearchScope == null ? SEARCH_SCOPE_EDEFAULT : newSearchScope;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__SEARCH_SCOPE, oldSearchScope, searchScope));
+                IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__SEARCH_SCOPE, oldSearchScope, searchScope));
         }
     }
 
@@ -317,7 +317,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
         query = newQuery;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__QUERY,
-                    oldQuery, query));
+                oldQuery, query));
         }
     }
 
@@ -342,7 +342,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
         queryType = newQueryType == null ? QUERY_TYPE_EDEFAULT : newQueryType;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__QUERY_TYPE, oldQueryType, queryType));
+                IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__QUERY_TYPE, oldQueryType, queryType));
         }
     }
 
@@ -367,7 +367,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
         queryFocus = newQueryFocus == null ? QUERY_FOCUS_EDEFAULT : newQueryFocus;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__QUERY_FOCUS, oldQueryFocus, queryFocus));
+                IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__QUERY_FOCUS, oldQueryFocus, queryFocus));
         }
     }
 
@@ -392,7 +392,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
         maxResults = newMaxResults;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__MAX_RESULTS, oldMaxResults, maxResults));
+                IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__MAX_RESULTS, oldMaxResults, maxResults));
         }
     }
 
@@ -417,7 +417,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
         matchesAllTags = newMatchesAllTags;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__MATCHES_ALL_TAGS, oldMatchesAllTags, matchesAllTags));
+                IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__MATCHES_ALL_TAGS, oldMatchesAllTags, matchesAllTags));
         }
     }
 
@@ -442,7 +442,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
         withTagInfo = newWithTagInfo;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__WITH_TAG_INFO, oldWithTagInfo, withTagInfo));
+                IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__WITH_TAG_INFO, oldWithTagInfo, withTagInfo));
         }
     }
 
@@ -467,7 +467,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
         tagInfoType = newTagInfoType == null ? TAG_INFO_TYPE_EDEFAULT : newTagInfoType;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__TAG_INFO_TYPE, oldTagInfoType, tagInfoType));
+                IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__TAG_INFO_TYPE, oldTagInfoType, tagInfoType));
         }
     }
 

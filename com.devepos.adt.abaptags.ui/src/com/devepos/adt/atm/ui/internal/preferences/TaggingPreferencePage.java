@@ -36,7 +36,7 @@ public class TaggingPreferencePage extends BaseFieldEditorPrefPage {
         GridDataFactory.fillDefaults().grab(true, false).applyTo(wizardGroup);
 
         addBooleanEditor(IObjectTaggingPrefs.AUTO_EXPAND_TAGS,
-                Messages.TaggingPreferencePage_AutoExpandTagsOnTagSelectionPage_xchk, wizardGroup);
+            Messages.TaggingPreferencePage_AutoExpandTagsOnTagSelectionPage_xchk, wizardGroup);
 
         // reset group margins because of field editors
         adjustMargins(wizardGroup);
