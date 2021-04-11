@@ -139,7 +139,8 @@ public class TaggedObject extends MinimalEObjectImpl.Container implements ITagge
     @Override
     public EList<IAdtObjectTag> getTags() {
         if (tags == null) {
-            tags = new EObjectContainmentEList<>(IAdtObjectTag.class, this, IAbapTagsPackage.TAGGED_OBJECT__TAGS);
+            tags = new EObjectContainmentEList<>(IAdtObjectTag.class, this,
+                IAbapTagsPackage.TAGGED_OBJECT__TAGS);
         }
         return tags;
     }

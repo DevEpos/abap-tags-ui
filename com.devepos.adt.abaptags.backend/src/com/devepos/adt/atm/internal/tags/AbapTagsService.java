@@ -9,6 +9,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.osgi.util.NLS;
 
 import com.devepos.adt.atm.AbapTagsPlugin;
+import com.devepos.adt.atm.internal.messages.Messages;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.tags.IAbapTagsService;
@@ -51,7 +52,7 @@ public class AbapTagsService implements IAbapTagsService {
             return Status.OK_STATUS;
         }
         return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(
-            "ABAP Tags are not available in Project {0}", project.getName()));
+            Messages.AbapTagsService_TagsNotSupported, project.getName()));
     }
 
     @Override
@@ -62,7 +63,7 @@ public class AbapTagsService implements IAbapTagsService {
             return Status.OK_STATUS;
         }
         return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(
-            "The Share feature is not available in Project {0}", project.getName()));
+            Messages.AbapTagsService_ShareTagsNotSupported, project.getName()));
     }
 
     @Override
