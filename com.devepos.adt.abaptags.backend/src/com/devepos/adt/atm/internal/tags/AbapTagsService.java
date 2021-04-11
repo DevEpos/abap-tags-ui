@@ -51,8 +51,8 @@ public class AbapTagsService implements IAbapTagsService {
         if (new AbapTagsUriDiscovery(destinationId).isResourceDiscoverySuccessful()) {
             return Status.OK_STATUS;
         }
-        return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(
-            Messages.AbapTagsService_TagsNotSupported, project.getName()));
+        return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(Messages.AbapTagsService_TagsNotSupported,
+            project.getName()));
     }
 
     @Override
