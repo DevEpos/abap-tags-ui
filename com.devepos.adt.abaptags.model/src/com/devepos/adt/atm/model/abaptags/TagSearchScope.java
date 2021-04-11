@@ -46,7 +46,16 @@ public enum TagSearchScope implements Enumerator {
      * @generated
      * @ordered
      */
-    USER(2, "USER", "user");
+    USER(2, "USER", "user"),
+    /**
+     * The '<em><b>SHARED</b></em>' literal object. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @see #SHARED_VALUE
+     * @generated
+     * @ordered
+     */
+    SHARED(3, "SHARED", "SHARED");
 
     /**
      * The '<em><b>ALL</b></em>' literal value. <!-- begin-user-doc --> <!--
@@ -82,12 +91,23 @@ public enum TagSearchScope implements Enumerator {
     public static final int USER_VALUE = 2;
 
     /**
+     * The '<em><b>SHARED</b></em>' literal value. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @see #SHARED
+     * @model
+     * @generated
+     * @ordered
+     */
+    public static final int SHARED_VALUE = 3;
+
+    /**
      * An array of all the '<em><b>Tag Search Scope</b></em>' enumerators. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
      */
-    private static final TagSearchScope[] VALUES_ARRAY = new TagSearchScope[] { ALL, GLOBAL, USER, };
+    private static final TagSearchScope[] VALUES_ARRAY = new TagSearchScope[] { ALL, GLOBAL, USER, SHARED, };
 
     /**
      * A public read-only list of all the '<em><b>Tag Search Scope</b></em>'
@@ -147,6 +167,8 @@ public enum TagSearchScope implements Enumerator {
             return GLOBAL;
         case USER_VALUE:
             return USER;
+        case SHARED_VALUE:
+            return SHARED;
         }
         return null;
     }

@@ -189,8 +189,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
         tagsTree = tagsTreeViewer.getTree();
         tagsTreeViewer.addFilter(patternFilter);
         tagsTreeViewer.setContentProvider(new TagTreeContentProvider());
-        tagsTreeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new TagLabelProvider(false, true,
-            false)));
+        tagsTreeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new TagLabelProvider(true, false)));
         tagsTreeViewer.setInput(tagList);
         tagsTree.setBackgroundMode(SWT.INHERIT_DEFAULT);
         GridDataFactory.fillDefaults().grab(true, true).hint(1, 150).applyTo(tagsTree);

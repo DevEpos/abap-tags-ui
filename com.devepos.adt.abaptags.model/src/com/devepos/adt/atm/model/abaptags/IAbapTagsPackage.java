@@ -4,6 +4,7 @@ package com.devepos.adt.atm.model.abaptags;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -221,13 +222,22 @@ public interface IAbapTagsPackage extends EPackage {
     int TAG__SHARED = TAG_BASE_FEATURE_COUNT + 7;
 
     /**
+     * The feature id for the '<em><b>Shared For Me</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int TAG__SHARED_FOR_ME = TAG_BASE_FEATURE_COUNT + 8;
+
+    /**
      * The feature id for the '<em><b>Changed</b></em>' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
      * @ordered
      */
-    int TAG__CHANGED = TAG_BASE_FEATURE_COUNT + 8;
+    int TAG__CHANGED = TAG_BASE_FEATURE_COUNT + 9;
 
     /**
      * The feature id for the '<em><b>Parent Tag Id</b></em>' attribute. <!--
@@ -236,7 +246,7 @@ public interface IAbapTagsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TAG__PARENT_TAG_ID = TAG_BASE_FEATURE_COUNT + 9;
+    int TAG__PARENT_TAG_ID = TAG_BASE_FEATURE_COUNT + 10;
 
     /**
      * The feature id for the '<em><b>Shared Users</b></em>' containment reference
@@ -245,7 +255,7 @@ public interface IAbapTagsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TAG__SHARED_USERS = TAG_BASE_FEATURE_COUNT + 10;
+    int TAG__SHARED_USERS = TAG_BASE_FEATURE_COUNT + 11;
 
     /**
      * The number of structural features of the '<em>Tag</em>' class. <!--
@@ -254,7 +264,7 @@ public interface IAbapTagsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 11;
+    int TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 12;
 
     /**
      * The number of operations of the '<em>Tag</em>' class. <!-- begin-user-doc -->
@@ -387,13 +397,13 @@ public interface IAbapTagsPackage extends EPackage {
     int ADT_OBJECT_TAG__PARENT_TAG_NAME = TAG_BASE_FEATURE_COUNT + 4;
 
     /**
-     * The feature id for the '<em><b>User Tag</b></em>' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
+     * The feature id for the '<em><b>Image</b></em>' attribute. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      *
      * @generated
      * @ordered
      */
-    int ADT_OBJECT_TAG__USER_TAG = TAG_BASE_FEATURE_COUNT + 5;
+    int ADT_OBJECT_TAG__IMAGE = TAG_BASE_FEATURE_COUNT + 5;
 
     /**
      * The number of structural features of the '<em>Adt Object Tag</em>' class.
@@ -701,6 +711,16 @@ public interface IAbapTagsPackage extends EPackage {
     int TAG_QUERY_FOCUS = 11;
 
     /**
+     * The meta object id for the '<em>Image</em>' data type. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     *
+     * @see org.eclipse.swt.graphics.Image
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getImage()
+     * @generated
+     */
+    int IMAGE = 12;
+
+    /**
      * Returns the meta object for class
      * '{@link com.devepos.adt.atm.model.abaptags.ITagBase <em>Tag Base</em>}'. <!--
      * begin-user-doc --> <!-- end-user-doc -->
@@ -857,6 +877,18 @@ public interface IAbapTagsPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute
+     * '{@link com.devepos.adt.atm.model.abaptags.ITag#isSharedForMe <em>Shared For
+     * Me</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for the attribute '<em>Shared For Me</em>'.
+     * @see com.devepos.adt.atm.model.abaptags.ITag#isSharedForMe()
+     * @see #getTag()
+     * @generated
+     */
+    EAttribute getTag_SharedForMe();
+
+    /**
+     * Returns the meta object for the attribute
      * '{@link com.devepos.adt.atm.model.abaptags.ITag#isChanged <em>Changed</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
@@ -965,15 +997,15 @@ public interface IAbapTagsPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute
-     * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#isUserTag <em>User
-     * Tag</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getImage
+     * <em>Image</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
-     * @return the meta object for the attribute '<em>User Tag</em>'.
-     * @see com.devepos.adt.atm.model.abaptags.IAdtObjectTag#isUserTag()
+     * @return the meta object for the attribute '<em>Image</em>'.
+     * @see com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getImage()
      * @see #getAdtObjectTag()
      * @generated
      */
-    EAttribute getAdtObjectTag_UserTag();
+    EAttribute getAdtObjectTag_Image();
 
     /**
      * Returns the meta object for class
@@ -1258,6 +1290,17 @@ public interface IAbapTagsPackage extends EPackage {
     EEnum getTagQueryFocus();
 
     /**
+     * Returns the meta object for data type '{@link org.eclipse.swt.graphics.Image
+     * <em>Image</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for data type '<em>Image</em>'.
+     * @see org.eclipse.swt.graphics.Image
+     * @model instanceClass="org.eclipse.swt.graphics.Image"
+     * @generated
+     */
+    EDataType getImage();
+
+    /**
      * Returns the factory that creates the instances of the model. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      *
@@ -1391,6 +1434,14 @@ public interface IAbapTagsPackage extends EPackage {
         EAttribute TAG__SHARED = eINSTANCE.getTag_Shared();
 
         /**
+         * The meta object literal for the '<em><b>Shared For Me</b></em>' attribute
+         * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+         *
+         * @generated
+         */
+        EAttribute TAG__SHARED_FOR_ME = eINSTANCE.getTag_SharedForMe();
+
+        /**
          * The meta object literal for the '<em><b>Changed</b></em>' attribute feature.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          *
@@ -1466,12 +1517,12 @@ public interface IAbapTagsPackage extends EPackage {
         EAttribute ADT_OBJECT_TAG__PARENT_TAG_NAME = eINSTANCE.getAdtObjectTag_ParentTagName();
 
         /**
-         * The meta object literal for the '<em><b>User Tag</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Image</b></em>' attribute feature.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          *
          * @generated
          */
-        EAttribute ADT_OBJECT_TAG__USER_TAG = eINSTANCE.getAdtObjectTag_UserTag();
+        EAttribute ADT_OBJECT_TAG__IMAGE = eINSTANCE.getAdtObjectTag_Image();
 
         /**
          * The meta object literal for the
@@ -1693,6 +1744,16 @@ public interface IAbapTagsPackage extends EPackage {
          * @generated
          */
         EEnum TAG_QUERY_FOCUS = eINSTANCE.getTagQueryFocus();
+
+        /**
+         * The meta object literal for the '<em>Image</em>' data type. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         *
+         * @see org.eclipse.swt.graphics.Image
+         * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getImage()
+         * @generated
+         */
+        EDataType IMAGE = eINSTANCE.getImage();
 
     }
 

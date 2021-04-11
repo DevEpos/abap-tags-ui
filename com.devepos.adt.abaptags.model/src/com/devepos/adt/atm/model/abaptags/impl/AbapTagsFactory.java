@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
@@ -102,6 +103,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
             return createTagInfoTypeFromString(eDataType, initialValue);
         case IAbapTagsPackage.TAG_QUERY_FOCUS:
             return createTagQueryFocusFromString(eDataType, initialValue);
+        case IAbapTagsPackage.IMAGE:
+            return createImageFromString(eDataType, initialValue);
         default:
             throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -123,6 +126,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
             return convertTagInfoTypeToString(eDataType, instanceValue);
         case IAbapTagsPackage.TAG_QUERY_FOCUS:
             return convertTagQueryFocusToString(eDataType, instanceValue);
+        case IAbapTagsPackage.IMAGE:
+            return convertImageToString(eDataType, instanceValue);
         default:
             throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -295,6 +300,24 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
      */
     public String convertTagQueryFocusToString(final EDataType eDataType, final Object instanceValue) {
         return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    public Image createImageFromString(final EDataType eDataType, final String initialValue) {
+        return (Image) super.createFromString(eDataType, initialValue);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    public String convertImageToString(final EDataType eDataType, final Object instanceValue) {
+        return super.convertToString(eDataType, instanceValue);
     }
 
     /**

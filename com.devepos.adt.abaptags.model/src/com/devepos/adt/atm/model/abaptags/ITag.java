@@ -31,6 +31,8 @@ import com.devepos.adt.base.model.adtbase.IUser;
  * <em>Tagged Object Count</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#isShared
  * <em>Shared</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#isSharedForMe <em>Shared
+ * For Me</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#isChanged
  * <em>Changed</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getParentTagId <em>Parent
@@ -44,6 +46,13 @@ import com.devepos.adt.base.model.adtbase.IUser;
  * @generated
  */
 public interface ITag extends ITagBase {
+    /**
+     * Returns {@code true} if the tag is editable
+     *
+     * @return {@code true} if the tag is editable
+     */
+    boolean isEditable();
+
     /**
      * Validates this tag
      *
@@ -238,6 +247,30 @@ public interface ITag extends ITagBase {
      * @generated
      */
     void setShared(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Shared For Me</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the value of the '<em>Shared For Me</em>' attribute.
+     * @see #setSharedForMe(boolean)
+     * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTag_SharedForMe()
+     * @model extendedMetaData="kind='attribute' name='sharedForMe'
+     *        namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isSharedForMe();
+
+    /**
+     * Sets the value of the
+     * '{@link com.devepos.adt.atm.model.abaptags.ITag#isSharedForMe <em>Shared For
+     * Me</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @param value the new value of the '<em>Shared For Me</em>' attribute.
+     * @see #isSharedForMe()
+     * @generated
+     */
+    void setSharedForMe(boolean value);
 
     /**
      * Returns the value of the '<em><b>Changed</b></em>' attribute. <!--

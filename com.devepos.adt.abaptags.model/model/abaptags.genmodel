@@ -13,6 +13,7 @@
       <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagSearchScope/ALL"/>
       <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagSearchScope/GLOBAL"/>
       <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagSearchScope/USER"/>
+      <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagSearchScope/SHARED"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="abaptags.ecore#//TagQueryType">
       <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagQueryType/OBJECT_NAME"/>
@@ -27,6 +28,7 @@
       <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagQueryFocus/OBJECT"/>
       <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagQueryFocus/PARENT_OBJECT"/>
     </genEnums>
+    <genDataTypes ecoreDataType="abaptags.ecore#//Image"/>
     <genClasses ecoreClass="abaptags.ecore#//TagBase">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TagBase/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TagBase/name"/>
@@ -41,6 +43,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/changedDateTime"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/taggedObjectCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/shared"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/sharedForMe"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/changed"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//Tag/parentTagId"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//Tag/sharedUsers"/>
@@ -54,7 +57,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/parentObjectUri"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/parentTagId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/parentTagName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/userTag"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/image"/>
     </genClasses>
     <genClasses ecoreClass="abaptags.ecore#//TagPreviewInfo">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TagPreviewInfo/tags"/>

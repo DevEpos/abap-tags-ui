@@ -18,7 +18,6 @@ import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
-import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.search.ITaggedObjectSearchService;
 import com.devepos.adt.atm.search.TaggedObjectSearchFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
@@ -33,16 +32,13 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<IAdtObjRef, 
     private static final String DIALOG_SETTINGS_NAME = ParentObjectFilterDialog.class.getCanonicalName();
     private final String destinationId;
     private final ITaggedObjectSearchParams parameters;
-    private final TagSearchScope searchScope;
     private final ITaggedObjectSearchService service;
     private final String tagId;
 
-    public ParentObjectFilterDialog(final Shell shell, final String destinationId, final String tagId,
-        final TagSearchScope searchScope) {
+    public ParentObjectFilterDialog(final Shell shell, final String destinationId, final String tagId) {
         super(shell, false);
         this.tagId = tagId;
         this.destinationId = destinationId;
-        this.searchScope = searchScope;
 
         setTitle(Messages.ParentObjectFilterDialog_Title_xtit);
         setFilterLabel(Messages.ParentObjectFilterDialog_FilterText_xmsg);
@@ -53,7 +49,6 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<IAdtObjRef, 
         parameters = IAbapTagsFactory.eINSTANCE.createTaggedObjectSearchParams();
 
         parameters.getTagIds().add(this.tagId);
-        parameters.setSearchScope(this.searchScope);
         parameters.setMaxResults(50);
         service = TaggedObjectSearchFactory.createTaggedObjectSearchService();
     }

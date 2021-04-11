@@ -4,10 +4,12 @@ package com.devepos.adt.atm.model.abaptags.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
@@ -115,6 +117,13 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
      * @generated
      */
     private EEnum tagQueryFocusEEnum = null;
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    private EDataType imageEDataType = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -323,7 +332,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
      * @generated
      */
     @Override
-    public EAttribute getTag_Changed() {
+    public EAttribute getTag_SharedForMe() {
         return (EAttribute) tagEClass.getEStructuralFeatures().get(8);
     }
 
@@ -333,7 +342,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
      * @generated
      */
     @Override
-    public EAttribute getTag_ParentTagId() {
+    public EAttribute getTag_Changed() {
         return (EAttribute) tagEClass.getEStructuralFeatures().get(9);
     }
 
@@ -343,8 +352,18 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
      * @generated
      */
     @Override
+    public EAttribute getTag_ParentTagId() {
+        return (EAttribute) tagEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
     public EReference getTag_SharedUsers() {
-        return (EReference) tagEClass.getEStructuralFeatures().get(10);
+        return (EReference) tagEClass.getEStructuralFeatures().get(11);
     }
 
     /**
@@ -413,7 +432,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
      * @generated
      */
     @Override
-    public EAttribute getAdtObjectTag_UserTag() {
+    public EAttribute getAdtObjectTag_Image() {
         return (EAttribute) adtObjectTagEClass.getEStructuralFeatures().get(5);
     }
 
@@ -663,6 +682,16 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
      * @generated
      */
     @Override
+    public EDataType getImage() {
+        return imageEDataType;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
     public IAbapTagsFactory getAbapTagsFactory() {
         return (IAbapTagsFactory) getEFactoryInstance();
     }
@@ -702,6 +731,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         createEAttribute(tagEClass, TAG__CHANGED_DATE_TIME);
         createEAttribute(tagEClass, TAG__TAGGED_OBJECT_COUNT);
         createEAttribute(tagEClass, TAG__SHARED);
+        createEAttribute(tagEClass, TAG__SHARED_FOR_ME);
         createEAttribute(tagEClass, TAG__CHANGED);
         createEAttribute(tagEClass, TAG__PARENT_TAG_ID);
         createEReference(tagEClass, TAG__SHARED_USERS);
@@ -715,7 +745,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__PARENT_OBJECT_URI);
         createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__PARENT_TAG_ID);
         createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__PARENT_TAG_NAME);
-        createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__USER_TAG);
+        createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__IMAGE);
 
         tagPreviewInfoEClass = createEClass(TAG_PREVIEW_INFO);
         createEReference(tagPreviewInfoEClass, TAG_PREVIEW_INFO__TAGS);
@@ -744,6 +774,9 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         tagQueryTypeEEnum = createEEnum(TAG_QUERY_TYPE);
         tagInfoTypeEEnum = createEEnum(TAG_INFO_TYPE);
         tagQueryFocusEEnum = createEEnum(TAG_QUERY_FOCUS);
+
+        // Create data types
+        imageEDataType = createEDataType(IMAGE);
     }
 
     /**
@@ -810,6 +843,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
             IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTag_Shared(), ecorePackage.getEBoolean(), "shared", null, 0, 1, ITag.class, !IS_TRANSIENT,
             !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTag_SharedForMe(), ecorePackage.getEBoolean(), "sharedForMe", null, 0, 1, ITag.class,
+            !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTag_Changed(), ecorePackage.getEBoolean(), "changed", null, 0, 1, ITag.class, !IS_TRANSIENT,
             !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTag_ParentTagId(), ecorePackage.getEString(), "parentTagId", null, 0, 1, ITag.class,
@@ -840,9 +875,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         initEAttribute(getAdtObjectTag_ParentTagName(), ecorePackage.getEString(), "parentTagName", null, 0, 1,
             IAdtObjectTag.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
             !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAdtObjectTag_UserTag(), ecorePackage.getEBoolean(), "userTag", null, 0, 1,
-            IAdtObjectTag.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-            !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAdtObjectTag_Image(), getImage(), "image", null, 0, 1, IAdtObjectTag.class, IS_TRANSIENT,
+            !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(tagPreviewInfoEClass, ITagPreviewInfo.class, "TagPreviewInfo", !IS_ABSTRACT, !IS_INTERFACE,
             IS_GENERATED_INSTANCE_CLASS);
@@ -918,6 +952,9 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         addEEnumLiteral(tagQueryFocusEEnum, TagQueryFocus.OBJECT);
         addEEnumLiteral(tagQueryFocusEEnum, TagQueryFocus.PARENT_OBJECT);
 
+        // Initialize data types
+        initEDataType(imageEDataType, Image.class, "Image", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+
         // Create resource
         createResource(eNS_URI);
 
@@ -959,6 +996,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
             "taggedObjectCount", "namespace", "##targetNamespace" });
         addAnnotation(getTag_Shared(), source, new String[] { "kind", "attribute", "name", "shared", "namespace",
             "##targetNamespace" });
+        addAnnotation(getTag_SharedForMe(), source, new String[] { "kind", "attribute", "name", "sharedForMe",
+            "namespace", "##targetNamespace" });
         addAnnotation(getTag_Changed(), source, new String[] { "kind", "attribute", "name", "changed", "namespace",
             "##targetNamespace" });
         addAnnotation(getTag_ParentTagId(), source, new String[] { "kind", "attribute", "name", "parentTagId",

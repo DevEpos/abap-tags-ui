@@ -1,10 +1,13 @@
 package com.devepos.adt.atm.ui;
 
 import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.jface.viewers.IDecoration;
 import org.osgi.framework.BundleContext;
 
-import com.devepos.adt.atm.ui.internal.util.IImages;
+import com.devepos.adt.atm.ui.internal.IImages;
 import com.devepos.adt.base.plugin.AbstractAdtUIPlugin;
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseImages;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -58,6 +61,12 @@ public class AbapTagsUIPlugin extends AbstractAdtUIPlugin {
         registerImage(reg, IImages.NEW_GLOBAL_TAG, "icons/NewTag.png");
         registerImage(reg, IImages.SHARED_TAG, "icons/SharedTag.png");
         registerImage(reg, IImages.SHARED_TAGS_FOLDER, "icons/SharedTagsFolder.png");
+
+        registerUserTagSharedOverlayImage(reg);
     }
 
+    private void registerUserTagSharedOverlayImage(final ImageRegistry reg) {
+        overlayImage(reg.get(IImages.USER_TAG), IImages.USER_TAG_W_SHARED_OVERLAY, AdtBaseUIResources.getImage(
+            IAdtBaseImages.SHARE_OVR), IDecoration.BOTTOM_RIGHT);
+    }
 }

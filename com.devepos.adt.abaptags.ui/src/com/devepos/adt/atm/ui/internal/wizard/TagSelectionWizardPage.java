@@ -50,6 +50,7 @@ import com.devepos.adt.atm.model.validation.TagListValidator;
 import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
 import com.devepos.adt.atm.tagging.IAdtObjTaggingService;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.atm.ui.internal.ImageUtil;
 import com.devepos.adt.atm.ui.internal.help.HelpContexts;
 import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
@@ -120,8 +121,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
             if (!getWizard().getCurrentTagPreviewInfo().getTags().isEmpty()) {
                 fillTagsFromPreviewInfo();
             } else if (getWizard().getCurrentTagPreviewInfo().getTags().isEmpty() && !getWizard().getSelectedObjects()
-                    .getObjectReferences()
-                    .isEmpty()) {
+                .getObjectReferences()
+                .isEmpty()) {
                 loadTagPreviewInfo();
             }
         }
@@ -150,7 +151,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
                 objectTag.setId(selectedTag.getId());
                 objectTag.setName(selectedTag.getName());
                 objectTag.setOwner(selectedTag.getOwner());
-                objectTag.setUserTag(selectedTag.getOwner() != null && !selectedTag.getOwner().isEmpty());
+                objectTag.setImage(ImageUtil.getImageForTag(selectedTag, false));
                 final EObject parent = selectedTag.eContainer();
                 if (parent instanceof ITag) {
                     objectTag.setParentTagId(((ITag) parent).getId());
@@ -249,7 +250,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     private void updateRemoveTagEnabled() {
         boolean removeEnabled = false;
         final IStructuredSelection sel = (IStructuredSelection) TagSelectionWizardPage.this.checkBoxViewer
-                .getSelection();
+            .getSelection();
         if (sel != null && !sel.isEmpty()) {
             final ITag selectedTag = (ITag) sel.getFirstElement();
             removeEnabled = StringUtil.isEmpty(selectedTag.getId());
@@ -286,7 +287,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
     private void resetAllFilters() {
         if (!StringUtil.isEmpty(filterText.getText())) {
-            filterText.setText("");
+            filterText.setText(""); //$NON-NLS-1$
         }
         tagTypeCombo.select(0);
         checkBoxViewer.refresh();
@@ -298,10 +299,10 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
             objectCount = previewInfo.getAdtObjectRefs().size();
             if (objectCount > 1) {
                 ((Wizard) getWizard()).setWindowTitle(NLS.bind(
-                        Messages.TagObjectsWizard_MultipleObjectsWizardTitle_xtit, objectCount));
+                    Messages.TagObjectsWizard_MultipleObjectsWizardTitle_xtit, objectCount));
             } else {
                 ((Wizard) getWizard()).setWindowTitle(Messages.TagObjectsWizard_SingleObjectWizardTitle_xtit
-                        + previewInfo.getAdtObjectRefs().get(0).getName());
+                    + previewInfo.getAdtObjectRefs().get(0).getName());
             }
             determinePreCheckedTags(previewInfo.getTags());
             checkBoxViewer.setInput(previewInfo.getTags());
@@ -338,7 +339,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
                 // read current tags from project
                 try {
                     final ITagPreviewInfo previewInfo = taggingService.getInformationForTagging(destinationId,
-                            getWizard().getSelectedObjects());
+                        getWizard().getSelectedObjects());
                     Display.getDefault().asyncExec(() -> {
                         if (previewInfo == null || previewInfo.getTags().size() == 0) {
                             setMessage(Messages.TaggingObjectWizard_NoTagsAvailableMessage_xmsg, INFORMATION);
@@ -377,6 +378,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
                 return Messages.TagSelectionWizardPage_TagScopeGlobal_xlbl;
             case USER:
                 return Messages.TagSelectionWizardPage_TagScopeUser_xlbl;
+            case SHARED:
+                return Messages.TagSelectionWizardPage_TagScopeShared_xlbl;
             default:
                 return ""; //$NON-NLS-1$
             }
@@ -422,11 +425,11 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         checkBoxViewer = new CheckboxTreeViewer(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
         tagsTree = checkBoxViewer.getTree();
         GridDataFactory.fillDefaults()
-                .align(SWT.FILL, SWT.FILL)
-                .grab(true, true)
-                .minSize(250, 300)
-                .hint(SWT.DEFAULT, tagsTree.getItemHeight() * 20)
-                .applyTo(tagsTree);
+            .align(SWT.FILL, SWT.FILL)
+            .grab(true, true)
+            .minSize(250, 300)
+            .hint(SWT.DEFAULT, tagsTree.getItemHeight() * 20)
+            .applyTo(tagsTree);
         checkBoxViewer.addFilter(patternFilter);
         treeLabelProvider = new TreeViewerLabelProvider();
         treeContentProvider = new TagTreeContentProvider();
@@ -441,7 +444,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
             if (!event.getChecked() && uncheckableTags.contains(tag)) {
                 event.getCheckable().setChecked(tag, true);
                 setMessage(NLS.bind(Messages.TagSelectionWizardPage_TagSelectionNotReversable_xmsg, tag.getName()),
-                        INFORMATION);
+                    INFORMATION);
                 return;
             }
             if (event.getChecked()) {
@@ -470,6 +473,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         });
     }
 
+    @SuppressWarnings("unchecked")
     private void updatePageStatus() {
         IStatus tagStatus = null;
         if (!newTags.isEmpty()) {
@@ -510,7 +514,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
     private class TreeViewerLabelProvider extends TagLabelProvider {
         public TreeViewerLabelProvider() {
-            super(false, false, false);
+            super(false, false);
         }
 
         @Override
@@ -531,7 +535,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         protected void appendCounterText(final ITag tag, final StyledString text) {
             if (!StringUtil.isEmpty(tag.getId()) && objectCount > 1) {
                 text.append(" (" + tag.getTaggedObjectCount() + " of " + objectCount + ")", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                        StyledString.COUNTER_STYLER);
+                    StyledString.COUNTER_STYLER);
             }
         }
 

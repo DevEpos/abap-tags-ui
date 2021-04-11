@@ -5,6 +5,7 @@ package com.devepos.adt.atm.model.abaptags.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
@@ -26,8 +27,8 @@ import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
  * <em>Parent Tag Id</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getParentTagName
  * <em>Parent Tag Name</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#isUserTag
- * <em>User Tag</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getImage
+ * <em>Image</em>}</li>
  * </ul>
  *
  * @generated
@@ -134,24 +135,24 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
     protected String parentTagName = PARENT_TAG_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isUserTag() <em>User Tag</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The default value of the '{@link #getImage() <em>Image</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
      *
-     * @see #isUserTag()
+     * @see #getImage()
      * @generated
      * @ordered
      */
-    protected static final boolean USER_TAG_EDEFAULT = false;
+    protected static final Image IMAGE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #isUserTag() <em>User Tag</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The cached value of the '{@link #getImage() <em>Image</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
      *
-     * @see #isUserTag()
+     * @see #getImage()
      * @generated
      * @ordered
      */
-    protected boolean userTag = USER_TAG_EDEFAULT;
+    protected Image image = IMAGE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -303,8 +304,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
      * @generated
      */
     @Override
-    public boolean isUserTag() {
-        return userTag;
+    public Image getImage() {
+        return image;
     }
 
     /**
@@ -313,12 +314,12 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
      * @generated
      */
     @Override
-    public void setUserTag(final boolean newUserTag) {
-        boolean oldUserTag = userTag;
-        userTag = newUserTag;
+    public void setImage(final Image newImage) {
+        Image oldImage = image;
+        image = newImage;
         if (eNotificationRequired()) {
-            eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.ADT_OBJECT_TAG__USER_TAG, oldUserTag,
-                userTag));
+            eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.ADT_OBJECT_TAG__IMAGE, oldImage,
+                image));
         }
     }
 
@@ -340,8 +341,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
             return getParentTagId();
         case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_TAG_NAME:
             return getParentTagName();
-        case IAbapTagsPackage.ADT_OBJECT_TAG__USER_TAG:
-            return isUserTag();
+        case IAbapTagsPackage.ADT_OBJECT_TAG__IMAGE:
+            return getImage();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -369,8 +370,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
         case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_TAG_NAME:
             setParentTagName((String) newValue);
             return;
-        case IAbapTagsPackage.ADT_OBJECT_TAG__USER_TAG:
-            setUserTag((Boolean) newValue);
+        case IAbapTagsPackage.ADT_OBJECT_TAG__IMAGE:
+            setImage((Image) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -399,8 +400,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
         case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_TAG_NAME:
             setParentTagName(PARENT_TAG_NAME_EDEFAULT);
             return;
-        case IAbapTagsPackage.ADT_OBJECT_TAG__USER_TAG:
-            setUserTag(USER_TAG_EDEFAULT);
+        case IAbapTagsPackage.ADT_OBJECT_TAG__IMAGE:
+            setImage(IMAGE_EDEFAULT);
             return;
         }
         super.eUnset(featureID);
@@ -428,8 +429,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
         case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_TAG_NAME:
             return PARENT_TAG_NAME_EDEFAULT == null ? parentTagName != null
                 : !PARENT_TAG_NAME_EDEFAULT.equals(parentTagName);
-        case IAbapTagsPackage.ADT_OBJECT_TAG__USER_TAG:
-            return userTag != USER_TAG_EDEFAULT;
+        case IAbapTagsPackage.ADT_OBJECT_TAG__IMAGE:
+            return IMAGE_EDEFAULT == null ? image != null : !IMAGE_EDEFAULT.equals(image);
         }
         return super.eIsSet(featureID);
     }
@@ -456,8 +457,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
         result.append(parentTagId);
         result.append(", parentTagName: ");
         result.append(parentTagName);
-        result.append(", userTag: ");
-        result.append(userTag);
+        result.append(", image: ");
+        result.append(image);
         result.append(')');
         return result.toString();
     }

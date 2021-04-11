@@ -9,8 +9,7 @@ import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagBase;
-import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
-import com.devepos.adt.atm.ui.internal.util.IImages;
+import com.devepos.adt.atm.ui.internal.ImageUtil;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.util.StringUtil;
 
@@ -21,7 +20,6 @@ import com.devepos.adt.base.util.StringUtil;
  */
 public class TagLabelProvider extends LabelProvider implements IStyledLabelProvider {
 
-    private final boolean grayScaleImageForNewTags;
     private final boolean noCounterText;
     private final boolean noDescription;
 
@@ -30,23 +28,18 @@ public class TagLabelProvider extends LabelProvider implements IStyledLabelProvi
      * {@link ITagBase}
      */
     public TagLabelProvider() {
-        this(true, false, true);
+        this(false, true);
     }
 
     /**
      * Creates new Label Provider for Viewer which holds instances of type
      * {@link ITagBase}
      *
-     * @param grayScaleImageForNewTags apply's gray scale filter to image if the tag
-     *                                 is new
-     * @param noCounterText            prevents displaying the counter of objects
-     *                                 that exist for a given tag
-     * @param noDescription            prevents displaying the description of the
-     *                                 tag
+     * @param noCounterText prevents displaying the counter of objects that exist
+     *                      for a given tag
+     * @param noDescription prevents displaying the description of the tag
      */
-    public TagLabelProvider(final boolean grayScaleImageForNewTags, final boolean noCounterText,
-        final boolean noDescription) {
-        this.grayScaleImageForNewTags = grayScaleImageForNewTags;
+    public TagLabelProvider(final boolean noCounterText, final boolean noDescription) {
         this.noCounterText = noCounterText;
         this.noDescription = noDescription;
     }
@@ -59,15 +52,8 @@ public class TagLabelProvider extends LabelProvider implements IStyledLabelProvi
 
     @Override
     public Image getImage(final Object element) {
-        if (element instanceof ITagBase) {
-            final ITagBase tag = (ITagBase) element;
-            if (StringUtil.isEmpty(tag.getId()) && grayScaleImageForNewTags) {
-                return AbapTagsUIPlugin.getDefault().getImage(IImages.TAG, true);
-            }
-            if (!StringUtil.isEmpty(tag.getOwner())) {
-                return AbapTagsUIPlugin.getDefault().getImage(IImages.USER_TAG);
-            }
-            return AbapTagsUIPlugin.getDefault().getImage(IImages.TAG);
+        if (element instanceof ITag) {
+            return ImageUtil.getImageForTag((ITag) element, false);
         }
         return null;
     }

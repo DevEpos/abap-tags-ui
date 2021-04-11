@@ -135,7 +135,7 @@ public class EditTagDataDialog extends TitleAreaDialog {
             enableOkButton(false);
         } else {
             setErrorMessage(null);
-            setMessage(Messages.EditTagDataDialog_DialogInfoText);
+            setMessage(Messages.EditTagDataDialog_DialogInfoText_xtit);
             if (!StringUtil.isEmpty(tag.getCreatedBy())) {
                 enableOkButton(isDirty());
             } else {

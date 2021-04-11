@@ -32,14 +32,12 @@ import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
-import com.devepos.adt.atm.model.abaptags.TagSearchScope;
-import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.atm.ui.internal.ImageUtil;
 import com.devepos.adt.atm.ui.internal.dialogs.ParentObjectFilterDialog;
 import com.devepos.adt.atm.ui.internal.help.HelpContexts;
 import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.tree.TaggedObjectTreeContentProvider;
-import com.devepos.adt.atm.ui.internal.util.IImages;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.base.ui.celleditor.ExtendedDialogCellEditor;
@@ -105,7 +103,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
                         objectTag.setId(selectedTag.getId());
                         objectTag.setName(selectedTag.getName());
                         objectTag.setOwner(selectedTag.getOwner());
-                        objectTag.setUserTag(selectedTag.getOwner() != null && !selectedTag.getOwner().isEmpty());
+                        objectTag.setImage(ImageUtil.getImageForTag(parentTag, false));
                         objectTag.setParentTagId(parentTag.getId());
                         objectTag.setParentTagName(parentTag.getName());
                         adtObjectTags.add(objectTag);
@@ -249,11 +247,8 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
                     final String destinationId = DestinationUtil.getDestinationId(project);
 
                     final IAdtObjectTag tag = (IAdtObjectTag) element;
-                    final TagSearchScope scope = tag.getOwner() != null && !tag.getOwner().isEmpty()
-                        ? TagSearchScope.USER
-                        : TagSearchScope.GLOBAL;
                     final ParentObjectFilterDialog filterDialog = new ParentObjectFilterDialog(getShell(),
-                        destinationId, tag.getParentTagId(), scope);
+                        destinationId, tag.getParentTagId());
                     filterDialog.open();
                     final IAdtObjRef selectedObj = filterDialog.getFirstResult();
                     if (selectedObj != null) {
@@ -358,8 +353,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
                 return getAdtObjectTypeImage(objRef.getType());
             }
             if (element instanceof IAdtObjectTag) {
-                final IAdtObjectTag objectTag = (IAdtObjectTag) element;
-                return AbapTagsUIPlugin.getDefault().getImage(objectTag.isUserTag() ? IImages.USER_TAG : IImages.TAG);
+                return ((IAdtObjectTag) element).getImage();
             }
             return null;
         }
@@ -379,7 +373,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
             } else if (element instanceof IAdtObjectTag) {
                 final IAdtObjectTag objectTag = (IAdtObjectTag) element;
                 if (column == Column.PARENT_TAG) {
-                    return AbapTagsUIPlugin.getDefault().getImage(IImages.TAG);
+                    return objectTag.getImage();
                 }
                 if (column == Column.PARENT_OBJECT) {
                     image = getAdtObjectTypeImage(objectTag.getParentObjectType());

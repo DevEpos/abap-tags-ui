@@ -2,6 +2,8 @@
  */
 package com.devepos.adt.atm.model.abaptags;
 
+import org.eclipse.swt.graphics.Image;
+
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Adt
  * Object Tag</b></em>'. <!-- end-user-doc -->
@@ -20,8 +22,8 @@ package com.devepos.adt.atm.model.abaptags;
  * <em>Parent Tag Id</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentTagName
  * <em>Parent Tag Name</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#isUserTag
- * <em>User Tag</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getImage
+ * <em>Image</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag()
@@ -153,26 +155,26 @@ public interface IAdtObjectTag extends ITagBase {
     void setParentTagName(String value);
 
     /**
-     * Returns the value of the '<em><b>User Tag</b></em>' attribute. <!--
+     * Returns the value of the '<em><b>Image</b></em>' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      *
-     * @return the value of the '<em>User Tag</em>' attribute.
-     * @see #setUserTag(boolean)
-     * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_UserTag()
-     * @model transient="true"
+     * @return the value of the '<em>Image</em>' attribute.
+     * @see #setImage(Image)
+     * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_Image()
+     * @model dataType="com.devepos.adt.atm.model.abaptags.Image" transient="true"
      * @generated
      */
-    boolean isUserTag();
+    Image getImage();
 
     /**
      * Sets the value of the
-     * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#isUserTag <em>User
-     * Tag</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getImage
+     * <em>Image</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
-     * @param value the new value of the '<em>User Tag</em>' attribute.
-     * @see #isUserTag()
+     * @param value the new value of the '<em>Image</em>' attribute.
+     * @see #getImage()
      * @generated
      */
-    void setUserTag(boolean value);
+    void setImage(Image value);
 
 } // IAdtObjectTag

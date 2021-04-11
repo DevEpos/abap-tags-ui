@@ -20,6 +20,7 @@ public class TagTreeContentProvider implements ITreeContentProvider {
         visibleTagScope = scope;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Object[] getElements(final Object inputElement) {
         List<ITag> tagList = null;
@@ -29,13 +30,21 @@ public class TagTreeContentProvider implements ITreeContentProvider {
             tagList = ((ITagList) inputElement).getTags();
         }
         if (tagList != null) {
-            if ((visibleTagScope == TagSearchScope.ALL) || (visibleTagScope == null)) {
+            if (visibleTagScope == TagSearchScope.ALL || visibleTagScope == null) {
                 return tagList.toArray();
             }
-            final List<ITag> filteredList = tagList.stream()
-                    .filter(t -> visibleTagScope == TagSearchScope.GLOBAL ? StringUtil.isEmpty(t.getOwner())
-                            : !StringUtil.isEmpty(t.getOwner()))
-                    .collect(Collectors.toList());
+            final List<ITag> filteredList = tagList.stream().filter(t -> {
+                switch (visibleTagScope) {
+                case GLOBAL:
+                    return StringUtil.isEmpty(t.getOwner());
+                case USER:
+                    return !t.isSharedForMe() && !StringUtil.isEmpty(t.getOwner());
+                case SHARED:
+                    return t.isSharedForMe();
+                default:
+                    return false;
+                }
+            }).collect(Collectors.toList());
             if (filteredList != null && filteredList.size() > 0) {
                 return filteredList.toArray();
             }
@@ -64,9 +73,8 @@ public class TagTreeContentProvider implements ITreeContentProvider {
         }
         if (container instanceof ITag) {
             return container;
-        } else {
-            return null;
         }
+        return null;
     }
 
     @Override

@@ -45,6 +45,8 @@ import com.devepos.adt.base.util.StringUtil;
  * <em>Tagged Object Count</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#isShared
  * <em>Shared</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#isSharedForMe
+ * <em>Shared For Me</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#isChanged
  * <em>Changed</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getParentTagId
@@ -207,6 +209,26 @@ public class Tag extends TagBase implements ITag {
     protected boolean shared = SHARED_EDEFAULT;
 
     /**
+     * The default value of the '{@link #isSharedForMe() <em>Shared For Me</em>}'
+     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @see #isSharedForMe()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean SHARED_FOR_ME_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isSharedForMe() <em>Shared For Me</em>}'
+     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @see #isSharedForMe()
+     * @generated
+     * @ordered
+     */
+    protected boolean sharedForMe = SHARED_FOR_ME_EDEFAULT;
+
+    /**
      * The default value of the '{@link #isChanged() <em>Changed</em>}' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
@@ -281,6 +303,11 @@ public class Tag extends TagBase implements ITag {
             return new Status(IStatus.ERROR, AbapTagsModelPlugin.PLUGIN_ID, Messages.TagListValidator_NoTagName_xmsg);
         }
         return Status.OK_STATUS;
+    }
+
+    @Override
+    public boolean isEditable() {
+        return !isSharedForMe();
     }
 
     /**
@@ -476,6 +503,31 @@ public class Tag extends TagBase implements ITag {
      * @generated
      */
     @Override
+    public boolean isSharedForMe() {
+        return sharedForMe;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public void setSharedForMe(final boolean newSharedForMe) {
+        boolean oldSharedForMe = sharedForMe;
+        sharedForMe = newSharedForMe;
+        if (eNotificationRequired()) {
+            eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__SHARED_FOR_ME, oldSharedForMe,
+                sharedForMe));
+        }
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
     public boolean isChanged() {
         return changed;
     }
@@ -573,6 +625,8 @@ public class Tag extends TagBase implements ITag {
             return getTaggedObjectCount();
         case IAbapTagsPackage.TAG__SHARED:
             return isShared();
+        case IAbapTagsPackage.TAG__SHARED_FOR_ME:
+            return isSharedForMe();
         case IAbapTagsPackage.TAG__CHANGED:
             return isChanged();
         case IAbapTagsPackage.TAG__PARENT_TAG_ID:
@@ -616,6 +670,9 @@ public class Tag extends TagBase implements ITag {
             return;
         case IAbapTagsPackage.TAG__SHARED:
             setShared((Boolean) newValue);
+            return;
+        case IAbapTagsPackage.TAG__SHARED_FOR_ME:
+            setSharedForMe((Boolean) newValue);
             return;
         case IAbapTagsPackage.TAG__CHANGED:
             setChanged((Boolean) newValue);
@@ -663,6 +720,9 @@ public class Tag extends TagBase implements ITag {
         case IAbapTagsPackage.TAG__SHARED:
             setShared(SHARED_EDEFAULT);
             return;
+        case IAbapTagsPackage.TAG__SHARED_FOR_ME:
+            setSharedForMe(SHARED_FOR_ME_EDEFAULT);
+            return;
         case IAbapTagsPackage.TAG__CHANGED:
             setChanged(CHANGED_EDEFAULT);
             return;
@@ -702,6 +762,8 @@ public class Tag extends TagBase implements ITag {
             return taggedObjectCount != TAGGED_OBJECT_COUNT_EDEFAULT;
         case IAbapTagsPackage.TAG__SHARED:
             return shared != SHARED_EDEFAULT;
+        case IAbapTagsPackage.TAG__SHARED_FOR_ME:
+            return sharedForMe != SHARED_FOR_ME_EDEFAULT;
         case IAbapTagsPackage.TAG__CHANGED:
             return changed != CHANGED_EDEFAULT;
         case IAbapTagsPackage.TAG__PARENT_TAG_ID:
@@ -738,6 +800,8 @@ public class Tag extends TagBase implements ITag {
         result.append(taggedObjectCount);
         result.append(", shared: ");
         result.append(shared);
+        result.append(", sharedForMe: ");
+        result.append(sharedForMe);
         result.append(", changed: ");
         result.append(changed);
         result.append(", parentTagId: ");

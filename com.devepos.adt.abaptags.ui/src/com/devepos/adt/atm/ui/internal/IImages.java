@@ -1,4 +1,4 @@
-package com.devepos.adt.atm.ui.internal.util;
+package com.devepos.adt.atm.ui.internal;
 
 /**
  * Image Ids in the Plugin
@@ -51,5 +51,9 @@ public interface IImages {
      * Image for a folder with shared tags
      */
     String SHARED_TAGS_FOLDER = "IMG_SHARED_TAGS_FOLDER";
+    /**
+     * Image for a user tag that is shared with others
+     */
+    String USER_TAG_W_SHARED_OVERLAY = "IMG_USER_TAG_SHARED_OVR";
 
 }
