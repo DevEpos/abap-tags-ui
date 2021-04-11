@@ -51,7 +51,7 @@ public class AbapTagsService implements IAbapTagsService {
         if (new AbapTagsUriDiscovery(destinationId).isResourceDiscoverySuccessful()) {
             return Status.OK_STATUS;
         }
-        return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(Messages.AbapTagsService_TagsNotSupported,
+        return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(Messages.AbapTagsService_TagsNotSupported_xmsg,
             project.getName()));
     }
 
@@ -63,7 +63,7 @@ public class AbapTagsService implements IAbapTagsService {
             return Status.OK_STATUS;
         }
         return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(
-            Messages.AbapTagsService_ShareTagsNotSupported, project.getName()));
+            Messages.AbapTagsService_ShareTagsNotSupported_xmsg, project.getName()));
     }
 
     @Override
