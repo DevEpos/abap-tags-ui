@@ -9,22 +9,49 @@
 
 <body id="doc-body">
 	<h2 class="heading">Tag Explorer</h2>
-	The Tag Explorer View allows the viewing of the current Tags of a given ADT object.
+	<p>
+		The <i>tag explorer</i> view manages all available user, shared and
+		global tags for a given ABAP project. <br />You can perform the
+		following actions in the view:
+	</p>
+	<ul>
+		<li>create, edit or delete user and/or global tags</li>
+		<li>convert user tags into global tags</li>
+		<li>share user tags</li>
+	</ul>
 	<figure>
-		<img src="../images/tag_explorer.png">
+		<img src="../images/tags_explorer.png">
 		<figcaption>
 			<strong>Figure 1:</strong> Tag Explorer View
 		</figcaption>
 	</figure>
+
+	<h3>Sharing User Tags</h3>
+	<blockquote>
+		<strong>Note</strong>: You can only share normal user tags and the
+		root node of hierarchical user tags. Upon sharing the root all sub
+		tags are also shared
+	</blockquote>
 	<p>
-		You can pin this view to a side of eclipse and activate the <i>Link with Editor</i> action in the
-		View's toolbar.<br>That way, the view will automatically show the ADT object of the currently
-		active editor.
+		Sometimes you may need to share a specific set of objects with only a
+		few other users. In this case it may be better to create a <i>user
+			tag</i> and share it with others.<br /> The sharing process is started
+		via the context menu action <strong>Share Tag...</strong> of a user
+		tag.
 	</p>
-	<p>Further possible actions in this View are:</p>
-	<ul class="list">
-		<li>Delete assigned tags</li>
-		<li>Choose any ADT object for Tagging</li>
-	</ul>
+	<figure>
+		<img src="../images/user_tag_context_menu.png">
+		<figcaption>
+			<strong>Figure 2:</strong> Context Menu for User Tag
+		</figcaption>
+	</figure>
+	<p>After that you can select those users with who you want to the
+		share the selected tag.</p>
+	<figure>
+		<img src="../images/tag_sharing_user_selection.png">
+		<figcaption>
+			<strong>Figure 3:</strong> User selection for Tag Sharing
+		</figcaption>
+	</figure>
 </body>
 </html>

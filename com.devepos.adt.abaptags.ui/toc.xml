@@ -11,9 +11,9 @@
       </topic>
       <topic href="html/tag_explorer.html" label="Tag Explorer">
       </topic>
-      <topic href="html/tag_managment.html" label="Tags">
+      <topic href="html/object_tags.html" label="Object Tags">
       </topic>
-      <topic href="html/tag_search.html" label="Tag Search">
+      <topic href="html/tag_search.html" label="Tagged Object Search">
       </topic>
    </topic>
 </toc>

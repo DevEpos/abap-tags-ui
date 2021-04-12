@@ -9,11 +9,11 @@
    <context id="tag_explorer" title="Help for CDS Analyzer">
       <topic href="html/tag_explorer.html" label="Tag Explorer"/>
    </context>
-   <context id="tag_management">
-      <topic href="html/tag_managment.html" label="Tags"/>
+   <context id="object_tags">
+      <topic href="html/object_tags.html" label="Object Tags"/>
    </context>
-   <context id="tag_search">
-      <topic href="html/tag_search.html" label="Tag Search"/>
+   <context id="tagged_object_search">
+      <topic href="html/tagged_object_search.html" label="Tagged Object Search"/>
    </context>
    <context id="tag_wizard_tag_selection">
       <description>On this page you select the tags you want to assign to your ADT object. You can also add entirely new tags on this page</description>

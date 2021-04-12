@@ -18,31 +18,31 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.tags.IAbapTagsService;
-import com.devepos.adt.atm.ui.internal.views.AbapTagExplorerView;
+import com.devepos.adt.atm.ui.internal.views.AbapObjectTagsView;
 import com.devepos.adt.base.ui.adtobject.IAdtObject;
 import com.devepos.adt.base.ui.util.EditorUtil;
 import com.devepos.adt.base.util.Logging;
 
-public class ShowInTagExplorerHandler extends AbstractHandler {
+public class ShowInObjectTagsHandler extends AbstractHandler {
 
     private IAdtObject currentSelectedObject;
     private final IAbapTagsService abapTagsService;
 
-    public ShowInTagExplorerHandler() {
+    public ShowInObjectTagsHandler() {
         abapTagsService = AbapTagsServiceFactory.createTagsService();
     }
 
     @Override
     public Object execute(final ExecutionEvent event) throws ExecutionException {
-        AbapTagExplorerView view = null;
+        AbapObjectTagsView view = null;
         final IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
         try {
-            final IViewPart viewPart = page.showView(AbapTagExplorerView.VIEW_ID);
-            if (viewPart instanceof AbapTagExplorerView) {
-                view = (AbapTagExplorerView) viewPart;
+            final IViewPart viewPart = page.showView(AbapObjectTagsView.VIEW_ID);
+            if (viewPart instanceof AbapObjectTagsView) {
+                view = (AbapObjectTagsView) viewPart;
             }
         } catch (final PartInitException e) {
-            Logging.getLogger(ShowInTagExplorerHandler.class).error(e);
+            Logging.getLogger(ShowInObjectTagsHandler.class).error(e);
         }
 
         if (view != null) {

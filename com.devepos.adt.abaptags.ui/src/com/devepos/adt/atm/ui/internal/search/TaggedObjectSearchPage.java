@@ -87,7 +87,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
     public void createControl(final Composite parent) {
         initializeDialogUnits(parent);
         mainComposite = new SearchComposite(parent, SWT.NONE);
-        HelpUtil.setHelp(mainComposite, HelpContexts.TAG_SEARCH);
+        HelpUtil.setHelp(mainComposite, HelpContexts.TAGGED_OBJECT_SEARCH);
         GridDataFactory.fillDefaults().grab(true, true).applyTo(mainComposite);
         GridLayoutFactory.swtDefaults().applyTo(mainComposite);
         setControl(mainComposite);

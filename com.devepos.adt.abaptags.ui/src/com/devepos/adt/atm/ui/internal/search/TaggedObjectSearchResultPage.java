@@ -99,7 +99,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     @Override
     public void createControl(final Composite parent) {
         mainComposite = new Composite(parent, SWT.NONE);
-        HelpUtil.setHelp(mainComposite, HelpContexts.TAG_SEARCH);
+        HelpUtil.setHelp(mainComposite, HelpContexts.TAGGED_OBJECT_SEARCH);
         mainComposite.setLayout(new FillLayout());
         mainComposite.setSize(100, 100);
         GridDataFactory.fillDefaults().applyTo(mainComposite);

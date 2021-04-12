@@ -34,7 +34,7 @@
             commandId="com.devepos.adt.atm.ui.command.tagObjects">
       </handler>
       <handler
-            class="com.devepos.adt.atm.ui.internal.handlers.ShowInTagExplorerHandler"
+            class="com.devepos.adt.atm.ui.internal.handlers.ShowInObjectTagsHandler"
             commandId="com.devepos.adt.atm.ui.command.showInTagsExplorer">
       </handler>
     </extension>
@@ -231,10 +231,10 @@
       </view>
       <view
             category="com.sap.adt.views"
-            class="com.devepos.adt.atm.ui.internal.views.AbapTagsView"
+            class="com.devepos.adt.atm.ui.internal.views.AbapObjectTagsView"
             icon="icons/Tag.png"
             id="com.devepos.adt.atm.ui.views.AbapTags"
-            name="%views.name.abapTags"
+            name="%views.name.abapObjectTags"
             restorable="true">
       </view>
    </extension>
