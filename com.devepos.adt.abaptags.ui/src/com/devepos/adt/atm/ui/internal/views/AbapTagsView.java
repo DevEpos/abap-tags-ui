@@ -619,7 +619,8 @@ public class AbapTagsView extends ViewPart {
         private String destinationId;
 
         public ShareTagsAction() {
-            super(Messages.AbapTagsView_ShareTagAction_xmit, AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.SHARE));
+            super(Messages.AbapTagsView_ShareTagAction_xmit, AdtBaseUIResources.getImageDescriptor(
+                IAdtBaseImages.SHARE));
         }
 
         @Override
