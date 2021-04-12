@@ -14,6 +14,7 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.IImages;
+import com.devepos.adt.atm.ui.internal.ImageUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
@@ -23,7 +24,6 @@ import com.devepos.adt.base.ui.tree.AdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingFolderNode;
-import com.devepos.adt.base.util.StringUtil;
 
 public class TaggedObjectSearchResult implements ISearchResult {
     private final TaggedObjectSearchQuery query;
@@ -34,6 +34,7 @@ public class TaggedObjectSearchResult implements ISearchResult {
     private int resultCount;
     private boolean hasMoreResults;
     private boolean isGroupedResult;
+    private String destinationOwner;
 
     public TaggedObjectSearchResult(final TaggedObjectSearchQuery tagSearchQuery) {
         query = tagSearchQuery;
@@ -100,6 +101,7 @@ public class TaggedObjectSearchResult implements ISearchResult {
     }
 
     public void addSearchResult(final ITaggedObjectList result) {
+        destinationOwner = query.getProjectProvider().getDestinationData().getUser();
         if (result != null && result.getTaggedObjects().size() > 0) {
             internalSearchResult = result;
             resultCount = result.getTaggedObjects().size();
@@ -155,8 +157,7 @@ public class TaggedObjectSearchResult implements ISearchResult {
             for (final IAdtObjectTag tag : taggedObject.getTags()) {
                 final ILazyLoadingNode lazyTagNode = new LazyLoadingFolderNode(tag.getName(),
                     new TaggedObjectSearchInfoProvider(query.getDestinationId(), objectRef, tag, query.getSearchParams()
-                        .getMaxResults()), objRefNode, AbapTagsUIPlugin.getDefault()
-                            .getImage(StringUtil.isEmpty(tag.getOwner()) ? IImages.TAG : IImages.USER_TAG));
+                        .getMaxResults()), objRefNode, ImageUtil.getObjectTagImage(tag, destinationOwner));
                 objRefNode.getChildren().add(lazyTagNode);
             }
         }

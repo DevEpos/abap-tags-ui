@@ -2,6 +2,7 @@ package com.devepos.adt.atm.ui.internal;
 
 import org.eclipse.swt.graphics.Image;
 
+import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.base.util.StringUtil;
@@ -37,5 +38,22 @@ public class ImageUtil {
             return AbapTagsUIPlugin.getDefault().getImage(IImages.USER_TAG_W_SHARED_OVERLAY);
         }
         return AbapTagsUIPlugin.getDefault().getImage(IImages.USER_TAG);
+    }
+
+    /**
+     * Retrieves the image for the given object tag
+     *
+     * @param tag an object tag
+     * @return the image for the object tag
+     */
+    public static Image getObjectTagImage(final IAdtObjectTag tag, final String destinationOwner) {
+        if (StringUtil.isEmpty(tag.getOwner())) {
+            return AbapTagsUIPlugin.getDefault().getImage(IImages.TAG);
+        }
+        if (!tag.getOwner().equals(destinationOwner) && !StringUtil.isEmpty(destinationOwner)) {
+            return AbapTagsUIPlugin.getDefault().getImage(IImages.SHARED_TAG);
+        } else {
+            return AbapTagsUIPlugin.getDefault().getImage(IImages.USER_TAG);
+        }
     }
 }

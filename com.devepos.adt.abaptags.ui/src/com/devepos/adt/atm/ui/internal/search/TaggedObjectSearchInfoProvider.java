@@ -13,17 +13,16 @@ import com.devepos.adt.atm.model.abaptags.TagQueryFocus;
 import com.devepos.adt.atm.model.abaptags.TagQueryType;
 import com.devepos.adt.atm.search.ITaggedObjectSearchService;
 import com.devepos.adt.atm.search.TaggedObjectSearchFactory;
-import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
-import com.devepos.adt.atm.ui.internal.IImages;
+import com.devepos.adt.atm.ui.internal.ImageUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
+import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.elementinfo.AdtObjectReferenceElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfoProvider;
 import com.devepos.adt.base.elementinfo.ILazyLoadingElementInfo;
 import com.devepos.adt.base.elementinfo.LazyLoadingElementInfo;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
-import com.devepos.adt.base.util.StringUtil;
 
 public class TaggedObjectSearchInfoProvider implements IElementInfoProvider {
 
@@ -31,10 +30,12 @@ public class TaggedObjectSearchInfoProvider implements IElementInfoProvider {
     private final int maxResults;
     private final IAdtObjRef parentObjRef;
     private final IAdtObjectTag tag;
+    private String destinationOwner;
 
     public TaggedObjectSearchInfoProvider(final String destinationId, final IAdtObjRef adtObjRef,
         final IAdtObjectTag tag, final int maxResults) {
         this.destinationId = destinationId;
+        destinationOwner = DestinationUtil.getDestinationData(destinationId).getUser();
         parentObjRef = adtObjRef;
         this.tag = tag;
         this.maxResults = maxResults;
@@ -64,10 +65,9 @@ public class TaggedObjectSearchInfoProvider implements IElementInfoProvider {
                     objRef));
 
                 for (final IAdtObjectTag tag : taggedObject.getTags()) {
-                    final ILazyLoadingElementInfo lazyTagElemInfo = new LazyLoadingElementInfo(tag.getName(),
-                        AbapTagsUIPlugin.getDefault()
-                            .getImage(StringUtil.isEmpty(tag.getOwner()) ? IImages.TAG : IImages.USER_TAG),
-                        new TaggedObjectSearchInfoProvider(destinationId, objRef, tag, maxResults));
+                    final ILazyLoadingElementInfo lazyTagElemInfo = new LazyLoadingElementInfo(tag.getName(), ImageUtil
+                        .getObjectTagImage(tag, destinationOwner), new TaggedObjectSearchInfoProvider(destinationId,
+                            objRef, tag, maxResults));
                     objRefElemeInfo.getChildren().add(lazyTagElemInfo);
                 }
                 objRefElemeInfo.setLazyLoadingSupport(false);
@@ -82,5 +82,4 @@ public class TaggedObjectSearchInfoProvider implements IElementInfoProvider {
     public String getProviderDescription() {
         return String.format(Messages.TaggedObjectSearchInfoProvider_LoadingTagsJob_xmsg, tag.getName());
     }
-
 }
