@@ -18,9 +18,8 @@
             name="%command.tagObjects.label">
       </command>
       <command
-            categoryId="com.devepos.adt.atm.ui.general.commands.category"
-            id="com.devepos.adt.atm.ui.command.showInTagsExplorer"
-            name="%command.showInTagsExplorer.label">
+            id="com.devepos.adt.atm.ui.command.showInObjectTags"
+            name="%command.showInObjectTags.label">
       </command>
    </extension>
    <extension
@@ -35,7 +34,7 @@
       </handler>
       <handler
             class="com.devepos.adt.atm.ui.internal.handlers.ShowInObjectTagsHandler"
-            commandId="com.devepos.adt.atm.ui.command.showInTagsExplorer">
+            commandId="com.devepos.adt.atm.ui.command.showInObjectTags">
       </handler>
     </extension>
    <extension
@@ -108,8 +107,10 @@
             allPopups="false"
             locationURI="popup:org.eclipse.ui.menus.showInMenu">
          <command
-               commandId="com.devepos.adt.atm.ui.command.showInTagsExplorer"
-               icon="icons/TagsFolder.png"
+               commandId="com.devepos.adt.atm.ui.command.showInObjectTags"
+               icon="icons/Tag.png"
+               label="%menu.cmd.showInObjectTags.label"
+               mnemonic="t"
                style="push">
          </command>
       </menuContribution>
@@ -233,7 +234,7 @@
             category="com.sap.adt.views"
             class="com.devepos.adt.atm.ui.internal.views.AbapObjectTagsView"
             icon="icons/Tag.png"
-            id="com.devepos.adt.atm.ui.views.AbapTags"
+            id="com.devepos.adt.atm.ui.views.AbapObjectTags"
             name="%views.name.abapObjectTags"
             restorable="true">
       </view>
