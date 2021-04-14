@@ -30,6 +30,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.search.ui.IContextMenuConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
@@ -73,19 +74,20 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
+import com.devepos.adt.base.ui.IAdtBaseUICommandConstants;
 import com.devepos.adt.base.ui.IGeneralContextMenuConstants;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.ViewDescriptionLabel;
 import com.devepos.adt.base.ui.ViewPartListener;
 import com.devepos.adt.base.ui.action.ActionFactory;
 import com.devepos.adt.base.ui.action.ChooseOtherAdtObjectAction;
+import com.devepos.adt.base.ui.action.CommandFactory;
 import com.devepos.adt.base.ui.action.CopyToClipboardAction;
 import com.devepos.adt.base.ui.action.ExecuteAdtObjectAction;
 import com.devepos.adt.base.ui.action.OpenAdtObjectAction;
 import com.devepos.adt.base.ui.action.PreferenceToggleAction;
 import com.devepos.adt.base.ui.adtobject.AdtObjectFactory;
 import com.devepos.adt.base.ui.adtobject.IAdtObject;
-import com.devepos.adt.base.ui.menu.MenuItemFactory;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.search.IAdtRisSearchResultProxy;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
@@ -246,10 +248,8 @@ public class AbapObjectTagsView extends ViewPart {
 
         if (!adtObjRefs.isEmpty()) {
             menu.add(new Separator(IGeneralContextMenuConstants.GROUP_ADDITIONS));
-            MenuItemFactory.addCommandItem(menu, IGeneralContextMenuConstants.GROUP_ADDITIONS,
-                "com.sap.adt.ris.whereused.ui.callWhereUsed", //$NON-NLS-1$
-                AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.WHERE_USED_LIST), AdtBaseUIResources.getString(
-                    IAdtBaseStrings.General_WhereUsedList_xmit), null);
+            menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, CommandFactory.createContribItemById(
+                IAdtBaseUICommandConstants.WHERE_USED_IN, true, null));
         }
 
         menu.add(new Separator(IGeneralContextMenuConstants.GROUP_EDIT));

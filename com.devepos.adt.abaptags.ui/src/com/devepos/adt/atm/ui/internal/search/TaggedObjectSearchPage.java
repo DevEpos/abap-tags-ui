@@ -48,9 +48,12 @@ import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.ui.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.project.ProjectInput;
 import com.devepos.adt.base.ui.project.ProjectUtil;
+import com.devepos.adt.base.ui.search.IChangeableSearchPage;
+import com.devepos.adt.base.ui.search.SearchPageUtil;
 import com.devepos.adt.base.ui.util.StatusUtil;
 
-public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
+public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
+    IChangeableSearchPage<TaggedObjectSearchQuery> {
 
     public static final String PAGE_ID = "com.devepos.adt.atm.ui.searchpage.tags"; //$NON-NLS-1$
     private static final String LAST_PROJECT_PREF = "com.devepos.adt.abaptags.ui.taggedObjectSearch.lastProject"; //$NON-NLS-1$
@@ -107,9 +110,11 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage {
         if (tagsTree != null && !tagsTree.isDisposed()) {
             tagsTree.setFocus();
         }
+        SearchPageUtil.notifySearchPageListeners(this);
     }
 
-    public void setInputFromPreviousQuery(final TaggedObjectSearchQuery query) {
+    @Override
+    public void setInputFromSearchQuery(final TaggedObjectSearchQuery query) {
         projectInput.setProjectName(query.getProjectProvider().getProjectName());
         matchAllTagsButton.setSelection(query.getSearchParams().isMatchesAllTags());
         previouslyCheckedTagIds = query.getSearchParams().getTagIds();

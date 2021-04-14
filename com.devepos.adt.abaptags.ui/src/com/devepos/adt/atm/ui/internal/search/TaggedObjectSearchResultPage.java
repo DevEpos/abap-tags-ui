@@ -48,18 +48,17 @@ import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.help.HelpContexts;
 import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
-import com.devepos.adt.base.ui.AdtBaseUIResources;
-import com.devepos.adt.base.ui.IAdtBaseImages;
-import com.devepos.adt.base.ui.IAdtBaseStrings;
+import com.devepos.adt.base.ui.IAdtBaseUICommandConstants;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.UIState;
 import com.devepos.adt.base.ui.action.CollapseAllTreeNodesAction;
 import com.devepos.adt.base.ui.action.CollapseTreeNodesAction;
+import com.devepos.adt.base.ui.action.CommandFactory;
 import com.devepos.adt.base.ui.action.CopyToClipboardAction;
 import com.devepos.adt.base.ui.action.ExecuteAdtObjectAction;
 import com.devepos.adt.base.ui.action.OpenAdtObjectAction;
-import com.devepos.adt.base.ui.menu.MenuItemFactory;
 import com.devepos.adt.base.ui.project.IAbapProjectProvider;
+import com.devepos.adt.base.ui.search.ISearchResultPageExtension;
 import com.devepos.adt.base.ui.tree.ActionTreeNode;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.ICollectionTreeNode;
@@ -72,7 +71,8 @@ import com.devepos.adt.base.ui.util.WorkbenchUtil;
 import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
-public class TaggedObjectSearchResultPage extends Page implements ISearchResultPage, ISearchResultListener {
+public class TaggedObjectSearchResultPage extends Page implements ISearchResultPage, ISearchResultListener,
+    ISearchResultPageExtension<TaggedObjectSearchQuery> {
     private String id;
     private ISearchResultViewPart searchViewPart;
     private Tree resultTree;
@@ -86,7 +86,6 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     private CollapseTreeNodesAction collapseNodesAction;
     private CopyToClipboardAction copyToClipBoardAction;
     private OpenTaggedObjectSearchPreferences openPreferencesAction;
-    private OpenInSearchDialogAction openInSearchDialog;
     private IPropertyChangeListener prefStoreListener;
     private IPreferenceStore prefStore;
     private final List<String> executableObjectTypes;
@@ -142,7 +141,8 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     @Override
     public void setActionBars(final IActionBars actionBars) {
         final IToolBarManager tbm = actionBars.getToolBarManager();
-        tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, openInSearchDialog);
+        tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, CommandFactory.createContribItemById(
+            IAdtBaseUICommandConstants.OPEN_QUERY_IN_SEARCH_DIALOG, false, null));
         tbm.appendToGroup(IContextMenuConstants.GROUP_EDIT, collapseAllNodesAction);
         copyToClipBoardAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_COPY);
         actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), copyToClipBoardAction);
@@ -243,8 +243,14 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 
     }
 
-    public TaggedObjectSearchQuery getQuery() {
+    @Override
+    public TaggedObjectSearchQuery getSearchQuery() {
         return result != null ? (TaggedObjectSearchQuery) result.getQuery() : null;
+    }
+
+    @Override
+    public String getSearchPageId() {
+        return TaggedObjectSearchPage.PAGE_ID;
     }
 
     private void initializeActions() {
@@ -253,7 +259,6 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
         copyToClipBoardAction = new CopyToClipboardAction();
         copyToClipBoardAction.registerViewer(resultTreeViewer);
         openPreferencesAction = new OpenTaggedObjectSearchPreferences();
-        openInSearchDialog = new OpenInSearchDialogAction();
     }
 
     private void hookContextMenu() {
@@ -316,10 +321,8 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 
         if (!adtObjRefs.isEmpty()) {
             menu.add(new Separator(IContextMenuConstants.GROUP_ADDITIONS));
-            MenuItemFactory.addCommandItem(menu, IContextMenuConstants.GROUP_ADDITIONS,
-                "com.sap.adt.ris.whereused.ui.callWhereUsed", //$NON-NLS-1$
-                AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.WHERE_USED_LIST), AdtBaseUIResources.getString(
-                    IAdtBaseStrings.General_WhereUsedList_xmit), null);
+            menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, CommandFactory.createContribItemById(
+                IAdtBaseUICommandConstants.WHERE_USED_IN, true, null));
         }
 
         if (selectionHasExpandedNodes) {
