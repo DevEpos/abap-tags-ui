@@ -74,7 +74,7 @@ import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.IGeneralCommandConstants;
 import com.devepos.adt.base.ui.IGeneralContextConstants;
-import com.devepos.adt.base.ui.IGeneralContextMenuConstants;
+import com.devepos.adt.base.ui.IGeneralMenuConstants;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.ViewDescriptionLabel;
 import com.devepos.adt.base.ui.action.ActionFactory;
@@ -176,7 +176,7 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
         getSite().getPage().addPostSelectionListener(selectionListener);
         checkProjectStatus(false);
 
-        contextHelper = ContextHelper.createForPart(this);
+        contextHelper = ContextHelper.createForServiceLocator(getSite());
         contextHelper.activateAbapContext();
         contextHelper.activateContext(IGeneralContextConstants.FILTERABLE_VIEWS);
     }
@@ -314,8 +314,8 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
         if (sel.isEmpty()) {
             return;
         }
-        menu.add(new Separator(IGeneralContextMenuConstants.GROUP_NEW));
-        menu.add(new Separator(IGeneralContextMenuConstants.GROUP_EDIT));
+        menu.add(new Separator(IGeneralMenuConstants.GROUP_NEW));
+        menu.add(new Separator(IGeneralMenuConstants.GROUP_EDIT));
         menu.add(new Separator(MENU_SEP_GROUP_SHARE));
 
         if (sel.size() == 1) {
@@ -323,18 +323,18 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
             if (selObj instanceof TagFolder) {
                 final TagFolder folder = (TagFolder) selObj;
                 if (folder.getType() == TagFolderType.USER) {
-                    menu.appendToGroup(IGeneralContextMenuConstants.GROUP_NEW, createUserTagAction);
+                    menu.appendToGroup(IGeneralMenuConstants.GROUP_NEW, createUserTagAction);
                 } else if (folder.getType() == TagFolderType.GLOBAL) {
-                    menu.appendToGroup(IGeneralContextMenuConstants.GROUP_NEW, createGlobalTagAction);
+                    menu.appendToGroup(IGeneralMenuConstants.GROUP_NEW, createGlobalTagAction);
                 }
                 return;
             }
             final ITag tag = (ITag) selObj;
             if (tag.isEditable()) {
-                menu.appendToGroup(IGeneralContextMenuConstants.GROUP_EDIT, editTagAction);
+                menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, editTagAction);
             }
             if (!(tag.eContainer() instanceof ITag) && !StringUtil.isEmpty(tag.getOwner()) && tag.isEditable()) {
-                menu.appendToGroup(IGeneralContextMenuConstants.GROUP_EDIT, convertTagAction);
+                menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, convertTagAction);
                 if (tagsSharingPossible) {
                     menu.appendToGroup(MENU_SEP_GROUP_SHARE, shareTagAction);
                     if (tag.isShared()) {
@@ -345,8 +345,8 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
             }
             if (tag.isEditable()) {
                 deleteTagsAction.setText(Messages.AbapTagsView_DeleteTagAction_xmit);
-                menu.appendToGroup(IGeneralContextMenuConstants.GROUP_EDIT, deleteTagsAction);
-                menu.appendToGroup(IGeneralContextMenuConstants.GROUP_NEW, createSubTagAction);
+                menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, deleteTagsAction);
+                menu.appendToGroup(IGeneralMenuConstants.GROUP_NEW, createSubTagAction);
             }
         } else {
             boolean massEditingPossible = true;
@@ -369,7 +369,7 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
             }
             if (massEditingPossible) {
                 deleteTagsAction.setText(Messages.AbapTagsView_DeleteTagsAction_xmit);
-                menu.appendToGroup(IGeneralContextMenuConstants.GROUP_EDIT, deleteTagsAction);
+                menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, deleteTagsAction);
                 if (atLeastOneSharedTag && tagsSharingPossible) {
                     unshareTagAction.setText(Messages.AbapTagsView_UnshareTagsAction_xmit);
                     menu.appendToGroup(MENU_SEP_GROUP_SHARE, unshareTagAction);

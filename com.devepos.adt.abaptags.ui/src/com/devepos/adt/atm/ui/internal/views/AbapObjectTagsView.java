@@ -75,7 +75,7 @@ import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.IGeneralCommandConstants;
-import com.devepos.adt.base.ui.IGeneralContextMenuConstants;
+import com.devepos.adt.base.ui.IGeneralMenuConstants;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.ViewDescriptionLabel;
 import com.devepos.adt.base.ui.ViewPartListener;
@@ -247,16 +247,16 @@ public class AbapObjectTagsView extends ViewPart {
         }
 
         if (!adtObjRefs.isEmpty()) {
-            menu.add(new Separator(IGeneralContextMenuConstants.GROUP_ADDITIONS));
+            menu.add(new Separator(IGeneralMenuConstants.GROUP_ADDITIONS));
             menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, CommandFactory.createContribItemById(
                 IGeneralCommandConstants.WHERE_USED_IN, true, null));
         }
 
-        menu.add(new Separator(IGeneralContextMenuConstants.GROUP_EDIT));
+        menu.add(new Separator(IGeneralMenuConstants.GROUP_EDIT));
         if (deleteTagsAction != null) {
-            menu.appendToGroup(IGeneralContextMenuConstants.GROUP_EDIT, deleteTagsAction);
+            menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, deleteTagsAction);
         }
-        menu.appendToGroup(IGeneralContextMenuConstants.GROUP_EDIT, copyToClipBoardAction);
+        menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, copyToClipBoardAction);
     }
 
     private IProject getProject() {
