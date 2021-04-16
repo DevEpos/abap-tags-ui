@@ -48,7 +48,7 @@ import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.help.HelpContexts;
 import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
-import com.devepos.adt.base.ui.IAdtBaseUICommandConstants;
+import com.devepos.adt.base.ui.IGeneralCommandConstants;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.UIState;
 import com.devepos.adt.base.ui.action.CollapseAllTreeNodesAction;
@@ -142,7 +142,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     public void setActionBars(final IActionBars actionBars) {
         final IToolBarManager tbm = actionBars.getToolBarManager();
         tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, CommandFactory.createContribItemById(
-            IAdtBaseUICommandConstants.OPEN_QUERY_IN_SEARCH_DIALOG, false, null));
+            IGeneralCommandConstants.OPEN_QUERY_IN_SEARCH_DIALOG, false, null));
         tbm.appendToGroup(IContextMenuConstants.GROUP_EDIT, collapseAllNodesAction);
         copyToClipBoardAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_COPY);
         actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), copyToClipBoardAction);
@@ -322,7 +322,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
         if (!adtObjRefs.isEmpty()) {
             menu.add(new Separator(IContextMenuConstants.GROUP_ADDITIONS));
             menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, CommandFactory.createContribItemById(
-                IAdtBaseUICommandConstants.WHERE_USED_IN, true, null));
+                IGeneralCommandConstants.WHERE_USED_IN, true, null));
         }
 
         if (selectionHasExpandedNodes) {

@@ -72,8 +72,8 @@ import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.ContextHelper;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
-import com.devepos.adt.base.ui.IAdtBaseUICommandConstants;
-import com.devepos.adt.base.ui.IAdtBaseUIContextConstants;
+import com.devepos.adt.base.ui.IGeneralCommandConstants;
+import com.devepos.adt.base.ui.IGeneralContextConstants;
 import com.devepos.adt.base.ui.IGeneralContextMenuConstants;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.ViewDescriptionLabel;
@@ -178,7 +178,7 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
 
         contextHelper = ContextHelper.createForPart(this);
         contextHelper.activateAbapContext();
-        contextHelper.activateContext(IAdtBaseUIContextConstants.FILTERABLE_VIEWS);
+        contextHelper.activateContext(IGeneralContextConstants.FILTERABLE_VIEWS);
     }
 
     @Override
@@ -589,8 +589,7 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
         tbm.add(createGlobalTagAction);
 
         actionBars.getMenuManager()
-            .add(CommandFactory.createContribItemById(IAdtBaseUICommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false,
-                null));
+            .add(CommandFactory.createContribItemById(IGeneralCommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false, null));
     }
 
     private void loadViewInput() {

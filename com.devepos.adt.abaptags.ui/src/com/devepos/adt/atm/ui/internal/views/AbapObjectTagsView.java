@@ -74,7 +74,7 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
-import com.devepos.adt.base.ui.IAdtBaseUICommandConstants;
+import com.devepos.adt.base.ui.IGeneralCommandConstants;
 import com.devepos.adt.base.ui.IGeneralContextMenuConstants;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.ViewDescriptionLabel;
@@ -249,7 +249,7 @@ public class AbapObjectTagsView extends ViewPart {
         if (!adtObjRefs.isEmpty()) {
             menu.add(new Separator(IGeneralContextMenuConstants.GROUP_ADDITIONS));
             menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, CommandFactory.createContribItemById(
-                IAdtBaseUICommandConstants.WHERE_USED_IN, true, null));
+                IGeneralCommandConstants.WHERE_USED_IN, true, null));
         }
 
         menu.add(new Separator(IGeneralContextMenuConstants.GROUP_EDIT));
