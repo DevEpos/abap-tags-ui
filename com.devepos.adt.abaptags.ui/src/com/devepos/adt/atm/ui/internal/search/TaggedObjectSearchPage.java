@@ -19,15 +19,11 @@ import org.eclipse.search.ui.ISearchPage;
 import org.eclipse.search.ui.ISearchPageContainer;
 import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Tree;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.ITag;
@@ -50,6 +46,7 @@ import com.devepos.adt.base.ui.project.ProjectInput;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.search.IChangeableSearchPage;
 import com.devepos.adt.base.ui.search.SearchPageUtil;
+import com.devepos.adt.base.ui.tree.FilterableTree;
 import com.devepos.adt.base.ui.util.StatusUtil;
 
 public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
@@ -60,7 +57,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
     private ISearchPageContainer container;
     private CheckboxTreeViewer tagsTreeViewer;
     private final ITagList tagList = IAbapTagsFactory.eINSTANCE.createTagList();
-    private Tree tagsTree;
+    private FilterableTree tagsTree;
     private final Set<ITag> checkedTags;
     private Composite mainComposite;
     private ProjectInput projectInput;
@@ -72,7 +69,6 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
     private IProject currentProject;
     private AggregateValidationStatus projectAggrValStatus;
     private Job loadTagsJob;
-    private Text filterText;
     private final TagFilter patternFilter;
     private Button matchAllTagsButton;
     private final IPreferenceStore prefStore;
@@ -188,10 +184,28 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
         GridLayoutFactory.swtDefaults().applyTo(tagsGroup);
         tagsGroup.setText(Messages.TaggedObjectSearchPage_TagsGroup_xtit);
 
-        createFilterText(tagsGroup);
+        tagsTree = new FilterableTree(tagsGroup, Messages.TaggedObjectSearchPage_TagsTreeFilterText_xmsg, false) {
+            @Override
+            protected void filterJobCompleted() {
+                super.filterJobCompleted();
+                setCheckedElements();
+                if (tagsTree.getFilterString() == null || tagsTree.getFilterString().trim().isEmpty()) {
+                    tagsTreeViewer.collapseAll();
+                }
+            }
+        };
+        tagsTree.setElementMatcher(element -> {
+            if (element instanceof ITag) {
+                final ITag tag = (ITag) element;
+                return tagsTree.getWordMatcher().matchesWord(tag.getName()) || tagsTree.getWordMatcher()
+                    .matchesWord(tag.getDescription());
+            }
+            return false;
+        });
+        tagsTreeViewer = new CheckboxTreeViewer(tagsTree, SWT.V_SCROLL | SWT.MULTI | SWT.BORDER);
+        tagsTree.setViewer(tagsTreeViewer);
+        tagsTree.setExpandAllOnFilterEmpty(false);
 
-        tagsTreeViewer = new CheckboxTreeViewer(tagsGroup, SWT.V_SCROLL | SWT.MULTI | SWT.BORDER);
-        tagsTree = tagsTreeViewer.getTree();
         tagsTreeViewer.addFilter(patternFilter);
         tagsTreeViewer.setContentProvider(new TagTreeContentProvider());
         tagsTreeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new TagLabelProvider(true, false)));
@@ -211,30 +225,6 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
         matchAllTagsButton = new Button(tagsGroup, SWT.CHECK);
         matchAllTagsButton.setText(Messages.TaggedObjectSearchPage_MatchAllTags_xckl);
         GridDataFactory.fillDefaults().applyTo(matchAllTagsButton);
-    }
-
-    private void createFilterText(final Composite parent) {
-        filterText = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.SEARCH | SWT.ICON_CANCEL);
-        GridDataFactory.fillDefaults().grab(true, false).indent(SWT.DEFAULT, 10).applyTo(filterText);
-        filterText.setMessage(Messages.TaggedObjectSearchPage_TagsTreeFilterText_xmsg);
-
-        filterText.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(final KeyEvent e) {
-                // on a CR we want to transfer focus to the list
-                final boolean hasItems = tagsTree.getItemCount() > 0;
-                if (hasItems && e.keyCode == SWT.ARROW_DOWN) {
-                    tagsTree.setFocus();
-                } else if (e.character == SWT.CR) {
-                }
-            }
-        });
-        filterText.addModifyListener(e -> {
-            patternFilter.setPattern(filterText.getText());
-            tagsTreeViewer.refresh();
-            setCheckedElements();
-        });
-
     }
 
     private void determineCheckedTagsFromPreviousSearch() {
