@@ -296,8 +296,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
     }
 
     private void createViewer(final Composite parent) {
-        tree = new FilterableTree(parent, SWT.V_SCROLL | SWT.MULTI, Messages.AbapTagManagerView_ViewerFilterText_xmsg,
-            true);
+        tree = new FilterableTree(parent, Messages.AbapTagManagerView_ViewerFilterText_xmsg, true);
         tree.setElementMatcher(element -> {
             if (element instanceof ITag) {
                 final ITag tag = (ITag) element;
@@ -307,7 +306,8 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
             }
             return false;
         });
-        treeViewer = tree.getViewer();
+        treeViewer = new TreeViewer(tree, SWT.V_SCROLL | SWT.MULTI);
+        tree.setViewer(treeViewer);
         treeViewer.setContentProvider(new TreeContentProvider());
         treeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new ViewLabelProvider()));
         treeViewer.setUseHashlookup(true);
