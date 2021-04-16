@@ -69,13 +69,20 @@ import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.IUser;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.ContextHelper;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
+import com.devepos.adt.base.ui.IAdtBaseUICommandConstants;
+import com.devepos.adt.base.ui.IAdtBaseUIContextConstants;
 import com.devepos.adt.base.ui.IGeneralContextMenuConstants;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.ViewDescriptionLabel;
 import com.devepos.adt.base.ui.action.ActionFactory;
+import com.devepos.adt.base.ui.action.CommandFactory;
+import com.devepos.adt.base.ui.controls.FilterableComposite;
 import com.devepos.adt.base.ui.project.ProjectUtil;
+import com.devepos.adt.base.ui.tree.FilterableTree;
+import com.devepos.adt.base.ui.tree.IFilterableView;
 import com.devepos.adt.base.ui.userinfo.IUserService;
 import com.devepos.adt.base.ui.userinfo.UserServiceFactory;
 import com.devepos.adt.base.util.StringUtil;
@@ -85,7 +92,7 @@ import com.devepos.adt.base.util.StringUtil;
  *
  * @author stockbal
  */
-public class AbapTagExplorerView extends ViewPart {
+public class AbapTagExplorerView extends ViewPart implements IFilterableView {
 
     public static final String VIEW_ID = "com.devepos.adt.atm.ui.views.AbapTagsExplorer"; //$NON-NLS-1$
     private static final String MENU_SEP_GROUP_SHARE = "group.share"; //$NON-NLS-1$
@@ -136,12 +143,13 @@ public class AbapTagExplorerView extends ViewPart {
     private Job tagLoadingJob;
     private final IAbapTagsService tagsService;
 
-    private Tree tree;
+    private FilterableComposite<TreeViewer, Tree> tree;
 
     private TreeViewer treeViewer;
     private ViewDescriptionLabel viewLabel;
     private String lastDestinationOwner = ""; //$NON-NLS-1$
     private boolean tagsSharingPossible;
+    private ContextHelper contextHelper;
 
     public AbapTagExplorerView() {
         tagsService = AbapTagsServiceFactory.createTagsService();
@@ -167,11 +175,18 @@ public class AbapTagExplorerView extends ViewPart {
         getSite().setSelectionProvider(treeViewer);
         getSite().getPage().addPostSelectionListener(selectionListener);
         checkProjectStatus(false);
+
+        contextHelper = ContextHelper.createForPart(this);
+        contextHelper.activateAbapContext();
+        contextHelper.activateContext(IAdtBaseUIContextConstants.FILTERABLE_VIEWS);
     }
 
     @Override
     public void dispose() {
         getSite().getPage().removePostSelectionListener(selectionListener);
+        if (contextHelper != null) {
+            contextHelper.deactivateAllContexts();
+        }
         super.dispose();
     }
 
@@ -188,6 +203,13 @@ public class AbapTagExplorerView extends ViewPart {
         }
         if (lastSelection != null) {
             showTagsOfLastSelectedProject();
+        }
+    }
+
+    @Override
+    public void toggleInlineFilter() {
+        if (treeViewer.getInput() != null) {
+            tree.toggleFilterVisiblity();
         }
     }
 
@@ -231,6 +253,7 @@ public class AbapTagExplorerView extends ViewPart {
     private void clearInput() {
         treeViewer.setInput(null);
         treeViewer.refresh();
+        tree.setFilterVisible(false);
     }
 
     private void createOrUpdateTag(final ITag newTag, final boolean isUserTag) {
@@ -256,9 +279,17 @@ public class AbapTagExplorerView extends ViewPart {
     }
 
     private void createViewer(final Composite parent) {
-        treeViewer = new TreeViewer(parent, SWT.V_SCROLL | SWT.MULTI);
-        tree = treeViewer.getTree();
-        GridDataFactory.fillDefaults().grab(true, true).applyTo(tree);
+        tree = new FilterableTree(parent, SWT.V_SCROLL | SWT.MULTI, "type filter text", true);
+        tree.setElementMatcher(element -> {
+            if (element instanceof ITag) {
+                final ITag tag = (ITag) element;
+
+                return tree.getWordMatcher().matchesWord(tag.getName()) || tree.getWordMatcher()
+                    .matchesWord(tag.getDescription());
+            }
+            return false;
+        });
+        treeViewer = tree.getViewer();
         treeViewer.setContentProvider(new TreeContentProvider());
         treeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new ViewLabelProvider()));
         treeViewer.setUseHashlookup(true);
@@ -515,7 +546,7 @@ public class AbapTagExplorerView extends ViewPart {
         menuMgr.addMenuListener(menu -> {
             fillContextMenu(menu);
         });
-        final Control viewerControl = tree;
+        final Control viewerControl = treeViewer.getControl();
         final Menu menu = menuMgr.createContextMenu(viewerControl);
         viewerControl.setMenu(menu);
         getSite().registerContextMenu(getViewSite().getId(), menuMgr, treeViewer);
@@ -556,6 +587,10 @@ public class AbapTagExplorerView extends ViewPart {
         tbm.add(new Separator());
         tbm.add(createUserTagAction);
         tbm.add(createGlobalTagAction);
+
+        actionBars.getMenuManager()
+            .add(CommandFactory.createContribItemById(IAdtBaseUICommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false,
+                null));
     }
 
     private void loadViewInput() {
