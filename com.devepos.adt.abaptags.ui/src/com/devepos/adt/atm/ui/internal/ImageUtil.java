@@ -52,8 +52,7 @@ public class ImageUtil {
         }
         if (!tag.getOwner().equals(destinationOwner) && !StringUtil.isEmpty(destinationOwner)) {
             return AbapTagsUIPlugin.getDefault().getImage(IImages.SHARED_TAG);
-        } else {
-            return AbapTagsUIPlugin.getDefault().getImage(IImages.USER_TAG);
         }
+        return AbapTagsUIPlugin.getDefault().getImage(IImages.USER_TAG);
     }
 }
