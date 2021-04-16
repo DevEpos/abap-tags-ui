@@ -230,10 +230,10 @@
          point="org.eclipse.ui.views">
       <view
             category="com.sap.adt.views"
-            class="com.devepos.adt.atm.ui.internal.views.AbapTagExplorerView"
+            class="com.devepos.adt.atm.ui.internal.views.AbapTagManagerView"
             icon="icons/TagsFolder.png"
-            id="com.devepos.adt.atm.ui.views.AbapTagsExplorer"
-            name="%views.name.abapTagsExplorer"
+            id="com.devepos.adt.atm.ui.views.AbapTagManager"
+            name="%views.name.abapTagManager"
             restorable="true">
       </view>
       <view

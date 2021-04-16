@@ -152,12 +152,12 @@ public class AbapObjectTagsView extends ViewPart {
             final IWorkbenchPart part = partRef.getPart(true);
             if (part instanceof IEditorPart) {
                 showTaggedObjectsForEditor((IEditorPart) part);
-            } else if (part instanceof AbapTagExplorerView) {
+            } else if (part instanceof AbapTagManagerView) {
                 showTaggedObjectsForEditor(partRef.getPage().getActiveEditor());
             }
         });
         partListener.setPartVisibleConsumer(partRef -> {
-            if (VIEW_ID.equals(partRef.getId()) && partRef.getPart(false) instanceof AbapTagExplorerView) {
+            if (VIEW_ID.equals(partRef.getId()) && partRef.getPart(false) instanceof AbapTagManagerView) {
                 showTaggedObjectsForEditor(partRef.getPage().getActiveEditor());
             }
         });
@@ -179,7 +179,7 @@ public class AbapObjectTagsView extends ViewPart {
     private void clearInput() {
         currentAdtObject = null;
         treeResult.clearInput();
-        viewLabel.updateLabel(Messages.AbapTagExplorerView_NoInputAvailable_xmsg);
+        viewLabel.updateLabel(Messages.AbapObjectTagsView_NoInputAvailable_xmsg);
     }
 
     private void createViewer(final Composite parent) {
@@ -279,7 +279,7 @@ public class AbapObjectTagsView extends ViewPart {
     private void initializeActions() {
         copyToClipBoardAction = new CopyToClipboardAction();
         copyToClipBoardAction.registerViewer(treeViewer);
-        linkToEditorAction = new PreferenceToggleAction(Messages.AbapTagExplorerView_LinkToEditorAction_xtol, PlatformUI
+        linkToEditorAction = new PreferenceToggleAction(Messages.AbapObjectTagsView_LinkToEditorAction_xtol, PlatformUI
             .getWorkbench()
             .getSharedImages()
             .getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED), LINK_TO_EDITOR_PREF, true, AbapTagsUIPlugin.getDefault()
@@ -289,7 +289,7 @@ public class AbapObjectTagsView extends ViewPart {
                 updateInputFromEditor();
             }
         });
-        addTagsAction = ActionFactory.createAction(Messages.AbapTagExplorerView_AddTagsAction_xtol, AbapTagsUIPlugin
+        addTagsAction = ActionFactory.createAction(Messages.AbapObjectTagsView_AddTagsAction_xtol, AbapTagsUIPlugin
             .getDefault()
             .getImageDescriptor(IImages.ASSIGN_TAG), () -> {
                 final TagObjectsWizard wizard = new TagObjectsWizard(currentAdtObject != null);
@@ -418,7 +418,7 @@ public class AbapObjectTagsView extends ViewPart {
         private ITaggedObjectList tgobjList;
 
         public DeleteTagsAction() {
-            super(Messages.AbapTagExplorerView_DeleteTagAction_xmit, PlatformUI.getWorkbench()
+            super(Messages.AbapObjectTagsView_DeleteTagAction_xmit, PlatformUI.getWorkbench()
                 .getSharedImages()
                 .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
         }
@@ -463,7 +463,7 @@ public class AbapObjectTagsView extends ViewPart {
         }
 
         private Job createDeleteTagsJob(final ITaggedObjectList tgobjList) {
-            return Job.create(Messages.AbapTagExplorerView_DeleteTagsJob_xmsg, monitor -> {
+            return Job.create(Messages.AbapObjectTagsView_DeleteTagsJob_xmsg, monitor -> {
 
                 final IAdtObjTaggingService taggingService = AdtObjTaggingServiceFactory.createTaggingService();
                 taggingService.deleteTags(DestinationUtil.getDestinationId(getProject()), tgobjList);
@@ -528,7 +528,7 @@ public class AbapObjectTagsView extends ViewPart {
                             }
                             if (taggedObject.getTags().isEmpty()) {
                                 adtObjRefElemInfo.getChildren()
-                                    .add(new SimpleElementInfo(Messages.AbapTagExplorerView_NoTagsAssigned_xmsg));
+                                    .add(new SimpleElementInfo(Messages.AbapObjectTagsView_NoTagsAssigned_xmsg));
                             }
                             return Arrays.asList(adtObjRefElemInfo);
                         }
@@ -540,7 +540,7 @@ public class AbapObjectTagsView extends ViewPart {
 
                 @Override
                 public String getProviderDescription() {
-                    return Messages.AbapTagExplorerView_LoadingTaggedObjectInfoJob_xmsg;
+                    return Messages.AbapObjectTagsView_LoadingTaggedObjectInfoJob_xmsg;
                 }
             }, null, null);
             lazyLoadingNode.setContentRefreshMode(LazyLoadingRefreshMode.ROOT_AND_NON_LAZY_CHILDREN);

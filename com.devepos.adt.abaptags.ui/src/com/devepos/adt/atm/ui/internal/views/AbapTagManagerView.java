@@ -1,5 +1,6 @@
 package com.devepos.adt.atm.ui.internal.views;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.JFacePreferences;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
@@ -33,6 +35,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.osgi.util.NLS;
+import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
@@ -52,6 +55,8 @@ import org.eclipse.ui.part.ViewPart;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagList;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
+import com.devepos.adt.atm.model.abaptags.TagInfoType;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.tags.IAbapTagsService;
@@ -65,6 +70,8 @@ import com.devepos.adt.atm.ui.internal.dialogs.EditTagDataDialog;
 import com.devepos.adt.atm.ui.internal.help.HelpContexts;
 import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
+import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
+import com.devepos.adt.atm.ui.internal.search.TaggedObjectSearchQuery;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.IUser;
@@ -78,8 +85,11 @@ import com.devepos.adt.base.ui.IGeneralMenuConstants;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.ViewDescriptionLabel;
 import com.devepos.adt.base.ui.action.ActionFactory;
+import com.devepos.adt.base.ui.action.CollapseAllTreeNodesAction;
 import com.devepos.adt.base.ui.action.CommandFactory;
+import com.devepos.adt.base.ui.action.ExpandAllAction;
 import com.devepos.adt.base.ui.controls.FilterableComposite;
+import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.tree.FilterableTree;
 import com.devepos.adt.base.ui.tree.IFilterableView;
@@ -92,9 +102,9 @@ import com.devepos.adt.base.util.StringUtil;
  *
  * @author stockbal
  */
-public class AbapTagExplorerView extends ViewPart implements IFilterableView {
+public class AbapTagManagerView extends ViewPart implements IFilterableView {
 
-    public static final String VIEW_ID = "com.devepos.adt.atm.ui.views.AbapTagsExplorer"; //$NON-NLS-1$
+    public static final String VIEW_ID = "com.devepos.adt.atm.ui.views.AbapTagManager"; //$NON-NLS-1$
     private static final String MENU_SEP_GROUP_SHARE = "group.share"; //$NON-NLS-1$
     protected ISelection lastSelection;
     private Action convertTagAction;
@@ -103,8 +113,13 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
     private Action createUserTagAction;
     private Action deleteTagsAction;
     private Action editTagAction;
+    private Action collapseAllAction;
+    private TriggerTagSearchAction searchForSelectedTags;
+    private TriggerTagSearchAction searchForAllSelectedTags;
+    private ExpandAllAction expandAllAction;
     private IProject lastProject;
     private Composite mainComposite;
+    private IPreferenceStore prefStore;
     private Action refreshAction;
     private final ISelectionListener selectionListener = new ISelectionListener() {
         private boolean isUpdatingSelection = false;
@@ -118,13 +133,13 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
             try {
                 isUpdatingSelection = true;
                 // check whether the selection change is on this view
-                if (AbapTagExplorerView.this == part) {
+                if (AbapTagManagerView.this == part) {
                     return;
                 }
                 // update selection
                 lastSelection = selection;
                 // Further processing will only be done if this view is visible
-                if (!getViewSite().getPage().isPartVisible(AbapTagExplorerView.this)) {
+                if (!getViewSite().getPage().isPartVisible(AbapTagManagerView.this)) {
                     return;
                 }
                 // refresh view
@@ -151,15 +166,16 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
     private boolean tagsSharingPossible;
     private ContextHelper contextHelper;
 
-    public AbapTagExplorerView() {
+    public AbapTagManagerView() {
         tagsService = AbapTagsServiceFactory.createTagsService();
         tagFolders = new TagFolders();
+        prefStore = AbapTagsUIPlugin.getDefault().getPreferenceStore();
     }
 
     @Override
     public void createPartControl(final Composite parent) {
         mainComposite = new Composite(parent, SWT.NONE);
-        HelpUtil.setHelp(mainComposite, HelpContexts.TAG_EXPLORER);
+        HelpUtil.setHelp(mainComposite, HelpContexts.TAG_MANAGER);
         GridDataFactory.fillDefaults().grab(true, true).applyTo(mainComposite);
         GridLayoutFactory.swtDefaults().margins(0, 0).applyTo(mainComposite);
 
@@ -216,7 +232,7 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
     private boolean checkProjectStatus(final boolean ensureLogon) {
         boolean tagsFeatureStatusUnknown = false;
         if (lastProject == null) {
-            viewLabel.updateLabel(Messages.AbapTagsView_NoProjectAvailable_xmsg);
+            viewLabel.updateLabel(Messages.AbapTagManagerView_NoProjectAvailable_xmsg);
             clearInput();
             setControlsEnabled(false);
             return false;
@@ -232,7 +248,8 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
             }
         }
         if (tagsFeatureStatusUnknown) {
-            viewLabel.updateLabel(NLS.bind(Messages.AbapTagsView_TagsNotLoadedInProject_xmsg, lastProject.getName()));
+            viewLabel.updateLabel(NLS.bind(Messages.AbapTagManagerView_TagsNotLoadedInProject_xmsg, lastProject
+                .getName()));
             clearInput();
             setControlsEnabled(true);
             return false;
@@ -246,7 +263,7 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
         }
         tagsSharingPossible = tagsService.testShareTagsFeatureAvailability(lastProject).isOK();
         setControlsEnabled(true);
-        viewLabel.updateLabel(NLS.bind(Messages.AbapTagsView_TagListInProject_xmsg, lastProject.getName()));
+        viewLabel.updateLabel(NLS.bind(Messages.AbapTagManagerView_TagListInProject_xmsg, lastProject.getName()));
         return true;
     }
 
@@ -263,13 +280,13 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
         if (!ProjectUtil.ensureLoggedOnToProject(lastProject).isOK()) {
             return;
         }
-        final Job updateJob = Job.create(Messages.AbapTagsView_UpdateTagJobTitle_xmsg, monitor -> {
+        final Job updateJob = Job.create(Messages.AbapTagManagerView_UpdateTagJobTitle_xmsg, monitor -> {
             final IStatus status = tagsService.updateTags(updateList, DestinationUtil.getDestinationId(lastProject),
                 isUserTag ? TagSearchScope.USER : TagSearchScope.GLOBAL);
             if (!status.isOK()) {
                 Display.getDefault().asyncExec(() -> {
-                    MessageDialog.openError(getSite().getShell(), Messages.AbapTagsView_ErrorMessageTitle_xtit,
-                        Messages.AbapTagsView_ErrorDuringTagUpdate_xmsg + status.getMessage());
+                    MessageDialog.openError(getSite().getShell(), Messages.AbapTagManagerView_ErrorMessageTitle_xtit,
+                        Messages.AbapTagManagerView_ErrorDuringTagUpdate_xmsg + status.getMessage());
                 });
             }
             refreshTags();
@@ -279,7 +296,8 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
     }
 
     private void createViewer(final Composite parent) {
-        tree = new FilterableTree(parent, SWT.V_SCROLL | SWT.MULTI, "type filter text", true);
+        tree = new FilterableTree(parent, SWT.V_SCROLL | SWT.MULTI, Messages.AbapTagManagerView_ViewerFilterText_xmsg,
+            true);
         tree.setElementMatcher(element -> {
             if (element instanceof ITag) {
                 final ITag tag = (ITag) element;
@@ -317,7 +335,9 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
         menu.add(new Separator(IGeneralMenuConstants.GROUP_NEW));
         menu.add(new Separator(IGeneralMenuConstants.GROUP_EDIT));
         menu.add(new Separator(MENU_SEP_GROUP_SHARE));
+        menu.add(new Separator(IGeneralMenuConstants.GROUP_SEARCH));
 
+        int selectedTagCount = 0;
         if (sel.size() == 1) {
             final Object selObj = sel.getFirstElement();
             if (selObj instanceof TagFolder) {
@@ -330,6 +350,7 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
                 return;
             }
             final ITag tag = (ITag) selObj;
+            selectedTagCount += 1;
             if (tag.isEditable()) {
                 menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, editTagAction);
             }
@@ -338,13 +359,13 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
                 if (tagsSharingPossible) {
                     menu.appendToGroup(MENU_SEP_GROUP_SHARE, shareTagAction);
                     if (tag.isShared()) {
-                        unshareTagAction.setText(Messages.AbapTagsView_UnshareTagAction_xmit);
+                        unshareTagAction.setText(Messages.AbapTagManagerView_UnshareTagAction_xmit);
                         menu.appendToGroup(MENU_SEP_GROUP_SHARE, unshareTagAction);
                     }
                 }
             }
             if (tag.isEditable()) {
-                deleteTagsAction.setText(Messages.AbapTagsView_DeleteTagAction_xmit);
+                deleteTagsAction.setText(Messages.AbapTagManagerView_DeleteTagAction_xmit);
                 menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, deleteTagsAction);
                 menu.appendToGroup(IGeneralMenuConstants.GROUP_NEW, createSubTagAction);
             }
@@ -357,6 +378,7 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
                     break;
                 }
                 if (selObj instanceof ITag) {
+                    selectedTagCount += 1;
                     ITag selectedTag = (ITag) selObj;
                     if (!selectedTag.isEditable()) {
                         massEditingPossible = false;
@@ -368,12 +390,19 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
                 }
             }
             if (massEditingPossible) {
-                deleteTagsAction.setText(Messages.AbapTagsView_DeleteTagsAction_xmit);
+                deleteTagsAction.setText(Messages.AbapTagManagerView_DeleteTagsAction_xmit);
                 menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, deleteTagsAction);
                 if (atLeastOneSharedTag && tagsSharingPossible) {
-                    unshareTagAction.setText(Messages.AbapTagsView_UnshareTagsAction_xmit);
+                    unshareTagAction.setText(Messages.AbapTagManagerView_UnshareTagsAction_xmit);
                     menu.appendToGroup(MENU_SEP_GROUP_SHARE, unshareTagAction);
                 }
+            }
+        }
+
+        if (selectedTagCount > 0) {
+            menu.appendToGroup(IGeneralMenuConstants.GROUP_SEARCH, searchForSelectedTags);
+            if (selectedTagCount > 1) {
+                menu.appendToGroup(IGeneralMenuConstants.GROUP_SEARCH, searchForAllSelectedTags);
             }
         }
     }
@@ -411,8 +440,8 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
         if (tag == null) {
             return;
         }
-        if (!MessageDialog.openQuestion(getSite().getShell(), Messages.AbapTagsView_ConvertToGlobalTagAction_xmit, NLS
-            .bind(Messages.AbapTagsView_ConvertToGlobalTagPrompt_xmsg, tag.getName()))) {
+        if (!MessageDialog.openQuestion(getSite().getShell(), Messages.AbapTagManagerView_ConvertToGlobalTagAction_xmit,
+            NLS.bind(Messages.AbapTagManagerView_ConvertToGlobalTagPrompt_xmsg, tag.getName()))) {
             return;
         }
         if (!ProjectUtil.ensureLoggedOnToProject(lastProject).isOK()) {
@@ -420,13 +449,13 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
         }
         final ITagList userTagList = IAbapTagsFactory.eINSTANCE.createTagList();
         userTagList.getTags().add(tag);
-        final Job job = Job.create(Messages.AbapTagsView_ConvertToGlobalTagJobTitle_xmsg, monitor -> {
+        final Job job = Job.create(Messages.AbapTagManagerView_ConvertToGlobalTagJobTitle_xmsg, monitor -> {
             final IStatus serviceStatus = tagsService.makeTagsGlobal(DestinationUtil.getDestinationId(lastProject),
                 userTagList);
             if (!serviceStatus.isOK()) {
                 Display.getDefault().asyncExec(() -> {
-                    MessageDialog.openError(getSite().getShell(), Messages.AbapTagsView_ErrorMessageTitle_xtit,
-                        Messages.AbapTagsView_ErrorDuringTagConversion_xmsg + serviceStatus.getMessage());
+                    MessageDialog.openError(getSite().getShell(), Messages.AbapTagManagerView_ErrorMessageTitle_xtit,
+                        Messages.AbapTagManagerView_ErrorDuringTagConversion_xmsg + serviceStatus.getMessage());
                 });
             }
             refreshTags();
@@ -476,20 +505,20 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
 
     private void handleDeleteTags() {
         final ITagList tagList = buildNewTagListFromSelection(null);
-        if (!MessageDialog.openQuestion(getSite().getShell(), Messages.AbapTagsView_DeleteTagsMsgTitle_xtit,
-            Messages.AbapTagsView_DeleteTagsPrompt_xmsg)) {
+        if (!MessageDialog.openQuestion(getSite().getShell(), Messages.AbapTagManagerView_DeleteTagsMsgTitle_xtit,
+            Messages.AbapTagManagerView_DeleteTagsPrompt_xmsg)) {
             return;
         }
 
         if (!ProjectUtil.ensureLoggedOnToProject(lastProject).isOK()) {
             return;
         }
-        final Job deleteJob = Job.create(Messages.AbapTagsView_DeleteTagsJobTitle_xmsg, monitor -> {
+        final Job deleteJob = Job.create(Messages.AbapTagManagerView_DeleteTagsJobTitle_xmsg, monitor -> {
             final IStatus status = tagsService.deleteTags(tagList, DestinationUtil.getDestinationId(lastProject),
                 TagSearchScope.ALL);
             if (!status.isOK()) {
-                MessageDialog.openError(getSite().getShell(), Messages.AbapTagsView_ErrorMessageTitle_xtit,
-                    Messages.AbapTagsView_ErrorDuringTagDeletion_xmsg + status.getMessage());
+                MessageDialog.openError(getSite().getShell(), Messages.AbapTagManagerView_ErrorMessageTitle_xtit,
+                    Messages.AbapTagManagerView_ErrorDuringTagDeletion_xmsg + status.getMessage());
             }
             refreshTags();
             monitor.done();
@@ -524,13 +553,13 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
 
     private void handleUnshareTag() {
         final ITagList sharedTagList = buildNewTagListFromSelection(t -> t.isShared() && t.isEditable());
-        final Job job = Job.create(Messages.AbapTagsView_UnshareTagsJob_xmsg, monitor -> {
+        final Job job = Job.create(Messages.AbapTagManagerView_UnshareTagsJob_xmsg, monitor -> {
             final IStatus serviceStatus = tagsService.unshareTags(DestinationUtil.getDestinationId(lastProject),
                 sharedTagList);
             if (!serviceStatus.isOK()) {
                 Display.getDefault().asyncExec(() -> {
-                    MessageDialog.openError(getSite().getShell(), Messages.AbapTagsView_ErrorMessageTitle_xtit,
-                        Messages.AbapTagsView_ErrorDuringUnsharing_xmsg + serviceStatus.getMessage());
+                    MessageDialog.openError(getSite().getShell(), Messages.AbapTagManagerView_ErrorMessageTitle_xtit,
+                        Messages.AbapTagManagerView_ErrorDuringUnsharing_xmsg + serviceStatus.getMessage());
                 });
             }
             refreshTags();
@@ -553,30 +582,35 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
     }
 
     private void initializeActions() {
+        collapseAllAction = new CollapseAllTreeNodesAction(treeViewer);
+        expandAllAction = new ExpandAllAction();
+        expandAllAction.setTreeViewer(treeViewer);
+        searchForSelectedTags = new TriggerTagSearchAction(Messages.AbapTagManagerView_FindTaggedObjectsAction_xmit,
+            false);
+        searchForAllSelectedTags = new TriggerTagSearchAction(
+            Messages.AbapTagManagerView_FindTaggedObjectsActionMatchAllTags_xmit, true);
         refreshAction = ActionFactory.createAction(AdtBaseUIResources.getString(IAdtBaseStrings.Refresh),
             AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.REFRESH), this::handleRefresh);
-        createGlobalTagAction = ActionFactory.createAction(Messages.AbapTagsView_NewGlobalTagAction_xtol,
+        createGlobalTagAction = ActionFactory.createAction(Messages.AbapTagManagerView_NewGlobalTagAction_xtol,
             AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.NEW_GLOBAL_TAG), () -> handleCreateTag(false));
-        createUserTagAction = ActionFactory.createAction(Messages.AbapTagsView_NewUserTagAction_xtol, AbapTagsUIPlugin
-            .getDefault()
-            .getImageDescriptor(IImages.NEW_USER_TAG), () -> handleCreateTag(true));
-        deleteTagsAction = ActionFactory.createAction(Messages.AbapTagsView_DeleteTagsAction_xmit, PlatformUI
+        createUserTagAction = ActionFactory.createAction(Messages.AbapTagManagerView_NewUserTagAction_xtol,
+            AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.NEW_USER_TAG), () -> handleCreateTag(true));
+        deleteTagsAction = ActionFactory.createAction(Messages.AbapTagManagerView_DeleteTagsAction_xmit, PlatformUI
             .getWorkbench()
             .getSharedImages()
             .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE), this::handleDeleteTags);
-        editTagAction = ActionFactory.createAction(Messages.AbapTagsView_EditTagAction_xmit, AdtBaseUIResources
+        editTagAction = ActionFactory.createAction(Messages.AbapTagManagerView_EditTagAction_xmit, AdtBaseUIResources
             .getImageDescriptor(IAdtBaseImages.EDIT_ACTION), () -> handleEditTag(null));
-        createSubTagAction = ActionFactory.createAction(Messages.AbapTagsView_AddSubTagAction_xmit, PlatformUI
+        createSubTagAction = ActionFactory.createAction(Messages.AbapTagManagerView_AddSubTagAction_xmit, PlatformUI
             .getWorkbench()
             .getSharedImages()
             .getImageDescriptor(ISharedImages.IMG_OBJ_ADD), this::handleCreateTagOnSelectedNode);
-        convertTagAction = ActionFactory.createAction(Messages.AbapTagsView_ConvertToGlobalTagAction_xmit, PlatformUI
-            .getWorkbench()
-            .getSharedImages()
-            .getImageDescriptor(ISharedImages.IMG_TOOL_FORWARD), this::handleConvertTag);
+        convertTagAction = ActionFactory.createAction(Messages.AbapTagManagerView_ConvertToGlobalTagAction_xmit,
+            PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_TOOL_FORWARD),
+            this::handleConvertTag);
         shareTagAction = new ShareTagsAction();
-        unshareTagAction = ActionFactory.createAction(Messages.AbapTagsView_UnshareTagAction_xmit, AdtBaseUIResources
-            .getImageDescriptor(IAdtBaseImages.UNSHARE), this::handleUnshareTag);
+        unshareTagAction = ActionFactory.createAction(Messages.AbapTagManagerView_UnshareTagAction_xmit,
+            AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.UNSHARE), this::handleUnshareTag);
     }
 
     private void initToolbar(final IActionBars actionBars) {
@@ -584,6 +618,9 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
 
         final IToolBarManager tbm = actionBars.getToolBarManager();
         tbm.add(refreshAction);
+        tbm.add(new Separator());
+        tbm.add(expandAllAction);
+        tbm.add(collapseAllAction);
         tbm.add(new Separator());
         tbm.add(createUserTagAction);
         tbm.add(createGlobalTagAction);
@@ -603,7 +640,7 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
         if (tagLoadingJob != null && tagLoadingJob.getResult() == null) {
             tagLoadingJob.cancel();
         }
-        tagLoadingJob = Job.create(Messages.AbapTagsView_TagsLoadingJobTitle_xmsg, monitor -> {
+        tagLoadingJob = Job.create(Messages.AbapTagManagerView_TagsLoadingJobTitle_xmsg, monitor -> {
             final ITagList tagList = tagsService.readTags(DestinationUtil.getDestinationId(lastProject),
                 TagSearchScope.ALL, true);
 
@@ -622,9 +659,9 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
                 }
             }
             Display.getDefault().asyncExec(() -> {
-                AbapTagExplorerView.this.treeViewer.setInput(tagFolders.getFolders(tagsSharingPossible));
-                AbapTagExplorerView.this.treeViewer.refresh();
-                AbapTagExplorerView.this.treeViewer.expandAll();
+                AbapTagManagerView.this.treeViewer.setInput(tagFolders.getFolders(tagsSharingPossible));
+                AbapTagManagerView.this.treeViewer.refresh();
+                AbapTagManagerView.this.treeViewer.expandAll();
             });
             monitor.done();
         });
@@ -646,6 +683,47 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
         lastSelection = null;
     }
 
+    private class TriggerTagSearchAction extends Action {
+        private boolean matchAllTags;
+
+        public TriggerTagSearchAction(final String name, final boolean matchAllTags) {
+            super(name, AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.SEARCH));
+            this.matchAllTags = matchAllTags;
+        }
+
+        @Override
+        public void run() {
+            List<ITag> selectedTags = getSelectedTags();
+            if (selectedTags.isEmpty()) {
+                return;
+            }
+            final ITaggedObjectSearchParams searchParams = IAbapTagsFactory.eINSTANCE.createTaggedObjectSearchParams();
+            searchParams.setMaxResults(prefStore.getInt(ITaggedObjectSearchPrefs.MAX_RESULTS));
+            searchParams.setWithTagInfo(true);
+            searchParams.setTagInfoType(TagInfoType.CHILDREN);
+
+            selectedTags.forEach(tag -> searchParams.addTag(tag));
+            searchParams.setMatchesAllTags(matchAllTags);
+
+            final TaggedObjectSearchQuery searchQuery = new TaggedObjectSearchQuery(searchParams);
+            searchQuery.setProjectProvider(AbapProjectProviderAccessor.getProviderForDestination(DestinationUtil
+                .getDestinationId(lastProject)));
+
+            NewSearchUI.runQueryInBackground(searchQuery);
+        }
+
+        private List<ITag> getSelectedTags() {
+            List<ITag> tags = new ArrayList<>();
+            IStructuredSelection selection = treeViewer.getStructuredSelection();
+            for (Object object : selection.toArray()) {
+                if (object instanceof ITag) {
+                    tags.add((ITag) object);
+                }
+            }
+            return tags;
+        }
+    }
+
     private class ShareTagsAction extends Action {
 
         private List<String> userIdsOfSharedTag;
@@ -653,7 +731,7 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
         private String destinationId;
 
         public ShareTagsAction() {
-            super(Messages.AbapTagsView_ShareTagAction_xmit, AdtBaseUIResources.getImageDescriptor(
+            super(Messages.AbapTagManagerView_ShareTagAction_xmit, AdtBaseUIResources.getImageDescriptor(
                 IAdtBaseImages.SHARE));
         }
 
@@ -670,7 +748,7 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
 
         private void beforeSharingTag() {
 
-            final Job fetchUserJob = new Job(Messages.AbapTagsView_FetchingUsersOfSharedTagJob_xmsg) {
+            final Job fetchUserJob = new Job(Messages.AbapTagManagerView_FetchingUsersOfSharedTagJob_xmsg) {
                 @Override
                 protected IStatus run(final IProgressMonitor monitor) {
                     List<IUser> usersOfSharedTag = tagsService.getSharedUsers(destinationId, tag.getId());
@@ -696,7 +774,7 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
             final IUserService userService = UserServiceFactory.createUserService();
 
             final List<String> usersForSharing = userService.showUserSelectionDialog(getSite().getShell(),
-                Messages.AbapTagsView_SharedUserSelectionDialog_xtit, true, userIdsOfSharedTag, List.of(
+                Messages.AbapTagManagerView_SharedUserSelectionDialog_xtit, true, userIdsOfSharedTag, List.of(
                     lastDestinationOwner), destinationId);
             if (usersForSharing == null || usersForSharing.isEmpty()) {
                 return;
@@ -710,13 +788,14 @@ public class AbapTagExplorerView extends ViewPart implements IFilterableView {
                 user.setName(u);
                 sharedTag.getSharedUsers().add(user);
             });
-            final Job job = Job.create(Messages.AbapTagsView_ShareTagsJob_xmsg, monitor -> {
+            final Job job = Job.create(Messages.AbapTagManagerView_ShareTagsJob_xmsg, monitor -> {
                 final IStatus serviceStatus = tagsService.shareTags(DestinationUtil.getDestinationId(lastProject),
                     sharedTagList);
                 if (!serviceStatus.isOK()) {
                     Display.getDefault().asyncExec(() -> {
-                        MessageDialog.openError(getSite().getShell(), Messages.AbapTagsView_ErrorMessageTitle_xtit,
-                            Messages.AbapTagsView_ErrorDuringSharing_xmsg + serviceStatus.getMessage());
+                        MessageDialog.openError(getSite().getShell(),
+                            Messages.AbapTagManagerView_ErrorMessageTitle_xtit,
+                            Messages.AbapTagManagerView_ErrorDuringSharing_xmsg + serviceStatus.getMessage());
                     });
                 }
                 refreshTags();

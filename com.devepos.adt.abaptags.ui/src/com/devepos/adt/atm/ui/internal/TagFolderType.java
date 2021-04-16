@@ -11,9 +11,9 @@ import com.devepos.adt.atm.ui.internal.messages.Messages;
  * @author stockbal
  */
 public enum TagFolderType {
-    USER(IImages.USER_TAGS_FOLDER, Messages.AbapTagsView_UserTagsFolder_xlbl),
-    SHARED(IImages.SHARED_TAGS_FOLDER, Messages.AbapTagsView_SharedTagsFolder_xlbl),
-    GLOBAL(IImages.GLOBAL_TAGS_FOLDER, Messages.AbapTagsView_GlobalTagsFolder_xlbl);
+    USER(IImages.USER_TAGS_FOLDER, Messages.AbapTagManagerView_UserTagsFolder_xlbl),
+    SHARED(IImages.SHARED_TAGS_FOLDER, Messages.AbapTagManagerView_SharedTagsFolder_xlbl),
+    GLOBAL(IImages.GLOBAL_TAGS_FOLDER, Messages.AbapTagManagerView_GlobalTagsFolder_xlbl);
 
     private Image folderImage;
     private String folderName;

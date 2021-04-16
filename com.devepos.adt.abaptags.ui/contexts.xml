@@ -6,8 +6,8 @@
    <context id="tag_wizard_object_selection">
       <description>On this page you select the ADT objects to which you want to assign tags</description>
    </context>
-   <context id="tag_explorer" title="Help for CDS Analyzer">
-      <topic href="html/tag_explorer.html" label="Tag Explorer"/>
+   <context id="tag_manager" title="Help for CDS Analyzer">
+      <topic href="html/tag_manager.html" label="Tag Manager"/>
    </context>
    <context id="object_tags">
       <topic href="html/object_tags.html" label="Object Tags"/>

@@ -106,7 +106,7 @@ public class TagObjectsWizard extends Wizard implements ITagObjectsWizard {
             }
             Display.getDefault().asyncExec(() -> {
                 final String message = e.getCause() == null ? e.getMessage() : e.getCause().getMessage();
-                MessageDialog.openError(getShell(), Messages.AbapTagsView_ErrorMessageTitle_xtit, message);
+                MessageDialog.openError(getShell(), Messages.AbapTagManagerView_ErrorMessageTitle_xtit, message);
             });
             return false;
         } catch (final InterruptedException e) {

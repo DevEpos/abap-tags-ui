@@ -9,11 +9,11 @@
          <topic href="html/tag_wizard/parent_object_selection.html" label="Parent Object Selection">
          </topic>
       </topic>
-      <topic href="html/tag_explorer.html" label="Tag Explorer">
+      <topic href="html/tag_manager.html" label="Tag Manager">
       </topic>
       <topic href="html/object_tags.html" label="Object Tags">
       </topic>
-      <topic href="html/tag_search.html" label="Tagged Object Search">
+      <topic href="html/tagged_object_search.html" label="Tagged Object Search">
       </topic>
    </topic>
 </toc>

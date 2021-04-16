@@ -9,7 +9,7 @@ public enum HelpContexts {
     TAG_WIZARD_OBJECT_SELECTION("tag_wizard_object_selection"),
     TAG_WIZARD_TAG_SELECTION("tag_wizard_tag_selection"),
     TAG_WIZARD_PARENT_OBJECT_SELECTION("tag_wizard_parent_object_selection"),
-    TAG_EXPLORER("tag_explorer"),
+    TAG_MANAGER("tag_manager"),
     OBJECT_TAGS("object_tags"),
     TAGGED_OBJECT_SEARCH("tagged_object_search");
 
