@@ -48,7 +48,9 @@ import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.help.HelpContexts;
 import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
+import com.devepos.adt.base.ui.ContextHelper;
 import com.devepos.adt.base.ui.IGeneralCommandConstants;
+import com.devepos.adt.base.ui.IGeneralContextConstants;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.UIState;
 import com.devepos.adt.base.ui.action.CollapseAllTreeNodesAction;
@@ -89,6 +91,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     private IPropertyChangeListener prefStoreListener;
     private IPreferenceStore prefStore;
     private final List<String> executableObjectTypes;
+    private ContextHelper contextHelper;
 
     public TaggedObjectSearchResultPage() {
         executableObjectTypes = Stream.of("CLAS/OC", "PROG/P", "TRAN/T", "FUGR/FF", "WAPA/WO", "WDYA/YY", "WDCA/YA")
@@ -123,12 +126,18 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
         prefStore.addPropertyChangeListener(prefStoreListener);
 
         getSite().setSelectionProvider(resultTreeViewer);
+        contextHelper = ContextHelper.createForServiceLocator(getSite());
+        contextHelper.activateAbapContext();
+        contextHelper.activateContext(IGeneralContextConstants.SEARCH_PAGE_VIEWS);
     }
 
     @Override
     public void dispose() {
         if (prefStoreListener != null) {
             prefStore.removePropertyChangeListener(prefStoreListener);
+        }
+        if (contextHelper != null) {
+            contextHelper.deactivateAllContexts();
         }
         super.dispose();
     }
