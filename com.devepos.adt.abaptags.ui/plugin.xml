@@ -51,6 +51,12 @@
                   label="%toolbar.menu.cmd.tagObjects.label"
                   mnemonic="a"
                   style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <reference
+                        definitionId="com.sap.adt.tools.core.ui.toolsActive">
+                  </reference>
+               </visibleWhen>
             </command>
          </toolbar>
       </menuContribution>
