@@ -3,7 +3,6 @@ package com.devepos.adt.atm.ui.internal.views;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -93,8 +92,8 @@ import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.tree.FilterableTree;
 import com.devepos.adt.base.ui.tree.IFilterableView;
-import com.devepos.adt.base.ui.userinfo.IUserService;
-import com.devepos.adt.base.ui.userinfo.UserServiceFactory;
+import com.devepos.adt.base.ui.userinfo.IUserServiceUI;
+import com.devepos.adt.base.ui.userinfo.UserServiceUIFactory;
 import com.devepos.adt.base.util.StringUtil;
 
 /**
@@ -726,7 +725,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
 
     private class ShareTagsAction extends Action {
 
-        private List<String> userIdsOfSharedTag;
+        private List<IUser> usersOfSharedTag;
         private ITag tag;
         private String destinationId;
 
@@ -742,7 +741,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
                 return;
             }
             destinationId = DestinationUtil.getDestinationId(lastProject);
-            userIdsOfSharedTag = null;
+            usersOfSharedTag = null;
             beforeSharingTag();
         }
 
@@ -751,10 +750,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
             final Job fetchUserJob = new Job(Messages.AbapTagManagerView_FetchingUsersOfSharedTagJob_xmsg) {
                 @Override
                 protected IStatus run(final IProgressMonitor monitor) {
-                    List<IUser> usersOfSharedTag = tagsService.getSharedUsers(destinationId, tag.getId());
-                    if (usersOfSharedTag != null) {
-                        userIdsOfSharedTag = usersOfSharedTag.stream().map(IUser::getName).collect(Collectors.toList());
-                    }
+                    usersOfSharedTag = tagsService.getSharedUsers(destinationId, tag.getId());
                     monitor.done();
                     return Status.OK_STATUS;
                 }
@@ -771,10 +767,10 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
         }
 
         private void afterFetchingUsersOfSharedTag() {
-            final IUserService userService = UserServiceFactory.createUserService();
+            final IUserServiceUI userService = UserServiceUIFactory.createUserService();
 
             final List<String> usersForSharing = userService.showUserSelectionDialog(getSite().getShell(),
-                Messages.AbapTagManagerView_SharedUserSelectionDialog_xtit, true, userIdsOfSharedTag, List.of(
+                Messages.AbapTagManagerView_SharedUserSelectionDialog_xtit, true, usersOfSharedTag, List.of(
                     lastDestinationOwner), destinationId);
             if (usersForSharing == null || usersForSharing.isEmpty()) {
                 return;
