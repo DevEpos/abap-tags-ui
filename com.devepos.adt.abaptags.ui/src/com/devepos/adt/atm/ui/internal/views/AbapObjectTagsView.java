@@ -56,6 +56,7 @@ import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.tags.IAbapTagsService;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.IImages;
+import com.devepos.adt.atm.ui.internal.ImageUtil;
 import com.devepos.adt.atm.ui.internal.help.HelpContexts;
 import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
@@ -126,6 +127,7 @@ public class AbapObjectTagsView extends ViewPart {
     private TreeInput treeResult;
     private TreeViewer treeViewer;
     private ViewDescriptionLabel viewLabel;
+    private String destinationOwner;
 
     public AbapObjectTagsView() {
         abapTagsService = AbapTagsServiceFactory.createTagsService();
@@ -390,6 +392,7 @@ public class AbapObjectTagsView extends ViewPart {
             treeResult.updateInput(currentAdtObject.getReference().getUri());
             viewLabel.updateLabel(" [" + currentAdtObject.getProject().getName() + "] " + currentAdtObject.getName(), //$NON-NLS-1$ //$NON-NLS-2$
                 currentAdtObject.getImage());
+            destinationOwner = DestinationUtil.getDestinationOwner(currentAdtObject.getProject());
         }
     }
 
@@ -520,9 +523,8 @@ public class AbapObjectTagsView extends ViewPart {
                                 destinationId, taggedObject.getObjectRef()));
 
                             for (final IAdtObjectTag tag : taggedObject.getTags()) {
-                                final IElementInfo tagElementInfo = new SimpleElementInfo(tag.getName(),
-                                    AbapTagsUIPlugin.getDefault()
-                                        .getImage(StringUtil.isEmpty(tag.getOwner()) ? IImages.TAG : IImages.USER_TAG));
+                                final IElementInfo tagElementInfo = new SimpleElementInfo(tag.getName(), ImageUtil
+                                    .getObjectTagImage(tag, destinationOwner));
                                 tagElementInfo.setAdditionalInfo(tag);
                                 adtObjRefElemInfo.getChildren().add(tagElementInfo);
                             }
