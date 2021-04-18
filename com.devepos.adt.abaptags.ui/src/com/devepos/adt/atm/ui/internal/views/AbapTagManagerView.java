@@ -671,6 +671,8 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
         createGlobalTagAction.setEnabled(enabled);
         createUserTagAction.setEnabled(enabled);
         refreshAction.setEnabled(enabled);
+        collapseAllAction.setEnabled(enabled);
+        expandAllAction.setEnabled(enabled);
     }
 
     private void showTagsOfLastSelectedProject() {
