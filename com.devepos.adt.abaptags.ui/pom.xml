@@ -5,14 +5,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>com.devepos.adt.abaptags.ui</artifactId>
 	<groupId>com.devepos.adt</groupId>
-	<version>1.1.1-SNAPSHOT</version>
+	<version>1.1.2-SNAPSHOT</version>
 	<name>com.devepos.adt.abaptags.ui</name>
 	<packaging>eclipse-plugin</packaging>
 
 	<parent>
 		<artifactId>com.devepos.adt.abaptags.parent</artifactId>
 		<groupId>com.devepos.adt</groupId>
-		<version>1.1.1-SNAPSHOT</version>
+		<version>1.1.2-SNAPSHOT</version>
 		<relativePath>../</relativePath>
 	</parent>
 
