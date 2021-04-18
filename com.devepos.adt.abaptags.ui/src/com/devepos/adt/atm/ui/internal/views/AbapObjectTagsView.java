@@ -358,8 +358,15 @@ public class AbapObjectTagsView extends ViewPart {
 
     private void showTaggedObjectsForEditor(final IEditorPart editor) {
         if (editor == null) {
+            if (linkToEditorAction.isChecked() && PlatformUI.getWorkbench()
+                .getActiveWorkbenchWindow()
+                .getActivePage()
+                .isPartVisible(this)) {
+                clearInput();
+            }
             return;
         }
+
         final IWorkbenchPage page = editor.getSite().getPage();
         if (linkToEditorAction.isChecked() && page.isPartVisible(this)) {
             final IAdtObject selObj = EditorUtil.getAdtObjectFromEditor(editor);
