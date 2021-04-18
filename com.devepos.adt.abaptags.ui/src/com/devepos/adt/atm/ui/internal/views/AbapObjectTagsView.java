@@ -154,12 +154,12 @@ public class AbapObjectTagsView extends ViewPart {
             final IWorkbenchPart part = partRef.getPart(true);
             if (part instanceof IEditorPart) {
                 showTaggedObjectsForEditor((IEditorPart) part);
-            } else if (part instanceof AbapTagManagerView) {
+            } else if (part instanceof AbapObjectTagsView) {
                 showTaggedObjectsForEditor(partRef.getPage().getActiveEditor());
             }
         });
         partListener.setPartVisibleConsumer(partRef -> {
-            if (VIEW_ID.equals(partRef.getId()) && partRef.getPart(false) instanceof AbapTagManagerView) {
+            if (VIEW_ID.equals(partRef.getId()) && partRef.getPart(false) instanceof AbapObjectTagsView) {
                 showTaggedObjectsForEditor(partRef.getPage().getActiveEditor());
             }
         });
