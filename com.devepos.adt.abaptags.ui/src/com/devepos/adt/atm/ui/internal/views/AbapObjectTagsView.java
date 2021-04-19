@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Assert;
@@ -102,7 +103,6 @@ import com.devepos.adt.base.ui.tree.LoadingTreeItemsNode;
 import com.devepos.adt.base.ui.util.AdtTypeUtil;
 import com.devepos.adt.base.ui.util.AdtUIUtil;
 import com.devepos.adt.base.ui.util.EditorUtil;
-import com.devepos.adt.base.util.ObjectUtil;
 import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
@@ -378,7 +378,8 @@ public class AbapObjectTagsView extends ViewPart {
         if (!linkToEditorAction.isChecked() && !forceUpdate) {
             return;
         }
-        if (ObjectUtil.equals(currentAdtObject, newAdtObject)) {
+        if (Objects.equals(currentAdtObject, newAdtObject) && (newAdtObject == null || Objects.equals(currentAdtObject
+            .getProject(), newAdtObject.getProject()))) {
             return;
         }
         currentAdtObject = newAdtObject;
