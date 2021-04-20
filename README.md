@@ -3,8 +3,8 @@ ABAP Tags eclipse plugin
 
 ## Update Sites
 
-- [Stable Releases](https://stockbal.github.io/eclipse/rel)  
-- [Beta Releases](https://stockbal.github.io/eclipse/dev)
+- [Stable Releases](https://eclipse.devepos.com/latest)  
+- [Beta Releases](https://eclipse.devepos.com/dev)
 
 ## Preconditions
 
