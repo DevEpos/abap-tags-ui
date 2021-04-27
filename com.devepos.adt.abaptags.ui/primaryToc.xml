@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?NLS TYPE="org.eclipse.help.toc"?>
 
-<toc label="DevEpos - ABAP Tags Guide">
+<toc label="DevEpos - ABAP Tags Guide" topic="html/overview.html" icon="com.devepos.adt.abaptags.ui.tocIcon">
 	<link toc="toc.xml" />
 </toc>

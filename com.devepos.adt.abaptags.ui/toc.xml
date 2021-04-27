@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<toc label="Table of Contents">
-   <topic href="html/overview.html" label="ABAP Tags">
+<toc label="Table of Contents" topic="html/overview.html">
+   <topic href="html/overview.html" label="About ABAP Tags">
+   </topic>
+   <topic href="html/overview.html" label="Concepts">
       <topic href="html/tag_wizard.html" label="Tag Objects Wizard">
          <topic href="html/tag_wizard/object_selection.html" label="Object Selection">
          </topic>
@@ -14,6 +16,14 @@
       <topic href="html/object_tags.html" label="Object Tags">
       </topic>
       <topic href="html/tagged_object_search.html" label="Tagged Object Search">
+      </topic>
+   </topic>
+   <topic href="html/changelog/overview.html" label="What&apos;s New">
+      <topic href="html/changelog/v1_2_0.html" label="Version 1.2.0">
+      </topic>
+      <topic href="html/changelog/v1_1_0.html" label="Version 1.1.0">
+      </topic>
+      <topic href="html/changelog/v1_0_0.html" label="Version 1.0.0">
       </topic>
    </topic>
 </toc>
