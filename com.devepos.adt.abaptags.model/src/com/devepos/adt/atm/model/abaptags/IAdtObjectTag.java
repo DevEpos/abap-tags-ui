@@ -31,150 +31,150 @@ import org.eclipse.swt.graphics.Image;
  * @generated
  */
 public interface IAdtObjectTag extends ITagBase {
-    /**
-     * Returns the value of the '<em><b>Parent Object Name</b></em>' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @return the value of the '<em>Parent Object Name</em>' attribute.
-     * @see #setParentObjectName(String)
-     * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_ParentObjectName()
-     * @model extendedMetaData="kind='attribute' name='parentObjectName'
-     *        namespace='##targetNamespace'"
-     * @generated
-     */
-    String getParentObjectName();
+  /**
+   * Returns the value of the '<em><b>Parent Object Name</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Parent Object Name</em>' attribute.
+   * @see #setParentObjectName(String)
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_ParentObjectName()
+   * @model extendedMetaData="kind='attribute' name='parentObjectName'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  String getParentObjectName();
 
-    /**
-     * Sets the value of the
-     * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectName
-     * <em>Parent Object Name</em>}' attribute. <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     *
-     * @param value the new value of the '<em>Parent Object Name</em>' attribute.
-     * @see #getParentObjectName()
-     * @generated
-     */
-    void setParentObjectName(String value);
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectName
+   * <em>Parent Object Name</em>}' attribute. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
+   *
+   * @param value the new value of the '<em>Parent Object Name</em>' attribute.
+   * @see #getParentObjectName()
+   * @generated
+   */
+  void setParentObjectName(String value);
 
-    /**
-     * Returns the value of the '<em><b>Parent Object Type</b></em>' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @return the value of the '<em>Parent Object Type</em>' attribute.
-     * @see #setParentObjectType(String)
-     * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_ParentObjectType()
-     * @model extendedMetaData="kind='attribute' name='parentObjectType'
-     *        namespace='##targetNamespace'"
-     * @generated
-     */
-    String getParentObjectType();
+  /**
+   * Returns the value of the '<em><b>Parent Object Type</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Parent Object Type</em>' attribute.
+   * @see #setParentObjectType(String)
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_ParentObjectType()
+   * @model extendedMetaData="kind='attribute' name='parentObjectType'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  String getParentObjectType();
 
-    /**
-     * Sets the value of the
-     * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectType
-     * <em>Parent Object Type</em>}' attribute. <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     *
-     * @param value the new value of the '<em>Parent Object Type</em>' attribute.
-     * @see #getParentObjectType()
-     * @generated
-     */
-    void setParentObjectType(String value);
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectType
+   * <em>Parent Object Type</em>}' attribute. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
+   *
+   * @param value the new value of the '<em>Parent Object Type</em>' attribute.
+   * @see #getParentObjectType()
+   * @generated
+   */
+  void setParentObjectType(String value);
 
-    /**
-     * Returns the value of the '<em><b>Parent Object Uri</b></em>' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @return the value of the '<em>Parent Object Uri</em>' attribute.
-     * @see #setParentObjectUri(String)
-     * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_ParentObjectUri()
-     * @model extendedMetaData="kind='attribute' name='parentObjectUri'
-     *        namespace='##targetNamespace'"
-     * @generated
-     */
-    String getParentObjectUri();
+  /**
+   * Returns the value of the '<em><b>Parent Object Uri</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Parent Object Uri</em>' attribute.
+   * @see #setParentObjectUri(String)
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_ParentObjectUri()
+   * @model extendedMetaData="kind='attribute' name='parentObjectUri'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  String getParentObjectUri();
 
-    /**
-     * Sets the value of the
-     * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectUri
-     * <em>Parent Object Uri</em>}' attribute. <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     *
-     * @param value the new value of the '<em>Parent Object Uri</em>' attribute.
-     * @see #getParentObjectUri()
-     * @generated
-     */
-    void setParentObjectUri(String value);
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectUri
+   * <em>Parent Object Uri</em>}' attribute. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
+   *
+   * @param value the new value of the '<em>Parent Object Uri</em>' attribute.
+   * @see #getParentObjectUri()
+   * @generated
+   */
+  void setParentObjectUri(String value);
 
-    /**
-     * Returns the value of the '<em><b>Parent Tag Id</b></em>' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @return the value of the '<em>Parent Tag Id</em>' attribute.
-     * @see #setParentTagId(String)
-     * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_ParentTagId()
-     * @model transient="true"
-     * @generated
-     */
-    String getParentTagId();
+  /**
+   * Returns the value of the '<em><b>Parent Tag Id</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Parent Tag Id</em>' attribute.
+   * @see #setParentTagId(String)
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_ParentTagId()
+   * @model transient="true"
+   * @generated
+   */
+  String getParentTagId();
 
-    /**
-     * Sets the value of the
-     * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentTagId
-     * <em>Parent Tag Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     *
-     * @param value the new value of the '<em>Parent Tag Id</em>' attribute.
-     * @see #getParentTagId()
-     * @generated
-     */
-    void setParentTagId(String value);
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentTagId
+   * <em>Parent Tag Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
+   *
+   * @param value the new value of the '<em>Parent Tag Id</em>' attribute.
+   * @see #getParentTagId()
+   * @generated
+   */
+  void setParentTagId(String value);
 
-    /**
-     * Returns the value of the '<em><b>Parent Tag Name</b></em>' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @return the value of the '<em>Parent Tag Name</em>' attribute.
-     * @see #setParentTagName(String)
-     * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_ParentTagName()
-     * @model transient="true"
-     * @generated
-     */
-    String getParentTagName();
+  /**
+   * Returns the value of the '<em><b>Parent Tag Name</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Parent Tag Name</em>' attribute.
+   * @see #setParentTagName(String)
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_ParentTagName()
+   * @model transient="true"
+   * @generated
+   */
+  String getParentTagName();
 
-    /**
-     * Sets the value of the
-     * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentTagName
-     * <em>Parent Tag Name</em>}' attribute. <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     *
-     * @param value the new value of the '<em>Parent Tag Name</em>' attribute.
-     * @see #getParentTagName()
-     * @generated
-     */
-    void setParentTagName(String value);
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentTagName
+   * <em>Parent Tag Name</em>}' attribute. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
+   *
+   * @param value the new value of the '<em>Parent Tag Name</em>' attribute.
+   * @see #getParentTagName()
+   * @generated
+   */
+  void setParentTagName(String value);
 
-    /**
-     * Returns the value of the '<em><b>Image</b></em>' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @return the value of the '<em>Image</em>' attribute.
-     * @see #setImage(Image)
-     * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_Image()
-     * @model dataType="com.devepos.adt.atm.model.abaptags.Image" transient="true"
-     * @generated
-     */
-    Image getImage();
+  /**
+   * Returns the value of the '<em><b>Image</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Image</em>' attribute.
+   * @see #setImage(Image)
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_Image()
+   * @model dataType="com.devepos.adt.atm.model.abaptags.Image" transient="true"
+   * @generated
+   */
+  Image getImage();
 
-    /**
-     * Sets the value of the
-     * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getImage
-     * <em>Image</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @param value the new value of the '<em>Image</em>' attribute.
-     * @see #getImage()
-     * @generated
-     */
-    void setImage(Image value);
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getImage
+   * <em>Image</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Image</em>' attribute.
+   * @see #getImage()
+   * @generated
+   */
+  void setImage(Image value);
 
 } // IAdtObjectTag

@@ -30,121 +30,121 @@ import com.devepos.adt.atm.model.abaptags.ITagList;
  * @generated
  */
 public class TagList extends MinimalEObjectImpl.Container implements ITagList {
-    /**
-     * The cached value of the '{@link #getTags() <em>Tags</em>}' containment
-     * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @see #getTags()
-     * @generated
-     * @ordered
-     */
-    protected EList<ITag> tags;
+  /**
+   * The cached value of the '{@link #getTags() <em>Tags</em>}' containment
+   * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getTags()
+   * @generated
+   * @ordered
+   */
+  protected EList<ITag> tags;
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    protected TagList() {
-        super();
-    }
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  protected TagList() {
+    super();
+  }
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    protected EClass eStaticClass() {
-        return IAbapTagsPackage.Literals.TAG_LIST;
-    }
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return IAbapTagsPackage.Literals.TAG_LIST;
+  }
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public EList<ITag> getTags() {
-        if (tags == null) {
-            tags = new EObjectContainmentEList<>(ITag.class, this, IAbapTagsPackage.TAG_LIST__TAGS);
-        }
-        return tags;
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EList<ITag> getTags() {
+    if (tags == null) {
+      tags = new EObjectContainmentEList<>(ITag.class, this, IAbapTagsPackage.TAG_LIST__TAGS);
     }
+    return tags;
+  }
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
-        final NotificationChain msgs) {
-        switch (featureID) {
-        case IAbapTagsPackage.TAG_LIST__TAGS:
-            return ((InternalEList<?>) getTags()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
+      final NotificationChain msgs) {
+    switch (featureID) {
+    case IAbapTagsPackage.TAG_LIST__TAGS:
+      return ((InternalEList<?>) getTags()).basicRemove(otherEnd, msgs);
     }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
-        switch (featureID) {
-        case IAbapTagsPackage.TAG_LIST__TAGS:
-            return getTags();
-        }
-        return super.eGet(featureID, resolve, coreType);
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+    switch (featureID) {
+    case IAbapTagsPackage.TAG_LIST__TAGS:
+      return getTags();
     }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @SuppressWarnings("unchecked")
-    @Override
-    public void eSet(final int featureID, final Object newValue) {
-        switch (featureID) {
-        case IAbapTagsPackage.TAG_LIST__TAGS:
-            getTags().clear();
-            getTags().addAll((Collection<? extends ITag>) newValue);
-            return;
-        }
-        super.eSet(featureID, newValue);
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  public void eSet(final int featureID, final Object newValue) {
+    switch (featureID) {
+    case IAbapTagsPackage.TAG_LIST__TAGS:
+      getTags().clear();
+      getTags().addAll((Collection<? extends ITag>) newValue);
+      return;
     }
+    super.eSet(featureID, newValue);
+  }
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public void eUnset(final int featureID) {
-        switch (featureID) {
-        case IAbapTagsPackage.TAG_LIST__TAGS:
-            getTags().clear();
-            return;
-        }
-        super.eUnset(featureID);
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void eUnset(final int featureID) {
+    switch (featureID) {
+    case IAbapTagsPackage.TAG_LIST__TAGS:
+      getTags().clear();
+      return;
     }
+    super.eUnset(featureID);
+  }
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public boolean eIsSet(final int featureID) {
-        switch (featureID) {
-        case IAbapTagsPackage.TAG_LIST__TAGS:
-            return tags != null && !tags.isEmpty();
-        }
-        return super.eIsSet(featureID);
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
+    switch (featureID) {
+    case IAbapTagsPackage.TAG_LIST__TAGS:
+      return tags != null && !tags.isEmpty();
     }
+    return super.eIsSet(featureID);
+  }
 
 } // TagList

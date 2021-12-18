@@ -15,51 +15,51 @@ import com.devepos.adt.atm.model.abaptags.ITag;
  */
 public class TagFolder {
 
-    private TagFolderType folderType;
-    private final List<ITag> tags;
+  private TagFolderType folderType;
+  private final List<ITag> tags;
 
-    /**
-     * Creates new tag folder
-     *
-     * @param folderType type of the folder
-     */
-    public TagFolder(final TagFolderType folderType) {
-        tags = new ArrayList<>();
-        this.folderType = folderType;
-    }
+  /**
+   * Creates new tag folder
+   *
+   * @param folderType type of the folder
+   */
+  public TagFolder(final TagFolderType folderType) {
+    tags = new ArrayList<>();
+    this.folderType = folderType;
+  }
 
-    /**
-     * @return the image of the tag folder
-     */
-    public Image getImage() {
-        return folderType.getImage();
-    }
+  /**
+   * @return the image of the tag folder
+   */
+  public Image getImage() {
+    return folderType.getImage();
+  }
 
-    /**
-     * @return the name of the tag folder
-     */
-    public String getName() {
-        return folderType.getName();
-    }
+  /**
+   * @return the name of the tag folder
+   */
+  public String getName() {
+    return folderType.getName();
+  }
 
-    /**
-     * @return a list of tags
-     */
-    public List<ITag> getTags() {
-        return tags;
-    }
+  /**
+   * @return a list of tags
+   */
+  public List<ITag> getTags() {
+    return tags;
+  }
 
-    /**
-     * @return {@code true} if the folder has tags
-     */
-    public boolean hasTags() {
-        return !tags.isEmpty();
-    }
+  /**
+   * @return {@code true} if the folder has tags
+   */
+  public boolean hasTags() {
+    return !tags.isEmpty();
+  }
 
-    /**
-     * @return the type of the tags folder
-     */
-    public TagFolderType getType() {
-        return folderType;
-    }
+  /**
+   * @return the type of the tags folder
+   */
+  public TagFolderType getType() {
+    return folderType;
+  }
 }

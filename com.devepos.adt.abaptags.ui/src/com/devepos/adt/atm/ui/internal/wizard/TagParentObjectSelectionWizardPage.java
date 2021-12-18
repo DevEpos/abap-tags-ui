@@ -46,354 +46,359 @@ import com.devepos.adt.base.ui.wizard.AbstractBaseWizardPage;
 import com.devepos.adt.base.util.StringUtil;
 
 public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
-    public static final String PAGE_NAME = TagParentObjectSelectionWizardPage.class.getCanonicalName();
-    private final List<IAdtObjectTag> adtObjectTags = new ArrayList<>();
-    private Tree parentObjectSelectionTree;
-    private TreeViewer treeViewer;
-    private boolean multipleSelectionMode = true;
+  public static final String PAGE_NAME = TagParentObjectSelectionWizardPage.class
+      .getCanonicalName();
+  private final List<IAdtObjectTag> adtObjectTags = new ArrayList<>();
+  private Tree parentObjectSelectionTree;
+  private TreeViewer treeViewer;
+  private boolean multipleSelectionMode = true;
 
-    private enum Column {
-        OBJECT_NAME(280, Messages.TagParentObjectSelectionWizardPage_ObjectTagColumn_xlbl),
-        PARENT_TAG(150, Messages.TagParentObjectSelectionWizardPage_ParentTagColumn_xlbl),
-        PARENT_OBJECT(300, Messages.TagParentObjectSelectionWizardPage_ParentObject_xlbl);
+  private enum Column {
+    OBJECT_NAME(280, Messages.TagParentObjectSelectionWizardPage_ObjectTagColumn_xlbl),
+    PARENT_TAG(150, Messages.TagParentObjectSelectionWizardPage_ParentTagColumn_xlbl),
+    PARENT_OBJECT(300, Messages.TagParentObjectSelectionWizardPage_ParentObject_xlbl);
 
-        Column(final int width, final String headerText) {
-            this(width, headerText, headerText);
-        }
-
-        Column(final int width, final String headerText, final String tooltip) {
-            defaultWidth = width;
-            this.headerText = headerText;
-            this.tooltip = tooltip;
-        }
-
-        public final int defaultWidth;
-        public final String tooltip;
-        public final String headerText;
-
+    Column(final int width, final String headerText) {
+      this(width, headerText, headerText);
     }
 
-    public TagParentObjectSelectionWizardPage() {
-        super(PAGE_NAME);
-        setTitle(Messages.TagParentObjectSelectionWizardPage_Title_xtit);
-        setDescription(Messages.TagParentObjectSelectionWizardPage_Description_xmsg);
+    Column(final int width, final String headerText, final String tooltip) {
+      defaultWidth = width;
+      this.headerText = headerText;
+      this.tooltip = tooltip;
+    }
+
+    public final int defaultWidth;
+    public final String tooltip;
+    public final String headerText;
+
+  }
+
+  public TagParentObjectSelectionWizardPage() {
+    super(PAGE_NAME);
+    setTitle(Messages.TagParentObjectSelectionWizardPage_Title_xtit);
+    setDescription(Messages.TagParentObjectSelectionWizardPage_Description_xmsg);
+  }
+
+  @Override
+  public ITagObjectsWizard getWizard() {
+    return (ITagObjectsWizard) super.getWizard();
+  }
+
+  @Override
+  public void setVisible(final boolean visible) {
+    final boolean previousPageDirty = getWizard().isPreviousPageDirty(this);
+    if (visible && (!isPageComplete() || previousPageDirty)) {
+      getWizard().completePreviousPage(this);
+      final List<ITag> selectedTags = getWizard().getSelectedTags();
+
+      if (previousPageDirty) {
+        // fill map of tag id to parent name
+        adtObjectTags.clear();
+        for (final ITag selectedTag : selectedTags) {
+          final EObject parent = selectedTag.eContainer();
+          if (parent instanceof ITag) {
+            final ITag parentTag = (ITag) parent;
+
+            final IAdtObjectTag objectTag = IAbapTagsFactory.eINSTANCE.createAdtObjectTag();
+            objectTag.setId(selectedTag.getId());
+            objectTag.setName(selectedTag.getName());
+            objectTag.setOwner(selectedTag.getOwner());
+            objectTag.setImage(ImageUtil.getImageForTag(parentTag, false));
+            objectTag.setParentTagId(parentTag.getId());
+            objectTag.setParentTagName(parentTag.getName());
+            adtObjectTags.add(objectTag);
+          }
+        }
+        updateTreeInput();
+      }
+
+    }
+    super.setVisible(visible);
+  }
+
+  @Override
+  public void createControl(final Composite parent) {
+    final Composite root = new Composite(parent, SWT.NONE);
+    HelpUtil.setHelp(root, HelpContexts.TAG_WIZARD_PARENT_OBJECT_SELECTION);
+    GridLayoutFactory.swtDefaults().applyTo(root);
+
+    createSelectionModeComposite(root);
+    createParentObjectSelectionTree(root);
+    setControl(root);
+
+    setPageComplete(false);
+  }
+
+  private void createSelectionModeComposite(final Composite root) {
+    final Composite modeComposite = new Composite(root, SWT.NONE);
+    GridLayoutFactory.swtDefaults().applyTo(modeComposite);
+    GridDataFactory.fillDefaults().grab(true, false).applyTo(modeComposite);
+
+    final Button groupSelectionButton = new Button(modeComposite, SWT.RADIO);
+    groupSelectionButton.setText(
+        Messages.TagParentObjectSelectionWizardPage_MultipleSelectionMode_xrbl);
+    groupSelectionButton.setSelection(true);
+    groupSelectionButton.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(final SelectionEvent e) {
+        multipleSelectionMode = groupSelectionButton.getSelection();
+        updateTreeInput();
+      }
+    });
+
+    final Button singleSelectionButton = new Button(modeComposite, SWT.RADIO);
+    singleSelectionButton.setText(
+        Messages.TagParentObjectSelectionWizardPage_SingleSelectionMode_xrbl);
+  }
+
+  private void createParentObjectSelectionTree(final Composite root) {
+
+    parentObjectSelectionTree = new Tree(root, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.SINGLE
+        | SWT.FULL_SELECTION);
+    parentObjectSelectionTree.setHeaderVisible(true);
+    GridDataFactory.fillDefaults().grab(true, true).applyTo(parentObjectSelectionTree);
+    treeViewer = new TreeViewer(parentObjectSelectionTree);
+    treeViewer.setContentProvider(new TaggedObjectTreeContentProvider());
+
+    for (final Column col : Column.values()) {
+      final ColumnLabelProvider labelProvider = new ColumnLabelProvider(col);
+      final TreeViewerColumn tvc = createColumn(treeViewer, col, labelProvider);
+
+      if (col == Column.PARENT_OBJECT) {
+        tvc.setEditingSupport(new ParentObjectSelectionTreeEditingSupport(treeViewer));
+      }
+    }
+  }
+
+  private TreeViewerColumn createColumn(final TreeViewer treeViewer, final Column column,
+      final ColumnLabelProvider cellLabelProvider) {
+    final TreeViewerColumn viewerColumn = new TreeViewerColumn(treeViewer, SWT.NONE);
+    viewerColumn.getColumn().setText(column.headerText);
+    viewerColumn.getColumn().setToolTipText(column.tooltip);
+    viewerColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(cellLabelProvider));
+    viewerColumn.getColumn().setWidth(column.defaultWidth);
+    viewerColumn.getColumn().setMoveable(false);
+    return viewerColumn;
+  }
+
+  private void updateTreeInput() {
+    if (multipleSelectionMode) {
+      treeViewer.setInput(adtObjectTags);
+    } else {
+      treeViewer.setInput(getWizard().getTaggedObjectList());
+    }
+    treeViewer.refresh();
+    treeViewer.expandAll();
+    updatePageState();
+  }
+
+  private void updatePageState() {
+    boolean pageComplete = true;
+    if (multipleSelectionMode) {
+      pageComplete = !adtObjectTags.stream()
+          .anyMatch(tag -> tag.getParentObjectName() == null || tag.getParentObjectName()
+              .isEmpty());
+    } else {
+      for (final ITaggedObject taggedObj : getWizard().getTaggedObjectList().getTaggedObjects()) {
+        pageComplete = !taggedObj.getTags()
+            .stream()
+            .anyMatch(tag -> !StringUtil.isEmpty(tag.getParentTagId()) && StringUtil.isEmpty(tag
+                .getParentObjectName()));
+      }
+    }
+    getWizard().setCanFinish(pageComplete);
+    setPageComplete(pageComplete);
+
+  }
+
+  @Override
+  public void completePage() {
+    if (multipleSelectionMode) {
+      final Map<String, IAdtObjectTag> tagMap = adtObjectTags.stream()
+          .collect(Collectors.toMap(IAdtObjectTag::getId, Function.identity()));
+
+      for (final ITaggedObject taggedObj : getWizard().getTaggedObjectList().getTaggedObjects()) {
+        for (final IAdtObjectTag tag : taggedObj.getTags()) {
+          final IAdtObjectTag tagWithParentObject = tagMap.get(tag.getId());
+          if (tagWithParentObject == null) {
+            continue;
+          }
+          tag.setParentObjectName(tagWithParentObject.getParentObjectName());
+          tag.setParentObjectType(tagWithParentObject.getParentObjectType());
+          tag.setParentObjectUri(tagWithParentObject.getParentObjectUri());
+        }
+      }
+    }
+  }
+
+  private class ParentObjectSelectionTreeEditingSupport extends EditingSupport {
+
+    public ParentObjectSelectionTreeEditingSupport(final TreeViewer viewer) {
+      super(viewer);
     }
 
     @Override
-    public ITagObjectsWizard getWizard() {
-        return (ITagObjectsWizard) super.getWizard();
+    protected CellEditor getCellEditor(final Object element) {
+      if (!(element instanceof IAdtObjectTag)) {
+        return null;
+      }
+      return new ExtendedDialogCellEditor(getViewer().getTree()) {
+
+        @Override
+        protected Object openDialogBox(final Control cellEditorWindow) {
+          final IProject project = getWizard().getProject();
+          final String destinationId = DestinationUtil.getDestinationId(project);
+
+          final IAdtObjectTag tag = (IAdtObjectTag) element;
+          final ParentObjectFilterDialog filterDialog = new ParentObjectFilterDialog(getShell(),
+              destinationId, tag.getParentTagId());
+          filterDialog.open();
+          final IAdtObjRef selectedObj = filterDialog.getFirstResult();
+          if (selectedObj != null) {
+            return selectedObj;
+          }
+          return null;
+        }
+      };
     }
 
     @Override
-    public void setVisible(final boolean visible) {
-        final boolean previousPageDirty = getWizard().isPreviousPageDirty(this);
-        if (visible && (!isPageComplete() || previousPageDirty)) {
-            getWizard().completePreviousPage(this);
-            final List<ITag> selectedTags = getWizard().getSelectedTags();
-
-            if (previousPageDirty) {
-                // fill map of tag id to parent name
-                adtObjectTags.clear();
-                for (final ITag selectedTag : selectedTags) {
-                    final EObject parent = selectedTag.eContainer();
-                    if (parent instanceof ITag) {
-                        final ITag parentTag = (ITag) parent;
-
-                        final IAdtObjectTag objectTag = IAbapTagsFactory.eINSTANCE.createAdtObjectTag();
-                        objectTag.setId(selectedTag.getId());
-                        objectTag.setName(selectedTag.getName());
-                        objectTag.setOwner(selectedTag.getOwner());
-                        objectTag.setImage(ImageUtil.getImageForTag(parentTag, false));
-                        objectTag.setParentTagId(parentTag.getId());
-                        objectTag.setParentTagName(parentTag.getName());
-                        adtObjectTags.add(objectTag);
-                    }
-                }
-                updateTreeInput();
-            }
-
-        }
-        super.setVisible(visible);
+    public TreeViewer getViewer() {
+      return (TreeViewer) super.getViewer();
     }
 
     @Override
-    public void createControl(final Composite parent) {
-        final Composite root = new Composite(parent, SWT.NONE);
-        HelpUtil.setHelp(root, HelpContexts.TAG_WIZARD_PARENT_OBJECT_SELECTION);
-        GridLayoutFactory.swtDefaults().applyTo(root);
-
-        createSelectionModeComposite(root);
-        createParentObjectSelectionTree(root);
-        setControl(root);
-
-        setPageComplete(false);
+    protected boolean canEdit(final Object element) {
+      return element instanceof IAdtObjectTag;
     }
 
-    private void createSelectionModeComposite(final Composite root) {
-        final Composite modeComposite = new Composite(root, SWT.NONE);
-        GridLayoutFactory.swtDefaults().applyTo(modeComposite);
-        GridDataFactory.fillDefaults().grab(true, false).applyTo(modeComposite);
-
-        final Button groupSelectionButton = new Button(modeComposite, SWT.RADIO);
-        groupSelectionButton.setText(Messages.TagParentObjectSelectionWizardPage_MultipleSelectionMode_xrbl);
-        groupSelectionButton.setSelection(true);
-        groupSelectionButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(final SelectionEvent e) {
-                multipleSelectionMode = groupSelectionButton.getSelection();
-                updateTreeInput();
-            }
-        });
-
-        final Button singleSelectionButton = new Button(modeComposite, SWT.RADIO);
-        singleSelectionButton.setText(Messages.TagParentObjectSelectionWizardPage_SingleSelectionMode_xrbl);
+    @Override
+    protected Object getValue(final Object element) {
+      if (element instanceof IAdtObjectTag) {
+        return ((IAdtObjectTag) element).getParentObjectName();
+      }
+      return null;
     }
 
-    private void createParentObjectSelectionTree(final Composite root) {
-
-        parentObjectSelectionTree = new Tree(root, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.SINGLE
-            | SWT.FULL_SELECTION);
-        parentObjectSelectionTree.setHeaderVisible(true);
-        GridDataFactory.fillDefaults().grab(true, true).applyTo(parentObjectSelectionTree);
-        treeViewer = new TreeViewer(parentObjectSelectionTree);
-        treeViewer.setContentProvider(new TaggedObjectTreeContentProvider());
-
-        for (final Column col : Column.values()) {
-            final ColumnLabelProvider labelProvider = new ColumnLabelProvider(col);
-            final TreeViewerColumn tvc = createColumn(treeViewer, col, labelProvider);
-
-            if (col == Column.PARENT_OBJECT) {
-                tvc.setEditingSupport(new ParentObjectSelectionTreeEditingSupport(treeViewer));
-            }
-        }
-    }
-
-    private TreeViewerColumn createColumn(final TreeViewer treeViewer, final Column column,
-        final ColumnLabelProvider cellLabelProvider) {
-        final TreeViewerColumn viewerColumn = new TreeViewerColumn(treeViewer, SWT.NONE);
-        viewerColumn.getColumn().setText(column.headerText);
-        viewerColumn.getColumn().setToolTipText(column.tooltip);
-        viewerColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(cellLabelProvider));
-        viewerColumn.getColumn().setWidth(column.defaultWidth);
-        viewerColumn.getColumn().setMoveable(false);
-        return viewerColumn;
-    }
-
-    private void updateTreeInput() {
-        if (multipleSelectionMode) {
-            treeViewer.setInput(adtObjectTags);
-        } else {
-            treeViewer.setInput(getWizard().getTaggedObjectList());
-        }
-        treeViewer.refresh();
-        treeViewer.expandAll();
+    @Override
+    protected void setValue(final Object element, final Object value) {
+      if (element instanceof IAdtObjectTag && value instanceof IAdtObjRef) {
+        final IAdtObjectTag objectTag = (IAdtObjectTag) element;
+        final IAdtObjRef parentObjRef = (IAdtObjRef) value;
+        objectTag.setParentObjectName(parentObjRef.getName());
+        objectTag.setParentObjectType(parentObjRef.getType());
+        objectTag.setParentObjectUri(parentObjRef.getUri());
+        getViewer().update(element, null);
         updatePageState();
+      }
     }
 
-    private void updatePageState() {
-        boolean pageComplete = true;
-        if (multipleSelectionMode) {
-            pageComplete = !adtObjectTags.stream()
-                .anyMatch(tag -> tag.getParentObjectName() == null || tag.getParentObjectName().isEmpty());
-        } else {
-            for (final ITaggedObject taggedObj : getWizard().getTaggedObjectList().getTaggedObjects()) {
-                pageComplete = !taggedObj.getTags()
-                    .stream()
-                    .anyMatch(tag -> !StringUtil.isEmpty(tag.getParentTagId()) && StringUtil.isEmpty(tag
-                        .getParentObjectName()));
-            }
-        }
-        getWizard().setCanFinish(pageComplete);
-        setPageComplete(pageComplete);
+  }
 
+  /**
+   * Label provider for a single column in this TreeViewer
+   *
+   * @author stockbal
+   */
+  static class ColumnLabelProvider extends CellLabelProvider implements
+      DelegatingStyledCellLabelProvider.IStyledLabelProvider, ILabelProvider {
+
+    private final Column column;
+
+    public ColumnLabelProvider(final Column column) {
+      this.column = column;
     }
 
     @Override
-    public void completePage() {
-        if (multipleSelectionMode) {
-            final Map<String, IAdtObjectTag> tagMap = adtObjectTags.stream()
-                .collect(Collectors.toMap(IAdtObjectTag::getId, Function.identity()));
+    public StyledString getStyledText(final Object element) {
+      final StyledString text = new StyledString();
 
-            for (final ITaggedObject taggedObj : getWizard().getTaggedObjectList().getTaggedObjects()) {
-                for (final IAdtObjectTag tag : taggedObj.getTags()) {
-                    final IAdtObjectTag tagWithParentObject = tagMap.get(tag.getId());
-                    if (tagWithParentObject == null) {
-                        continue;
-                    }
-                    tag.setParentObjectName(tagWithParentObject.getParentObjectName());
-                    tag.setParentObjectType(tagWithParentObject.getParentObjectType());
-                    tag.setParentObjectUri(tagWithParentObject.getParentObjectUri());
-                }
-            }
+      switch (column) {
+      case OBJECT_NAME:
+        setObjectNameText(element, text);
+        break;
+      case PARENT_OBJECT:
+        if (element instanceof IAdtObjectTag) {
+          final IAdtObjectTag objectTag = (IAdtObjectTag) element;
+          final String parentObject = objectTag.getParentObjectName();
+          if (parentObject != null && !parentObject.isEmpty()) {
+            text.append(parentObject);
+          } else {
+            text.append(Messages.TagParentObjectSelectionWizardPage_ParentObjectAssignPrompt_xmsg,
+                StyledString.QUALIFIER_STYLER);
+          }
         }
+        break;
+      case PARENT_TAG:
+        if (element instanceof IAdtObjectTag) {
+          final IAdtObjectTag objectTag = (IAdtObjectTag) element;
+          text.append(objectTag.getParentTagName());
+        }
+        break;
+      }
+      return text;
     }
 
-    private class ParentObjectSelectionTreeEditingSupport extends EditingSupport {
-
-        public ParentObjectSelectionTreeEditingSupport(final TreeViewer viewer) {
-            super(viewer);
-        }
-
-        @Override
-        protected CellEditor getCellEditor(final Object element) {
-            if (!(element instanceof IAdtObjectTag)) {
-                return null;
-            }
-            return new ExtendedDialogCellEditor(getViewer().getTree()) {
-
-                @Override
-                protected Object openDialogBox(final Control cellEditorWindow) {
-                    final IProject project = getWizard().getProject();
-                    final String destinationId = DestinationUtil.getDestinationId(project);
-
-                    final IAdtObjectTag tag = (IAdtObjectTag) element;
-                    final ParentObjectFilterDialog filterDialog = new ParentObjectFilterDialog(getShell(),
-                        destinationId, tag.getParentTagId());
-                    filterDialog.open();
-                    final IAdtObjRef selectedObj = filterDialog.getFirstResult();
-                    if (selectedObj != null) {
-                        return selectedObj;
-                    }
-                    return null;
-                }
-            };
-        }
-
-        @Override
-        public TreeViewer getViewer() {
-            return (TreeViewer) super.getViewer();
-        }
-
-        @Override
-        protected boolean canEdit(final Object element) {
-            return element instanceof IAdtObjectTag;
-        }
-
-        @Override
-        protected Object getValue(final Object element) {
-            if (element instanceof IAdtObjectTag) {
-                return ((IAdtObjectTag) element).getParentObjectName();
-            }
-            return null;
-        }
-
-        @Override
-        protected void setValue(final Object element, final Object value) {
-            if (element instanceof IAdtObjectTag && value instanceof IAdtObjRef) {
-                final IAdtObjectTag objectTag = (IAdtObjectTag) element;
-                final IAdtObjRef parentObjRef = (IAdtObjRef) value;
-                objectTag.setParentObjectName(parentObjRef.getName());
-                objectTag.setParentObjectType(parentObjRef.getType());
-                objectTag.setParentObjectUri(parentObjRef.getUri());
-                getViewer().update(element, null);
-                updatePageState();
-            }
-        }
-
+    private void setObjectNameText(final Object element, final StyledString text) {
+      if (element instanceof ITaggedObject) {
+        final ITaggedObject taggedObject = (ITaggedObject) element;
+        text.append(taggedObject.getObjectRef().getName() == null ? "" //$NON-NLS-1$
+            : taggedObject.getObjectRef().getName());
+      } else if (element instanceof IAdtObjectTag) {
+        final IAdtObjectTag objectTag = (IAdtObjectTag) element;
+        text.append(objectTag.getName() == null ? "" : objectTag.getName()); //$NON-NLS-1$
+      }
     }
 
-    /**
-     * Label provider for a single column in this TreeViewer
-     *
-     * @author stockbal
-     */
-    class ColumnLabelProvider extends CellLabelProvider implements
-        DelegatingStyledCellLabelProvider.IStyledLabelProvider, ILabelProvider {
-
-        private final Column column;
-
-        public ColumnLabelProvider(final Column column) {
-            this.column = column;
-        }
-
-        @Override
-        public StyledString getStyledText(final Object element) {
-            final StyledString text = new StyledString();
-
-            switch (column) {
-            case OBJECT_NAME:
-                setObjectNameText(element, text);
-                break;
-            case PARENT_OBJECT:
-                if (element instanceof IAdtObjectTag) {
-                    final IAdtObjectTag objectTag = (IAdtObjectTag) element;
-                    final String parentObject = objectTag.getParentObjectName();
-                    if (parentObject != null && !parentObject.isEmpty()) {
-                        text.append(parentObject);
-                    } else {
-                        text.append(Messages.TagParentObjectSelectionWizardPage_ParentObjectAssignPrompt_xmsg,
-                            StyledString.QUALIFIER_STYLER);
-                    }
-                }
-                break;
-            case PARENT_TAG:
-                if (element instanceof IAdtObjectTag) {
-                    final IAdtObjectTag objectTag = (IAdtObjectTag) element;
-                    text.append(objectTag.getParentTagName());
-                }
-                break;
-            }
-            return text;
-        }
-
-        private void setObjectNameText(final Object element, final StyledString text) {
-            if (element instanceof ITaggedObject) {
-                final ITaggedObject taggedObject = (ITaggedObject) element;
-                text.append(taggedObject.getObjectRef().getName() == null ? "" : taggedObject.getObjectRef().getName()); //$NON-NLS-1$
-            } else if (element instanceof IAdtObjectTag) {
-                final IAdtObjectTag objectTag = (IAdtObjectTag) element;
-                text.append(objectTag.getName() == null ? "" : objectTag.getName()); //$NON-NLS-1$
-            }
-        }
-
-        private Image getObjectNameColImage(final Object element) {
-            if (element instanceof ITaggedObject) {
-                final ITaggedObject taggedObject = (ITaggedObject) element;
-                final IAdtObjRef objRef = taggedObject.getObjectRef();
-                return getAdtObjectTypeImage(objRef.getType());
-            }
-            if (element instanceof IAdtObjectTag) {
-                return ((IAdtObjectTag) element).getImage();
-            }
-            return null;
-        }
-
-        private Image getAdtObjectTypeImage(final String type) {
-            if (type == null || type.isEmpty()) {
-                return null;
-            }
-            return AdtTypeUtil.getInstance().getTypeImage(type);
-        }
-
-        @Override
-        public Image getImage(final Object element) {
-            Image image = null;
-            if (column == Column.OBJECT_NAME) {
-                image = getObjectNameColImage(element);
-            } else if (element instanceof IAdtObjectTag) {
-                final IAdtObjectTag objectTag = (IAdtObjectTag) element;
-                if (column == Column.PARENT_TAG) {
-                    return objectTag.getImage();
-                }
-                if (column == Column.PARENT_OBJECT) {
-                    image = getAdtObjectTypeImage(objectTag.getParentObjectType());
-                }
-            }
-            return image;
-        }
-
-        @Override
-        public void update(final ViewerCell cell) {
-        }
-
-        @Override
-        public String getText(final Object element) {
-            if (element instanceof IAdtObjectTag) {
-                final IAdtObjectTag objectTag = (IAdtObjectTag) element;
-                return objectTag.getParentObjectName();
-            }
-            return null;
-        }
+    private Image getObjectNameColImage(final Object element) {
+      if (element instanceof ITaggedObject) {
+        final ITaggedObject taggedObject = (ITaggedObject) element;
+        final IAdtObjRef objRef = taggedObject.getObjectRef();
+        return getAdtObjectTypeImage(objRef.getType());
+      }
+      if (element instanceof IAdtObjectTag) {
+        return ((IAdtObjectTag) element).getImage();
+      }
+      return null;
     }
+
+    private Image getAdtObjectTypeImage(final String type) {
+      if (type == null || type.isEmpty()) {
+        return null;
+      }
+      return AdtTypeUtil.getInstance().getTypeImage(type);
+    }
+
+    @Override
+    public Image getImage(final Object element) {
+      Image image = null;
+      if (column == Column.OBJECT_NAME) {
+        image = getObjectNameColImage(element);
+      } else if (element instanceof IAdtObjectTag) {
+        final IAdtObjectTag objectTag = (IAdtObjectTag) element;
+        if (column == Column.PARENT_TAG) {
+          return objectTag.getImage();
+        }
+        if (column == Column.PARENT_OBJECT) {
+          image = getAdtObjectTypeImage(objectTag.getParentObjectType());
+        }
+      }
+      return image;
+    }
+
+    @Override
+    public void update(final ViewerCell cell) {
+    }
+
+    @Override
+    public String getText(final Object element) {
+      if (element instanceof IAdtObjectTag) {
+        final IAdtObjectTag objectTag = (IAdtObjectTag) element;
+        return objectTag.getParentObjectName();
+      }
+      return null;
+    }
+  }
 
 }

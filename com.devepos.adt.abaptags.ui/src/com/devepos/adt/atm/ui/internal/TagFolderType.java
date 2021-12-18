@@ -11,24 +11,24 @@ import com.devepos.adt.atm.ui.internal.messages.Messages;
  * @author stockbal
  */
 public enum TagFolderType {
-    USER(IImages.USER_TAGS_FOLDER, Messages.AbapTagManagerView_UserTagsFolder_xlbl),
-    SHARED(IImages.SHARED_TAGS_FOLDER, Messages.AbapTagManagerView_SharedTagsFolder_xlbl),
-    GLOBAL(IImages.GLOBAL_TAGS_FOLDER, Messages.AbapTagManagerView_GlobalTagsFolder_xlbl);
+  USER(IImages.USER_TAGS_FOLDER, Messages.AbapTagManagerView_UserTagsFolder_xlbl),
+  SHARED(IImages.SHARED_TAGS_FOLDER, Messages.AbapTagManagerView_SharedTagsFolder_xlbl),
+  GLOBAL(IImages.GLOBAL_TAGS_FOLDER, Messages.AbapTagManagerView_GlobalTagsFolder_xlbl);
 
-    private Image folderImage;
-    private String folderName;
+  private Image folderImage;
+  private String folderName;
 
-    TagFolderType(final String folderImageId, final String folderName) {
-        folderImage = AbapTagsUIPlugin.getDefault().getImage(folderImageId);
-        this.folderName = folderName;
-    }
+  TagFolderType(final String folderImageId, final String folderName) {
+    folderImage = AbapTagsUIPlugin.getDefault().getImage(folderImageId);
+    this.folderName = folderName;
+  }
 
-    public Image getImage() {
-        return folderImage;
-    }
+  public Image getImage() {
+    return folderImage;
+  }
 
-    public String getName() {
-        return folderName;
-    }
+  public String getName() {
+    return folderName;
+  }
 
 }

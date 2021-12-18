@@ -18,27 +18,27 @@ import com.devepos.adt.base.ui.util.AdtUIUtil;
 
 public class AddTagsToSelectedObjectsHandler extends AbstractHandler {
 
-    @Override
-    public Object execute(final ExecutionEvent event) throws ExecutionException {
-        final List<IAdtObject> selectedObjects = AdtUIUtil.getAdtObjectsFromSelection(false);
-        if (selectedObjects == null || selectedObjects.isEmpty()) {
-            return null;
-        }
-
-        final IProject project = selectedObjects.get(0).getProject();
-        final IAdtObjRefList adtObjRefList = IAdtBaseFactory.eINSTANCE.createAdtObjRefList();
-
-        for (final IAdtObject adtObj : selectedObjects) {
-            final IAdtObjRef adtObjRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
-            adtObjRef.setUri(adtObj.getReference().getUri());
-            adtObjRefList.getObjectReferences().add(adtObjRef);
-        }
-
-        final TagObjectsWizard wizard = new TagObjectsWizard(true);
-        wizard.setProject(project);
-        wizard.setSelectedObjects(adtObjRefList);
-        final WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
-        dialog.open();
-        return null;
+  @Override
+  public Object execute(final ExecutionEvent event) throws ExecutionException {
+    final List<IAdtObject> selectedObjects = AdtUIUtil.getAdtObjectsFromSelection(false);
+    if (selectedObjects == null || selectedObjects.isEmpty()) {
+      return null;
     }
+
+    final IProject project = selectedObjects.get(0).getProject();
+    final IAdtObjRefList adtObjRefList = IAdtBaseFactory.eINSTANCE.createAdtObjRefList();
+
+    for (final IAdtObject adtObj : selectedObjects) {
+      final IAdtObjRef adtObjRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
+      adtObjRef.setUri(adtObj.getReference().getUri());
+      adtObjRefList.getObjectReferences().add(adtObjRef);
+    }
+
+    final TagObjectsWizard wizard = new TagObjectsWizard(true);
+    wizard.setProject(project);
+    wizard.setSelectedObjects(adtObjRefList);
+    final WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
+    dialog.open();
+    return null;
+  }
 }

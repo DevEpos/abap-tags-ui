@@ -13,13 +13,13 @@ import com.devepos.adt.atm.ui.internal.preferences.IPreferences;
  * @author stockbal
  */
 public class OpenTaggedObjectSearchPreferences extends Action {
-    public OpenTaggedObjectSearchPreferences() {
-        super(Messages.OpenTaggedObjectSearchPreferences_ActionLabel_xmit);
-    }
+  public OpenTaggedObjectSearchPreferences() {
+    super(Messages.OpenTaggedObjectSearchPreferences_ActionLabel_xmit);
+  }
 
-    @Override
-    public void run() {
-        PreferencesUtil.createPreferenceDialogOn(null, IPreferences.SEARCH_PREF_PAGE_ID, new String[] {
-            IPreferences.SEARCH_PREF_PAGE_ID }, (Object) null).open();
-    }
+  @Override
+  public void run() {
+    PreferencesUtil.createPreferenceDialogOn(null, IPreferences.SEARCH_PREF_PAGE_ID, new String[] {
+        IPreferences.SEARCH_PREF_PAGE_ID }, (Object) null).open();
+  }
 }

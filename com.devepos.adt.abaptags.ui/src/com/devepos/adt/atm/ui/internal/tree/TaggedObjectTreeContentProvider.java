@@ -15,40 +15,40 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
  */
 public class TaggedObjectTreeContentProvider implements ITreeContentProvider {
 
-    @Override
-    public Object[] getElements(final Object inputElement) {
-        if (inputElement instanceof ITaggedObjectList) {
-            return ((ITaggedObjectList) inputElement).getTaggedObjects().toArray();
-        }
-        if (inputElement instanceof List<?>) {
-            return ((List<?>) inputElement).toArray();
-        }
-        return new Object[0];
+  @Override
+  public Object[] getElements(final Object inputElement) {
+    if (inputElement instanceof ITaggedObjectList) {
+      return ((ITaggedObjectList) inputElement).getTaggedObjects().toArray();
     }
+    if (inputElement instanceof List<?>) {
+      return ((List<?>) inputElement).toArray();
+    }
+    return new Object[0];
+  }
 
-    @Override
-    public Object[] getChildren(final Object parentElement) {
-        if (parentElement instanceof ITaggedObject) {
-            return ((ITaggedObject) parentElement).getTags()
-                .stream()
-                .filter(t -> t.getParentTagName() != null && !t.getParentTagName().isEmpty())
-                .collect(Collectors.toList())
-                .toArray();
-        }
-        return null;
+  @Override
+  public Object[] getChildren(final Object parentElement) {
+    if (parentElement instanceof ITaggedObject) {
+      return ((ITaggedObject) parentElement).getTags()
+          .stream()
+          .filter(t -> t.getParentTagName() != null && !t.getParentTagName().isEmpty())
+          .collect(Collectors.toList())
+          .toArray();
     }
+    return null;
+  }
 
-    @Override
-    public Object getParent(final Object element) {
-        return null;
-    }
+  @Override
+  public Object getParent(final Object element) {
+    return null;
+  }
 
-    @Override
-    public boolean hasChildren(final Object element) {
-        if (element instanceof ITaggedObject) {
-            return !((ITaggedObject) element).getTags().isEmpty();
-        }
-        return false;
+  @Override
+  public boolean hasChildren(final Object element) {
+    if (element instanceof ITaggedObject) {
+      return !((ITaggedObject) element).getTags().isEmpty();
     }
+    return false;
+  }
 
 }

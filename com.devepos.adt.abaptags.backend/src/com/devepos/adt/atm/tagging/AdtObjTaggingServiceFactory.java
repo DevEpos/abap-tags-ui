@@ -9,12 +9,12 @@ import com.devepos.adt.atm.internal.tagging.AdtObjTaggingService;
  */
 public class AdtObjTaggingServiceFactory {
 
-    /**
-     * Creates new service instance for taggging ADT Objects
-     *
-     * @return
-     */
-    public static IAdtObjTaggingService createTaggingService() {
-        return new AdtObjTaggingService();
-    }
+  /**
+   * Creates new service instance for taggging ADT Objects
+   *
+   * @return
+   */
+  public static IAdtObjTaggingService createTaggingService() {
+    return new AdtObjTaggingService();
+  }
 }

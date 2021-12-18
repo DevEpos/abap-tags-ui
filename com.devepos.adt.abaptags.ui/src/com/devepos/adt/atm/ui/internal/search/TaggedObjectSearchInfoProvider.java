@@ -26,60 +26,65 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRef;
 
 public class TaggedObjectSearchInfoProvider implements IElementInfoProvider {
 
-    private final String destinationId;
-    private final int maxResults;
-    private final IAdtObjRef parentObjRef;
-    private final IAdtObjectTag tag;
-    private String destinationOwner;
+  private final String destinationId;
+  private final int maxResults;
+  private final IAdtObjRef parentObjRef;
+  private final IAdtObjectTag tag;
+  private String destinationOwner;
 
-    public TaggedObjectSearchInfoProvider(final String destinationId, final IAdtObjRef adtObjRef,
-        final IAdtObjectTag tag, final int maxResults) {
-        this.destinationId = destinationId;
-        destinationOwner = DestinationUtil.getDestinationData(destinationId).getUser();
-        parentObjRef = adtObjRef;
-        this.tag = tag;
-        this.maxResults = maxResults;
-    }
+  public TaggedObjectSearchInfoProvider(final String destinationId, final IAdtObjRef adtObjRef,
+      final IAdtObjectTag tag, final int maxResults) {
+    this.destinationId = destinationId;
+    destinationOwner = DestinationUtil.getDestinationData(destinationId).getUser();
+    parentObjRef = adtObjRef;
+    this.tag = tag;
+    this.maxResults = maxResults;
+  }
 
-    @Override
-    public List<IElementInfo> getElements() {
-        final List<IElementInfo> elements = new ArrayList<>();
-        final ITaggedObjectSearchParams searchParams = IAbapTagsFactory.eINSTANCE.createTaggedObjectSearchParams();
-        searchParams.setMaxResults(maxResults);
-        searchParams.setWithTagInfo(true);
-        searchParams.setTagInfoType(TagInfoType.CHILDREN);
-        searchParams.setQuery(String.format("%s:%s", parentObjRef.getName(), parentObjRef.getTadirType())); //$NON-NLS-1$
-        searchParams.setQueryType(TagQueryType.OBJECT_NAME_TYPE_COMBO);
-        searchParams.setQueryFocus(TagQueryFocus.PARENT_OBJECT);
+  @Override
+  public List<IElementInfo> getElements() {
+    final List<IElementInfo> elements = new ArrayList<>();
+    final ITaggedObjectSearchParams searchParams = IAbapTagsFactory.eINSTANCE
+        .createTaggedObjectSearchParams();
+    searchParams.setMaxResults(maxResults);
+    searchParams.setWithTagInfo(true);
+    searchParams.setTagInfoType(TagInfoType.CHILDREN);
+    searchParams.setQuery(String.format("%s:%s", parentObjRef.getName(), parentObjRef //$NON-NLS-1$
+        .getTadirType()));
+    searchParams.setQueryType(TagQueryType.OBJECT_NAME_TYPE_COMBO);
+    searchParams.setQueryFocus(TagQueryFocus.PARENT_OBJECT);
 
-        searchParams.getTagIds().add(tag.getId());
+    searchParams.getTagIds().add(tag.getId());
 
-        final ITaggedObjectSearchService searchService = TaggedObjectSearchFactory.createTaggedObjectSearchService();
-        final ITaggedObjectList taggedObjectList = searchService.findObjects(destinationId, searchParams);
-        if (taggedObjectList != null && !taggedObjectList.getTaggedObjects().isEmpty()) {
-            for (final ITaggedObject taggedObject : taggedObjectList.getTaggedObjects()) {
-                final IAdtObjRef objRef = taggedObject.getObjectRef();
-                final AdtObjectReferenceElementInfo objRefElemeInfo = new AdtObjectReferenceElementInfo(objRef
-                    .getName(), objRef.getName(), objRef.getDescription());
-                objRefElemeInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(destinationId,
-                    objRef));
+    final ITaggedObjectSearchService searchService = TaggedObjectSearchFactory
+        .createTaggedObjectSearchService();
+    final ITaggedObjectList taggedObjectList = searchService.findObjects(destinationId,
+        searchParams);
+    if (taggedObjectList != null && !taggedObjectList.getTaggedObjects().isEmpty()) {
+      for (final ITaggedObject taggedObject : taggedObjectList.getTaggedObjects()) {
+        final IAdtObjRef objRef = taggedObject.getObjectRef();
+        final AdtObjectReferenceElementInfo objRefElemeInfo = new AdtObjectReferenceElementInfo(
+            objRef.getName(), objRef.getName(), objRef.getDescription());
+        objRefElemeInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
+            destinationId, objRef));
 
-                for (final IAdtObjectTag tag : taggedObject.getTags()) {
-                    final ILazyLoadingElementInfo lazyTagElemInfo = new LazyLoadingElementInfo(tag.getName(), ImageUtil
-                        .getObjectTagImage(tag, destinationOwner), new TaggedObjectSearchInfoProvider(destinationId,
-                            objRef, tag, maxResults));
-                    objRefElemeInfo.getChildren().add(lazyTagElemInfo);
-                }
-                objRefElemeInfo.setLazyLoadingSupport(false);
-                elements.add(objRefElemeInfo);
-            }
+        for (final IAdtObjectTag tag : taggedObject.getTags()) {
+          final ILazyLoadingElementInfo lazyTagElemInfo = new LazyLoadingElementInfo(tag.getName(),
+              ImageUtil.getObjectTagImage(tag, destinationOwner),
+              new TaggedObjectSearchInfoProvider(destinationId, objRef, tag, maxResults));
+          objRefElemeInfo.getChildren().add(lazyTagElemInfo);
         }
-
-        return elements;
+        objRefElemeInfo.setLazyLoadingSupport(false);
+        elements.add(objRefElemeInfo);
+      }
     }
 
-    @Override
-    public String getProviderDescription() {
-        return String.format(Messages.TaggedObjectSearchInfoProvider_LoadingTagsJob_xmsg, tag.getName());
-    }
+    return elements;
+  }
+
+  @Override
+  public String getProviderDescription() {
+    return String.format(Messages.TaggedObjectSearchInfoProvider_LoadingTagsJob_xmsg, tag
+        .getName());
+  }
 }

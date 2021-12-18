@@ -15,23 +15,23 @@ import com.sap.adt.communication.content.AdtMediaType;
  */
 public class AbapTagsContentHandler extends AbstractEmfContentHandler<ITagList> {
 
-    public AbapTagsContentHandler() {
-        super(AdtMediaType.APPLICATION_XML, ".abaptags");
-    }
+  public AbapTagsContentHandler() {
+    super(AdtMediaType.APPLICATION_XML, ".abaptags");
+  }
 
-    @Override
-    public Class<ITagList> getSupportedDataType() {
-        return ITagList.class;
-    }
+  @Override
+  public Class<ITagList> getSupportedDataType() {
+    return ITagList.class;
+  }
 
-    @Override
-    protected Resource createResource() {
-        return new AbapTagsResourceFactory().createResource(getVirtualResourceUri());
-    }
+  @Override
+  protected Resource createResource() {
+    return new AbapTagsResourceFactory().createResource(getVirtualResourceUri());
+  }
 
-    @Override
-    protected ITagList getRootElement(final EObject rootElement) {
-        return (ITagList) rootElement;
-    }
+  @Override
+  protected ITagList getRootElement(final EObject rootElement) {
+    return (ITagList) rootElement;
+  }
 
 }

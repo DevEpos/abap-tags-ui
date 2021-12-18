@@ -113,533 +113,542 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
  */
 public class AbapObjectTagsView extends ViewPart {
 
-    public static final String VIEW_ID = "com.devepos.adt.atm.ui.views.AbapObjectTags"; //$NON-NLS-1$
-    private static final String LINK_TO_EDITOR_PREF = "com.devepos.adt.atm.ui.views.AbapObjectTags.linkToEditor"; //$NON-NLS-1$
-    private final IAbapTagsService abapTagsService;
-    private Action addTagsAction;
-    private CopyToClipboardAction copyToClipBoardAction;
-    private IAdtObject currentAdtObject;
-    private PreferenceToggleAction linkToEditorAction;
-    private Composite mainComposite;
-    private Action otherObjectAction;
-    private Action refreshAction;
-    private Tree tree;
-    private TreeInput treeResult;
-    private TreeViewer treeViewer;
-    private ViewDescriptionLabel viewLabel;
-    private String destinationOwner;
+  public static final String VIEW_ID = "com.devepos.adt.atm.ui.views.AbapObjectTags"; //$NON-NLS-1$
+  private static final String LINK_TO_EDITOR_PREF = "com.devepos.adt.atm.ui.views.AbapObjectTags.linkToEditor"; //$NON-NLS-1$
+  private final IAbapTagsService abapTagsService;
+  private Action addTagsAction;
+  private CopyToClipboardAction copyToClipBoardAction;
+  private IAdtObject currentAdtObject;
+  private PreferenceToggleAction linkToEditorAction;
+  private Composite mainComposite;
+  private Action otherObjectAction;
+  private Action refreshAction;
+  private Tree tree;
+  private TreeInput treeResult;
+  private TreeViewer treeViewer;
+  private ViewDescriptionLabel viewLabel;
+  private String destinationOwner;
 
-    public AbapObjectTagsView() {
-        abapTagsService = AbapTagsServiceFactory.createTagsService();
+  public AbapObjectTagsView() {
+    abapTagsService = AbapTagsServiceFactory.createTagsService();
+  }
+
+  @Override
+  public void createPartControl(final Composite parent) {
+    mainComposite = new Composite(parent, SWT.NONE);
+    HelpUtil.setHelp(mainComposite, HelpContexts.OBJECT_TAGS);
+    GridDataFactory.fillDefaults().grab(true, true).applyTo(mainComposite);
+    GridLayoutFactory.swtDefaults().margins(0, 0).applyTo(mainComposite);
+
+    createViewer(mainComposite);
+    viewLabel = new ViewDescriptionLabel(mainComposite);
+    clearInput();
+
+    initializeActions();
+
+    initToolbar(getViewSite().getActionBars());
+    hookContextMenu();
+
+    final ViewPartListener partListener = new ViewPartListener();
+    partListener.setPartActivatedConsumer(partRef -> {
+      final IWorkbenchPart part = partRef.getPart(true);
+      if (part instanceof IEditorPart) {
+        showTaggedObjectsForEditor((IEditorPart) part);
+      } else if (part instanceof AbapObjectTagsView) {
+        showTaggedObjectsForEditor(partRef.getPage().getActiveEditor());
+      }
+    });
+    partListener.setPartVisibleConsumer(partRef -> {
+      if (VIEW_ID.equals(partRef.getId()) && partRef.getPart(false) instanceof AbapObjectTagsView) {
+        showTaggedObjectsForEditor(partRef.getPage().getActiveEditor());
+      }
+    });
+    getSite().getPage().addPartListener(partListener);
+    getSite().setSelectionProvider(treeViewer);
+  }
+
+  @Override
+  public void setFocus() {
+    if (tree != null && !tree.isDisposed()) {
+      tree.setFocus();
     }
+  }
 
-    @Override
-    public void createPartControl(final Composite parent) {
-        mainComposite = new Composite(parent, SWT.NONE);
-        HelpUtil.setHelp(mainComposite, HelpContexts.OBJECT_TAGS);
-        GridDataFactory.fillDefaults().grab(true, true).applyTo(mainComposite);
-        GridLayoutFactory.swtDefaults().margins(0, 0).applyTo(mainComposite);
+  public void setInput(final IAdtObject newAdtObject) {
+    updateInput(newAdtObject, true);
+  }
 
-        createViewer(mainComposite);
-        viewLabel = new ViewDescriptionLabel(mainComposite);
-        clearInput();
+  private void clearInput() {
+    currentAdtObject = null;
+    treeResult.clearInput();
+    viewLabel.updateLabel(Messages.AbapObjectTagsView_NoInputAvailable_xmsg);
+  }
 
-        initializeActions();
-
-        initToolbar(getViewSite().getActionBars());
-        hookContextMenu();
-
-        final ViewPartListener partListener = new ViewPartListener();
-        partListener.setPartActivatedConsumer(partRef -> {
-            final IWorkbenchPart part = partRef.getPart(true);
-            if (part instanceof IEditorPart) {
-                showTaggedObjectsForEditor((IEditorPart) part);
-            } else if (part instanceof AbapObjectTagsView) {
-                showTaggedObjectsForEditor(partRef.getPage().getActiveEditor());
-            }
-        });
-        partListener.setPartVisibleConsumer(partRef -> {
-            if (VIEW_ID.equals(partRef.getId()) && partRef.getPart(false) instanceof AbapObjectTagsView) {
-                showTaggedObjectsForEditor(partRef.getPage().getActiveEditor());
-            }
-        });
-        getSite().getPage().addPartListener(partListener);
-        getSite().setSelectionProvider(treeViewer);
-    }
-
-    @Override
-    public void setFocus() {
-        if (tree != null && !tree.isDisposed()) {
-            tree.setFocus();
+  private void createViewer(final Composite parent) {
+    treeViewer = new TreeViewer(parent, SWT.V_SCROLL | SWT.MULTI);
+    tree = treeViewer.getTree();
+    GridDataFactory.fillDefaults().grab(true, true).applyTo(tree);
+    treeViewer.setContentProvider(new ContentProvider());
+    treeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new ViewLabelProvider()));
+    treeViewer.setUseHashlookup(true);
+    treeViewer.addOpenListener(event -> {
+      final ITreeSelection sel = (ITreeSelection) event.getSelection();
+      final Iterator<?> selIter = sel.iterator();
+      while (selIter.hasNext()) {
+        final Object node = selIter.next();
+        if (node == null) {
+          return;
         }
-    }
+        if (node instanceof IAdtObjectReferenceNode) {
+          final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) node;
 
-    public void setInput(final IAdtObject newAdtObject) {
-        updateInput(newAdtObject, true);
-    }
-
-    private void clearInput() {
-        currentAdtObject = null;
-        treeResult.clearInput();
-        viewLabel.updateLabel(Messages.AbapObjectTagsView_NoInputAvailable_xmsg);
-    }
-
-    private void createViewer(final Composite parent) {
-        treeViewer = new TreeViewer(parent, SWT.V_SCROLL | SWT.MULTI);
-        tree = treeViewer.getTree();
-        GridDataFactory.fillDefaults().grab(true, true).applyTo(tree);
-        treeViewer.setContentProvider(new ContentProvider());
-        treeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new ViewLabelProvider()));
-        treeViewer.setUseHashlookup(true);
-        treeViewer.addOpenListener(event -> {
-            final ITreeSelection sel = (ITreeSelection) event.getSelection();
-            final Iterator<?> selIter = sel.iterator();
-            while (selIter.hasNext()) {
-                final Object node = selIter.next();
-                if (node == null) {
-                    return;
-                }
-                if (node instanceof IAdtObjectReferenceNode) {
-                    final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) node;
-
-                    if (adtObjRefNode != null) {
-                        AdtUIUtil.navigateWithObjectReference(adtObjRefNode.getObjectReference(), getProject());
-                    }
-                }
-            }
-        });
-
-        treeResult = new TreeInput(treeViewer);
-    }
-
-    private void fillContextMenu(final IMenuManager menu) {
-        final IStructuredSelection selection = treeViewer.getStructuredSelection();
-        if (selection == null || selection.isEmpty()) {
-            return;
+          if (adtObjRefNode != null) {
+            AdtUIUtil.navigateWithObjectReference(adtObjRefNode.getObjectReference(), getProject());
+          }
         }
-        final List<IAdtObjectReference> adtObjRefs = new ArrayList<>();
-        DeleteTagsAction deleteTagsAction = null;
-        final List<IAdtObjectReference> previewAdtObjRefs = new ArrayList<>();
+      }
+    });
 
-        for (final Object selectedObject : selection.toList()) {
-            if (selectedObject instanceof IAdtObjectReferenceNode) {
-                final IAdtObjectReferenceNode objRefNode = (IAdtObjectReferenceNode) selectedObject;
-                final IAdtObjectReference adtObjectRef = objRefNode.getObjectReference();
-                if (objRefNode.supportsDataPreview()) {
-                    previewAdtObjRefs.add(adtObjectRef);
-                }
-                adtObjRefs.add(adtObjectRef);
-            } else if (selectedObject instanceof ITreeNode) {
-                final ITreeNode tagNode = (ITreeNode) selectedObject;
-                final IAdtObjectTag tag = tagNode.getAdapter(IAdtObjectTag.class);
-                if (tag != null) {
-                    if (deleteTagsAction == null) {
-                        deleteTagsAction = new DeleteTagsAction();
-                    }
-                    deleteTagsAction.addTag(tag, tagNode);
-                }
-            }
-        }
+    treeResult = new TreeInput(treeViewer);
+  }
 
-        if (!adtObjRefs.isEmpty()) {
-            menu.add(new OpenAdtObjectAction(getProject(), adtObjRefs));
-        }
-        if (!previewAdtObjRefs.isEmpty()) {
-            menu.add(new ExecuteAdtObjectAction(getProject(), previewAdtObjRefs, true));
-        }
+  private void fillContextMenu(final IMenuManager menu) {
+    final IStructuredSelection selection = treeViewer.getStructuredSelection();
+    if (selection == null || selection.isEmpty()) {
+      return;
+    }
+    final List<IAdtObjectReference> adtObjRefs = new ArrayList<>();
+    DeleteTagsAction deleteTagsAction = null;
+    final List<IAdtObjectReference> previewAdtObjRefs = new ArrayList<>();
 
-        if (!adtObjRefs.isEmpty()) {
-            menu.add(new Separator(IGeneralMenuConstants.GROUP_ADDITIONS));
-            menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, CommandFactory.createContribItemById(
-                IGeneralCommandConstants.WHERE_USED_IN, true, null));
+    for (final Object selectedObject : selection.toList()) {
+      if (selectedObject instanceof IAdtObjectReferenceNode) {
+        final IAdtObjectReferenceNode objRefNode = (IAdtObjectReferenceNode) selectedObject;
+        final IAdtObjectReference adtObjectRef = objRefNode.getObjectReference();
+        if (objRefNode.supportsDataPreview()) {
+          previewAdtObjRefs.add(adtObjectRef);
         }
-
-        menu.add(new Separator(IGeneralMenuConstants.GROUP_EDIT));
-        if (deleteTagsAction != null) {
-            menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, deleteTagsAction);
+        adtObjRefs.add(adtObjectRef);
+      } else if (selectedObject instanceof ITreeNode) {
+        final ITreeNode tagNode = (ITreeNode) selectedObject;
+        final IAdtObjectTag tag = tagNode.getAdapter(IAdtObjectTag.class);
+        if (tag != null) {
+          if (deleteTagsAction == null) {
+            deleteTagsAction = new DeleteTagsAction();
+          }
+          deleteTagsAction.addTag(tag, tagNode);
         }
-        menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, copyToClipBoardAction);
+      }
     }
 
-    private IProject getProject() {
-        return currentAdtObject != null ? currentAdtObject.getProject() : null;
+    if (!adtObjRefs.isEmpty()) {
+      menu.add(new OpenAdtObjectAction(getProject(), adtObjRefs));
+    }
+    if (!previewAdtObjRefs.isEmpty()) {
+      menu.add(new ExecuteAdtObjectAction(getProject(), previewAdtObjRefs, true));
     }
 
-    private void hookContextMenu() {
-        final MenuManager menuMgr = new MenuManager();
-        menuMgr.setRemoveAllWhenShown(true);
-
-        menuMgr.addMenuListener(menu -> {
-            fillContextMenu(menu);
-        });
-        final Control viewerControl = tree;
-        final Menu menu = menuMgr.createContextMenu(viewerControl);
-        viewerControl.setMenu(menu);
-        getSite().registerContextMenu(getViewSite().getId(), menuMgr, treeViewer);
+    if (!adtObjRefs.isEmpty()) {
+      menu.add(new Separator(IGeneralMenuConstants.GROUP_ADDITIONS));
+      menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, CommandFactory
+          .createContribItemById(IGeneralCommandConstants.WHERE_USED_IN, true, null));
     }
 
-    private void initializeActions() {
-        copyToClipBoardAction = new CopyToClipboardAction();
-        copyToClipBoardAction.registerViewer(treeViewer);
-        linkToEditorAction = new PreferenceToggleAction(Messages.AbapObjectTagsView_LinkToEditorAction_xtol, PlatformUI
-            .getWorkbench()
+    menu.add(new Separator(IGeneralMenuConstants.GROUP_EDIT));
+    if (deleteTagsAction != null) {
+      menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, deleteTagsAction);
+    }
+    menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, copyToClipBoardAction);
+  }
+
+  private IProject getProject() {
+    return currentAdtObject != null ? currentAdtObject.getProject() : null;
+  }
+
+  private void hookContextMenu() {
+    final MenuManager menuMgr = new MenuManager();
+    menuMgr.setRemoveAllWhenShown(true);
+
+    menuMgr.addMenuListener(menu -> {
+      fillContextMenu(menu);
+    });
+    final Control viewerControl = tree;
+    final Menu menu = menuMgr.createContextMenu(viewerControl);
+    viewerControl.setMenu(menu);
+    getSite().registerContextMenu(getViewSite().getId(), menuMgr, treeViewer);
+  }
+
+  private void initializeActions() {
+    copyToClipBoardAction = new CopyToClipboardAction();
+    copyToClipBoardAction.registerViewer(treeViewer);
+    linkToEditorAction = new PreferenceToggleAction(
+        Messages.AbapObjectTagsView_LinkToEditorAction_xtol, PlatformUI.getWorkbench()
             .getSharedImages()
-            .getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED), LINK_TO_EDITOR_PREF, true, AbapTagsUIPlugin.getDefault()
-                .getPreferenceStore());
-        linkToEditorAction.addPropertyChangeListener(e -> {
-            if (e.getProperty().equals(IAction.CHECKED) && (Boolean) e.getNewValue()) {
-                updateInputFromEditor();
-            }
+            .getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED), LINK_TO_EDITOR_PREF, true,
+        AbapTagsUIPlugin.getDefault().getPreferenceStore());
+    linkToEditorAction.addPropertyChangeListener(e -> {
+      if (e.getProperty().equals(IAction.CHECKED) && (Boolean) e.getNewValue()) {
+        updateInputFromEditor();
+      }
+    });
+    addTagsAction = ActionFactory.createAction(Messages.AbapObjectTagsView_AddTagsAction_xtol,
+        AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.ASSIGN_TAG), () -> {
+          final TagObjectsWizard wizard = new TagObjectsWizard(currentAdtObject != null);
+          if (currentAdtObject != null) {
+            wizard.setProject(currentAdtObject.getProject());
+            final IAdtObjRefList adtObjRefList = IAdtBaseFactory.eINSTANCE.createAdtObjRefList();
+            final IAdtObjRef adtObjRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
+            adtObjRef.setUri(currentAdtObject.getReference().getUri());
+            adtObjRef.setName(currentAdtObject.getReference().getName());
+            adtObjRef.setType(currentAdtObject.getReference().getType());
+            adtObjRefList.getObjectReferences().add(adtObjRef);
+            wizard.setSelectedObjects(adtObjRefList);
+          } else {
+            wizard.setProject(ProjectUtil.getCurrentAbapProject());
+          }
+          final WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench()
+              .getActiveWorkbenchWindow()
+              .getShell(), wizard);
+          dialog.open();
+          if (currentAdtObject != null && wizard.wasSuccessful()) {
+            refreshCurrentNode();
+          }
         });
-        addTagsAction = ActionFactory.createAction(Messages.AbapObjectTagsView_AddTagsAction_xtol, AbapTagsUIPlugin
-            .getDefault()
-            .getImageDescriptor(IImages.ASSIGN_TAG), () -> {
-                final TagObjectsWizard wizard = new TagObjectsWizard(currentAdtObject != null);
-                if (currentAdtObject != null) {
-                    wizard.setProject(currentAdtObject.getProject());
-                    final IAdtObjRefList adtObjRefList = IAdtBaseFactory.eINSTANCE.createAdtObjRefList();
-                    final IAdtObjRef adtObjRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
-                    adtObjRef.setUri(currentAdtObject.getReference().getUri());
-                    adtObjRef.setName(currentAdtObject.getReference().getName());
-                    adtObjRef.setType(currentAdtObject.getReference().getType());
-                    adtObjRefList.getObjectReferences().add(adtObjRef);
-                    wizard.setSelectedObjects(adtObjRefList);
-                } else {
-                    wizard.setProject(ProjectUtil.getCurrentAbapProject());
-                }
-                final WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench()
-                    .getActiveWorkbenchWindow()
-                    .getShell(), wizard);
-                dialog.open();
-                if (currentAdtObject != null && wizard.wasSuccessful()) {
-                    refreshCurrentNode();
-                }
-            });
-        refreshAction = ActionFactory.createAction(AdtBaseUIResources.getString(IAdtBaseStrings.Refresh),
-            AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.REFRESH), this::refreshCurrentNode);
-        otherObjectAction = new ChooseOtherAdtObjectAction(false, this::onOtherObjectAction);
+    refreshAction = ActionFactory.createAction(AdtBaseUIResources.getString(
+        IAdtBaseStrings.Refresh), AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.REFRESH),
+        this::refreshCurrentNode);
+    otherObjectAction = new ChooseOtherAdtObjectAction(false, this::onOtherObjectAction);
+  }
+
+  private void initToolbar(final IActionBars actionBars) {
+    actionBars.setGlobalActionHandler(org.eclipse.ui.actions.ActionFactory.REFRESH.getId(),
+        refreshAction);
+    final IToolBarManager tbm = actionBars.getToolBarManager();
+    tbm.add(linkToEditorAction);
+    tbm.add(new Separator());
+    tbm.add(addTagsAction);
+    tbm.add(new Separator());
+    tbm.add(otherObjectAction);
+    tbm.add(new Separator());
+    tbm.add(refreshAction);
+  }
+
+  private void onOtherObjectAction(final IAdtRisSearchResultProxy result) {
+    if (result != null) {
+      final IProject project = result.getSelectedProject();
+      if (project == null) {
+        return;
+      }
+      final IStatus abapTagsFeatureStatus = abapTagsService.testTagsFeatureAvailability(project);
+      if (!abapTagsFeatureStatus.isOK()) {
+        clearInput();
+        viewLabel.updateLabel(abapTagsFeatureStatus.getMessage());
+        return;
+      }
+
+      final IAdtObjectReference objectRef = result.getFirstResult();
+      if (objectRef != null) {
+        updateInput(AdtObjectFactory.create(objectRef, project), true);
+      }
+    }
+  }
+
+  private void refreshCurrentNode() {
+    treeResult.refresh();
+  }
+
+  private void showTaggedObjectsForEditor(final IEditorPart editor) {
+    if (editor == null) {
+      if (linkToEditorAction.isChecked() && PlatformUI.getWorkbench()
+          .getActiveWorkbenchWindow()
+          .getActivePage()
+          .isPartVisible(this)) {
+        clearInput();
+      }
+      return;
     }
 
-    private void initToolbar(final IActionBars actionBars) {
-        actionBars.setGlobalActionHandler(org.eclipse.ui.actions.ActionFactory.REFRESH.getId(), refreshAction);
-        final IToolBarManager tbm = actionBars.getToolBarManager();
-        tbm.add(linkToEditorAction);
-        tbm.add(new Separator());
-        tbm.add(addTagsAction);
-        tbm.add(new Separator());
-        tbm.add(otherObjectAction);
-        tbm.add(new Separator());
-        tbm.add(refreshAction);
+    final IWorkbenchPage page = editor.getSite().getPage();
+    if (linkToEditorAction.isChecked() && page.isPartVisible(this)) {
+      final IAdtObject selObj = EditorUtil.getAdtObjectFromEditor(editor);
+      updateInput(selObj, false);
+    }
+  }
+
+  private void updateInput(final IAdtObject newAdtObject, final boolean forceUpdate) {
+    if (!linkToEditorAction.isChecked() && !forceUpdate) {
+      return;
+    }
+    if (Objects.equals(currentAdtObject, newAdtObject) && (newAdtObject == null || Objects.equals(
+        currentAdtObject.getProject(), newAdtObject.getProject()))) {
+      return;
+    }
+    currentAdtObject = newAdtObject;
+    if (currentAdtObject == null) {
+      clearInput();
+    } else {
+      if (!ProjectUtil.isLoggedOnToProject(getProject())) {
+        clearInput();
+        return;
+      }
+      final IStatus abapTagsFeatureStatus = abapTagsService.testTagsFeatureAvailability(
+          currentAdtObject.getProject());
+      if (!abapTagsFeatureStatus.isOK()) {
+        clearInput();
+        viewLabel.updateLabel(abapTagsFeatureStatus.getMessage());
+        return;
+      }
+      treeResult.updateInput(currentAdtObject.getReference().getUri());
+      viewLabel.updateLabel(" [" + currentAdtObject.getProject().getName() + "] " + currentAdtObject //$NON-NLS-1$ //$NON-NLS-2$
+          .getName(), currentAdtObject.getImage());
+      destinationOwner = DestinationUtil.getDestinationOwner(currentAdtObject.getProject());
+    }
+  }
+
+  private void updateInputFromEditor() {
+    final IAdtObject adtObject = EditorUtil.getAdtObjectFromActiveEditor();
+    updateInput(adtObject, false);
+  }
+
+  private class ContentProvider extends LazyLoadingTreeContentProvider {
+    @Override
+    public Object[] getElements(final Object inputElement) {
+
+      if (inputElement instanceof ITreeNode) {
+        if (inputElement instanceof ILazyLoadingNode) {
+          final Object[] childNodes = getChildren(inputElement);
+          return childNodes != null ? childNodes : new Object[0];
+        }
+        return new Object[] { inputElement };
+      }
+      return super.getElements(inputElement);
+    }
+  }
+
+  private class DeleteTagsAction extends Action {
+    private final Map<String, List<IAdtObjectTag>> tagMap = new HashMap<>();
+    private ITaggedObjectList tgobjList;
+
+    public DeleteTagsAction() {
+      super(Messages.AbapObjectTagsView_DeleteTagAction_xmit, PlatformUI.getWorkbench()
+          .getSharedImages()
+          .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
     }
 
-    private void onOtherObjectAction(final IAdtRisSearchResultProxy result) {
-        if (result != null) {
-            final IProject project = result.getSelectedProject();
-            if (project == null) {
-                return;
-            }
-            final IStatus abapTagsFeatureStatus = abapTagsService.testTagsFeatureAvailability(project);
-            if (!abapTagsFeatureStatus.isOK()) {
-                clearInput();
-                viewLabel.updateLabel(abapTagsFeatureStatus.getMessage());
-                return;
-            }
+    public void addTag(final IAdtObjectTag tag, final ITreeNode tagNode) {
+      if (tgobjList == null) {
+        tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
+      }
+      final ITreeNode parent = tagNode.getParent();
+      String objectUri = null;
+      if (parent instanceof IAdtObjectReferenceNode) {
+        objectUri = ((IAdtObjectReferenceNode) parent).getObjectReference().getUri();
+      }
 
-            final IAdtObjectReference objectRef = result.getFirstResult();
-            if (objectRef != null) {
-                updateInput(AdtObjectFactory.create(objectRef, project), true);
-            }
-        }
+      List<IAdtObjectTag> tagList;
+      if (objectUri == null) {
+        return;
+      }
+      tagList = tagMap.get(objectUri);
+      if (tagList == null) {
+        tagList = new ArrayList<>();
+        tagMap.put(objectUri, tagList);
+      }
+      tagList.add(tag);
     }
 
-    private void refreshCurrentNode() {
-        treeResult.refresh();
+    @Override
+    public void run() {
+      final ITaggedObjectList tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
+
+      for (final String objectUri : tagMap.keySet()) {
+        final ITaggedObject taggedObject = IAbapTagsFactory.eINSTANCE.createTaggedObject();
+        final IAdtObjRef objectRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
+        objectRef.setUri(objectUri);
+        taggedObject.setObjectRef(objectRef);
+        taggedObject.getTags().addAll(tagMap.get(objectUri));
+        tgobjList.getTaggedObjects().add(taggedObject);
+      }
+
+      final Job deleteTagsJob = createDeleteTagsJob(tgobjList);
+      deleteTagsJob.schedule();
     }
 
-    private void showTaggedObjectsForEditor(final IEditorPart editor) {
-        if (editor == null) {
-            if (linkToEditorAction.isChecked() && PlatformUI.getWorkbench()
-                .getActiveWorkbenchWindow()
-                .getActivePage()
-                .isPartVisible(this)) {
-                clearInput();
-            }
-            return;
-        }
+    private Job createDeleteTagsJob(final ITaggedObjectList tgobjList) {
+      return Job.create(Messages.AbapObjectTagsView_DeleteTagsJob_xmsg, monitor -> {
 
-        final IWorkbenchPage page = editor.getSite().getPage();
-        if (linkToEditorAction.isChecked() && page.isPartVisible(this)) {
-            final IAdtObject selObj = EditorUtil.getAdtObjectFromEditor(editor);
-            updateInput(selObj, false);
-        }
+        final IAdtObjTaggingService taggingService = AdtObjTaggingServiceFactory
+            .createTaggingService();
+        taggingService.deleteTags(DestinationUtil.getDestinationId(getProject()), tgobjList);
+
+        Display.getDefault().asyncExec(() -> {
+          refreshCurrentNode();
+        });
+      });
     }
 
-    private void updateInput(final IAdtObject newAdtObject, final boolean forceUpdate) {
-        if (!linkToEditorAction.isChecked() && !forceUpdate) {
-            return;
-        }
-        if (Objects.equals(currentAdtObject, newAdtObject) && (newAdtObject == null || Objects.equals(currentAdtObject
-            .getProject(), newAdtObject.getProject()))) {
-            return;
-        }
-        currentAdtObject = newAdtObject;
-        if (currentAdtObject == null) {
-            clearInput();
-        } else {
-            if (!ProjectUtil.isLoggedOnToProject(getProject())) {
-                clearInput();
-                return;
-            }
-            final IStatus abapTagsFeatureStatus = abapTagsService.testTagsFeatureAvailability(currentAdtObject
-                .getProject());
-            if (!abapTagsFeatureStatus.isOK()) {
-                clearInput();
-                viewLabel.updateLabel(abapTagsFeatureStatus.getMessage());
-                return;
-            }
-            treeResult.updateInput(currentAdtObject.getReference().getUri());
-            viewLabel.updateLabel(" [" + currentAdtObject.getProject().getName() + "] " + currentAdtObject.getName(), //$NON-NLS-1$ //$NON-NLS-2$
-                currentAdtObject.getImage());
-            destinationOwner = DestinationUtil.getDestinationOwner(currentAdtObject.getProject());
-        }
+  }
+
+  private class TreeInput {
+    private ITreeNode currentInput;
+    private final TreeViewer viewer;
+
+    public TreeInput(final TreeViewer viewer) {
+      this.viewer = viewer;
     }
 
-    private void updateInputFromEditor() {
-        final IAdtObject adtObject = EditorUtil.getAdtObjectFromActiveEditor();
-        updateInput(adtObject, false);
+    public void clearInput() {
+      currentInput = null;
+      viewer.setInput(null);
     }
 
-    private class ContentProvider extends LazyLoadingTreeContentProvider {
-        @Override
-        public Object[] getElements(final Object inputElement) {
-
-            if (inputElement instanceof ITreeNode) {
-                if (inputElement instanceof ILazyLoadingNode) {
-                    final Object[] childNodes = getChildren(inputElement);
-                    return childNodes != null ? childNodes : new Object[0];
-                }
-                return new Object[] { inputElement };
-            }
-            return super.getElements(inputElement);
-        }
+    public void refresh() {
+      if (currentInput instanceof ILazyLoadingNode) {
+        ((ILazyLoadingNode) currentInput).resetLoadedState();
+        viewer.refresh();
+      }
     }
 
-    private class DeleteTagsAction extends Action {
-        private final Map<String, List<IAdtObjectTag>> tagMap = new HashMap<>();
-        private ITaggedObjectList tgobjList;
+    public void updateInput(final String objectUri) {
+      Assert.isNotNull(objectUri);
 
-        public DeleteTagsAction() {
-            super(Messages.AbapObjectTagsView_DeleteTagAction_xmit, PlatformUI.getWorkbench()
-                .getSharedImages()
-                .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
-        }
+      final ILazyLoadingNode lazyLoadingNode = new LazyLoadingFolderNode("", //$NON-NLS-1$
+          new IElementInfoProvider() {
 
-        public void addTag(final IAdtObjectTag tag, final ITreeNode tagNode) {
-            if (tgobjList == null) {
-                tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
-            }
-            final ITreeNode parent = tagNode.getParent();
-            String objectUri = null;
-            if (parent instanceof IAdtObjectReferenceNode) {
-                objectUri = ((IAdtObjectReferenceNode) parent).getObjectReference().getUri();
-            }
+            @Override
+            public List<IElementInfo> getElements() {
+              final IAdtObjTaggingService taggingService = AdtObjTaggingServiceFactory
+                  .createTaggingService();
 
-            List<IAdtObjectTag> tagList;
-            if (objectUri == null) {
-                return;
-            }
-            tagList = tagMap.get(objectUri);
-            if (tagList == null) {
-                tagList = new ArrayList<>();
-                tagMap.put(objectUri, tagList);
-            }
-            tagList.add(tag);
-        }
-
-        @Override
-        public void run() {
-            final ITaggedObjectList tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
-
-            for (final String objectUri : tagMap.keySet()) {
-                final ITaggedObject taggedObject = IAbapTagsFactory.eINSTANCE.createTaggedObject();
-                final IAdtObjRef objectRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
-                objectRef.setUri(objectUri);
-                taggedObject.setObjectRef(objectRef);
-                taggedObject.getTags().addAll(tagMap.get(objectUri));
-                tgobjList.getTaggedObjects().add(taggedObject);
-            }
-
-            final Job deleteTagsJob = createDeleteTagsJob(tgobjList);
-            deleteTagsJob.schedule();
-        }
-
-        private Job createDeleteTagsJob(final ITaggedObjectList tgobjList) {
-            return Job.create(Messages.AbapObjectTagsView_DeleteTagsJob_xmsg, monitor -> {
-
-                final IAdtObjTaggingService taggingService = AdtObjTaggingServiceFactory.createTaggingService();
-                taggingService.deleteTags(DestinationUtil.getDestinationId(getProject()), tgobjList);
-
-                Display.getDefault().asyncExec(() -> {
-                    refreshCurrentNode();
-                });
-            });
-        }
-
-    }
-
-    private class TreeInput {
-        private ITreeNode currentInput;
-        private final TreeViewer viewer;
-
-        public TreeInput(final TreeViewer viewer) {
-            this.viewer = viewer;
-        }
-
-        public void clearInput() {
-            currentInput = null;
-            viewer.setInput(null);
-        }
-
-        public void refresh() {
-            if (currentInput instanceof ILazyLoadingNode) {
-                ((ILazyLoadingNode) currentInput).resetLoadedState();
-                viewer.refresh();
-            }
-        }
-
-        public void updateInput(final String objectUri) {
-            Assert.isNotNull(objectUri);
-
-            final ILazyLoadingNode lazyLoadingNode = new LazyLoadingFolderNode("", new IElementInfoProvider() { //$NON-NLS-1$
-
-                @Override
-                public List<IElementInfo> getElements() {
-                    final IAdtObjTaggingService taggingService = AdtObjTaggingServiceFactory.createTaggingService();
-
-                    try {
-                        final String destinationId = DestinationUtil.getDestinationId(getProject());
-                        final IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(getProject());
-                        if (!loggedOnStatus.isOK()) {
-                            return Arrays.asList(new SimpleElementInfo(loggedOnStatus.getMessage()));
-                        }
-
-                        final ITaggedObject taggedObject = taggingService.getObject(destinationId, objectUri);
-                        if (taggedObject != null) {
-                            final AdtObjectReferenceElementInfo adtObjRefElemInfo = new AdtObjectReferenceElementInfo(
-                                taggedObject.getObjectRef().getName());
-                            adtObjRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
-                                destinationId, taggedObject.getObjectRef()));
-
-                            for (final IAdtObjectTag tag : taggedObject.getTags()) {
-                                final IElementInfo tagElementInfo = new SimpleElementInfo(tag.getName(), ImageUtil
-                                    .getObjectTagImage(tag, destinationOwner));
-                                tagElementInfo.setAdditionalInfo(tag);
-                                adtObjRefElemInfo.getChildren().add(tagElementInfo);
-                            }
-                            if (taggedObject.getTags().isEmpty()) {
-                                adtObjRefElemInfo.getChildren()
-                                    .add(new SimpleElementInfo(Messages.AbapObjectTagsView_NoTagsAssigned_xmsg));
-                            }
-                            return Arrays.asList(adtObjRefElemInfo);
-                        }
-                    } catch (final CoreException e) {
-                        return Arrays.asList(new ErrorElementInfo(e.getMessage(), e));
-                    }
-                    return null;
+              try {
+                final String destinationId = DestinationUtil.getDestinationId(getProject());
+                final IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(getProject());
+                if (!loggedOnStatus.isOK()) {
+                  return Arrays.asList(new SimpleElementInfo(loggedOnStatus.getMessage()));
                 }
 
-                @Override
-                public String getProviderDescription() {
-                    return Messages.AbapObjectTagsView_LoadingTaggedObjectInfoJob_xmsg;
+                final ITaggedObject taggedObject = taggingService.getObject(destinationId,
+                    objectUri);
+                if (taggedObject != null) {
+                  final AdtObjectReferenceElementInfo adtObjRefElemInfo = new AdtObjectReferenceElementInfo(
+                      taggedObject.getObjectRef().getName());
+                  adtObjRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory
+                      .createReference(destinationId, taggedObject.getObjectRef()));
+
+                  for (final IAdtObjectTag tag : taggedObject.getTags()) {
+                    final IElementInfo tagElementInfo = new SimpleElementInfo(tag.getName(),
+                        ImageUtil.getObjectTagImage(tag, destinationOwner));
+                    tagElementInfo.setAdditionalInfo(tag);
+                    adtObjRefElemInfo.getChildren().add(tagElementInfo);
+                  }
+                  if (taggedObject.getTags().isEmpty()) {
+                    adtObjRefElemInfo.getChildren()
+                        .add(new SimpleElementInfo(
+                            Messages.AbapObjectTagsView_NoTagsAssigned_xmsg));
+                  }
+                  return Arrays.asList(adtObjRefElemInfo);
                 }
-            }, null, null);
-            lazyLoadingNode.setContentRefreshMode(LazyLoadingRefreshMode.ROOT_AND_NON_LAZY_CHILDREN);
-            currentInput = lazyLoadingNode;
-            viewer.setInput(currentInput);
-        }
-
-    }
-
-    /**
-     * Custom view label provider for the Result Tree
-     *
-     * @author stockbal
-     */
-    private class ViewLabelProvider extends LabelProvider implements ILabelProvider, IStyledLabelProvider {
-
-        @Override
-        public Image getImage(final Object element) {
-            Image image;
-            final ITreeNode searchResult = (ITreeNode) element;
-            image = searchResult.getImage();
-            if (image == null && element instanceof IAdtObjectReferenceNode) {
-                final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) element;
-                final IAdtObjectReference objRef = adtObjRefNode.getObjectReference();
-                image = AdtTypeUtil.getInstance().getTypeImage(objRef.getType());
-            }
-            return image;
-        }
-
-        @Override
-        public StyledString getStyledText(final Object element) {
-            boolean isAdtObjectRefNode = false;
-            StyledString text = new StyledString();
-            final ITreeNode treeNode = (ITreeNode) element;
-
-            if (element instanceof IStyledTreeNode) {
-                text = ((IStyledTreeNode) element).getStyledText();
-                if (text == null) {
-                    text = new StyledString();
-                }
-            } else {
-                if (element instanceof LoadingTreeItemsNode) {
-                    text.append(treeNode.getDisplayName(), StylerFactory.ITALIC_STYLER);
-                    return text;
-                }
-                text.append(treeNode.getDisplayName());
-
-                if (element instanceof IAdtObjectReferenceNode) {
-                    isAdtObjectRefNode = true;
-                    final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) element;
-
-                    String typeLabel = AdtTypeUtil.getInstance().getTypeDescription(adtObjRefNode.getAdtObjectType());
-                    if (typeLabel == null) {
-                        typeLabel = AdtTypeUtil.getInstance()
-                            .getTypeDescriptionByProject(adtObjRefNode.getAdtObjectType(), getProject());
-                    }
-                    if (typeLabel != null) {
-                        text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
-                    }
-                }
-
-                if (element instanceof ICollectionTreeNode && !isAdtObjectRefNode) {
-                    final ICollectionTreeNode collectionNode = (ICollectionTreeNode) element;
-                    if (collectionNode.hasChildren()) {
-                        final String size = ((ICollectionTreeNode) element).getSizeAsString();
-                        if (size != null) {
-                            text.append(" (" + size + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
-                        }
-                    }
-                }
-
-                String description = treeNode.getDescription();
-                if (description == null && isAdtObjectRefNode) {
-                    description = ((IAdtObjectReferenceNode) element).getObjectReference().getDescription();
-                }
-                if (!StringUtil.isEmpty(description)) {
-                    text.append("  " + description + "  ", //$NON-NLS-1$ //$NON-NLS-2$
-                        StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR, null));
-                }
+              } catch (final CoreException e) {
+                return Arrays.asList(new ErrorElementInfo(e.getMessage(), e));
+              }
+              return null;
             }
 
-            return text;
-        }
-
-        @Override
-        public String getText(final Object element) {
-            final ITreeNode searchResult = (ITreeNode) element;
-
-            return searchResult.getName();
-        }
+            @Override
+            public String getProviderDescription() {
+              return Messages.AbapObjectTagsView_LoadingTaggedObjectInfoJob_xmsg;
+            }
+          }, null, null);
+      lazyLoadingNode.setContentRefreshMode(LazyLoadingRefreshMode.ROOT_AND_NON_LAZY_CHILDREN);
+      currentInput = lazyLoadingNode;
+      viewer.setInput(currentInput);
     }
+
+  }
+
+  /**
+   * Custom view label provider for the Result Tree
+   *
+   * @author stockbal
+   */
+  private class ViewLabelProvider extends LabelProvider implements ILabelProvider,
+      IStyledLabelProvider {
+
+    @Override
+    public Image getImage(final Object element) {
+      Image image;
+      final ITreeNode searchResult = (ITreeNode) element;
+      image = searchResult.getImage();
+      if (image == null && element instanceof IAdtObjectReferenceNode) {
+        final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) element;
+        final IAdtObjectReference objRef = adtObjRefNode.getObjectReference();
+        image = AdtTypeUtil.getInstance().getTypeImage(objRef.getType());
+      }
+      return image;
+    }
+
+    @Override
+    public StyledString getStyledText(final Object element) {
+      boolean isAdtObjectRefNode = false;
+      StyledString text = new StyledString();
+      final ITreeNode treeNode = (ITreeNode) element;
+
+      if (element instanceof IStyledTreeNode) {
+        text = ((IStyledTreeNode) element).getStyledText();
+        if (text == null) {
+          text = new StyledString();
+        }
+      } else {
+        if (element instanceof LoadingTreeItemsNode) {
+          text.append(treeNode.getDisplayName(), StylerFactory.ITALIC_STYLER);
+          return text;
+        }
+        text.append(treeNode.getDisplayName());
+
+        if (element instanceof IAdtObjectReferenceNode) {
+          isAdtObjectRefNode = true;
+          final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) element;
+
+          String typeLabel = AdtTypeUtil.getInstance()
+              .getTypeDescription(adtObjRefNode.getAdtObjectType());
+          if (typeLabel == null) {
+            typeLabel = AdtTypeUtil.getInstance()
+                .getTypeDescriptionByProject(adtObjRefNode.getAdtObjectType(), getProject());
+          }
+          if (typeLabel != null) {
+            text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
+          }
+        }
+
+        if (element instanceof ICollectionTreeNode && !isAdtObjectRefNode) {
+          final ICollectionTreeNode collectionNode = (ICollectionTreeNode) element;
+          if (collectionNode.hasChildren()) {
+            final String size = ((ICollectionTreeNode) element).getSizeAsString();
+            if (size != null) {
+              text.append(" (" + size + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
+            }
+          }
+        }
+
+        String description = treeNode.getDescription();
+        if (description == null && isAdtObjectRefNode) {
+          description = ((IAdtObjectReferenceNode) element).getObjectReference().getDescription();
+        }
+        if (!StringUtil.isEmpty(description)) {
+          text.append("  " + description + "  ", //$NON-NLS-1$ //$NON-NLS-2$
+              StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR,
+                  null));
+        }
+      }
+
+      return text;
+    }
+
+    @Override
+    public String getText(final Object element) {
+      final ITreeNode searchResult = (ITreeNode) element;
+
+      return searchResult.getName();
+    }
+  }
 }

@@ -9,10 +9,10 @@ import com.devepos.adt.base.util.UriDiscoveryBase;
  */
 public class AbapTagsUriDiscoveryBase extends UriDiscoveryBase {
 
-    private static final String DISCOVERY_PATH = "/devepos/adt/atm/discovery";
+  private static final String DISCOVERY_PATH = "/devepos/adt/atm/discovery";
 
-    protected AbapTagsUriDiscoveryBase(final String destination, final String discoveryScheme) {
-        super(destination, DISCOVERY_PATH, discoveryScheme);
-    }
+  protected AbapTagsUriDiscoveryBase(final String destination, final String discoveryScheme) {
+    super(destination, DISCOVERY_PATH, discoveryScheme);
+  }
 
 }

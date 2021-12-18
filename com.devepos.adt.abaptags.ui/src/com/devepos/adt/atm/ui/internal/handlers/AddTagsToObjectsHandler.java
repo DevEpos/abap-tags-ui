@@ -12,14 +12,14 @@ import com.devepos.adt.base.ui.project.ProjectUtil;
 
 public class AddTagsToObjectsHandler extends AbstractHandler {
 
-    @Override
-    public Object execute(final ExecutionEvent event) throws ExecutionException {
-        final TagObjectsWizard wizard = new TagObjectsWizard();
-        final IProject project = ProjectUtil.getCurrentAbapProject();
-        wizard.setProject(project);
-        final WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
-        dialog.open();
-        return null;
-    }
+  @Override
+  public Object execute(final ExecutionEvent event) throws ExecutionException {
+    final TagObjectsWizard wizard = new TagObjectsWizard();
+    final IProject project = ProjectUtil.getCurrentAbapProject();
+    wizard.setProject(project);
+    final WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
+    dialog.open();
+    return null;
+  }
 
 }

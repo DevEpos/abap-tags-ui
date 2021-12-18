@@ -25,66 +25,69 @@ import com.devepos.adt.base.util.Logging;
 
 public class ShowInObjectTagsHandler extends AbstractHandler {
 
-    private IAdtObject currentSelectedObject;
-    private final IAbapTagsService abapTagsService;
+  private IAdtObject currentSelectedObject;
+  private final IAbapTagsService abapTagsService;
 
-    public ShowInObjectTagsHandler() {
-        abapTagsService = AbapTagsServiceFactory.createTagsService();
+  public ShowInObjectTagsHandler() {
+    abapTagsService = AbapTagsServiceFactory.createTagsService();
+  }
+
+  @Override
+  public Object execute(final ExecutionEvent event) throws ExecutionException {
+    AbapObjectTagsView view = null;
+    final IWorkbenchPage page = PlatformUI.getWorkbench()
+        .getActiveWorkbenchWindow()
+        .getActivePage();
+    try {
+      final IViewPart viewPart = page.showView(AbapObjectTagsView.VIEW_ID);
+      if (viewPart instanceof AbapObjectTagsView) {
+        view = (AbapObjectTagsView) viewPart;
+      }
+    } catch (final PartInitException e) {
+      Logging.getLogger(ShowInObjectTagsHandler.class).error(e);
     }
 
-    @Override
-    public Object execute(final ExecutionEvent event) throws ExecutionException {
-        AbapObjectTagsView view = null;
-        final IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        try {
-            final IViewPart viewPart = page.showView(AbapObjectTagsView.VIEW_ID);
-            if (viewPart instanceof AbapObjectTagsView) {
-                view = (AbapObjectTagsView) viewPart;
-            }
-        } catch (final PartInitException e) {
-            Logging.getLogger(ShowInObjectTagsHandler.class).error(e);
-        }
-
-        if (view != null) {
-            view.setInput(currentSelectedObject);
-        }
-        return null;
+    if (view != null) {
+      view.setInput(currentSelectedObject);
     }
+    return null;
+  }
 
-    @Override
-    public void setEnabled(final Object evaluationContext) {
+  @Override
+  public void setEnabled(final Object evaluationContext) {
+    currentSelectedObject = null;
+    final Object selectedObject = getSelectedObject(evaluationContext);
+    if (selectedObject != null) {
+      if (selectedObject instanceof ITextSelection) {
+        currentSelectedObject = EditorUtil.getAdtObjectFromActiveEditor();
+      } else {
+        currentSelectedObject = Adapters.adapt(selectedObject, IAdtObject.class);
+      }
+    }
+    if (currentSelectedObject != null) {
+      final IProject project = currentSelectedObject.getProject();
+      if (!abapTagsService.testTagsFeatureAvailability(project).isOK()) {
         currentSelectedObject = null;
-        final Object selectedObject = getSelectedObject(evaluationContext);
-        if (selectedObject != null) {
-            if (selectedObject instanceof ITextSelection) {
-                currentSelectedObject = EditorUtil.getAdtObjectFromActiveEditor();
-            } else {
-                currentSelectedObject = Adapters.adapt(selectedObject, IAdtObject.class);
-            }
-        }
-        if (currentSelectedObject != null) {
-            final IProject project = currentSelectedObject.getProject();
-            if (!abapTagsService.testTagsFeatureAvailability(project).isOK()) {
-                currentSelectedObject = null;
-            }
-        }
-        setBaseEnabled(currentSelectedObject != null);
+      }
     }
+    setBaseEnabled(currentSelectedObject != null);
+  }
 
-    protected Object getSelectedObject(final Object contextOrEvent) {
-        if (contextOrEvent instanceof IEvaluationContext) {
-            Collection<?> collection;
-            final Object defaultVariable = ((IEvaluationContext) contextOrEvent).getDefaultVariable();
-            if (defaultVariable instanceof Collection && (collection = (Collection<?>) defaultVariable).size() == 1) {
-                final Object[] array = collection.toArray();
-                return array[0];
-            }
-        } else if (contextOrEvent instanceof ExecutionEvent) {
-            final IStructuredSelection selection = HandlerUtil.getCurrentStructuredSelection(
-                (ExecutionEvent) contextOrEvent);
-            return selection.getFirstElement();
-        }
-        return null;
+  protected Object getSelectedObject(final Object contextOrEvent) {
+    if (contextOrEvent instanceof IEvaluationContext) {
+      Collection<?> collection;
+      final Object defaultVariable = ((IEvaluationContext) contextOrEvent).getDefaultVariable();
+      if (defaultVariable instanceof Collection && (collection = (Collection<?>) defaultVariable)
+          .size() == 1) {
+        final Object[] array = collection.toArray();
+        return array[0];
+      }
+    } else if (contextOrEvent instanceof ExecutionEvent) {
+      final IStructuredSelection selection = HandlerUtil.getCurrentStructuredSelection(
+          (ExecutionEvent) contextOrEvent);
+      return selection.getFirstElement();
     }
+    return null;
+  }
 
 }

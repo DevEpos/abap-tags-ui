@@ -25,99 +25,107 @@ import com.sap.adt.communication.session.ISystemSession;
  */
 public class AdtObjTaggingService implements IAdtObjTaggingService {
 
-    @Override
-    public ITagPreviewInfo getInformationForTagging(final String destinationId, final IAdtObjRefList adtObjRefs)
-        throws CoreException {
-        if (adtObjRefs == null || adtObjRefs.getObjectReferences().isEmpty()) {
-            return null;
-        }
-
-        try {
-
-            final ITagPreviewInfo previewInfo = IAbapTagsFactory.eINSTANCE.createTagPreviewInfo();
-            previewInfo.getAdtObjectRefs().addAll(adtObjRefs.getObjectReferences());
-            final AdtObjTaggingUriDiscovery uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
-            final ISystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
-                .createStatelessSession(destinationId);
-
-            final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                .createRestResource(uriDiscovery.getTagPreviewUri(), session);
-            restResource.addContentHandler(new TagPreviewInfoContentHandler());
-
-            return restResource.post(null, ITagPreviewInfo.class, previewInfo);
-        } catch (final ResourceException exc) {
-            exc.printStackTrace();
-            throw new CoreException(new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage()));
-        }
+  @Override
+  public ITagPreviewInfo getInformationForTagging(final String destinationId,
+      final IAdtObjRefList adtObjRefs) throws CoreException {
+    if (adtObjRefs == null || adtObjRefs.getObjectReferences().isEmpty()) {
+      return null;
     }
 
-    @Override
-    public void saveTaggedObjects(final String destinationId, final ITaggedObjectList taggedObjectList)
-        throws CoreException {
-        if (taggedObjectList == null || taggedObjectList.getTaggedObjects().isEmpty()) {
-            return;
-        }
+    try {
 
-        try {
+      final ITagPreviewInfo previewInfo = IAbapTagsFactory.eINSTANCE.createTagPreviewInfo();
+      previewInfo.getAdtObjectRefs().addAll(adtObjRefs.getObjectReferences());
+      final AdtObjTaggingUriDiscovery uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
+      final ISystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
+          .createStatelessSession(destinationId);
 
-            final AdtObjTaggingUriDiscovery uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
-            final ISystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
-                .createStatelessSession(destinationId);
+      final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
+          .createRestResource(uriDiscovery.getTagPreviewUri(), session);
+      restResource.addContentHandler(new TagPreviewInfoContentHandler());
 
-            final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                .createRestResource(uriDiscovery.getTaggingUri(), session);
-            restResource.addContentHandler(new TaggedObjectListContentHandler());
+      return restResource.post(null, ITagPreviewInfo.class, previewInfo);
+    } catch (final ResourceException exc) {
+      exc.printStackTrace();
+      throw new CoreException(new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc
+          .getMessage()));
+    }
+  }
 
-            restResource.post(null, ITaggedObjectList.class, taggedObjectList);
-        } catch (final ResourceException exc) {
-            exc.printStackTrace();
-            throw new CoreException(new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage()));
-        }
+  @Override
+  public void saveTaggedObjects(final String destinationId,
+      final ITaggedObjectList taggedObjectList) throws CoreException {
+    if (taggedObjectList == null || taggedObjectList.getTaggedObjects().isEmpty()) {
+      return;
     }
 
-    @Override
-    public ITaggedObject getObject(final String destinationId, final String objectUri) throws CoreException {
-        try {
+    try {
 
-            final AdtObjTaggingUriDiscovery uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
-            final ISystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
-                .createStatelessSession(destinationId);
+      final AdtObjTaggingUriDiscovery uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
+      final ISystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
+          .createStatelessSession(destinationId);
 
-            final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                .createRestResource(uriDiscovery.getTaggingUri(), session);
-            restResource.addContentHandler(new TaggedObjectListContentHandler());
+      final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
+          .createRestResource(uriDiscovery.getTaggingUri(), session);
+      restResource.addContentHandler(new TaggedObjectListContentHandler());
 
-            final ITaggedObjectList objectList = restResource.get(null, ITaggedObjectList.class, new QueryParameter(
-                "objectUri", objectUri));
-            return objectList != null && !objectList.getTaggedObjects().isEmpty() ? objectList.getTaggedObjects().get(0)
-                : null;
-        } catch (final ResourceException exc) {
-            exc.printStackTrace();
-            throw new CoreException(new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage()));
-        }
+      restResource.post(null, ITaggedObjectList.class, taggedObjectList);
+    } catch (final ResourceException exc) {
+      exc.printStackTrace();
+      throw new CoreException(new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc
+          .getMessage()));
+    }
+  }
+
+  @Override
+  public ITaggedObject getObject(final String destinationId, final String objectUri)
+      throws CoreException {
+    try {
+
+      final AdtObjTaggingUriDiscovery uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
+      final ISystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
+          .createStatelessSession(destinationId);
+
+      final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
+          .createRestResource(uriDiscovery.getTaggingUri(), session);
+      restResource.addContentHandler(new TaggedObjectListContentHandler());
+
+      final ITaggedObjectList objectList = restResource.get(null, ITaggedObjectList.class,
+          new QueryParameter("objectUri", objectUri));
+      return objectList != null && !objectList.getTaggedObjects().isEmpty() ? objectList
+          .getTaggedObjects()
+          .get(0) : null;
+    } catch (final ResourceException exc) {
+      exc.printStackTrace();
+      throw new CoreException(new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc
+          .getMessage()));
+    }
+  }
+
+  @Override
+  public void deleteTags(final String destinationId, final ITaggedObjectList tgobjList)
+      throws CoreException {
+    if (tgobjList == null || tgobjList.getTaggedObjects().isEmpty()) {
+      return;
     }
 
-    @Override
-    public void deleteTags(final String destinationId, final ITaggedObjectList tgobjList) throws CoreException {
-        if (tgobjList == null || tgobjList.getTaggedObjects().isEmpty()) {
-            return;
-        }
+    try {
 
-        try {
+      final AdtObjTaggingUriDiscovery uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
+      final ISystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
+          .createStatelessSession(destinationId);
 
-            final AdtObjTaggingUriDiscovery uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
-            final ISystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
-                .createStatelessSession(destinationId);
+      final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
+          .createRestResource(uriDiscovery.getTaggingUri(), session);
+      restResource.addContentHandler(new TaggedObjectListContentHandler());
 
-            final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-                .createRestResource(uriDiscovery.getTaggingUri(), session);
-            restResource.addContentHandler(new TaggedObjectListContentHandler());
-
-            restResource.post(null, ITaggedObjectList.class, tgobjList, new QueryParameter("action", "batchDelete")); //$NON-NLS-1$ //$NON-NLS-2$
-        } catch (final ResourceException exc) {
-            exc.printStackTrace();
-            throw new CoreException(new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage()));
-        }
+      restResource.post(null, ITaggedObjectList.class, tgobjList, new QueryParameter("action", //$NON-NLS-1$
+          "batchDelete")); //$NON-NLS-1$
+    } catch (final ResourceException exc) {
+      exc.printStackTrace();
+      throw new CoreException(new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc
+          .getMessage()));
     }
+  }
 
 }

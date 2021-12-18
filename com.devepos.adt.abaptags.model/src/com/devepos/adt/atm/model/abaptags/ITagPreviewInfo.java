@@ -26,33 +26,33 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRef;
  * @generated
  */
 public interface ITagPreviewInfo extends EObject {
-    /**
-     * Returns the value of the '<em><b>Tags</b></em>' containment reference list.
-     * The list contents are of type
-     * {@link com.devepos.adt.atm.model.abaptags.ITag}. <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     *
-     * @return the value of the '<em>Tags</em>' containment reference list.
-     * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTagPreviewInfo_Tags()
-     * @model containment="true" extendedMetaData="kind='element' name='tag'
-     *        namespace='##targetNamespace'"
-     * @generated
-     */
-    EList<ITag> getTags();
+  /**
+   * Returns the value of the '<em><b>Tags</b></em>' containment reference list.
+   * The list contents are of type
+   * {@link com.devepos.adt.atm.model.abaptags.ITag}. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
+   *
+   * @return the value of the '<em>Tags</em>' containment reference list.
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTagPreviewInfo_Tags()
+   * @model containment="true" extendedMetaData="kind='element' name='tag'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  EList<ITag> getTags();
 
-    /**
-     * Returns the value of the '<em><b>Adt Object Refs</b></em>' containment
-     * reference list. The list contents are of type
-     * {@link com.devepos.adt.base.model.adtbase.IAdtObjRef}. <!-- begin-user-doc
-     * --> <!-- end-user-doc -->
-     *
-     * @return the value of the '<em>Adt Object Refs</em>' containment reference
-     *         list.
-     * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTagPreviewInfo_AdtObjectRefs()
-     * @model containment="true" extendedMetaData="kind='element' name='adtObjRef'
-     *        namespace='http://www.devepos.com/adt/base'"
-     * @generated
-     */
-    EList<IAdtObjRef> getAdtObjectRefs();
+  /**
+   * Returns the value of the '<em><b>Adt Object Refs</b></em>' containment
+   * reference list. The list contents are of type
+   * {@link com.devepos.adt.base.model.adtbase.IAdtObjRef}. <!-- begin-user-doc
+   * --> <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Adt Object Refs</em>' containment reference
+   *         list.
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTagPreviewInfo_AdtObjectRefs()
+   * @model containment="true" extendedMetaData="kind='element' name='adtObjRef'
+   *        namespace='http://www.devepos.com/adt/base'"
+   * @generated
+   */
+  EList<IAdtObjRef> getAdtObjectRefs();
 
 } // ITagPreviewInfo

@@ -6,20 +6,20 @@ package com.devepos.adt.atm.ui.internal.help;
  * @author stockbal
  */
 public enum HelpContexts {
-    TAG_WIZARD_OBJECT_SELECTION("tag_wizard_object_selection"),
-    TAG_WIZARD_TAG_SELECTION("tag_wizard_tag_selection"),
-    TAG_WIZARD_PARENT_OBJECT_SELECTION("tag_wizard_parent_object_selection"),
-    TAG_MANAGER("tag_manager"),
-    OBJECT_TAGS("object_tags"),
-    TAGGED_OBJECT_SEARCH("tagged_object_search");
+  TAG_WIZARD_OBJECT_SELECTION("tag_wizard_object_selection"),
+  TAG_WIZARD_TAG_SELECTION("tag_wizard_tag_selection"),
+  TAG_WIZARD_PARENT_OBJECT_SELECTION("tag_wizard_parent_object_selection"),
+  TAG_MANAGER("tag_manager"),
+  OBJECT_TAGS("object_tags"),
+  TAGGED_OBJECT_SEARCH("tagged_object_search");
 
-    private String helpContextId;
+  private String helpContextId;
 
-    HelpContexts(final String contextId) {
-        helpContextId = contextId;
-    }
+  HelpContexts(final String contextId) {
+    helpContextId = contextId;
+  }
 
-    public String getHelpContextId() {
-        return helpContextId;
-    }
+  public String getHelpContextId() {
+    return helpContextId;
+  }
 }

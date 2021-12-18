@@ -29,93 +29,97 @@ import com.devepos.adt.base.ui.util.AdtTypeUtil;
 import com.devepos.adt.base.util.StringUtil;
 
 public class ParentObjectFilterDialog extends SearchSelectionDialog<IAdtObjRef, String> {
-    private static final String DIALOG_SETTINGS_NAME = ParentObjectFilterDialog.class.getCanonicalName();
-    private final String destinationId;
-    private final ITaggedObjectSearchParams parameters;
-    private final ITaggedObjectSearchService service;
-    private final String tagId;
+  private static final String DIALOG_SETTINGS_NAME = ParentObjectFilterDialog.class
+      .getCanonicalName();
+  private final String destinationId;
+  private final ITaggedObjectSearchParams parameters;
+  private final ITaggedObjectSearchService service;
+  private final String tagId;
 
-    public ParentObjectFilterDialog(final Shell shell, final String destinationId, final String tagId) {
-        super(shell, false);
-        this.tagId = tagId;
-        this.destinationId = destinationId;
+  public ParentObjectFilterDialog(final Shell shell, final String destinationId,
+      final String tagId) {
+    super(shell, false);
+    this.tagId = tagId;
+    this.destinationId = destinationId;
 
-        setTitle(Messages.ParentObjectFilterDialog_Title_xtit);
-        setFilterLabel(Messages.ParentObjectFilterDialog_FilterText_xmsg);
-        setResultLabelProvider(new DelegatingStyledCellLabelProvider(new ItemsLabelProvider()));
-        setDetailsLabelProvider(new ItemsLabelProvider());
-        setInitialJobDelay(0L);
+    setTitle(Messages.ParentObjectFilterDialog_Title_xtit);
+    setFilterLabel(Messages.ParentObjectFilterDialog_FilterText_xmsg);
+    setResultLabelProvider(new DelegatingStyledCellLabelProvider(new ItemsLabelProvider()));
+    setDetailsLabelProvider(new ItemsLabelProvider());
+    setInitialJobDelay(0L);
 
-        parameters = IAbapTagsFactory.eINSTANCE.createTaggedObjectSearchParams();
+    parameters = IAbapTagsFactory.eINSTANCE.createTaggedObjectSearchParams();
 
-        parameters.getTagIds().add(this.tagId);
-        parameters.setMaxResults(50);
-        service = TaggedObjectSearchFactory.createTaggedObjectSearchService();
+    parameters.getTagIds().add(this.tagId);
+    parameters.setMaxResults(50);
+    service = TaggedObjectSearchFactory.createTaggedObjectSearchService();
+  }
+
+  @Override
+  protected IDialogSettings getDialogSettings() {
+    return AbapTagsUIPlugin.getDefault().getDialogSettingsSection(DIALOG_SETTINGS_NAME);
+  }
+
+  @Override
+  protected boolean matchesFilter(final IAdtObjRef result, final String filter) {
+    return true;
+  }
+
+  @Override
+  protected SearchSelectionDialog<IAdtObjRef, String>.SearchResultObject performSearch(
+      final String filter, final IProgressMonitor monitor) throws CoreException {
+    parameters.setQuery(StringUtil.isEmpty(filter) ? "*" : filter);
+    final ITaggedObjectList taggedObjects = service.findObjects(
+        ParentObjectFilterDialog.this.destinationId, ParentObjectFilterDialog.this.parameters);
+    if (taggedObjects != null && !taggedObjects.getTaggedObjects().isEmpty()) {
+      return new SearchResultObject(taggedObjects.getTaggedObjects()
+          .stream()
+          .limit(parameters.getMaxResults())
+          .map(ITaggedObject::getObjectRef)
+          .collect(Collectors.toList()), taggedObjects.getTaggedObjects().size() <= parameters
+              .getMaxResults());
+    }
+    return new SearchResultObject(new ArrayList<>(), true);
+  }
+
+  private class ItemsLabelProvider extends LabelProvider implements
+      DelegatingStyledCellLabelProvider.IStyledLabelProvider {
+
+    @Override
+    public Image getImage(final Object element) {
+      if (element instanceof IAdtObjRef) {
+        final IAdtObjRef ref = (IAdtObjRef) element;
+        return AdtTypeUtil.getInstance().getTypeImage(ref.getType());
+      }
+      return null;
     }
 
     @Override
-    protected IDialogSettings getDialogSettings() {
-        return AbapTagsUIPlugin.getDefault().getDialogSettingsSection(DIALOG_SETTINGS_NAME);
+    public StyledString getStyledText(final Object element) {
+      final StyledString text = new StyledString();
+      if (element instanceof IAdtObjRef) {
+        final IAdtObjRef objRef = (IAdtObjRef) element;
+        text.append(objRef.getName());
+
+        final String description = objRef.getDescription();
+        if (!StringUtil.isEmpty(description)) {
+          text.append("  " + objRef.getDescription(), //$NON-NLS-1$
+              StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR,
+                  null));
+        }
+      }
+      return text != null ? text : new StyledString();
     }
 
     @Override
-    protected boolean matchesFilter(final IAdtObjRef result, final String filter) {
-        return true;
+    public String getText(final Object element) {
+      if (element instanceof IAdtObjRef) {
+        final IAdtObjRef objRef = (IAdtObjRef) element;
+        return objRef.getName();
+      }
+      return super.getText(element);
     }
 
-    @Override
-    protected SearchSelectionDialog<IAdtObjRef, String>.SearchResultObject performSearch(final String filter,
-        final IProgressMonitor monitor) throws CoreException {
-        parameters.setQuery(StringUtil.isEmpty(filter) ? "*" : filter);
-        final ITaggedObjectList taggedObjects = service.findObjects(ParentObjectFilterDialog.this.destinationId,
-            ParentObjectFilterDialog.this.parameters);
-        if (taggedObjects != null && !taggedObjects.getTaggedObjects().isEmpty()) {
-            return new SearchResultObject(taggedObjects.getTaggedObjects()
-                .stream()
-                .limit(parameters.getMaxResults())
-                .map(ITaggedObject::getObjectRef)
-                .collect(Collectors.toList()), taggedObjects.getTaggedObjects().size() <= parameters.getMaxResults());
-        }
-        return new SearchResultObject(new ArrayList<>(), true);
-    }
-
-    private class ItemsLabelProvider extends LabelProvider implements
-        DelegatingStyledCellLabelProvider.IStyledLabelProvider {
-
-        @Override
-        public Image getImage(final Object element) {
-            if (element instanceof IAdtObjRef) {
-                final IAdtObjRef ref = (IAdtObjRef) element;
-                return AdtTypeUtil.getInstance().getTypeImage(ref.getType());
-            }
-            return null;
-        }
-
-        @Override
-        public StyledString getStyledText(final Object element) {
-            final StyledString text = new StyledString();
-            if (element instanceof IAdtObjRef) {
-                final IAdtObjRef objRef = (IAdtObjRef) element;
-                text.append(objRef.getName());
-
-                final String description = objRef.getDescription();
-                if (!StringUtil.isEmpty(description)) {
-                    text.append("  " + objRef.getDescription(), //$NON-NLS-1$
-                        StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR, null));
-                }
-            }
-            return text != null ? text : new StyledString();
-        }
-
-        @Override
-        public String getText(final Object element) {
-            if (element instanceof IAdtObjRef) {
-                final IAdtObjRef objRef = (IAdtObjRef) element;
-                return objRef.getName();
-            }
-            return super.getText(element);
-        }
-
-    }
+  }
 
 }
