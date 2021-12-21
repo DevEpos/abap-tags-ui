@@ -160,7 +160,7 @@ public class TaggedObjectSearchResult implements ISearchResult {
             new TaggedObjectSearchInfoProvider(query.getDestinationId(), objectRef, tag, query
                 .getSearchParams()
                 .getMaxResults()), objRefNode, ImageUtil.getObjectTagImage(tag, destinationOwner));
-        objRefNode.getChildren().add(lazyTagNode);
+        objRefNode.addChild(lazyTagNode);
       }
     }
     treeResult = nodes.toArray(new IAdtObjectReferenceNode[nodes.size()]);
