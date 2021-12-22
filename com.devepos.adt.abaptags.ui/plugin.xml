@@ -209,6 +209,7 @@
             name="%preferences.page.search">
       </page>
       <page
+            category="com.devepos.adt.preferences"
             class="com.devepos.adt.atm.ui.internal.preferences.MainPreferencesPage"
             id="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
             name="%preferences.page.main">
@@ -229,7 +230,7 @@
    <extension
          point="org.eclipse.ui.views">
       <view
-            category="com.sap.adt.views"
+            category="com.devepos.adt"
             class="com.devepos.adt.atm.ui.internal.views.AbapTagManagerView"
             icon="icons/TagsFolder.png"
             id="com.devepos.adt.atm.ui.views.AbapTagManager"
@@ -237,7 +238,7 @@
             restorable="true">
       </view>
       <view
-            category="com.sap.adt.views"
+            category="com.devepos.adt"
             class="com.devepos.adt.atm.ui.internal.views.AbapObjectTagsView"
             icon="icons/Tag.png"
             id="com.devepos.adt.atm.ui.views.AbapObjectTags"
