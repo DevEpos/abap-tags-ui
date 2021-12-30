@@ -146,7 +146,8 @@ public class EditTagDataDialog extends TitleAreaDialog {
   }
 
   private boolean isDirty() {
-    if (!nameInput.getText().equals(oldTagName) || !descriptionInput.getText().equals(oldTagDescription)) {
+    if (!nameInput.getText().equals(oldTagName) || !descriptionInput.getText()
+        .equals(oldTagDescription)) {
       return true;
     }
     return false;

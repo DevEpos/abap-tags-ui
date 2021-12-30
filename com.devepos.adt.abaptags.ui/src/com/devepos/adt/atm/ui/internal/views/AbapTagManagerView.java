@@ -442,9 +442,10 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
 
   private void handleConvertTag() {
     final ITag tag = getSelectedTag();
-    if ((tag == null) || !MessageDialog.openQuestion(getSite().getShell(),
+    if (tag == null || !MessageDialog.openQuestion(getSite().getShell(),
         Messages.AbapTagManagerView_ConvertToGlobalTagAction_xmit, NLS.bind(
-            Messages.AbapTagManagerView_ConvertToGlobalTagPrompt_xmsg, tag.getName())) || !ProjectUtil.ensureLoggedOnToProject(lastProject).isOK()) {
+            Messages.AbapTagManagerView_ConvertToGlobalTagPrompt_xmsg, tag.getName()))
+        || !ProjectUtil.ensureLoggedOnToProject(lastProject).isOK()) {
       return;
     }
     final ITagList userTagList = IAbapTagsFactory.eINSTANCE.createTagList();
@@ -512,7 +513,8 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
     final ITagList tagList = buildNewTagListFromSelection(null);
     if (!MessageDialog.openQuestion(getSite().getShell(),
         Messages.AbapTagManagerView_DeleteTagsMsgTitle_xtit,
-        Messages.AbapTagManagerView_DeleteTagsPrompt_xmsg) || !ProjectUtil.ensureLoggedOnToProject(lastProject).isOK()) {
+        Messages.AbapTagManagerView_DeleteTagsPrompt_xmsg) || !ProjectUtil.ensureLoggedOnToProject(
+            lastProject).isOK()) {
       return;
     }
     final Job deleteJob = Job.create(Messages.AbapTagManagerView_DeleteTagsJobTitle_xmsg,
