@@ -1,10 +1,10 @@
 package com.devepos.adt.atm.ui.internal.wizard;
 
+import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.databinding.AggregateValidationStatus;
-import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -35,7 +35,6 @@ import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.base.ui.project.ProjectInput;
-import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.search.AdtRisSearchUtil;
 import com.devepos.adt.base.ui.search.IAdtRisSearchResultProxy;
 import com.devepos.adt.base.ui.util.AdtTypeUtil;
@@ -48,61 +47,24 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
  * @author stockbal
  */
 public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
-  public static final String PAGE_NAME = TaggableObjectSelectionWizardPage.class.getCanonicalName();
-  private final ProjectInput projectInput;
-  private final List<ObjectToBeTagged> objects = new ArrayList<>();
-  private final DataBindingContext dbc;
-  private TableViewer objectsViewer;
-  private AggregateValidationStatus projectAggrValStatus;
-  private Button removeObjectsButton;
-  private Button selectObjectsButton;
-
   private enum ValidationSource {
     PROJECT, OBJECTS
   }
+
+  public static final String PAGE_NAME = TaggableObjectSelectionWizardPage.class.getCanonicalName();
+  private ProjectInput projectInput;
+  private final List<ObjectToBeTagged> objects = new ArrayList<>();
+  private TableViewer objectsViewer;
+
+  private Button removeObjectsButton;
+
+  private Button selectObjectsButton;
 
   public TaggableObjectSelectionWizardPage() {
     super(PAGE_NAME);
     setTitle(Messages.TaggableObjectSelectionWizardPage_Title_xtit);
     setDescription(Messages.TaggableObjectSelectionWizardPage_Description_xmsg);
-    projectInput = new ProjectInput();
-    dbc = new DataBindingContext();
-  }
 
-  @Override
-  public ITagObjectsWizard getWizard() {
-    return (ITagObjectsWizard) super.getWizard();
-  }
-
-  @Override
-  public void createControl(final Composite parent) {
-    final Composite root = new Composite(parent, SWT.NONE);
-    HelpUtil.setHelp(root, HelpContexts.TAG_WIZARD_OBJECT_SELECTION);
-    GridLayoutFactory.swtDefaults().applyTo(root);
-    projectInput.createControl(root);
-    projectInput.getProjectProvider().setProject(getWizard().getProject());
-    createObjectsList(root);
-    objectsViewer.setInput(objects);
-
-    projectInput.addProjectValidator(project -> {
-      final IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(project);
-      if (!loggedOnStatus.isOK()) {
-        return loggedOnStatus;
-      }
-      return AbapTagsServiceFactory.createTagsService().testTagsFeatureAvailability(project);
-    });
-    createBindings(parent);
-    setControl(root);
-
-    setPageComplete(false);
-  }
-
-  @Override
-  public void setVisible(final boolean visible) {
-    if (visible && !isPageComplete()) {
-      getWizard().completePreviousPage(this);
-    }
-    super.setVisible(visible);
   }
 
   @Override
@@ -118,6 +80,53 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
       adtObjRefList.add(adtObjRef);
     }
     setDirty(false);
+  }
+
+  @Override
+  public void createControl(final Composite parent) {
+    final Composite root = new Composite(parent, SWT.NONE);
+    HelpUtil.setHelp(root, HelpContexts.TAG_WIZARD_OBJECT_SELECTION);
+    GridLayoutFactory.swtDefaults().applyTo(root);
+
+    createProjectInput(root);
+    createObjectsList(root);
+
+    setControl(root);
+
+    setPageComplete(false);
+  }
+
+  @Override
+  public ITagObjectsWizard getWizard() {
+    return (ITagObjectsWizard) super.getWizard();
+  }
+
+  @Override
+  public void setVisible(final boolean visible) {
+    if (visible && !isPageComplete()) {
+      getWizard().completePreviousPage(this);
+    }
+    super.setVisible(visible);
+  }
+
+  protected void createProjectInput(final Composite root) {
+    projectInput = new ProjectInput(true);
+    projectInput.createControl(root);
+    projectInput.getProjectProvider().setProject(getWizard().getProject());
+    projectInput.addProjectValidator(project -> AbapTagsServiceFactory.createTagsService()
+        .testTagsFeatureAvailability(project));
+    projectInput.addStatusChangeListener(status -> {
+      if (status.isOK()) {
+        final IProject newProject = projectInput.getProjectProvider().getProject();
+        final IProject oldProject = getWizard().getProject();
+        if (newProject != oldProject) {
+          objects.clear();
+          objectsViewer.refresh();
+          getWizard().setProject(newProject);
+        }
+      }
+      validatePage(status, ValidationSource.PROJECT);
+    });
   }
 
   private void createObjectsList(final Composite parent) {
@@ -160,22 +169,19 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
     GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).applyTo(selectObjectsButton);
     selectObjectsButton.setText(Messages.TaggableObjectSelectionWizardPage_SelectObjects_xbut);
     selectObjectsButton.setEnabled(getWizard().getProject() != null);
-    selectObjectsButton.addSelectionListener(new SelectionAdapter() {
-      @Override
-      public void widgetSelected(final SelectionEvent e) {
-        final IAdtRisSearchResultProxy result = AdtRisSearchUtil.searchAdtObjectViaDialog(
-            Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit, true,
-            getWizard().getProject());
-        if (result == null) {
-          return;
-        }
-        for (final IAdtObjectReference ref : result.getAllSelectedResults()) {
-          objects.add(new ObjectToBeTagged(ref));
-        }
-        objectsViewer.refresh();
-        validatePage(null, ValidationSource.OBJECTS);
+    selectObjectsButton.addSelectionListener(widgetSelectedAdapter(e -> {
+      final IAdtRisSearchResultProxy result = AdtRisSearchUtil.searchAdtObjectViaDialog(
+          Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit, true,
+          getWizard().getProject());
+      if (result == null) {
+        return;
       }
-    });
+      for (final IAdtObjectReference ref : result.getAllSelectedResults()) {
+        objects.add(new ObjectToBeTagged(ref));
+      }
+      objectsViewer.refresh();
+      validatePage(null, ValidationSource.OBJECTS);
+    }));
 
     removeObjectsButton = new Button(buttonComposite, SWT.PUSH);
     removeObjectsButton.setText(Messages.TaggableObjectSelectionWizardPage_RemoveSelected_xbut);
@@ -188,40 +194,47 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
       }
     });
     GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).applyTo(removeObjectsButton);
-  }
 
-  private void createBindings(final Composite parent) {
-    final DataBindingContext projectContext = projectInput.createBindings();
-
-    /*
-     * create aggregation status to collect max severity status and do some further
-     * validation for the page
-     */
-    projectAggrValStatus = new AggregateValidationStatus(projectContext,
-        AggregateValidationStatus.MAX_SEVERITY);
-    projectAggrValStatus.addValueChangeListener(e -> {
-      if (projectAggrValStatus.getValue().isOK()) {
-        final IProject newProject = projectInput.getProjectProvider().getProject();
-        final IProject oldProject = getWizard().getProject();
-        if (newProject != oldProject) {
-          objects.clear();
-          objectsViewer.refresh();
-          getWizard().setProject(newProject);
-        }
-      }
-      validatePage(projectAggrValStatus.getValue(), ValidationSource.PROJECT);
-
-    });
-    parent.addDisposeListener(e -> {
-      projectAggrValStatus.dispose();
-      dbc.dispose();
-    });
-
+    objectsViewer.setInput(objects);
     objectsViewer.addSelectionChangedListener(e -> {
       final ISelection sel = e.getSelection();
       removeObjectsButton.setEnabled(sel != null && !sel.isEmpty());
     });
+  }
 
+  private void removeSelectedObjects() {
+    final IStructuredSelection sel = (IStructuredSelection) objectsViewer.getSelection();
+    if (sel.isEmpty()) {
+      return;
+    }
+
+    for (final Object selObject : sel.toList()) {
+      objects.remove(selObject);
+    }
+    objectsViewer.refresh();
+  }
+
+  private void updatePageStatus(final IStatus pageStatus) {
+    boolean pageComplete = true;
+    if (pageStatus == null || pageStatus.isOK()) {
+      setErrorMessage(null);
+      setMessage(null);
+    } else if (pageStatus.getSeverity() == IStatus.ERROR) {
+      if (pageStatus.getCode() == IStatus.INFO) {
+        setErrorMessage(null);
+        setMessage(pageStatus.getMessage(), INFORMATION);
+      } else {
+        setErrorMessage(pageStatus.getMessage());
+      }
+      pageComplete = false;
+    } else if (pageStatus.getSeverity() == IStatus.WARNING) {
+      setErrorMessage(null);
+      setMessage(pageStatus.getMessage(), WARNING);
+    } else if (pageStatus.getSeverity() == IStatus.INFO) {
+      setErrorMessage(null);
+      setMessage(pageStatus.getMessage(), INFORMATION);
+    }
+    setPageComplete(pageComplete);
   }
 
   private void validatePage(final IStatus status, final ValidationSource source) {
@@ -255,50 +268,8 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
     updatePageStatus(pageStatus);
   }
 
-  private void updatePageStatus(final IStatus pageStatus) {
-    boolean pageComplete = true;
-    if (pageStatus == null || pageStatus.isOK()) {
-      setErrorMessage(null);
-      setMessage(null);
-    } else if (pageStatus.getSeverity() == IStatus.ERROR) {
-      if (pageStatus.getCode() == IStatus.INFO) {
-        setErrorMessage(null);
-        setMessage(pageStatus.getMessage(), INFORMATION);
-      } else {
-        setErrorMessage(pageStatus.getMessage());
-      }
-      pageComplete = false;
-    } else if (pageStatus.getSeverity() == IStatus.WARNING) {
-      setErrorMessage(null);
-      setMessage(pageStatus.getMessage(), WARNING);
-    } else if (pageStatus.getSeverity() == IStatus.INFO) {
-      setErrorMessage(null);
-      setMessage(pageStatus.getMessage(), INFORMATION);
-    }
-    setPageComplete(pageComplete);
-  }
-
-  private void removeSelectedObjects() {
-    final IStructuredSelection sel = (IStructuredSelection) objectsViewer.getSelection();
-    if (sel.isEmpty()) {
-      return;
-    }
-
-    for (final Object selObject : sel.toList()) {
-      objects.remove(selObject);
-    }
-    objectsViewer.refresh();
-  }
-
   class AdtObjectLabelProvider extends LabelProvider implements ILabelProvider,
       IStyledLabelProvider {
-
-    @Override
-    public String getText(final Object element) {
-      final ObjectToBeTagged objectToBeTagged = (ObjectToBeTagged) element;
-      final IAdtObjectReference ref = objectToBeTagged.getRef();
-      return ref.getName();
-    }
 
     @Override
     public Image getImage(final Object element) {
@@ -325,6 +296,13 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 
       return text;
     }
+
+    @Override
+    public String getText(final Object element) {
+      final ObjectToBeTagged objectToBeTagged = (ObjectToBeTagged) element;
+      final IAdtObjectReference ref = objectToBeTagged.getRef();
+      return ref.getName();
+    }
   }
 
   class ObjectToBeTagged {
@@ -334,19 +312,19 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
       this.ref = ref;
     }
 
-    /**
-     * @return the ref
-     */
-    public IAdtObjectReference getRef() {
-      return ref;
-    }
-
     @Override
     public boolean equals(final Object obj) {
       if (obj instanceof ObjectToBeTagged) {
         return ((ObjectToBeTagged) obj).ref.getUri().equals(ref.getUri());
       }
       return super.equals(obj);
+    }
+
+    /**
+     * @return the ref
+     */
+    public IAdtObjectReference getRef() {
+      return ref;
     }
   }
 }

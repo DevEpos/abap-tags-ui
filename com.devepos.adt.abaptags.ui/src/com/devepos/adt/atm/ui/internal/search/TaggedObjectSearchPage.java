@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.core.databinding.AggregateValidationStatus;
-import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.jobs.Job;
@@ -67,7 +65,6 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
   private Label searchStatusTextLabel;
   private IStatus currentStatus;
   private IProject currentProject;
-  private AggregateValidationStatus projectAggrValStatus;
   private Job loadTagsJob;
   private final TagFilter patternFilter;
   private Button matchAllTagsButton;
@@ -98,7 +95,6 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
 
     createProjectInput(mainComposite);
     createStatusArea(mainComposite);
-    createBindings(mainComposite);
 
     setInitialData();
     updateOKStatus();
@@ -166,16 +162,29 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
   }
 
   private void createProjectInput(final Composite parent) {
-    projectInput = new ProjectInput();
+    projectInput = new ProjectInput(true);
     projectProvider = projectInput.getProjectProvider();
 
     projectInput.createControl(parent);
-    projectInput.addProjectValidator(project -> {
-      final IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(project);
-      if (!loggedOnStatus.isOK()) {
-        return loggedOnStatus;
+    projectInput.addProjectValidator(project -> AbapTagsServiceFactory.createTagsService()
+        .testTagsFeatureAvailability(project));
+    projectInput.addStatusChangeListener(status -> {
+      if (status.isOK()) {
+        final IProject newProject = projectInput.getProjectProvider().getProject();
+        final IProject oldProject = currentProject;
+        if (newProject != oldProject) {
+          tagList.getTags().clear();
+          tagsTreeViewer.refresh();
+          loadTags(newProject);
+        }
+        currentProject = newProject;
+      } else {
+        currentProject = null;
+        tagList.getTags().clear();
+        tagsTreeViewer.refresh();
       }
-      return AbapTagsServiceFactory.createTagsService().testTagsFeatureAvailability(project);
+      setStatus(status);
+      updateOKStatus();
     });
   }
 
@@ -271,40 +280,6 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
 
     searchStatusTextLabel = new Label(statusArea, SWT.NONE);
     GridDataFactory.fillDefaults().grab(true, true).applyTo(searchStatusTextLabel);
-  }
-
-  private void createBindings(final Composite parent) {
-    final DataBindingContext projectContext = projectInput.createBindings();
-
-    /*
-     * create aggregation status to collect max severity status and do some further
-     * validation for the page
-     */
-    projectAggrValStatus = new AggregateValidationStatus(projectContext,
-        AggregateValidationStatus.MAX_SEVERITY);
-    projectAggrValStatus.addValueChangeListener(e -> {
-      if (projectAggrValStatus.getValue().isOK()) {
-        final IProject newProject = projectInput.getProjectProvider().getProject();
-        final IProject oldProject = currentProject;
-        if (newProject != oldProject) {
-          tagList.getTags().clear();
-          tagsTreeViewer.refresh();
-          loadTags(newProject);
-        }
-        currentProject = newProject;
-      } else {
-        currentProject = null;
-        tagList.getTags().clear();
-        tagsTreeViewer.refresh();
-      }
-      setStatus(projectAggrValStatus.getValue());
-      updateOKStatus();
-
-    });
-    parent.addDisposeListener(e -> {
-      projectAggrValStatus.dispose();
-    });
-
   }
 
   private void loadTags(final IProject project) {
