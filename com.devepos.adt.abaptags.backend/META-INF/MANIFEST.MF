@@ -14,7 +14,7 @@ Require-Bundle: com.sap.adt.compatibility,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
  org.eclipse.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: com.devepos.adt.abaptags
 Bundle-ActivationPolicy: lazy
 Export-Package: com.devepos.adt.atm;x-friends:="com.devepos.adt.abaptags.ui",

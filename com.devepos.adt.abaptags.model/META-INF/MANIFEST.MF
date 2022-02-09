@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  com.devepos.adt.base;visibility:=reexport,
  com.sap.adt.tools.core.base;visibility:=reexport
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: com.devepos.adt.atm.model.abaptags;
   x-friends:="com.devepos.adt.abaptags.ui,
    com.devepos.adt.abaptags.backend",
