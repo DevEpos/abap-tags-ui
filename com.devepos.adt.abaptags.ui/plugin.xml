@@ -102,6 +102,7 @@
                   <adapt
                         type="com.devepos.adt.base.ui.adtobject.IAdtObject">
                      <test
+                           forcePluginActivation="true"
                            property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
                      </test>
                   </adapt>
@@ -137,6 +138,7 @@
                      <adapt
                            type="com.devepos.adt.base.ui.adtobject.IAdtObject">
                         <test
+                              forcePluginActivation="true"
                               property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
                         </test>
                      </adapt>
@@ -162,6 +164,7 @@
                      <adapt
                            type="com.devepos.adt.base.ui.adtobject.IAdtObject">
                         <test
+                              forcePluginActivation="true"
                               property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
                         </test>
                      </adapt>
