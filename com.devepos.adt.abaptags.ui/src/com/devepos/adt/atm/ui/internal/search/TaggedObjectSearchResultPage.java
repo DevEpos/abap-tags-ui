@@ -291,6 +291,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     }
     menu.add(new Separator(IContextMenuConstants.GROUP_NEW));
     menu.add(new Separator(IContextMenuConstants.GROUP_OPEN));
+    menu.add(new Separator(IContextMenuConstants.GROUP_SEARCH));
 
     boolean selectionHasExpandedNodes = false;
     final List<IAdtObjectReference> adtObjRefs = new ArrayList<>();
