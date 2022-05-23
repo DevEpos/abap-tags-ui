@@ -103,6 +103,9 @@ public class Messages extends NLS {
   public static String TagParentObjectSelectionWizardPage_SingleSelectionMode_xrbl;
   public static String TagParentObjectSelectionWizardPage_Title_xtit;
   public static String TagPreviewLoadingJob_JobTitle_xmsg;
+  public static String TagSearchParameterSection_clearTags_xbtn;
+  public static String TagSearchParameterSection_group_xtit;
+  public static String TagSearchParameterSection_selectTags_xbtn;
   public static String TagSelectionWizardPage_AddGlobalTag_xbut;
   public static String TagSelectionWizardPage_AddUserTag_xbut;
   public static String TagSelectionWizardPage_CollapseAll_xbut;

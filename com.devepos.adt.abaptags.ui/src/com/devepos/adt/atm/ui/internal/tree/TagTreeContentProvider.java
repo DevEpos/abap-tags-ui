@@ -3,7 +3,6 @@ package com.devepos.adt.atm.ui.internal.tree;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 
@@ -24,8 +23,8 @@ public class TagTreeContentProvider implements ITreeContentProvider {
   @Override
   public Object[] getElements(final Object inputElement) {
     List<ITag> tagList = null;
-    if (inputElement instanceof EList<?>) {
-      tagList = (EList<ITag>) inputElement;
+    if (inputElement instanceof List<?>) {
+      tagList = (List<ITag>) inputElement;
     } else if (inputElement instanceof ITagList) {
       tagList = ((ITagList) inputElement).getTags();
     }

@@ -271,4 +271,12 @@
             plugin="com.devepos.adt.abaptags.ui">
       </contexts>
    </extension>
+   <extension
+         point="com.devepos.adt.base.ui.searchPageExtensions">
+      <parameterSection
+            class="com.devepos.adt.atm.ui.internal.search.TagSearchParameterSection"
+            pageId="com.devepos.adt.codesearch.ui.searchpage.codeSearch"
+            parameterId="tagId">
+      </parameterSection>
+   </extension>
 </plugin>
