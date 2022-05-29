@@ -17,10 +17,14 @@ import org.eclipse.jface.layout.RowLayoutFactory;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.ControlListener;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.ISharedImages;
@@ -51,6 +55,9 @@ import com.devepos.adt.base.ui.search.ext.ISearchPageParameterSection;
  */
 public class TagSearchParameterSection implements ISearchPageParameterSection {
 
+  private static final List<String> EMPTY_LIST = new ArrayList<>();
+  private static final int MIN_WIDTH_TAGS_CONTAINER = 300;
+
   private Composite tagsContainer;
   private Composite main;
   private String parameterId;
@@ -59,12 +66,11 @@ public class TagSearchParameterSection implements ISearchPageParameterSection {
   private List<String> selectedTagIds;
   private Job loadTagsJob;
   private ToolItem browseTagsItem;
-  private Set<ILayoutChangeListener> layoutChangeListeners = new HashSet<>();
   private Set<ITag> selectedTags;
   private IStatus enabledStatus;
   private ToolBar toolBar;
   private IAbapTagsService tagsService;
-  private static final List<String> EMPTY_LIST = new ArrayList<>();
+  private ScrolledComposite scroller;
 
   public TagSearchParameterSection() {
     tagsService = AbapTagsServiceFactory.createTagsService();
@@ -85,11 +91,9 @@ public class TagSearchParameterSection implements ISearchPageParameterSection {
       ToolItem item = new ToolItem(toolBar, SWT.PUSH);
 
       item.addSelectionListener(widgetSelectedAdapter(l -> {
-        Composite myParent = getParent();
         dispose();
         selectedTags.remove(tag);
-        myParent.layout(true, true);
-        main.getParent().layout(true);
+        updateTagsScrollerSize();
       }));
       item.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.CLOSE));
     }
@@ -98,7 +102,7 @@ public class TagSearchParameterSection implements ISearchPageParameterSection {
 
   @Override
   public void addLayoutChangeListener(final ILayoutChangeListener l) {
-    layoutChangeListeners.add(l);
+    // not necessary
   }
 
   @Override
@@ -108,16 +112,31 @@ public class TagSearchParameterSection implements ISearchPageParameterSection {
     GridDataFactory.fillDefaults().grab(true, false).applyTo(main);
     GridLayoutFactory.swtDefaults().numColumns(2).margins(0, 0).applyTo(main);
 
-    Label label = new Label(main, SWT.NONE);
-    label.setText(Messages.TagSearchParameterSection_group_xtit);
-    GridDataFactory.fillDefaults().span(2, 1).applyTo(label);
+    Group tagsGroup = new Group(main, SWT.NONE);
+    tagsGroup.setText(Messages.TagSearchParameterSection_group_xtit);
+    tagsGroup.setLayout(new FillLayout());
+    GridDataFactory.fillDefaults()
+        .grab(true, false)
+        .hint(MIN_WIDTH_TAGS_CONTAINER, 55)
+        .applyTo(tagsGroup);
 
-    tagsContainer = new Composite(main, SWT.BORDER);
+    scroller = new ScrolledComposite(tagsGroup, SWT.V_SCROLL);
+    tagsContainer = new Composite(scroller, SWT.NONE);
     RowLayoutFactory.swtDefaults().applyTo(tagsContainer);
-    GridDataFactory.fillDefaults().hint(300, SWT.DEFAULT).grab(true, false).applyTo(tagsContainer);
 
     toolBar = new ToolBar(main, SWT.FLAT | SWT.VERTICAL);
-    GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).applyTo(toolBar);
+    GridDataFactory.fillDefaults()
+        .align(SWT.FILL, SWT.BEGINNING)
+        .indent(SWT.DEFAULT, 6)
+        .applyTo(toolBar);
+
+    scroller.setContent(tagsContainer);
+    scroller.setMinSize(MIN_WIDTH_TAGS_CONTAINER, SWT.DEFAULT);
+    scroller.setExpandVertical(true);
+    scroller.setExpandHorizontal(true);
+    scroller.addControlListener(ControlListener.controlResizedAdapter(e -> {
+      updateTagsScrollerSize();
+    }));
 
     browseTagsItem = new ToolItem(toolBar, SWT.PUSH);
     browseTagsItem.setToolTipText(Messages.TagSearchParameterSection_selectTags_xbtn);
@@ -150,7 +169,7 @@ public class TagSearchParameterSection implements ISearchPageParameterSection {
 
   @Override
   public void removeLayoutChangeListener(final ILayoutChangeListener l) {
-    layoutChangeListeners.remove(l);
+    // not necessary
   }
 
   @Override
@@ -209,8 +228,7 @@ public class TagSearchParameterSection implements ISearchPageParameterSection {
     }
 
     if (selectedTags != null) {
-      tagsContainer.layout(true);
-      fireLayoutChanged();
+      updateTagsScrollerSize();
     }
   }
 
@@ -232,10 +250,8 @@ public class TagSearchParameterSection implements ISearchPageParameterSection {
 
   }
 
-  private void fireLayoutChanged() {
-    for (ILayoutChangeListener l : layoutChangeListeners) {
-      l.layoutChanged();
-    }
+  private boolean isUiAvailable() {
+    return main != null && !main.isDisposed();
   }
 
   private void loadTags() {
@@ -267,8 +283,8 @@ public class TagSearchParameterSection implements ISearchPageParameterSection {
       return;
     }
     clearTagsContainer();
-    tagsContainer.layout(true);
-    fireLayoutChanged();
+    tagsContainer.layout();
+    updateTagsScrollerSize();
   }
 
   private void selectTags() {
@@ -289,10 +305,15 @@ public class TagSearchParameterSection implements ISearchPageParameterSection {
         for (ITag tag : selectedTags) {
           new ClosableTag(tagsContainer, tag);
         }
-        tagsContainer.layout(true);
-        fireLayoutChanged();
+        updateTagsScrollerSize();
       }
     }
+  }
+
+  private void updateTagsScrollerSize() {
+    tagsContainer.layout();
+    Rectangle r = scroller.getClientArea();
+    scroller.setMinSize(tagsContainer.computeSize(r.width, SWT.DEFAULT));
   }
 
   private void updateUiEnablement() {
@@ -309,11 +330,6 @@ public class TagSearchParameterSection implements ISearchPageParameterSection {
       toolBar.setEnabled(true);
     }
 
-    tagsContainer.layout(true);
-    fireLayoutChanged();
-  }
-
-  private boolean isUiAvailable() {
-    return main != null && !main.isDisposed();
+    updateTagsScrollerSize();
   }
 }
