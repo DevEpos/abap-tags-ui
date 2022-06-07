@@ -48,7 +48,8 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
  */
 public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
   private enum ValidationSource {
-    PROJECT, OBJECTS
+    PROJECT,
+    OBJECTS
   }
 
   public static final String PAGE_NAME = TaggableObjectSelectionWizardPage.class.getCanonicalName();
@@ -112,7 +113,6 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
   protected void createProjectInput(final Composite root) {
     projectInput = new ProjectInput(true);
     projectInput.createControl(root);
-    projectInput.getProjectProvider().setProject(getWizard().getProject());
     projectInput.addProjectValidator(project -> AbapTagsServiceFactory.createTagsService()
         .testTagsFeatureAvailability(project));
     projectInput.addStatusChangeListener(status -> {
@@ -127,6 +127,10 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
       }
       validatePage(status, ValidationSource.PROJECT);
     });
+    IProject currentProject = getWizard().getProject();
+    if (currentProject != null) {
+      projectInput.setProjectName(currentProject.getName());
+    }
   }
 
   private void createObjectsList(final Composite parent) {
