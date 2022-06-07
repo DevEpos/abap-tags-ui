@@ -253,7 +253,9 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
         }
         objectsViewer.refresh();
       }
-      selectObjectsButton.setEnabled(pageStatus.isOK());
+      if (selectObjectsButton != null) {
+        selectObjectsButton.setEnabled(pageStatus.isOK());
+      }
       // if project validation is successful continue with objects validation
       if (pageStatus.isOK()) {
         validateObjects = true;
