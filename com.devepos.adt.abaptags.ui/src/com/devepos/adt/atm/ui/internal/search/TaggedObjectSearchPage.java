@@ -30,7 +30,7 @@ import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
 import com.devepos.adt.atm.ui.internal.tree.TagSelectionTree;
 import com.devepos.adt.base.destinations.DestinationUtil;
-import com.devepos.adt.base.ui.project.IAbapProjectProvider;
+import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.project.ProjectInput;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.search.IChangeableSearchPage;

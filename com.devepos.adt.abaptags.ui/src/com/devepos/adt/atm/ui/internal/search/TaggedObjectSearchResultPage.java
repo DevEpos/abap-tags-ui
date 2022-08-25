@@ -46,6 +46,7 @@ import org.eclipse.ui.part.Page;
 
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
+import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.ContextHelper;
 import com.devepos.adt.base.ui.IGeneralCommandConstants;
 import com.devepos.adt.base.ui.IGeneralContextConstants;
@@ -57,7 +58,6 @@ import com.devepos.adt.base.ui.action.CommandFactory;
 import com.devepos.adt.base.ui.action.CopyToClipboardAction;
 import com.devepos.adt.base.ui.action.ExecuteAdtObjectAction;
 import com.devepos.adt.base.ui.action.OpenAdtObjectAction;
-import com.devepos.adt.base.ui.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.search.ISearchResultPageExtension;
 import com.devepos.adt.base.ui.tree.ActionTreeNode;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;

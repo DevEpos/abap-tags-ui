@@ -12,7 +12,7 @@ import com.devepos.adt.atm.search.TaggedObjectSearchFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
-import com.devepos.adt.base.ui.project.IAbapProjectProvider;
+import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.sap.adt.destinations.model.IDestinationData;
 
