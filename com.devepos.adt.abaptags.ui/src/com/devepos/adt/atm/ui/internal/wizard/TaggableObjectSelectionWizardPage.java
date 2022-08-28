@@ -174,9 +174,9 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
     selectObjectsButton.setText(Messages.TaggableObjectSelectionWizardPage_SelectObjects_xbut);
     selectObjectsButton.setEnabled(getWizard().getProject() != null);
     selectObjectsButton.addSelectionListener(widgetSelectedAdapter(e -> {
-      final IAdtRisSearchResultProxy result = AdtRisSearchUtil.searchAdtObjectViaDialog(
-          Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit, true,
-          getWizard().getProject());
+      final IAdtRisSearchResultProxy result = AdtRisSearchUtil.searchAdtObjectViaDialog(parent
+          .getShell(), Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit,
+          true, null, getWizard().getProject());
       if (result == null) {
         return;
       }
