@@ -2,14 +2,14 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.devepos.adt.abaptags.backend
-Bundle-Version: 1.4.3.qualifier
+Bundle-Version: 1.4.4.qualifier
 Bundle-Activator: com.devepos.adt.atm.AbapTagsPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: com.sap.adt.compatibility,
  com.sap.adt.communication,
- com.devepos.adt.base;bundle-version="[1.3.0,2.0.0)",
- com.devepos.adt.base.ui;bundle-version="[1.3.0,2.0.0)",
+ com.devepos.adt.base;bundle-version="[1.4.0,2.0.0)",
+ com.devepos.adt.base.ui;bundle-version="[1.4.0,2.0.0)",
  com.devepos.adt.abaptags.model,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
