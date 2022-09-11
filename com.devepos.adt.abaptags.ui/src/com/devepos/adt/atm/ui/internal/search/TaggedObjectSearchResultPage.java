@@ -51,7 +51,7 @@ import com.devepos.adt.base.ui.ContextHelper;
 import com.devepos.adt.base.ui.IGeneralCommandConstants;
 import com.devepos.adt.base.ui.IGeneralContextConstants;
 import com.devepos.adt.base.ui.StylerFactory;
-import com.devepos.adt.base.ui.UIState;
+import com.devepos.adt.base.ui.ViewerState;
 import com.devepos.adt.base.ui.action.CollapseAllTreeNodesAction;
 import com.devepos.adt.base.ui.action.CollapseTreeNodesAction;
 import com.devepos.adt.base.ui.action.CommandFactory;
@@ -78,7 +78,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
   private Tree resultTree;
   private TreeViewer resultTreeViewer;
   private TaggedObjectSearchResult result;
-  private UIState state;
+  private ViewerState state;
   private Composite mainComposite;
   private TaggedObjectSearchQuery searchQuery;
   private IAbapProjectProvider projectProvider;
@@ -171,7 +171,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
   @Override
   public Object getUIState() {
     if (resultTree != null && !resultTree.isDisposed()) {
-      final UIState uiState = new UIState();
+      final ViewerState uiState = new ViewerState();
       uiState.setExpandedPaths(resultTreeViewer.getExpandedTreePaths());
       uiState.setSelection(resultTreeViewer.getSelection());
       return uiState;
@@ -190,7 +190,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     if (result != null) {
       result.addListener(this);
       resultTreeViewer.setInput(result);
-      state = uiState instanceof UIState ? (UIState) uiState : null;
+      state = uiState instanceof ViewerState ? (ViewerState) uiState : null;
       searchQuery = (TaggedObjectSearchQuery) result.getQuery();
       projectProvider = searchQuery.getProjectProvider();
       if (!NewSearchUI.isQueryRunning(searchQuery)) {
