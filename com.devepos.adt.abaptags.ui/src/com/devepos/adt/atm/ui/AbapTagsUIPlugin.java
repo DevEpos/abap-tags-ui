@@ -5,9 +5,9 @@ import org.eclipse.jface.viewers.IDecoration;
 import org.osgi.framework.BundleContext;
 
 import com.devepos.adt.atm.ui.internal.IImages;
-import com.devepos.adt.base.plugin.AbstractAdtUIPlugin;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
+import com.devepos.adt.base.ui.plugin.AbstractAdtUIPlugin;
 
 /**
  * The activator class controls the plug-in life cycle
