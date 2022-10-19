@@ -10,7 +10,7 @@
 	<parent>
 		<artifactId>com.devepos.adt.abaptags.parent</artifactId>
 		<groupId>com.devepos.adt</groupId>
-		<version>1.4.5-SNAPSHOT</version>
+		<version>1.4.6-SNAPSHOT</version>
 		<relativePath>../</relativePath>
 	</parent>
 
