@@ -188,6 +188,7 @@
          point="org.eclipse.search.searchResultViewPages">
       <viewPage
             class="com.devepos.adt.atm.ui.internal.search.TaggedObjectSearchResultPage"
+            helpContextId="com.devepos.adt.abaptags.doc.tagged_object_search"
             icon="icons/Tag.png"
             id="com.devepos.adt.atm.ui.searchresultpage.tags"
             searchResultClass="com.devepos.adt.atm.ui.internal.search.TaggedObjectSearchResult">
@@ -248,28 +249,6 @@
             name="%views.name.abapObjectTags"
             restorable="true">
       </view>
-   </extension>
-   <extension
-         point="org.eclipse.help.toc">
-      <toc
-            file="toc.xml">
-      </toc>
-      <toc
-            file="primaryToc.xml"
-            primary="true">
-      </toc>
-      <tocIcon
-            closedIcon="icons/toc/toc_closed.gif"
-            id="com.devepos.adt.abaptags.ui.tocIcon"
-            openIcon="icons/toc/toc_open.gif">
-      </tocIcon>
-   </extension>
-   <extension
-         point="org.eclipse.help.contexts">
-      <contexts
-            file="contexts.xml"
-            plugin="com.devepos.adt.abaptags.ui">
-      </contexts>
    </extension>
    <extension
          point="com.devepos.adt.base.ui.searchPageExtensions">

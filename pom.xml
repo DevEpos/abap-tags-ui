@@ -11,6 +11,7 @@
 		<module>com.devepos.adt.abaptags.backend</module>
 		<module>com.devepos.adt.abaptags.ui</module>
 		<module>com.devepos.adt.abaptags.model</module>
+		<module>com.devepos.adt.abaptags.doc</module>
 		<module>com.devepos.adt.abaptags.feature</module>
 	</modules>
 	<profiles>
