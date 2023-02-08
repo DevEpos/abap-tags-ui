@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <contexts>
-   <context id="tag_wizard" title="Help for ABAP Object Search +">
+   <context id="tag_wizard">
       <topic href="html/tag_wizard.html" label="Tag Objects Wizard"/>
    </context>
    <context id="tag_wizard_object_selection">
       <description>On this page you select the ADT objects to which you want to assign tags</description>
+      <topic href="html/tag_wizard/object_selection.html" label="Object Selection"/>
    </context>
-   <context id="tag_manager" title="Help for CDS Analyzer">
+   <context id="tag_manager">
       <topic href="html/tag_manager.html" label="Tag Manager"/>
    </context>
    <context id="object_tags">
@@ -17,8 +18,10 @@
    </context>
    <context id="tag_wizard_tag_selection">
       <description>On this page you select the tags you want to assign to your ADT object. You can also add entirely new tags on this page</description>
+      <topic href="html/tag_wizard/tag_selection.html" label="Tag Selection"/>
    </context>
    <context id="tag_wizard_parent_object_selection">
       <description>On this page you select the parent objects for your chosen hierarchical tags.</description>
+      <topic href="html/tag_wizard/parent_object_selection.html" label="Parent Object Selection"/>
    </context>
 </contexts>
