@@ -58,6 +58,7 @@ import com.devepos.adt.atm.ui.internal.preferences.IObjectTaggingPrefs;
 import com.devepos.adt.atm.ui.internal.tree.TagFilter;
 import com.devepos.adt.atm.ui.internal.tree.TagLabelProvider;
 import com.devepos.adt.atm.ui.internal.tree.TagTreeContentProvider;
+import com.devepos.adt.atm.ui.internal.util.TagParentCollector;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
@@ -78,7 +79,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
   private final Set<ITag> preCheckedTags = new HashSet<>();
   private final Set<ITag> uncheckableTags = new HashSet<>();
   private final List<ITag> newTags = new ArrayList<>();
-  private boolean needsParentObjectSelection;
+  private boolean isParentObjectSelectionPossible;
   private String owner;
   private Button removeTagButton;
   private Combo tagTypeCombo;
@@ -102,7 +103,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
   @Override
   public boolean canFlipToNextPage() {
-    return isPageComplete() && StringUtil.isEmpty(getErrorMessage()) && needsParentObjectSelection;
+    return isPageComplete() && StringUtil.isEmpty(getErrorMessage())
+        && isParentObjectSelectionPossible;
   }
 
   @Override
@@ -113,7 +115,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         clearCheckedTags();
         owner = null;
         newTags.clear();
-        needsParentObjectSelection = false;
+        isParentObjectSelectionPossible = false;
         getWizard().setCanFinish(false);
       }
       getWizard().completePreviousPage(this);
@@ -126,6 +128,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
           .isEmpty()) {
         loadTagPreviewInfo();
       }
+    } else {
+      updatePageStatus();
     }
     super.setVisible(visible);
   }
@@ -158,6 +162,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         if (parent instanceof ITag) {
           objectTag.setParentTagId(((ITag) parent).getId());
           objectTag.setParentTagName(((ITag) parent).getName());
+          objectTag.getPossibleParentTags()
+              .addAll(TagParentCollector.collectParentTagIds((ITag) parent));
         }
         taggedObject.getTags().add(objectTag);
       }
@@ -499,21 +505,19 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
           false);
     }
     boolean isComplete = false;
-    needsParentObjectSelection = false;
+    isParentObjectSelectionPossible = false;
     if (tagStatus == null || tagStatus.isOK()) {
       setErrorMessage(null);
       isComplete = checkedTags.size() > 0;
-      if (!isComplete) {
-        getWizard().setCanFinish(false);
-      } else {
+      getWizard().setCanFinish(isComplete);
+      if (isComplete) {
         for (final ITag tag : checkedTags) {
           final EObject parent = tag.eContainer();
           if (parent instanceof ITag) {
-            needsParentObjectSelection = true;
+            isParentObjectSelectionPossible = true;
             break;
           }
         }
-        getWizard().setCanFinish(!needsParentObjectSelection);
       }
     } else {
       setErrorMessage(tagStatus.getMessage());
