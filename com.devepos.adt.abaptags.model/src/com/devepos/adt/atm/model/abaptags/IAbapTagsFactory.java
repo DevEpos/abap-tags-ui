@@ -13,7 +13,8 @@ import org.eclipse.emf.ecore.EFactory;
  */
 public interface IAbapTagsFactory extends EFactory {
   /**
-   * The singleton instance of the factory. <!-- begin-user-doc --> <!--
+   * The singleton instance of the factory.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @generated
@@ -21,7 +22,8 @@ public interface IAbapTagsFactory extends EFactory {
   IAbapTagsFactory eINSTANCE = com.devepos.adt.atm.model.abaptags.impl.AbapTagsFactory.init();
 
   /**
-   * Returns a new object of class '<em>Tag</em>'. <!-- begin-user-doc --> <!--
+   * Returns a new object of class '<em>Tag</em>'.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @return a new object of class '<em>Tag</em>'.
@@ -30,7 +32,8 @@ public interface IAbapTagsFactory extends EFactory {
   ITag createTag();
 
   /**
-   * Returns a new object of class '<em>Adt Object Tag</em>'. <!-- begin-user-doc
+   * Returns a new object of class '<em>Adt Object Tag</em>'.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @return a new object of class '<em>Adt Object Tag</em>'.
@@ -39,7 +42,8 @@ public interface IAbapTagsFactory extends EFactory {
   IAdtObjectTag createAdtObjectTag();
 
   /**
-   * Returns a new object of class '<em>Tag List</em>'. <!-- begin-user-doc -->
+   * Returns a new object of class '<em>Tag List</em>'.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return a new object of class '<em>Tag List</em>'.
@@ -57,7 +61,8 @@ public interface IAbapTagsFactory extends EFactory {
   ITagPreviewInfo createTagPreviewInfo();
 
   /**
-   * Returns a new object of class '<em>Tagged Object</em>'. <!-- begin-user-doc
+   * Returns a new object of class '<em>Tagged Object</em>'.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @return a new object of class '<em>Tagged Object</em>'.
@@ -84,7 +89,8 @@ public interface IAbapTagsFactory extends EFactory {
   ITaggedObjectSearchParams createTaggedObjectSearchParams();
 
   /**
-   * Returns the package supported by this factory. <!-- begin-user-doc --> <!--
+   * Returns the package supported by this factory.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @return the package supported by this factory.

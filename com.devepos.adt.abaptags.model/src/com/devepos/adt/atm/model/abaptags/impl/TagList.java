@@ -23,16 +23,15 @@ import com.devepos.adt.atm.model.abaptags.ITagList;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TagList#getTags
- * <em>Tags</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TagList#getTags <em>Tags</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class TagList extends MinimalEObjectImpl.Container implements ITagList {
   /**
-   * The cached value of the '{@link #getTags() <em>Tags</em>}' containment
-   * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getTags() <em>Tags</em>}' containment reference list.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getTags()
    * @generated

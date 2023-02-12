@@ -2,6 +2,7 @@
  */
 package com.devepos.adt.atm.model.abaptags;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -12,18 +13,19 @@ import org.eclipse.swt.graphics.Image;
  * The following features are supported:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectName
- * <em>Parent Object Name</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectType
- * <em>Parent Object Type</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectUri
- * <em>Parent Object Uri</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentTagId
- * <em>Parent Tag Id</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentTagName
- * <em>Parent Tag Name</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getImage
- * <em>Image</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectName <em>Parent Object
+ * Name</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectType <em>Parent Object
+ * Type</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectUri <em>Parent Object
+ * Uri</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentTagId <em>Parent Tag
+ * Id</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentTagName <em>Parent Tag
+ * Name</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getImage <em>Image</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getPossibleParentTags <em>Possible
+ * Parent Tags</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag()
@@ -46,8 +48,9 @@ public interface IAdtObjectTag extends ITagBase {
 
   /**
    * Sets the value of the
-   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectName
-   * <em>Parent Object Name</em>}' attribute. <!-- begin-user-doc --> <!--
+   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectName <em>Parent Object
+   * Name</em>}' attribute.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @param value the new value of the '<em>Parent Object Name</em>' attribute.
@@ -71,8 +74,9 @@ public interface IAdtObjectTag extends ITagBase {
 
   /**
    * Sets the value of the
-   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectType
-   * <em>Parent Object Type</em>}' attribute. <!-- begin-user-doc --> <!--
+   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectType <em>Parent Object
+   * Type</em>}' attribute.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @param value the new value of the '<em>Parent Object Type</em>' attribute.
@@ -96,8 +100,9 @@ public interface IAdtObjectTag extends ITagBase {
 
   /**
    * Sets the value of the
-   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectUri
-   * <em>Parent Object Uri</em>}' attribute. <!-- begin-user-doc --> <!--
+   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectUri <em>Parent Object
+   * Uri</em>}' attribute.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @param value the new value of the '<em>Parent Object Uri</em>' attribute.
@@ -143,9 +148,9 @@ public interface IAdtObjectTag extends ITagBase {
   String getParentTagName();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentTagName
-   * <em>Parent Tag Name</em>}' attribute. <!-- begin-user-doc --> <!--
+   * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentTagName
+   * <em>Parent Tag Name</em>}' attribute.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @param value the new value of the '<em>Parent Tag Name</em>' attribute.
@@ -167,14 +172,27 @@ public interface IAdtObjectTag extends ITagBase {
   Image getImage();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getImage
-   * <em>Image</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getImage
+   * <em>Image</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the new value of the '<em>Image</em>' attribute.
    * @see #getImage()
    * @generated
    */
   void setImage(Image value);
+
+  /**
+   * Returns the value of the '<em><b>Possible Parent Tags</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Possible Parent Tags</em>' attribute list.
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_PossibleParentTags()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.String" transient="true"
+   * @generated
+   */
+  EList<String> getPossibleParentTags();
 
 } // IAdtObjectTag

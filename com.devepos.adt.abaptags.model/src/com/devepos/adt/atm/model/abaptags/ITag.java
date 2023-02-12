@@ -15,30 +15,21 @@ import com.devepos.adt.base.model.adtbase.IUser;
  * The following features are supported:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getDescription
- * <em>Description</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getChildTags <em>Child
- * Tags</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getCreatedBy <em>Created
- * By</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getCreatedDateTime
- * <em>Created Date Time</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getChangedBy <em>Changed
- * By</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getChangedDateTime
- * <em>Changed Date Time</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getTaggedObjectCount
- * <em>Tagged Object Count</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#isShared
- * <em>Shared</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#isSharedForMe <em>Shared
- * For Me</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#isChanged
- * <em>Changed</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getParentTagId <em>Parent
- * Tag Id</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getSharedUsers <em>Shared
- * Users</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getDescription <em>Description</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getChildTags <em>Child Tags</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getCreatedBy <em>Created By</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getCreatedDateTime <em>Created Date
+ * Time</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getChangedBy <em>Changed By</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getChangedDateTime <em>Changed Date
+ * Time</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getTaggedObjectCount <em>Tagged Object
+ * Count</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#isShared <em>Shared</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#isSharedForMe <em>Shared For Me</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#isChanged <em>Changed</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getParentTagId <em>Parent Tag Id</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITag#getSharedUsers <em>Shared Users</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTag()
@@ -61,14 +52,15 @@ public interface ITag extends ITagBase {
   IStatus validate();
 
   /**
-   * Returns the value of the '<em><b>Description</b></em>' attribute. The default
-   * value is <code>""</code>. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the value of the '<em><b>Description</b></em>' attribute.
+   * The default value is <code>""</code>.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the value of the '<em>Description</em>' attribute.
    * @see #setDescription(String)
    * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTag_Description()
-   * @model default="" extendedMetaData="kind='attribute' name='description'
-   *        namespace='##targetNamespace'"
+   * @model default=""
+   *        extendedMetaData="kind='attribute' name='description' namespace='##targetNamespace'"
    * @generated
    */
   String getDescription();
@@ -86,36 +78,37 @@ public interface ITag extends ITagBase {
   void setDescription(String value);
 
   /**
-   * Returns the value of the '<em><b>Child Tags</b></em>' containment reference
-   * list. The list contents are of type
-   * {@link com.devepos.adt.atm.model.abaptags.ITag}. <!-- begin-user-doc --> <!--
+   * Returns the value of the '<em><b>Child Tags</b></em>' containment reference list.
+   * The list contents are of type {@link com.devepos.adt.atm.model.abaptags.ITag}.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @return the value of the '<em>Child Tags</em>' containment reference list.
    * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTag_ChildTags()
-   * @model containment="true" extendedMetaData="kind='element' name='tag'
-   *        namespace='##targetNamespace'"
+   * @model containment="true"
+   *        extendedMetaData="kind='element' name='tag' namespace='##targetNamespace'"
    * @generated
    */
   EList<ITag> getChildTags();
 
   /**
-   * Returns the value of the '<em><b>Created By</b></em>' attribute. The default
-   * value is <code>""</code>. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the value of the '<em><b>Created By</b></em>' attribute.
+   * The default value is <code>""</code>.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the value of the '<em>Created By</em>' attribute.
    * @see #setCreatedBy(String)
    * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTag_CreatedBy()
-   * @model default="" extendedMetaData="kind='attribute' name='createdBy'
-   *        namespace='##targetNamespace'"
+   * @model default=""
+   *        extendedMetaData="kind='attribute' name='createdBy' namespace='##targetNamespace'"
    * @generated
    */
   String getCreatedBy();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.atm.model.abaptags.ITag#getCreatedBy <em>Created
-   * By</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.ITag#getCreatedBy <em>Created
+   * By</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the new value of the '<em>Created By</em>' attribute.
    * @see #getCreatedBy()
@@ -138,9 +131,9 @@ public interface ITag extends ITagBase {
   String getCreatedDateTime();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.atm.model.abaptags.ITag#getCreatedDateTime
-   * <em>Created Date Time</em>}' attribute. <!-- begin-user-doc --> <!--
+   * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.ITag#getCreatedDateTime
+   * <em>Created Date Time</em>}' attribute.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @param value the new value of the '<em>Created Date Time</em>' attribute.
@@ -150,22 +143,23 @@ public interface ITag extends ITagBase {
   void setCreatedDateTime(String value);
 
   /**
-   * Returns the value of the '<em><b>Changed By</b></em>' attribute. The default
-   * value is <code>""</code>. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the value of the '<em><b>Changed By</b></em>' attribute.
+   * The default value is <code>""</code>.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the value of the '<em>Changed By</em>' attribute.
    * @see #setChangedBy(String)
    * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTag_ChangedBy()
-   * @model default="" extendedMetaData="kind='attribute' name='changedBy'
-   *        namespace='##targetNamespace'"
+   * @model default=""
+   *        extendedMetaData="kind='attribute' name='changedBy' namespace='##targetNamespace'"
    * @generated
    */
   String getChangedBy();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.atm.model.abaptags.ITag#getChangedBy <em>Changed
-   * By</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.ITag#getChangedBy <em>Changed
+   * By</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the new value of the '<em>Changed By</em>' attribute.
    * @see #getChangedBy()
@@ -188,9 +182,9 @@ public interface ITag extends ITagBase {
   String getChangedDateTime();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.atm.model.abaptags.ITag#getChangedDateTime
-   * <em>Changed Date Time</em>}' attribute. <!-- begin-user-doc --> <!--
+   * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.ITag#getChangedDateTime
+   * <em>Changed Date Time</em>}' attribute.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @param value the new value of the '<em>Changed Date Time</em>' attribute.
@@ -206,16 +200,17 @@ public interface ITag extends ITagBase {
    * @return the value of the '<em>Tagged Object Count</em>' attribute.
    * @see #setTaggedObjectCount(int)
    * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTag_TaggedObjectCount()
-   * @model transient="true" extendedMetaData="kind='attribute'
-   *        name='taggedObjectCount' namespace='##targetNamespace'"
+   * @model transient="true"
+   *        extendedMetaData="kind='attribute' name='taggedObjectCount'
+   *        namespace='##targetNamespace'"
    * @generated
    */
   int getTaggedObjectCount();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.atm.model.abaptags.ITag#getTaggedObjectCount
-   * <em>Tagged Object Count</em>}' attribute. <!-- begin-user-doc --> <!--
+   * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.ITag#getTaggedObjectCount
+   * <em>Tagged Object Count</em>}' attribute.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @param value the new value of the '<em>Tagged Object Count</em>' attribute.
@@ -238,9 +233,9 @@ public interface ITag extends ITagBase {
   boolean isShared();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.atm.model.abaptags.ITag#isShared <em>Shared</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.ITag#isShared
+   * <em>Shared</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the new value of the '<em>Shared</em>' attribute.
    * @see #isShared()
@@ -262,9 +257,9 @@ public interface ITag extends ITagBase {
   boolean isSharedForMe();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.atm.model.abaptags.ITag#isSharedForMe <em>Shared For
-   * Me</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.ITag#isSharedForMe <em>Shared
+   * For Me</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the new value of the '<em>Shared For Me</em>' attribute.
    * @see #isSharedForMe()
@@ -286,9 +281,9 @@ public interface ITag extends ITagBase {
   boolean isChanged();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.atm.model.abaptags.ITag#isChanged <em>Changed</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.ITag#isChanged
+   * <em>Changed</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the new value of the '<em>Changed</em>' attribute.
    * @see #isChanged()
@@ -310,9 +305,9 @@ public interface ITag extends ITagBase {
   String getParentTagId();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.atm.model.abaptags.ITag#getParentTagId <em>Parent Tag
-   * Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link com.devepos.adt.atm.model.abaptags.ITag#getParentTagId <em>Parent
+   * Tag Id</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the new value of the '<em>Parent Tag Id</em>' attribute.
    * @see #getParentTagId()
@@ -321,14 +316,15 @@ public interface ITag extends ITagBase {
   void setParentTagId(String value);
 
   /**
-   * Returns the value of the '<em><b>Shared Users</b></em>' containment reference
-   * list. The list contents are of type
-   * {@link com.devepos.adt.base.model.adtbase.IUser}. <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Shared Users</b></em>' containment reference list.
+   * The list contents are of type {@link com.devepos.adt.base.model.adtbase.IUser}.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the value of the '<em>Shared Users</em>' containment reference list.
    * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTag_SharedUsers()
-   * @model containment="true" extendedMetaData="kind='element' name='user'
+   * @model containment="true"
+   *        extendedMetaData="kind='element' name='user'
    *        namespace='http://www.devepos.com/adt/base'"
    * @generated
    */

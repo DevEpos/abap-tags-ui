@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
@@ -21,6 +22,7 @@ import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
+import com.devepos.adt.atm.model.abaptags.ResultGroupLevel;
 import com.devepos.adt.atm.model.abaptags.TagInfoType;
 import com.devepos.adt.atm.model.abaptags.TagQueryFocus;
 import com.devepos.adt.atm.model.abaptags.TagQueryType;
@@ -119,6 +121,14 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   private EEnum tagQueryFocusEEnum = null;
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EEnum resultGroupLevelEEnum = null;
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -127,12 +137,14 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
-   * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the
-   * package package URI value.
+   * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
+   * package URI value.
    * <p>
-   * Note: the correct way to create the package is via the static factory method
-   * {@link #init init()}, which also performs initialization of the package, or
-   * returns the registered package, if one already exists. <!-- begin-user-doc
+   * Note: the correct way to create the package is via the static
+   * factory method {@link #init init()}, which also performs
+   * initialization of the package, or returns the registered package,
+   * if one already exists.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @see org.eclipse.emf.ecore.EPackage.Registry
@@ -152,13 +164,15 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   private static boolean isInited = false;
 
   /**
-   * Creates, registers, and initializes the <b>Package</b> for this model, and
-   * for any others upon which it depends.
+   * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon
+   * which it depends.
    *
    * <p>
-   * This method is used to initialize {@link IAbapTagsPackage#eINSTANCE} when
-   * that field is accessed. Clients should not invoke it directly. Instead, they
-   * should simply access that field to obtain the package. <!-- begin-user-doc
+   * This method is used to initialize {@link IAbapTagsPackage#eINSTANCE} when that field is
+   * accessed.
+   * Clients should not invoke it directly. Instead, they should simply access that field to obtain
+   * the package.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @see #eNS_URI
@@ -181,6 +195,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 
     // Initialize simple dependencies
     IAdtBasePackage.eINSTANCE.eClass();
+    XMLTypePackage.eINSTANCE.eClass();
 
     // Create package meta-data objects
     theAbapTagsPackage.createPackageContents();
@@ -437,6 +452,17 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getAdtObjectTag_PossibleParentTags() {
+    return (EAttribute) adtObjectTagEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -587,12 +613,13 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   @Override
-  public EAttribute getTaggedObjectSearchParams_QueryFocus() {
+  public EAttribute getTaggedObjectSearchParams_ResultGroupLevel() {
     return (EAttribute) taggedObjectSearchParamsEClass.getEStructuralFeatures().get(4);
   }
 
@@ -602,7 +629,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * @generated
    */
   @Override
-  public EAttribute getTaggedObjectSearchParams_MaxResults() {
+  public EAttribute getTaggedObjectSearchParams_QueryFocus() {
     return (EAttribute) taggedObjectSearchParamsEClass.getEStructuralFeatures().get(5);
   }
 
@@ -612,7 +639,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * @generated
    */
   @Override
-  public EAttribute getTaggedObjectSearchParams_MatchesAllTags() {
+  public EAttribute getTaggedObjectSearchParams_MaxResults() {
     return (EAttribute) taggedObjectSearchParamsEClass.getEStructuralFeatures().get(6);
   }
 
@@ -622,7 +649,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * @generated
    */
   @Override
-  public EAttribute getTaggedObjectSearchParams_WithTagInfo() {
+  public EAttribute getTaggedObjectSearchParams_MatchesAllTags() {
     return (EAttribute) taggedObjectSearchParamsEClass.getEStructuralFeatures().get(7);
   }
 
@@ -632,8 +659,18 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * @generated
    */
   @Override
-  public EAttribute getTaggedObjectSearchParams_TagInfoType() {
+  public EAttribute getTaggedObjectSearchParams_WithTagInfo() {
     return (EAttribute) taggedObjectSearchParamsEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectSearchParams_TagInfoType() {
+    return (EAttribute) taggedObjectSearchParamsEClass.getEStructuralFeatures().get(9);
   }
 
   /**
@@ -677,6 +714,17 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EEnum getResultGroupLevel() {
+    return resultGroupLevelEEnum;
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -704,8 +752,9 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   private boolean isCreated = false;
 
   /**
-   * Creates the meta-model objects for the package. This method is guarded to
-   * have no affect on any invocation but its first. <!-- begin-user-doc --> <!--
+   * Creates the meta-model objects for the package. This method is
+   * guarded to have no affect on any invocation but its first.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @generated
@@ -746,6 +795,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__PARENT_TAG_ID);
     createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__PARENT_TAG_NAME);
     createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__IMAGE);
+    createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__POSSIBLE_PARENT_TAGS);
 
     tagPreviewInfoEClass = createEClass(TAG_PREVIEW_INFO);
     createEReference(tagPreviewInfoEClass, TAG_PREVIEW_INFO__TAGS);
@@ -763,6 +813,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__SEARCH_SCOPE);
     createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__QUERY);
     createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__QUERY_TYPE);
+    createEAttribute(taggedObjectSearchParamsEClass,
+        TAGGED_OBJECT_SEARCH_PARAMS__RESULT_GROUP_LEVEL);
     createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__QUERY_FOCUS);
     createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__MAX_RESULTS);
     createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__MATCHES_ALL_TAGS);
@@ -774,6 +826,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     tagQueryTypeEEnum = createEEnum(TAG_QUERY_TYPE);
     tagInfoTypeEEnum = createEEnum(TAG_INFO_TYPE);
     tagQueryFocusEEnum = createEEnum(TAG_QUERY_FOCUS);
+    resultGroupLevelEEnum = createEEnum(RESULT_GROUP_LEVEL);
 
     // Create data types
     imageEDataType = createEDataType(IMAGE);
@@ -807,6 +860,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     // Obtain other dependent packages
     IAdtBasePackage theAdtBasePackage = (IAdtBasePackage) EPackage.Registry.INSTANCE.getEPackage(
         IAdtBasePackage.eNS_URI);
+    XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(
+        XMLTypePackage.eNS_URI);
 
     // Create type parameters
 
@@ -894,6 +949,9 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     initEAttribute(getAdtObjectTag_Image(), getImage(), "image", null, 0, 1, IAdtObjectTag.class,
         IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
         IS_ORDERED);
+    initEAttribute(getAdtObjectTag_PossibleParentTags(), theXMLTypePackage.getString(),
+        "possibleParentTags", null, 0, -1, IAdtObjectTag.class, IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(tagPreviewInfoEClass, ITagPreviewInfo.class, "TagPreviewInfo", !IS_ABSTRACT,
         !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -934,6 +992,9 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     initEAttribute(getTaggedObjectSearchParams_QueryType(), getTagQueryType(), "queryType", null, 0,
         1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
         !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectSearchParams_ResultGroupLevel(), getResultGroupLevel(),
+        "resultGroupLevel", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT,
+        !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTaggedObjectSearchParams_QueryFocus(), getTagQueryFocus(), "queryFocus", null,
         0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
         !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -965,10 +1026,15 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     initEEnum(tagInfoTypeEEnum, TagInfoType.class, "TagInfoType");
     addEEnumLiteral(tagInfoTypeEEnum, TagInfoType.ALL);
     addEEnumLiteral(tagInfoTypeEEnum, TagInfoType.CHILDREN);
+    addEEnumLiteral(tagInfoTypeEEnum, TagInfoType.SEARCH_FOCUS);
 
     initEEnum(tagQueryFocusEEnum, TagQueryFocus.class, "TagQueryFocus");
     addEEnumLiteral(tagQueryFocusEEnum, TagQueryFocus.OBJECT);
     addEEnumLiteral(tagQueryFocusEEnum, TagQueryFocus.PARENT_OBJECT);
+
+    initEEnum(resultGroupLevelEEnum, ResultGroupLevel.class, "ResultGroupLevel");
+    addEEnumLiteral(resultGroupLevelEEnum, ResultGroupLevel.BY_OBJECT);
+    addEEnumLiteral(resultGroupLevelEEnum, ResultGroupLevel.BY_TAG_AND_OBJECT);
 
     // Initialize data types
     initEDataType(imageEDataType, Image.class, "Image", IS_SERIALIZABLE,
@@ -1060,6 +1126,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         "name", "query", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectSearchParams_QueryType(), source, new String[] { "kind",
         "attribute", "name", "queryType", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectSearchParams_ResultGroupLevel(), source, new String[] { "kind",
+        "attribute", "name", "resultGroupLevel", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectSearchParams_QueryFocus(), source, new String[] { "kind",
         "attribute", "name", "queryFocus", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectSearchParams_MaxResults(), source, new String[] { "kind",

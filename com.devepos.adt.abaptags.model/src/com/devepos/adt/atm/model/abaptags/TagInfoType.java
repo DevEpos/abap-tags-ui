@@ -19,7 +19,8 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum TagInfoType implements Enumerator {
   /**
-   * The '<em><b>ALL</b></em>' literal object. <!-- begin-user-doc --> <!--
+   * The '<em><b>ALL</b></em>' literal object.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #ALL_VALUE
@@ -29,17 +30,32 @@ public enum TagInfoType implements Enumerator {
   ALL(0, "ALL", "all"),
 
   /**
-   * The '<em><b>CHILDREN</b></em>' literal object. <!-- begin-user-doc --> <!--
+   * The '<em><b>CHILDREN</b></em>' literal object.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #CHILDREN_VALUE
    * @generated
    * @ordered
    */
-  CHILDREN(1, "CHILDREN", "children");
+  CHILDREN(1, "CHILDREN", "children"),
+  /**
+   * The '<em><b>SEARCH FOCUS</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * <!-- begin-model-doc -->
+   * Only information about tags that included in the search filter
+   * <!-- end-model-doc -->
+   *
+   * @see #SEARCH_FOCUS_VALUE
+   * @generated
+   * @ordered
+   */
+  SEARCH_FOCUS(2, "SEARCH_FOCUS", "searchFocus");
 
   /**
-   * The '<em><b>ALL</b></em>' literal value. <!-- begin-user-doc --> <!--
+   * The '<em><b>ALL</b></em>' literal value.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #ALL
@@ -50,7 +66,8 @@ public enum TagInfoType implements Enumerator {
   public static final int ALL_VALUE = 0;
 
   /**
-   * The '<em><b>CHILDREN</b></em>' literal value. <!-- begin-user-doc --> <!--
+   * The '<em><b>CHILDREN</b></em>' literal value.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #CHILDREN
@@ -61,16 +78,32 @@ public enum TagInfoType implements Enumerator {
   public static final int CHILDREN_VALUE = 1;
 
   /**
+   * The '<em><b>SEARCH FOCUS</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * <!-- begin-model-doc -->
+   * Only information about tags that included in the search filter
+   * <!-- end-model-doc -->
+   *
+   * @see #SEARCH_FOCUS
+   * @model literal="searchFocus"
+   * @generated
+   * @ordered
+   */
+  public static final int SEARCH_FOCUS_VALUE = 2;
+
+  /**
    * An array of all the '<em><b>Tag Info Type</b></em>' enumerators. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
-  private static final TagInfoType[] VALUES_ARRAY = new TagInfoType[] { ALL, CHILDREN, };
+  private static final TagInfoType[] VALUES_ARRAY = new TagInfoType[] { ALL, CHILDREN,
+      SEARCH_FOCUS, };
 
   /**
-   * A public read-only list of all the '<em><b>Tag Info Type</b></em>'
-   * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * A public read-only list of all the '<em><b>Tag Info Type</b></em>' enumerators.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
@@ -78,8 +111,8 @@ public enum TagInfoType implements Enumerator {
       VALUES_ARRAY));
 
   /**
-   * Returns the '<em><b>Tag Info Type</b></em>' literal with the specified
-   * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the '<em><b>Tag Info Type</b></em>' literal with the specified literal value.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param literal the literal.
    * @return the matching enumerator or <code>null</code>.
@@ -112,8 +145,8 @@ public enum TagInfoType implements Enumerator {
   }
 
   /**
-   * Returns the '<em><b>Tag Info Type</b></em>' literal with the specified
-   * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the '<em><b>Tag Info Type</b></em>' literal with the specified integer value.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the integer value.
    * @return the matching enumerator or <code>null</code>.
@@ -125,6 +158,8 @@ public enum TagInfoType implements Enumerator {
       return ALL;
     case CHILDREN_VALUE:
       return CHILDREN;
+    case SEARCH_FOCUS_VALUE:
+      return SEARCH_FOCUS;
     }
     return null;
   }
@@ -151,7 +186,8 @@ public enum TagInfoType implements Enumerator {
   private final String literal;
 
   /**
-   * Only this class can construct instances. <!-- begin-user-doc --> <!--
+   * Only this class can construct instances.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @generated
@@ -193,8 +229,8 @@ public enum TagInfoType implements Enumerator {
   }
 
   /**
-   * Returns the literal value of the enumerator, which is its string
-   * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the literal value of the enumerator, which is its string representation.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */

@@ -175,6 +175,8 @@
         transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="image" eType="#//Image"
         transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="possibleParentTags" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String" transient="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TagPreviewInfo">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -269,6 +271,13 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultGroupLevel" eType="#//ResultGroupLevel">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="kind" value="attribute"/>
+        <details key="name" value="resultGroupLevel"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="queryFocus" eType="#//TagQueryFocus">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="attribute"/>
@@ -319,10 +328,19 @@
   <eClassifiers xsi:type="ecore:EEnum" name="TagInfoType">
     <eLiterals name="ALL" literal="all"/>
     <eLiterals name="CHILDREN" value="1" literal="children"/>
+    <eLiterals name="SEARCH_FOCUS" value="2" literal="searchFocus">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Only information about tags that included in the search filter"/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TagQueryFocus">
     <eLiterals name="OBJECT" literal="object"/>
     <eLiterals name="PARENT_OBJECT" value="1" literal="parentObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ResultGroupLevel">
+    <eLiterals name="BY_OBJECT" literal="byObject"/>
+    <eLiterals name="BY_TAG_AND_OBJECT" value="1" literal="byTagAndObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Image" instanceClassName="org.eclipse.swt.graphics.Image"/>
 </ecore:EPackage>

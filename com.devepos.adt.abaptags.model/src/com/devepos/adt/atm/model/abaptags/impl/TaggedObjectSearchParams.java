@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
+import com.devepos.adt.atm.model.abaptags.ResultGroupLevel;
 import com.devepos.adt.atm.model.abaptags.TagInfoType;
 import com.devepos.adt.atm.model.abaptags.TagQueryFocus;
 import com.devepos.adt.atm.model.abaptags.TagQueryType;
@@ -29,18 +30,20 @@ import com.devepos.adt.atm.model.abaptags.TagSearchScope;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectSearchParams#getTagIds
- * <em>Tag Ids</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectSearchParams#getTagIds <em>Tag
+ * Ids</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectSearchParams#getSearchScope
  * <em>Search Scope</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectSearchParams#getQuery
  * <em>Query</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectSearchParams#getQueryType
  * <em>Query Type</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectSearchParams#getResultGroupLevel
+ * <em>Result Group Level</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectSearchParams#getQueryFocus
  * <em>Query Focus</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectSearchParams#getMaxResults
- * <em>Max Results</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectSearchParams#getMaxResults <em>Max
+ * Results</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectSearchParams#isMatchesAllTags
  * <em>Matches All Tags</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectSearchParams#isWithTagInfo
@@ -55,8 +58,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
     ITaggedObjectSearchParams {
   private final Set<String> tags = new TreeSet<>();
   /**
-   * The cached value of the '{@link #getTagIds() <em>Tag Ids</em>}' attribute
-   * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getTagIds() <em>Tag Ids</em>}' attribute list.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getTagIds()
    * @generated
@@ -65,8 +68,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
   protected EList<String> tagIds;
 
   /**
-   * The default value of the '{@link #getSearchScope() <em>Search Scope</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getSearchScope() <em>Search Scope</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getSearchScope()
    * @generated
@@ -75,8 +78,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
   protected static final TagSearchScope SEARCH_SCOPE_EDEFAULT = TagSearchScope.ALL;
 
   /**
-   * The cached value of the '{@link #getSearchScope() <em>Search Scope</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getSearchScope() <em>Search Scope</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getSearchScope()
    * @generated
@@ -105,8 +108,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
   protected String query = QUERY_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getQueryType() <em>Query Type</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getQueryType() <em>Query Type</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getQueryType()
    * @generated
@@ -114,8 +117,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
    */
   protected static final TagQueryType QUERY_TYPE_EDEFAULT = TagQueryType.OBJECT_NAME;
   /**
-   * The cached value of the '{@link #getQueryType() <em>Query Type</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getQueryType() <em>Query Type</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getQueryType()
    * @generated
@@ -123,8 +126,29 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
    */
   protected TagQueryType queryType = QUERY_TYPE_EDEFAULT;
   /**
-   * The default value of the '{@link #getQueryFocus() <em>Query Focus</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getResultGroupLevel() <em>Result Group Level</em>}'
+   * attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getResultGroupLevel()
+   * @generated
+   * @ordered
+   */
+  protected static final ResultGroupLevel RESULT_GROUP_LEVEL_EDEFAULT = ResultGroupLevel.BY_OBJECT;
+  /**
+   * The cached value of the '{@link #getResultGroupLevel() <em>Result Group Level</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getResultGroupLevel()
+   * @generated
+   * @ordered
+   */
+  protected ResultGroupLevel resultGroupLevel = RESULT_GROUP_LEVEL_EDEFAULT;
+  /**
+   * The default value of the '{@link #getQueryFocus() <em>Query Focus</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getQueryFocus()
    * @generated
@@ -132,8 +156,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
    */
   protected static final TagQueryFocus QUERY_FOCUS_EDEFAULT = TagQueryFocus.OBJECT;
   /**
-   * The cached value of the '{@link #getQueryFocus() <em>Query Focus</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getQueryFocus() <em>Query Focus</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getQueryFocus()
    * @generated
@@ -141,8 +165,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
    */
   protected TagQueryFocus queryFocus = QUERY_FOCUS_EDEFAULT;
   /**
-   * The default value of the '{@link #getMaxResults() <em>Max Results</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getMaxResults() <em>Max Results</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getMaxResults()
    * @generated
@@ -151,8 +175,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
   protected static final int MAX_RESULTS_EDEFAULT = 0;
 
   /**
-   * The cached value of the '{@link #getMaxResults() <em>Max Results</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getMaxResults() <em>Max Results</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getMaxResults()
    * @generated
@@ -161,8 +185,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
   protected int maxResults = MAX_RESULTS_EDEFAULT;
 
   /**
-   * The default value of the '{@link #isMatchesAllTags() <em>Matches All
-   * Tags</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #isMatchesAllTags() <em>Matches All Tags</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #isMatchesAllTags()
    * @generated
@@ -171,8 +195,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
   protected static final boolean MATCHES_ALL_TAGS_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isMatchesAllTags() <em>Matches All
-   * Tags</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #isMatchesAllTags() <em>Matches All Tags</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #isMatchesAllTags()
    * @generated
@@ -181,8 +205,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
   protected boolean matchesAllTags = MATCHES_ALL_TAGS_EDEFAULT;
 
   /**
-   * The default value of the '{@link #isWithTagInfo() <em>With Tag Info</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #isWithTagInfo() <em>With Tag Info</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #isWithTagInfo()
    * @generated
@@ -191,8 +215,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
   protected static final boolean WITH_TAG_INFO_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isWithTagInfo() <em>With Tag Info</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #isWithTagInfo() <em>With Tag Info</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #isWithTagInfo()
    * @generated
@@ -201,8 +225,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
   protected boolean withTagInfo = WITH_TAG_INFO_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getTagInfoType() <em>Tag Info Type</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getTagInfoType() <em>Tag Info Type</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getTagInfoType()
    * @generated
@@ -210,8 +234,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
    */
   protected static final TagInfoType TAG_INFO_TYPE_EDEFAULT = TagInfoType.ALL;
   /**
-   * The cached value of the '{@link #getTagInfoType() <em>Tag Info Type</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getTagInfoType() <em>Tag Info Type</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getTagInfoType()
    * @generated
@@ -344,6 +368,35 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
           IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__QUERY_TYPE, oldQueryType, queryType));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ResultGroupLevel getResultGroupLevel() {
+    return resultGroupLevel;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setResultGroupLevel(final ResultGroupLevel newResultGroupLevel) {
+    ResultGroupLevel oldResultGroupLevel = resultGroupLevel;
+    resultGroupLevel = newResultGroupLevel == null ? RESULT_GROUP_LEVEL_EDEFAULT
+        : newResultGroupLevel;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__RESULT_GROUP_LEVEL, oldResultGroupLevel,
+          resultGroupLevel));
     }
   }
 
@@ -491,6 +544,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
       return getQuery();
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__QUERY_TYPE:
       return getQueryType();
+    case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__RESULT_GROUP_LEVEL:
+      return getResultGroupLevel();
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__QUERY_FOCUS:
       return getQueryFocus();
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__MAX_RESULTS:
@@ -526,6 +581,9 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
       return;
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__QUERY_TYPE:
       setQueryType((TagQueryType) newValue);
+      return;
+    case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__RESULT_GROUP_LEVEL:
+      setResultGroupLevel((ResultGroupLevel) newValue);
       return;
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__QUERY_FOCUS:
       setQueryFocus((TagQueryFocus) newValue);
@@ -566,6 +624,9 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__QUERY_TYPE:
       setQueryType(QUERY_TYPE_EDEFAULT);
       return;
+    case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__RESULT_GROUP_LEVEL:
+      setResultGroupLevel(RESULT_GROUP_LEVEL_EDEFAULT);
+      return;
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__QUERY_FOCUS:
       setQueryFocus(QUERY_FOCUS_EDEFAULT);
       return;
@@ -601,6 +662,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
       return QUERY_EDEFAULT == null ? query != null : !QUERY_EDEFAULT.equals(query);
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__QUERY_TYPE:
       return queryType != QUERY_TYPE_EDEFAULT;
+    case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__RESULT_GROUP_LEVEL:
+      return resultGroupLevel != RESULT_GROUP_LEVEL_EDEFAULT;
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__QUERY_FOCUS:
       return queryFocus != QUERY_FOCUS_EDEFAULT;
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__MAX_RESULTS:
@@ -635,6 +698,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
     result.append(query);
     result.append(", queryType: ");
     result.append(queryType);
+    result.append(", resultGroupLevel: ");
+    result.append(resultGroupLevel);
     result.append(", queryFocus: ");
     result.append(queryFocus);
     result.append(", maxResults: ");

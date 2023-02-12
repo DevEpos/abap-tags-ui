@@ -19,7 +19,8 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum TagQueryType implements Enumerator {
   /**
-   * The '<em><b>OBJECT NAME</b></em>' literal object. <!-- begin-user-doc -->
+   * The '<em><b>OBJECT NAME</b></em>' literal object.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @see #OBJECT_NAME_VALUE
@@ -29,7 +30,8 @@ public enum TagQueryType implements Enumerator {
   OBJECT_NAME(0, "OBJECT_NAME", "objectName"),
 
   /**
-   * The '<em><b>OBJECT URI</b></em>' literal object. <!-- begin-user-doc --> <!--
+   * The '<em><b>OBJECT URI</b></em>' literal object.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #OBJECT_URI_VALUE
@@ -49,7 +51,8 @@ public enum TagQueryType implements Enumerator {
   OBJECT_NAME_TYPE_COMBO(2, "OBJECT_NAME_TYPE_COMBO", "objectNameTypeCombo");
 
   /**
-   * The '<em><b>OBJECT NAME</b></em>' literal value. <!-- begin-user-doc --> <!--
+   * The '<em><b>OBJECT NAME</b></em>' literal value.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #OBJECT_NAME
@@ -60,7 +63,8 @@ public enum TagQueryType implements Enumerator {
   public static final int OBJECT_NAME_VALUE = 0;
 
   /**
-   * The '<em><b>OBJECT URI</b></em>' literal value. <!-- begin-user-doc --> <!--
+   * The '<em><b>OBJECT URI</b></em>' literal value.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #OBJECT_URI
@@ -91,8 +95,8 @@ public enum TagQueryType implements Enumerator {
       OBJECT_NAME_TYPE_COMBO, };
 
   /**
-   * A public read-only list of all the '<em><b>Tag Query Type</b></em>'
-   * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * A public read-only list of all the '<em><b>Tag Query Type</b></em>' enumerators.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
@@ -100,8 +104,8 @@ public enum TagQueryType implements Enumerator {
       VALUES_ARRAY));
 
   /**
-   * Returns the '<em><b>Tag Query Type</b></em>' literal with the specified
-   * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the '<em><b>Tag Query Type</b></em>' literal with the specified literal value.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param literal the literal.
    * @return the matching enumerator or <code>null</code>.
@@ -134,8 +138,8 @@ public enum TagQueryType implements Enumerator {
   }
 
   /**
-   * Returns the '<em><b>Tag Query Type</b></em>' literal with the specified
-   * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the '<em><b>Tag Query Type</b></em>' literal with the specified integer value.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the integer value.
    * @return the matching enumerator or <code>null</code>.
@@ -175,7 +179,8 @@ public enum TagQueryType implements Enumerator {
   private final String literal;
 
   /**
-   * Only this class can construct instances. <!-- begin-user-doc --> <!--
+   * Only this class can construct instances.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @generated
@@ -217,8 +222,8 @@ public enum TagQueryType implements Enumerator {
   }
 
   /**
-   * Returns the literal value of the enumerator, which is its string
-   * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the literal value of the enumerator, which is its string representation.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */

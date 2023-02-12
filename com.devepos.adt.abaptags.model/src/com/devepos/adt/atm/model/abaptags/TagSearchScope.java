@@ -19,7 +19,8 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum TagSearchScope implements Enumerator {
   /**
-   * The '<em><b>ALL</b></em>' literal object. <!-- begin-user-doc --> <!--
+   * The '<em><b>ALL</b></em>' literal object.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #ALL_VALUE
@@ -29,7 +30,8 @@ public enum TagSearchScope implements Enumerator {
   ALL(0, "ALL", "all"),
 
   /**
-   * The '<em><b>GLOBAL</b></em>' literal object. <!-- begin-user-doc --> <!--
+   * The '<em><b>GLOBAL</b></em>' literal object.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #GLOBAL_VALUE
@@ -39,7 +41,8 @@ public enum TagSearchScope implements Enumerator {
   GLOBAL(1, "GLOBAL", "global"),
 
   /**
-   * The '<em><b>USER</b></em>' literal object. <!-- begin-user-doc --> <!--
+   * The '<em><b>USER</b></em>' literal object.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #USER_VALUE
@@ -48,7 +51,8 @@ public enum TagSearchScope implements Enumerator {
    */
   USER(2, "USER", "user"),
   /**
-   * The '<em><b>SHARED</b></em>' literal object. <!-- begin-user-doc --> <!--
+   * The '<em><b>SHARED</b></em>' literal object.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #SHARED_VALUE
@@ -58,7 +62,8 @@ public enum TagSearchScope implements Enumerator {
   SHARED(3, "SHARED", "SHARED");
 
   /**
-   * The '<em><b>ALL</b></em>' literal value. <!-- begin-user-doc --> <!--
+   * The '<em><b>ALL</b></em>' literal value.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #ALL
@@ -69,7 +74,8 @@ public enum TagSearchScope implements Enumerator {
   public static final int ALL_VALUE = 0;
 
   /**
-   * The '<em><b>GLOBAL</b></em>' literal value. <!-- begin-user-doc --> <!--
+   * The '<em><b>GLOBAL</b></em>' literal value.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #GLOBAL
@@ -80,7 +86,8 @@ public enum TagSearchScope implements Enumerator {
   public static final int GLOBAL_VALUE = 1;
 
   /**
-   * The '<em><b>USER</b></em>' literal value. <!-- begin-user-doc --> <!--
+   * The '<em><b>USER</b></em>' literal value.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #USER
@@ -91,7 +98,8 @@ public enum TagSearchScope implements Enumerator {
   public static final int USER_VALUE = 2;
 
   /**
-   * The '<em><b>SHARED</b></em>' literal value. <!-- begin-user-doc --> <!--
+   * The '<em><b>SHARED</b></em>' literal value.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #SHARED
@@ -111,8 +119,8 @@ public enum TagSearchScope implements Enumerator {
       SHARED, };
 
   /**
-   * A public read-only list of all the '<em><b>Tag Search Scope</b></em>'
-   * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * A public read-only list of all the '<em><b>Tag Search Scope</b></em>' enumerators.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
@@ -120,8 +128,8 @@ public enum TagSearchScope implements Enumerator {
       VALUES_ARRAY));
 
   /**
-   * Returns the '<em><b>Tag Search Scope</b></em>' literal with the specified
-   * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the '<em><b>Tag Search Scope</b></em>' literal with the specified literal value.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param literal the literal.
    * @return the matching enumerator or <code>null</code>.
@@ -137,8 +145,8 @@ public enum TagSearchScope implements Enumerator {
   }
 
   /**
-   * Returns the '<em><b>Tag Search Scope</b></em>' literal with the specified
-   * name. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the '<em><b>Tag Search Scope</b></em>' literal with the specified name.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param name the name.
    * @return the matching enumerator or <code>null</code>.
@@ -154,8 +162,8 @@ public enum TagSearchScope implements Enumerator {
   }
 
   /**
-   * Returns the '<em><b>Tag Search Scope</b></em>' literal with the specified
-   * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the '<em><b>Tag Search Scope</b></em>' literal with the specified integer value.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the integer value.
    * @return the matching enumerator or <code>null</code>.
@@ -197,7 +205,8 @@ public enum TagSearchScope implements Enumerator {
   private final String literal;
 
   /**
-   * Only this class can construct instances. <!-- begin-user-doc --> <!--
+   * Only this class can construct instances.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @generated
@@ -239,8 +248,8 @@ public enum TagSearchScope implements Enumerator {
   }
 
   /**
-   * Returns the literal value of the enumerator, which is its string
-   * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the literal value of the enumerator, which is its string representation.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */

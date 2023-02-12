@@ -24,18 +24,17 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRef;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TagPreviewInfo#getTags
- * <em>Tags</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TagPreviewInfo#getAdtObjectRefs
- * <em>Adt Object Refs</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TagPreviewInfo#getTags <em>Tags</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TagPreviewInfo#getAdtObjectRefs <em>Adt Object
+ * Refs</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class TagPreviewInfo extends MinimalEObjectImpl.Container implements ITagPreviewInfo {
   /**
-   * The cached value of the '{@link #getTags() <em>Tags</em>}' containment
-   * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getTags() <em>Tags</em>}' containment reference list.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getTags()
    * @generated
@@ -44,8 +43,9 @@ public class TagPreviewInfo extends MinimalEObjectImpl.Container implements ITag
   protected EList<ITag> tags;
 
   /**
-   * The cached value of the '{@link #getAdtObjectRefs() <em>Adt Object
-   * Refs</em>}' containment reference list. <!-- begin-user-doc --> <!--
+   * The cached value of the '{@link #getAdtObjectRefs() <em>Adt Object Refs</em>}' containment
+   * reference list.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #getAdtObjectRefs()
