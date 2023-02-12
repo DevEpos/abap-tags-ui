@@ -19,6 +19,7 @@ import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
+import com.devepos.adt.atm.model.abaptags.ResultGroupLevel;
 import com.devepos.adt.atm.model.abaptags.TagInfoType;
 import com.devepos.adt.atm.model.abaptags.TagQueryFocus;
 import com.devepos.adt.atm.model.abaptags.TagQueryType;
@@ -32,7 +33,8 @@ import com.devepos.adt.atm.model.abaptags.TagSearchScope;
  */
 public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   /**
-   * Creates the default factory implementation. <!-- begin-user-doc --> <!--
+   * Creates the default factory implementation.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @generated
@@ -104,6 +106,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
       return createTagInfoTypeFromString(eDataType, initialValue);
     case IAbapTagsPackage.TAG_QUERY_FOCUS:
       return createTagQueryFocusFromString(eDataType, initialValue);
+    case IAbapTagsPackage.RESULT_GROUP_LEVEL:
+      return createResultGroupLevelFromString(eDataType, initialValue);
     case IAbapTagsPackage.IMAGE:
       return createImageFromString(eDataType, initialValue);
     default:
@@ -128,6 +132,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
       return convertTagInfoTypeToString(eDataType, instanceValue);
     case IAbapTagsPackage.TAG_QUERY_FOCUS:
       return convertTagQueryFocusToString(eDataType, instanceValue);
+    case IAbapTagsPackage.RESULT_GROUP_LEVEL:
+      return convertResultGroupLevelToString(eDataType, instanceValue);
     case IAbapTagsPackage.IMAGE:
       return convertImageToString(eDataType, instanceValue);
     default:
@@ -307,6 +313,33 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
    * @generated
    */
   public String convertTagQueryFocusToString(final EDataType eDataType,
+      final Object instanceValue) {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public ResultGroupLevel createResultGroupLevelFromString(final EDataType eDataType,
+      final String initialValue) {
+    ResultGroupLevel result = ResultGroupLevel.get(initialValue);
+    if (result == null) {
+      throw new IllegalArgumentException("The value '" + initialValue
+          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    }
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public String convertResultGroupLevelToString(final EDataType eDataType,
       final Object instanceValue) {
     return instanceValue == null ? null : instanceValue.toString();
   }

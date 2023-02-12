@@ -2,9 +2,13 @@
  */
 package com.devepos.adt.atm.model.abaptags.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
@@ -17,26 +21,28 @@ import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getParentObjectName
- * <em>Parent Object Name</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getParentObjectType
- * <em>Parent Object Type</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getParentObjectUri
- * <em>Parent Object Uri</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getParentTagId
- * <em>Parent Tag Id</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getParentTagName
- * <em>Parent Tag Name</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getImage
- * <em>Image</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getParentObjectName <em>Parent
+ * Object Name</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getParentObjectType <em>Parent
+ * Object Type</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getParentObjectUri <em>Parent
+ * Object Uri</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getParentTagId <em>Parent Tag
+ * Id</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getParentTagName <em>Parent Tag
+ * Name</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getImage <em>Image</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getPossibleParentTags
+ * <em>Possible Parent Tags</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class AdtObjectTag extends TagBase implements IAdtObjectTag {
   /**
-   * The default value of the '{@link #getParentObjectName() <em>Parent Object
-   * Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getParentObjectName() <em>Parent Object Name</em>}'
+   * attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParentObjectName()
    * @generated
@@ -45,8 +51,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
   protected static final String PARENT_OBJECT_NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getParentObjectName() <em>Parent Object
-   * Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getParentObjectName() <em>Parent Object Name</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParentObjectName()
    * @generated
@@ -55,8 +61,9 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
   protected String parentObjectName = PARENT_OBJECT_NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getParentObjectType() <em>Parent Object
-   * Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getParentObjectType() <em>Parent Object Type</em>}'
+   * attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParentObjectType()
    * @generated
@@ -65,8 +72,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
   protected static final String PARENT_OBJECT_TYPE_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getParentObjectType() <em>Parent Object
-   * Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getParentObjectType() <em>Parent Object Type</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParentObjectType()
    * @generated
@@ -75,8 +82,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
   protected String parentObjectType = PARENT_OBJECT_TYPE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getParentObjectUri() <em>Parent Object
-   * Uri</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getParentObjectUri() <em>Parent Object Uri</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParentObjectUri()
    * @generated
@@ -85,8 +92,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
   protected static final String PARENT_OBJECT_URI_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getParentObjectUri() <em>Parent Object
-   * Uri</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getParentObjectUri() <em>Parent Object Uri</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParentObjectUri()
    * @generated
@@ -95,8 +102,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
   protected String parentObjectUri = PARENT_OBJECT_URI_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getParentTagId() <em>Parent Tag Id</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getParentTagId() <em>Parent Tag Id</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParentTagId()
    * @generated
@@ -105,8 +112,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
   protected static final String PARENT_TAG_ID_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getParentTagId() <em>Parent Tag Id</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getParentTagId() <em>Parent Tag Id</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParentTagId()
    * @generated
@@ -115,8 +122,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
   protected String parentTagId = PARENT_TAG_ID_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getParentTagName() <em>Parent Tag
-   * Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getParentTagName() <em>Parent Tag Name</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParentTagName()
    * @generated
@@ -125,8 +132,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
   protected static final String PARENT_TAG_NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getParentTagName() <em>Parent Tag
-   * Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getParentTagName() <em>Parent Tag Name</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParentTagName()
    * @generated
@@ -153,6 +160,18 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
    * @ordered
    */
   protected Image image = IMAGE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getPossibleParentTags() <em>Possible Parent Tags</em>}'
+   * attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getPossibleParentTags()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> possibleParentTags;
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -326,6 +345,21 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EList<String> getPossibleParentTags() {
+    if (possibleParentTags == null) {
+      possibleParentTags = new EDataTypeUniqueEList<>(String.class, this,
+          IAbapTagsPackage.ADT_OBJECT_TAG__POSSIBLE_PARENT_TAGS);
+    }
+    return possibleParentTags;
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -345,6 +379,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
       return getParentTagName();
     case IAbapTagsPackage.ADT_OBJECT_TAG__IMAGE:
       return getImage();
+    case IAbapTagsPackage.ADT_OBJECT_TAG__POSSIBLE_PARENT_TAGS:
+      return getPossibleParentTags();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -354,6 +390,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
    *
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(final int featureID, final Object newValue) {
     switch (featureID) {
@@ -374,6 +411,10 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
       return;
     case IAbapTagsPackage.ADT_OBJECT_TAG__IMAGE:
       setImage((Image) newValue);
+      return;
+    case IAbapTagsPackage.ADT_OBJECT_TAG__POSSIBLE_PARENT_TAGS:
+      getPossibleParentTags().clear();
+      getPossibleParentTags().addAll((Collection<? extends String>) newValue);
       return;
     }
     super.eSet(featureID, newValue);
@@ -405,6 +446,9 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
     case IAbapTagsPackage.ADT_OBJECT_TAG__IMAGE:
       setImage(IMAGE_EDEFAULT);
       return;
+    case IAbapTagsPackage.ADT_OBJECT_TAG__POSSIBLE_PARENT_TAGS:
+      getPossibleParentTags().clear();
+      return;
     }
     super.eUnset(featureID);
   }
@@ -434,6 +478,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
           : !PARENT_TAG_NAME_EDEFAULT.equals(parentTagName);
     case IAbapTagsPackage.ADT_OBJECT_TAG__IMAGE:
       return IMAGE_EDEFAULT == null ? image != null : !IMAGE_EDEFAULT.equals(image);
+    case IAbapTagsPackage.ADT_OBJECT_TAG__POSSIBLE_PARENT_TAGS:
+      return possibleParentTags != null && !possibleParentTags.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -462,6 +508,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
     result.append(parentTagName);
     result.append(", image: ");
     result.append(image);
+    result.append(", possibleParentTags: ");
+    result.append(possibleParentTags);
     result.append(')');
     return result.toString();
   }

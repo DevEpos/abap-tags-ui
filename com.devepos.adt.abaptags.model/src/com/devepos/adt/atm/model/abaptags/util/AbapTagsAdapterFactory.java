@@ -27,14 +27,16 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
  */
 public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
   /**
-   * The cached model package. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached model package.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
   protected static IAbapTagsPackage modelPackage;
 
   /**
-   * Creates an instance of the adapter factory. <!-- begin-user-doc --> <!--
+   * Creates an instance of the adapter factory.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @generated
@@ -71,7 +73,7 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
    *
    * @generated
    */
-  protected AbapTagsSwitch<Adapter> modelSwitch = new AbapTagsSwitch<Adapter>() {
+  protected AbapTagsSwitch<Adapter> modelSwitch = new AbapTagsSwitch<>() {
     @Override
     public Adapter caseTagBase(final ITagBase object) {
       return createTagBaseAdapter();
@@ -119,7 +121,8 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
   };
 
   /**
-   * Creates an adapter for the <code>target</code>. <!-- begin-user-doc --> <!--
+   * Creates an adapter for the <code>target</code>.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @param target the object to adapt.
@@ -163,8 +166,8 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
 
   /**
    * Creates a new adapter for an object of class
-   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag <em>Adt Object
-   * Tag</em>}'. <!-- begin-user-doc --> This default implementation returns null
+   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag <em>Adt Object Tag</em>}'.
+   * <!-- begin-user-doc --> This default implementation returns null
    * so that we can easily ignore cases; it's useful to ignore a case when
    * inheritance will catch all the cases anyway. <!-- end-user-doc -->
    *
@@ -193,8 +196,8 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
 
   /**
    * Creates a new adapter for an object of class
-   * '{@link com.devepos.adt.atm.model.abaptags.ITagPreviewInfo <em>Tag Preview
-   * Info</em>}'. <!-- begin-user-doc --> This default implementation returns null
+   * '{@link com.devepos.adt.atm.model.abaptags.ITagPreviewInfo <em>Tag Preview Info</em>}'.
+   * <!-- begin-user-doc --> This default implementation returns null
    * so that we can easily ignore cases; it's useful to ignore a case when
    * inheritance will catch all the cases anyway. <!-- end-user-doc -->
    *
@@ -208,8 +211,8 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
 
   /**
    * Creates a new adapter for an object of class
-   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObject <em>Tagged
-   * Object</em>}'. <!-- begin-user-doc --> This default implementation returns
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObject <em>Tagged Object</em>}'.
+   * <!-- begin-user-doc --> This default implementation returns
    * null so that we can easily ignore cases; it's useful to ignore a case when
    * inheritance will catch all the cases anyway. <!-- end-user-doc -->
    *
@@ -223,8 +226,8 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
 
   /**
    * Creates a new adapter for an object of class
-   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectList <em>Tagged
-   * Object List</em>}'. <!-- begin-user-doc --> This default implementation
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectList <em>Tagged Object List</em>}'.
+   * <!-- begin-user-doc --> This default implementation
    * returns null so that we can easily ignore cases; it's useful to ignore a case
    * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
    *
@@ -238,8 +241,9 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
 
   /**
    * Creates a new adapter for an object of class
-   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams
-   * <em>Tagged Object Search Params</em>}'. <!-- begin-user-doc --> This default
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams <em>Tagged Object Search
+   * Params</em>}'.
+   * <!-- begin-user-doc --> This default
    * implementation returns null so that we can easily ignore cases; it's useful
    * to ignore a case when inheritance will catch all the cases anyway. <!--
    * end-user-doc -->
@@ -253,7 +257,8 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for the default case. <!-- begin-user-doc --> This
+   * Creates a new adapter for the default case.
+   * <!-- begin-user-doc --> This
    * default implementation returns null. <!-- end-user-doc -->
    *
    * @return the new adapter.

@@ -26,18 +26,17 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRef;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObject#getObjectRef
- * <em>Object Ref</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObject#getTags
- * <em>Tags</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObject#getObjectRef <em>Object
+ * Ref</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObject#getTags <em>Tags</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class TaggedObject extends MinimalEObjectImpl.Container implements ITaggedObject {
   /**
-   * The cached value of the '{@link #getObjectRef() <em>Object Ref</em>}'
-   * containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getObjectRef() <em>Object Ref</em>}' containment reference.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getObjectRef()
    * @generated
@@ -46,8 +45,8 @@ public class TaggedObject extends MinimalEObjectImpl.Container implements ITagge
   protected IAdtObjRef objectRef;
 
   /**
-   * The cached value of the '{@link #getTags() <em>Tags</em>}' containment
-   * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getTags() <em>Tags</em>}' containment reference list.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getTags()
    * @generated

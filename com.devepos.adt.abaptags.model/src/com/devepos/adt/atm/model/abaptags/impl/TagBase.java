@@ -17,12 +17,9 @@ import com.devepos.adt.atm.model.abaptags.ITagBase;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TagBase#getId
- * <em>Id</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TagBase#getName
- * <em>Name</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TagBase#getOwner
- * <em>Owner</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TagBase#getId <em>Id</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TagBase#getName <em>Name</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TagBase#getOwner <em>Owner</em>}</li>
  * </ul>
  *
  * @generated

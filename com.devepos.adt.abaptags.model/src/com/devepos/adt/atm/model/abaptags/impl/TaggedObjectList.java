@@ -23,16 +23,17 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectList#getTaggedObjects
- * <em>Tagged Objects</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectList#getTaggedObjects <em>Tagged
+ * Objects</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class TaggedObjectList extends MinimalEObjectImpl.Container implements ITaggedObjectList {
   /**
-   * The cached value of the '{@link #getTaggedObjects() <em>Tagged Objects</em>}'
-   * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getTaggedObjects() <em>Tagged Objects</em>}' containment
+   * reference list.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getTaggedObjects()
    * @generated
