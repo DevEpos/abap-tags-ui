@@ -134,6 +134,7 @@
                <with
                      variable="selection">
                   <iterate
+                        ifEmpty="false"
                         operator="and">
                      <adapt
                            type="com.devepos.adt.base.ui.adtobject.IAdtObject">
