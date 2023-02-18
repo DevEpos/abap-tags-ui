@@ -118,7 +118,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   private ExpandAllAction expandAllAction;
   private IProject lastProject;
   private Composite mainComposite;
-  private IPreferenceStore prefStore;
+  private final IPreferenceStore prefStore;
   private Action refreshAction;
   private final ISelectionListener selectionListener = new ISelectionListener() {
     private boolean isUpdatingSelection = false;
@@ -676,9 +676,11 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
         }
       }
       Display.getDefault().asyncExec(() -> {
-        AbapTagManagerView.this.treeViewer.setInput(tagFolders.getFolders(tagsSharingPossible));
-        AbapTagManagerView.this.treeViewer.refresh();
-        AbapTagManagerView.this.treeViewer.expandAll();
+        // TODO: cache old selected tag/folder and find correct object via folder name/tag id
+        // so the user can continue working from the previously selected object
+        treeViewer.setInput(tagFolders.getFolders(tagsSharingPossible));
+        treeViewer.refresh();
+        treeViewer.expandAll();
       });
       monitor.done();
     });
@@ -703,7 +705,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   }
 
   private class TriggerTagSearchAction extends Action {
-    private boolean matchAllTags;
+    private final boolean matchAllTags;
 
     public TriggerTagSearchAction(final String name, final boolean matchAllTags) {
       super(name, AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.SEARCH));
