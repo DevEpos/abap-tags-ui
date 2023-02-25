@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 
 import org.eclipse.core.resources.IProject;
@@ -22,6 +23,7 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.JFacePreferences;
+import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -65,7 +67,9 @@ import com.devepos.adt.atm.ui.internal.wizard.TagObjectsWizard;
 import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.elementinfo.AdtObjectReferenceElementInfo;
+import com.devepos.adt.base.elementinfo.ElementInfoCollection;
 import com.devepos.adt.base.elementinfo.ErrorElementInfo;
+import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfoProvider;
 import com.devepos.adt.base.elementinfo.LazyLoadingRefreshMode;
@@ -131,6 +135,372 @@ public class AbapObjectTagsView extends ViewPart {
 
   public AbapObjectTagsView() {
     abapTagsService = AbapTagsServiceFactory.createTagsService();
+  }
+
+  private class ContentProvider extends LazyLoadingTreeContentProvider {
+    public ContentProvider() {
+      super(LazyLoadingRefreshMode.ROOT_AND_NON_LAZY_CHILDREN, AbstractTreeViewer.ALL_LEVELS);
+    }
+
+    @Override
+    public Object[] getElements(final Object inputElement) {
+
+      if (inputElement instanceof ITreeNode) {
+        if (inputElement instanceof ILazyLoadingNode) {
+          final Object[] childNodes = getChildren(inputElement);
+          return childNodes != null ? childNodes : new Object[0];
+        }
+        return new Object[] { inputElement };
+      }
+      return super.getElements(inputElement);
+    }
+  }
+
+  private class DeleteTagsAction extends Action {
+    private final Map<String, List<IAdtObjectTag>> tagMap = new HashMap<>();
+    private ITaggedObjectList tgobjList;
+
+    public DeleteTagsAction() {
+      super(Messages.AbapObjectTagsView_DeleteTagAction_xmit, PlatformUI.getWorkbench()
+          .getSharedImages()
+          .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
+    }
+
+    public void addTag(final IAdtObjectTag tag, final ITreeNode tagNode) {
+      if (tgobjList == null) {
+        tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
+      }
+      final ITreeNode parent = tagNode.getParent();
+      String objectUri = null;
+      if (parent instanceof IAdtObjectReferenceNode) {
+        objectUri = ((IAdtObjectReferenceNode) parent).getObjectReference().getUri();
+      }
+
+      List<IAdtObjectTag> tagList;
+      if (objectUri == null) {
+        return;
+      }
+      tagList = tagMap.get(objectUri);
+      if (tagList == null) {
+        tagList = new ArrayList<>();
+        tagMap.put(objectUri, tagList);
+      }
+      tagList.add(tag);
+    }
+
+    @Override
+    public void run() {
+      final ITaggedObjectList tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
+
+      for (final String objectUri : tagMap.keySet()) {
+        final ITaggedObject taggedObject = IAbapTagsFactory.eINSTANCE.createTaggedObject();
+        final IAdtObjRef objectRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
+        objectRef.setUri(objectUri);
+        taggedObject.setObjectRef(objectRef);
+        taggedObject.getTags().addAll(tagMap.get(objectUri));
+        tgobjList.getTaggedObjects().add(taggedObject);
+      }
+
+      final Job deleteTagsJob = createDeleteTagsJob(tgobjList);
+      deleteTagsJob.schedule();
+    }
+
+    private Job createDeleteTagsJob(final ITaggedObjectList tgobjList) {
+      return Job.create(Messages.AbapObjectTagsView_DeleteTagsJob_xmsg, monitor -> {
+
+        final IAdtObjTaggingService taggingService = AdtObjTaggingServiceFactory
+            .createTaggingService();
+        taggingService.deleteTags(DestinationUtil.getDestinationId(getProject()), tgobjList);
+
+        Display.getDefault().asyncExec(() -> {
+          refreshCurrentNode();
+        });
+      });
+    }
+
+  }
+
+  private class TaggedObjectInfoProvider implements IElementInfoProvider {
+
+    private String objectUri;
+
+    public TaggedObjectInfoProvider(String objectUri) {
+      this.objectUri = objectUri;
+    }
+
+    @Override
+    public List<IElementInfo> getElements() {
+      final IAdtObjTaggingService taggingService = AdtObjTaggingServiceFactory
+          .createTaggingService();
+
+      try {
+        final String destinationId = DestinationUtil.getDestinationId(getProject());
+        final IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(getProject());
+        if (!loggedOnStatus.isOK()) {
+          return Arrays.asList(new SimpleElementInfo(loggedOnStatus.getMessage()));
+        }
+
+        final ITaggedObject taggedObject = taggingService.getObject(destinationId, objectUri);
+        if (taggedObject != null) {
+          return convertToElementInfo(destinationId, taggedObject);
+        }
+      } catch (final CoreException e) {
+        return Arrays.asList(new ErrorElementInfo(e.getMessage(), e));
+      }
+      return null;
+    }
+
+    @Override
+    public String getProviderDescription() {
+      return Messages.AbapObjectTagsView_LoadingTaggedObjectInfoJob_xmsg;
+    }
+
+    private void addHierarchicalTags(String destinationId,
+        AdtObjectReferenceElementInfo adtObjRefElemInfo,
+        Map<TagKey, List<IAdtObjectTag>> hierarchicalTags) {
+
+      for (Entry<TagKey, List<IAdtObjectTag>> entry : hierarchicalTags.entrySet()) {
+        // check if the list contains
+        List<IAdtObjectTag> tags = entry.getValue();
+        IAdtObjectTag tag = entry.getKey().tag;
+        IElementInfo tagElementInfo = null;
+
+        if (tags.size() == 1) {
+          if (tags.get(0).getParentObjectName() == null) {
+            tagElementInfo = new SimpleElementInfo(tag.getName(), ImageUtil.getObjectTagImage(tag,
+                destinationOwner));
+            tagElementInfo.setAdditionalInfo(tag);
+          } else {
+            ElementInfoCollection tagElementInfoColl = new ElementInfoCollection(tag.getName(),
+                ImageUtil.getObjectTagImage(tag, destinationOwner));
+            tagElementInfoColl.setAdditionalInfo(tag);
+
+            collectParentObject(destinationId, tag, tagElementInfoColl);
+
+            tagElementInfo = tagElementInfoColl;
+          }
+        } else {
+          // if more than one tag with the same key exists we should have entries with
+          // parent objects
+          ElementInfoCollection tagElementInfoColl = new ElementInfoCollection(tag.getName(),
+              ImageUtil.getObjectTagImage(tag, destinationOwner));
+          tagElementInfoColl.setAdditionalInfo(tag);
+
+          for (IAdtObjectTag parentObjTag : tags) {
+            // it is still possible that a tag was assigned without supplying a parent object
+            if (parentObjTag.getParentObjectName() != null) {
+              collectParentObject(destinationId, parentObjTag, tagElementInfoColl);
+            }
+          }
+
+          tagElementInfo = tagElementInfoColl;
+        }
+        adtObjRefElemInfo.getChildren().add(tagElementInfo);
+      }
+
+    }
+
+    private void collectParentObject(String destinationId, IAdtObjectTag tag,
+        ElementInfoCollection tagElementInfoColl) {
+      IAdtObjectReferenceElementInfo parentObjectRef = new AdtObjectReferenceElementInfo(tag
+          .getParentObjectName());
+      parentObjectRef.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
+          destinationId, tag.getParentObjectName(), tag.getParentObjectType(), tag
+              .getParentObjectUri()));
+      tagElementInfoColl.getChildren().add(parentObjectRef);
+    }
+
+    private void collectTags(String destinationId, final ITaggedObject taggedObject,
+        final AdtObjectReferenceElementInfo adtObjRefElemInfo) {
+      final Map<TagKey, List<IAdtObjectTag>> hierarchicalTags = new HashMap<>();
+
+      for (final IAdtObjectTag tag : taggedObject.getTags()) {
+        if (tag.getParentTagId() != null) {
+          TagKey tagKey = new TagKey(tag);
+          List<IAdtObjectTag> tagsForKey = hierarchicalTags.get(tagKey);
+          if (tagsForKey == null) {
+            tagsForKey = new ArrayList<>();
+          }
+          tagsForKey.add(tag);
+          hierarchicalTags.put(tagKey, tagsForKey);
+        } else {
+          final IElementInfo tagElementInfo = new SimpleElementInfo(tag.getName(), ImageUtil
+              .getObjectTagImage(tag, destinationOwner));
+          tagElementInfo.setAdditionalInfo(tag);
+          adtObjRefElemInfo.getChildren().add(tagElementInfo);
+        }
+      }
+
+      if (!hierarchicalTags.isEmpty()) {
+        addHierarchicalTags(destinationId, adtObjRefElemInfo, hierarchicalTags);
+      }
+    }
+
+    private List<IElementInfo> convertToElementInfo(final String destinationId,
+        final ITaggedObject taggedObject) {
+      final AdtObjectReferenceElementInfo adtObjRefElemInfo = new AdtObjectReferenceElementInfo(
+          taggedObject.getObjectRef().getName());
+      adtObjRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
+          destinationId, taggedObject.getObjectRef()));
+
+      if (taggedObject.getTags().isEmpty()) {
+        adtObjRefElemInfo.getChildren()
+            .add(new SimpleElementInfo(Messages.AbapObjectTagsView_NoTagsAssigned_xmsg));
+      } else {
+        collectTags(destinationId, taggedObject, adtObjRefElemInfo);
+      }
+      return Arrays.asList(adtObjRefElemInfo);
+    }
+  }
+
+  private class TagKey {
+    public IAdtObjectTag tag;
+    private int hash;
+
+    public TagKey(IAdtObjectTag tag) {
+      this.tag = tag;
+    }
+
+    @Override
+    public int hashCode() {
+      if (hash == 0) {
+        hash = 17;
+        hash = 31 * hash + tag.getId().hashCode();
+        if (tag.getParentTagId() != null) {
+          hash = 31 * hash + tag.getParentTagId().hashCode();
+        }
+      }
+      return hash;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (o instanceof TagKey) {
+        TagKey key2 = (TagKey) o;
+        return hashCode() == key2.hashCode();
+      }
+      return super.equals(o);
+    }
+
+  }
+
+  private class TreeInput {
+    private ITreeNode currentInput;
+    private final TreeViewer viewer;
+
+    public TreeInput(final TreeViewer viewer) {
+      this.viewer = viewer;
+    }
+
+    public void clearInput() {
+      currentInput = null;
+      viewer.setInput(null);
+    }
+
+    public void refresh() {
+      if (currentInput instanceof ILazyLoadingNode) {
+        ((ILazyLoadingNode) currentInput).resetLoadedState();
+        viewer.refresh();
+      }
+    }
+
+    public void updateInput(final String objectUri) {
+      Assert.isNotNull(objectUri);
+
+      final ILazyLoadingNode lazyLoadingNode = new LazyLoadingFolderNode("", //$NON-NLS-1$
+          new TaggedObjectInfoProvider(objectUri), null, null);
+
+      lazyLoadingNode.setContentRefreshMode(LazyLoadingRefreshMode.ROOT_AND_NON_LAZY_CHILDREN);
+      currentInput = lazyLoadingNode;
+      viewer.setInput(currentInput);
+    }
+
+  }
+
+  /**
+   * Custom view label provider for the Result Tree
+   *
+   * @author stockbal
+   */
+  private class ViewLabelProvider extends LabelProvider implements ILabelProvider,
+      IStyledLabelProvider {
+
+    @Override
+    public Image getImage(final Object element) {
+      Image image;
+      final ITreeNode searchResult = (ITreeNode) element;
+      image = searchResult.getImage();
+      if (image == null && element instanceof IAdtObjectReferenceNode) {
+        final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) element;
+        final IAdtObjectReference objRef = adtObjRefNode.getObjectReference();
+        image = AdtTypeUtil.getInstance().getTypeImage(objRef.getType());
+      }
+      return image;
+    }
+
+    @Override
+    public StyledString getStyledText(final Object element) {
+      boolean isAdtObjectRefNode = false;
+      StyledString text = new StyledString();
+      final ITreeNode treeNode = (ITreeNode) element;
+
+      if (element instanceof IStyledTreeNode) {
+        text = ((IStyledTreeNode) element).getStyledText();
+        if (text == null) {
+          text = new StyledString();
+        }
+      } else {
+        if (element instanceof LoadingTreeItemsNode) {
+          text.append(treeNode.getDisplayName(), StylerFactory.ITALIC_STYLER);
+          return text;
+        }
+        text.append(treeNode.getDisplayName());
+
+        if (element instanceof IAdtObjectReferenceNode) {
+          isAdtObjectRefNode = true;
+          final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) element;
+
+          String typeLabel = AdtTypeUtil.getInstance()
+              .getTypeDescription(adtObjRefNode.getAdtObjectType());
+          if (typeLabel == null) {
+            typeLabel = AdtTypeUtil.getInstance()
+                .getTypeDescriptionByProject(adtObjRefNode.getAdtObjectType(), getProject());
+          }
+          if (typeLabel != null) {
+            text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
+          }
+        }
+
+        if (element instanceof ICollectionTreeNode && !isAdtObjectRefNode) {
+          final ICollectionTreeNode collectionNode = (ICollectionTreeNode) element;
+          if (collectionNode.hasChildren()) {
+            final String size = ((ICollectionTreeNode) element).getSizeAsString();
+            if (size != null) {
+              text.append(" (" + size + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
+            }
+          }
+        }
+
+        String description = treeNode.getDescription();
+        if (description == null && isAdtObjectRefNode) {
+          description = ((IAdtObjectReferenceNode) element).getObjectReference().getDescription();
+        }
+        if (!StringUtil.isEmpty(description)) {
+          text.append("  " + description + "  ", //$NON-NLS-1$ //$NON-NLS-2$
+              StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR,
+                  null));
+        }
+      }
+
+      return text;
+    }
+
+    @Override
+    public String getText(final Object element) {
+      final ITreeNode searchResult = (ITreeNode) element;
+
+      return searchResult.getName();
+    }
   }
 
   @Override
@@ -408,247 +778,5 @@ public class AbapObjectTagsView extends ViewPart {
   private void updateInputFromEditor() {
     final IAdtObject adtObject = EditorUtil.getAdtObjectFromActiveEditor();
     updateInput(adtObject, false);
-  }
-
-  private class ContentProvider extends LazyLoadingTreeContentProvider {
-    @Override
-    public Object[] getElements(final Object inputElement) {
-
-      if (inputElement instanceof ITreeNode) {
-        if (inputElement instanceof ILazyLoadingNode) {
-          final Object[] childNodes = getChildren(inputElement);
-          return childNodes != null ? childNodes : new Object[0];
-        }
-        return new Object[] { inputElement };
-      }
-      return super.getElements(inputElement);
-    }
-  }
-
-  private class DeleteTagsAction extends Action {
-    private final Map<String, List<IAdtObjectTag>> tagMap = new HashMap<>();
-    private ITaggedObjectList tgobjList;
-
-    public DeleteTagsAction() {
-      super(Messages.AbapObjectTagsView_DeleteTagAction_xmit, PlatformUI.getWorkbench()
-          .getSharedImages()
-          .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
-    }
-
-    public void addTag(final IAdtObjectTag tag, final ITreeNode tagNode) {
-      if (tgobjList == null) {
-        tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
-      }
-      final ITreeNode parent = tagNode.getParent();
-      String objectUri = null;
-      if (parent instanceof IAdtObjectReferenceNode) {
-        objectUri = ((IAdtObjectReferenceNode) parent).getObjectReference().getUri();
-      }
-
-      List<IAdtObjectTag> tagList;
-      if (objectUri == null) {
-        return;
-      }
-      tagList = tagMap.get(objectUri);
-      if (tagList == null) {
-        tagList = new ArrayList<>();
-        tagMap.put(objectUri, tagList);
-      }
-      tagList.add(tag);
-    }
-
-    @Override
-    public void run() {
-      final ITaggedObjectList tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
-
-      for (final String objectUri : tagMap.keySet()) {
-        final ITaggedObject taggedObject = IAbapTagsFactory.eINSTANCE.createTaggedObject();
-        final IAdtObjRef objectRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
-        objectRef.setUri(objectUri);
-        taggedObject.setObjectRef(objectRef);
-        taggedObject.getTags().addAll(tagMap.get(objectUri));
-        tgobjList.getTaggedObjects().add(taggedObject);
-      }
-
-      final Job deleteTagsJob = createDeleteTagsJob(tgobjList);
-      deleteTagsJob.schedule();
-    }
-
-    private Job createDeleteTagsJob(final ITaggedObjectList tgobjList) {
-      return Job.create(Messages.AbapObjectTagsView_DeleteTagsJob_xmsg, monitor -> {
-
-        final IAdtObjTaggingService taggingService = AdtObjTaggingServiceFactory
-            .createTaggingService();
-        taggingService.deleteTags(DestinationUtil.getDestinationId(getProject()), tgobjList);
-
-        Display.getDefault().asyncExec(() -> {
-          refreshCurrentNode();
-        });
-      });
-    }
-
-  }
-
-  private class TreeInput {
-    private ITreeNode currentInput;
-    private final TreeViewer viewer;
-
-    public TreeInput(final TreeViewer viewer) {
-      this.viewer = viewer;
-    }
-
-    public void clearInput() {
-      currentInput = null;
-      viewer.setInput(null);
-    }
-
-    public void refresh() {
-      if (currentInput instanceof ILazyLoadingNode) {
-        ((ILazyLoadingNode) currentInput).resetLoadedState();
-        viewer.refresh();
-      }
-    }
-
-    public void updateInput(final String objectUri) {
-      Assert.isNotNull(objectUri);
-
-      final ILazyLoadingNode lazyLoadingNode = new LazyLoadingFolderNode("", //$NON-NLS-1$
-          new IElementInfoProvider() {
-
-            @Override
-            public List<IElementInfo> getElements() {
-              final IAdtObjTaggingService taggingService = AdtObjTaggingServiceFactory
-                  .createTaggingService();
-
-              try {
-                final String destinationId = DestinationUtil.getDestinationId(getProject());
-                final IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(getProject());
-                if (!loggedOnStatus.isOK()) {
-                  return Arrays.asList(new SimpleElementInfo(loggedOnStatus.getMessage()));
-                }
-
-                final ITaggedObject taggedObject = taggingService.getObject(destinationId,
-                    objectUri);
-                if (taggedObject != null) {
-                  final AdtObjectReferenceElementInfo adtObjRefElemInfo = new AdtObjectReferenceElementInfo(
-                      taggedObject.getObjectRef().getName());
-                  adtObjRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory
-                      .createReference(destinationId, taggedObject.getObjectRef()));
-
-                  for (final IAdtObjectTag tag : taggedObject.getTags()) {
-                    final IElementInfo tagElementInfo = new SimpleElementInfo(tag.getName(),
-                        ImageUtil.getObjectTagImage(tag, destinationOwner));
-                    tagElementInfo.setAdditionalInfo(tag);
-                    adtObjRefElemInfo.getChildren().add(tagElementInfo);
-                  }
-                  if (taggedObject.getTags().isEmpty()) {
-                    adtObjRefElemInfo.getChildren()
-                        .add(new SimpleElementInfo(
-                            Messages.AbapObjectTagsView_NoTagsAssigned_xmsg));
-                  }
-                  return Arrays.asList(adtObjRefElemInfo);
-                }
-              } catch (final CoreException e) {
-                return Arrays.asList(new ErrorElementInfo(e.getMessage(), e));
-              }
-              return null;
-            }
-
-            @Override
-            public String getProviderDescription() {
-              return Messages.AbapObjectTagsView_LoadingTaggedObjectInfoJob_xmsg;
-            }
-          }, null, null);
-      lazyLoadingNode.setContentRefreshMode(LazyLoadingRefreshMode.ROOT_AND_NON_LAZY_CHILDREN);
-      currentInput = lazyLoadingNode;
-      viewer.setInput(currentInput);
-    }
-
-  }
-
-  /**
-   * Custom view label provider for the Result Tree
-   *
-   * @author stockbal
-   */
-  private class ViewLabelProvider extends LabelProvider implements ILabelProvider,
-      IStyledLabelProvider {
-
-    @Override
-    public Image getImage(final Object element) {
-      Image image;
-      final ITreeNode searchResult = (ITreeNode) element;
-      image = searchResult.getImage();
-      if (image == null && element instanceof IAdtObjectReferenceNode) {
-        final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) element;
-        final IAdtObjectReference objRef = adtObjRefNode.getObjectReference();
-        image = AdtTypeUtil.getInstance().getTypeImage(objRef.getType());
-      }
-      return image;
-    }
-
-    @Override
-    public StyledString getStyledText(final Object element) {
-      boolean isAdtObjectRefNode = false;
-      StyledString text = new StyledString();
-      final ITreeNode treeNode = (ITreeNode) element;
-
-      if (element instanceof IStyledTreeNode) {
-        text = ((IStyledTreeNode) element).getStyledText();
-        if (text == null) {
-          text = new StyledString();
-        }
-      } else {
-        if (element instanceof LoadingTreeItemsNode) {
-          text.append(treeNode.getDisplayName(), StylerFactory.ITALIC_STYLER);
-          return text;
-        }
-        text.append(treeNode.getDisplayName());
-
-        if (element instanceof IAdtObjectReferenceNode) {
-          isAdtObjectRefNode = true;
-          final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) element;
-
-          String typeLabel = AdtTypeUtil.getInstance()
-              .getTypeDescription(adtObjRefNode.getAdtObjectType());
-          if (typeLabel == null) {
-            typeLabel = AdtTypeUtil.getInstance()
-                .getTypeDescriptionByProject(adtObjRefNode.getAdtObjectType(), getProject());
-          }
-          if (typeLabel != null) {
-            text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
-          }
-        }
-
-        if (element instanceof ICollectionTreeNode && !isAdtObjectRefNode) {
-          final ICollectionTreeNode collectionNode = (ICollectionTreeNode) element;
-          if (collectionNode.hasChildren()) {
-            final String size = ((ICollectionTreeNode) element).getSizeAsString();
-            if (size != null) {
-              text.append(" (" + size + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
-            }
-          }
-        }
-
-        String description = treeNode.getDescription();
-        if (description == null && isAdtObjectRefNode) {
-          description = ((IAdtObjectReferenceNode) element).getObjectReference().getDescription();
-        }
-        if (!StringUtil.isEmpty(description)) {
-          text.append("  " + description + "  ", //$NON-NLS-1$ //$NON-NLS-2$
-              StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR,
-                  null));
-        }
-      }
-
-      return text;
-    }
-
-    @Override
-    public String getText(final Object element) {
-      final ITreeNode searchResult = (ITreeNode) element;
-
-      return searchResult.getName();
-    }
   }
 }
