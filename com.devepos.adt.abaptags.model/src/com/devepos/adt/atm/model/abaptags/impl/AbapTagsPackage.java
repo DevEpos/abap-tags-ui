@@ -941,7 +941,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         null, 0, 1, IAdtObjectTag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
         !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAdtObjectTag_ParentTagId(), ecorePackage.getEString(), "parentTagId", null, 0,
-        1, IAdtObjectTag.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        1, IAdtObjectTag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAdtObjectTag_ParentTagName(), ecorePackage.getEString(), "parentTagName",
         null, 0, 1, IAdtObjectTag.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
@@ -1100,6 +1100,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         "name", "parentObjectType", "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjectTag_ParentObjectUri(), source, new String[] { "kind", "attribute",
         "name", "parentObjectUri", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtObjectTag_ParentTagId(), source, new String[] { "kind", "attribute", "name",
+        "parentTagId", "namespace", "##targetNamespace" });
     addAnnotation(tagPreviewInfoEClass, source, new String[] { "kind", "elementOnly", "name",
         "tagPreviewInfo" });
     addAnnotation(getTagPreviewInfo_Tags(), source, new String[] { "kind", "element", "name", "tag",
