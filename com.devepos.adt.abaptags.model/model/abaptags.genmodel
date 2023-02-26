@@ -64,6 +64,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/parentTagName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/image"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/possibleParentTags"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference abaptags.ecore#//AdtObjectTag/correctParentTag"/>
     </genClasses>
     <genClasses ecoreClass="abaptags.ecore#//TagPreviewInfo">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TagPreviewInfo/tags"/>

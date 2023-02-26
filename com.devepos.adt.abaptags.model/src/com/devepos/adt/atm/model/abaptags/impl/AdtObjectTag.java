@@ -7,12 +7,14 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
+import com.devepos.adt.atm.model.abaptags.ITag;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Adt
@@ -34,6 +36,8 @@ import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getImage <em>Image</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getPossibleParentTags
  * <em>Possible Parent Tags</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getCorrectParentTag <em>Correct
+ * Parent Tag</em>}</li>
  * </ul>
  *
  * @generated
@@ -172,6 +176,17 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
    * @ordered
    */
   protected EList<String> possibleParentTags;
+
+  /**
+   * The cached value of the '{@link #getCorrectParentTag() <em>Correct Parent Tag</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getCorrectParentTag()
+   * @generated
+   * @ordered
+   */
+  protected ITag correctParentTag;
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -360,6 +375,53 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ITag getCorrectParentTag() {
+    if (correctParentTag != null && correctParentTag.eIsProxy()) {
+      InternalEObject oldCorrectParentTag = (InternalEObject) correctParentTag;
+      correctParentTag = (ITag) eResolveProxy(oldCorrectParentTag);
+      if ((correctParentTag != oldCorrectParentTag) && eNotificationRequired()) {
+        eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+            IAbapTagsPackage.ADT_OBJECT_TAG__CORRECT_PARENT_TAG, oldCorrectParentTag,
+            correctParentTag));
+      }
+    }
+    return correctParentTag;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public ITag basicGetCorrectParentTag() {
+    return correctParentTag;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setCorrectParentTag(final ITag newCorrectParentTag) {
+    ITag oldCorrectParentTag = correctParentTag;
+    correctParentTag = newCorrectParentTag;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAbapTagsPackage.ADT_OBJECT_TAG__CORRECT_PARENT_TAG, oldCorrectParentTag,
+          correctParentTag));
+    }
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -381,6 +443,11 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
       return getImage();
     case IAbapTagsPackage.ADT_OBJECT_TAG__POSSIBLE_PARENT_TAGS:
       return getPossibleParentTags();
+    case IAbapTagsPackage.ADT_OBJECT_TAG__CORRECT_PARENT_TAG:
+      if (resolve) {
+        return getCorrectParentTag();
+      }
+      return basicGetCorrectParentTag();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -416,6 +483,9 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
       getPossibleParentTags().clear();
       getPossibleParentTags().addAll((Collection<? extends String>) newValue);
       return;
+    case IAbapTagsPackage.ADT_OBJECT_TAG__CORRECT_PARENT_TAG:
+      setCorrectParentTag((ITag) newValue);
+      return;
     }
     super.eSet(featureID, newValue);
   }
@@ -449,6 +519,9 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
     case IAbapTagsPackage.ADT_OBJECT_TAG__POSSIBLE_PARENT_TAGS:
       getPossibleParentTags().clear();
       return;
+    case IAbapTagsPackage.ADT_OBJECT_TAG__CORRECT_PARENT_TAG:
+      setCorrectParentTag((ITag) null);
+      return;
     }
     super.eUnset(featureID);
   }
@@ -480,6 +553,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
       return IMAGE_EDEFAULT == null ? image != null : !IMAGE_EDEFAULT.equals(image);
     case IAbapTagsPackage.ADT_OBJECT_TAG__POSSIBLE_PARENT_TAGS:
       return possibleParentTags != null && !possibleParentTags.isEmpty();
+    case IAbapTagsPackage.ADT_OBJECT_TAG__CORRECT_PARENT_TAG:
+      return correctParentTag != null;
     }
     return super.eIsSet(featureID);
   }

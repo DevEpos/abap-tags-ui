@@ -107,6 +107,7 @@ public class Messages extends NLS {
   public static String TagParentObjectSelectionWizardPage_ParentObject_xlbl;
   public static String TagParentObjectSelectionWizardPage_ParentObjectAssignPrompt_xmsg;
   public static String TagParentObjectSelectionWizardPage_ParentTagColumn_xlbl;
+  public static String TagParentObjectSelectionWizardPage_removeParentObjAction_xmit;
   public static String TagParentObjectSelectionWizardPage_SingleSelectionMode_xrbl;
   public static String TagParentObjectSelectionWizardPage_Title_xtit;
   public static String TagPreviewLoadingJob_JobTitle_xmsg;

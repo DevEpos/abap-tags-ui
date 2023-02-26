@@ -182,6 +182,8 @@
         transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="possibleParentTags" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String" transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="correctParentTag" eType="#//Tag"
+        transient="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TagPreviewInfo">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">

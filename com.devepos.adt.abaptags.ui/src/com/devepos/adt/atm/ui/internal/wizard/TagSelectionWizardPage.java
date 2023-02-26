@@ -160,10 +160,12 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         objectTag.setImage(ImageUtil.getImageForTag(selectedTag, false));
         final EObject parent = selectedTag.eContainer();
         if (parent instanceof ITag) {
-          objectTag.setParentTagId(((ITag) parent).getId());
-          objectTag.setParentTagName(((ITag) parent).getName());
+          ITag parentTag = (ITag) parent;
+          objectTag.setParentTagId(parentTag.getId());
+          objectTag.setParentTagName(parentTag.getName());
           objectTag.getPossibleParentTags()
-              .addAll(TagParentCollector.collectParentTagIds((ITag) parent));
+              .addAll(TagParentCollector.collectParentTagIds(parentTag));
+          objectTag.setCorrectParentTag(parentTag);
         }
         taggedObject.getTags().add(objectTag);
       }

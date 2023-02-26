@@ -26,6 +26,8 @@ import org.eclipse.swt.graphics.Image;
  * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getImage <em>Image</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getPossibleParentTags <em>Possible
  * Parent Tags</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getCorrectParentTag <em>Correct
+ * Parent Tag</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag()
@@ -194,5 +196,31 @@ public interface IAdtObjectTag extends ITagBase {
    * @generated
    */
   EList<String> getPossibleParentTags();
+
+  /**
+   * Returns the value of the '<em><b>Correct Parent Tag</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Correct Parent Tag</em>' reference.
+   * @see #setCorrectParentTag(ITag)
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_CorrectParentTag()
+   * @model transient="true"
+   * @generated
+   */
+  ITag getCorrectParentTag();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getCorrectParentTag <em>Correct Parent
+   * Tag</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Correct Parent Tag</em>' reference.
+   * @see #getCorrectParentTag()
+   * @generated
+   */
+  void setCorrectParentTag(ITag value);
 
 } // IAdtObjectTag

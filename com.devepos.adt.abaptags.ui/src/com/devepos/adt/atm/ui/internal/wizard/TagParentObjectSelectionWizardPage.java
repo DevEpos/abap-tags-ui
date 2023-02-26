@@ -277,6 +277,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
           }
           tag.setParentObjectName(tagWithParentObject.getParentObjectName());
           tag.setParentObjectType(tagWithParentObject.getParentObjectType());
+          tag.setParentTagId(tagWithParentObject.getParentTagId());
           tag.setParentObjectUri(tagWithParentObject.getParentObjectUri());
         }
       }
@@ -322,6 +323,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
             objectTag.setName(selectedTag.getName());
             objectTag.setOwner(selectedTag.getOwner());
             objectTag.setImage(ImageUtil.getImageForTag(parentTag, false));
+            objectTag.setCorrectParentTag(parentTag);
             objectTag.setParentTagId(parentTag.getId());
             objectTag.setParentTagName(parentTag.getName());
             objectTag.getPossibleParentTags()
@@ -365,44 +367,6 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
     }
   }
 
-  private void hookContextMenu() {
-    final MenuManager menuMgr = new MenuManager();
-    menuMgr.setRemoveAllWhenShown(true);
-
-    menuMgr.addMenuListener(menu -> {
-      fillContextMenu(menu);
-    });
-    final Control viewerControl = parentObjectSelectionTree;
-    final Menu menu = menuMgr.createContextMenu(viewerControl);
-    viewerControl.setMenu(menu);
-  }
-
-  private void fillContextMenu(IMenuManager menu) {
-    menu.add(ActionFactory.createAction("Remove Parent Object", null, () -> {
-      IStructuredSelection sel = treeViewer.getStructuredSelection();
-      if (sel == null || sel.isEmpty()) {
-        return;
-      }
-      for (Object selItem : sel) {
-        if (selItem instanceof IAdtObjectTag) {
-          IAdtObjectTag objectTag = (IAdtObjectTag) selItem;
-          objectTag.setParentObjectUri(null);
-          objectTag.setParentObjectType(null);
-          objectTag.setParentObjectName(null);
-        } else if (selItem instanceof ITaggedObject) {
-          ITaggedObject taggedObject = (ITaggedObject) selItem;
-          // clear all objects of the contained tags
-          for (IAdtObjectTag objectTag : taggedObject.getTags()) {
-            objectTag.setParentObjectUri(null);
-            objectTag.setParentObjectType(null);
-            objectTag.setParentObjectName(null);
-          }
-        }
-      }
-      treeViewer.refresh();
-    }));
-  }
-
   private void createSelectionModeComposite(final Composite root) {
     final Composite modeComposite = new Composite(root, SWT.NONE);
     GridLayoutFactory.swtDefaults().applyTo(modeComposite);
@@ -423,6 +387,50 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
     final Button singleSelectionButton = new Button(modeComposite, SWT.RADIO);
     singleSelectionButton.setText(
         Messages.TagParentObjectSelectionWizardPage_SingleSelectionMode_xrbl);
+  }
+
+  private void fillContextMenu(final IMenuManager menu) {
+    // add action to remove current parent object assignment
+    menu.add(ActionFactory.createAction(
+        Messages.TagParentObjectSelectionWizardPage_removeParentObjAction_xmit, null, () -> {
+          IStructuredSelection sel = treeViewer.getStructuredSelection();
+          if (sel == null || sel.isEmpty()) {
+            return;
+          }
+          for (Object selItem : sel) {
+            if (selItem instanceof IAdtObjectTag) {
+              IAdtObjectTag objectTag = (IAdtObjectTag) selItem;
+              resetParentTag(objectTag);
+            } else if (selItem instanceof ITaggedObject) {
+              ITaggedObject taggedObject = (ITaggedObject) selItem;
+              // clear all objects of the contained tags
+              for (IAdtObjectTag objectTag : taggedObject.getTags()) {
+                resetParentTag(objectTag);
+              }
+            }
+          }
+          treeViewer.refresh();
+        }));
+  }
+
+  private void hookContextMenu() {
+    final MenuManager menuMgr = new MenuManager();
+    menuMgr.setRemoveAllWhenShown(true);
+
+    menuMgr.addMenuListener(menu -> {
+      fillContextMenu(menu);
+    });
+    final Control viewerControl = parentObjectSelectionTree;
+    final Menu menu = menuMgr.createContextMenu(viewerControl);
+    viewerControl.setMenu(menu);
+  }
+
+  private void resetParentTag(final IAdtObjectTag objectTag) {
+    objectTag.setParentObjectUri(null);
+    objectTag.setParentObjectType(null);
+    objectTag.setParentObjectName(null);
+    objectTag.setParentTagId(objectTag.getCorrectParentTag().getId());
+    objectTag.setParentTagName(objectTag.getCorrectParentTag().getName());
   }
 
   private void updateTreeInput() {

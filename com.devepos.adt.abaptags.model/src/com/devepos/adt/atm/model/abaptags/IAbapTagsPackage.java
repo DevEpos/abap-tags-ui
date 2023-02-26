@@ -431,13 +431,23 @@ public interface IAbapTagsPackage extends EPackage {
   int ADT_OBJECT_TAG__POSSIBLE_PARENT_TAGS = TAG_BASE_FEATURE_COUNT + 6;
 
   /**
+   * The feature id for the '<em><b>Correct Parent Tag</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_OBJECT_TAG__CORRECT_PARENT_TAG = TAG_BASE_FEATURE_COUNT + 7;
+
+  /**
    * The number of structural features of the '<em>Adt Object Tag</em>' class.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int ADT_OBJECT_TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 7;
+  int ADT_OBJECT_TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 8;
 
   /**
    * The number of operations of the '<em>Adt Object Tag</em>' class. <!--
@@ -1078,6 +1088,20 @@ public interface IAbapTagsPackage extends EPackage {
   EAttribute getAdtObjectTag_PossibleParentTags();
 
   /**
+   * Returns the meta object for the reference
+   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getCorrectParentTag <em>Correct Parent
+   * Tag</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the reference '<em>Correct Parent Tag</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getCorrectParentTag()
+   * @see #getAdtObjectTag()
+   * @generated
+   */
+  EReference getAdtObjectTag_CorrectParentTag();
+
+  /**
    * Returns the meta object for class
    * '{@link com.devepos.adt.atm.model.abaptags.ITagList <em>Tag List</em>}'. <!--
    * begin-user-doc --> <!-- end-user-doc -->
@@ -1641,6 +1665,15 @@ public interface IAbapTagsPackage extends EPackage {
      */
     EAttribute ADT_OBJECT_TAG__POSSIBLE_PARENT_TAGS = eINSTANCE
         .getAdtObjectTag_PossibleParentTags();
+
+    /**
+     * The meta object literal for the '<em><b>Correct Parent Tag</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference ADT_OBJECT_TAG__CORRECT_PARENT_TAG = eINSTANCE.getAdtObjectTag_CorrectParentTag();
 
     /**
      * The meta object literal for the '{@link com.devepos.adt.atm.model.abaptags.impl.TagList

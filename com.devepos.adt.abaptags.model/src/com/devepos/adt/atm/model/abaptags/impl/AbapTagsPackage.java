@@ -463,6 +463,17 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getAdtObjectTag_CorrectParentTag() {
+    return (EReference) adtObjectTagEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -796,6 +807,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__PARENT_TAG_NAME);
     createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__IMAGE);
     createEAttribute(adtObjectTagEClass, ADT_OBJECT_TAG__POSSIBLE_PARENT_TAGS);
+    createEReference(adtObjectTagEClass, ADT_OBJECT_TAG__CORRECT_PARENT_TAG);
 
     tagPreviewInfoEClass = createEClass(TAG_PREVIEW_INFO);
     createEReference(tagPreviewInfoEClass, TAG_PREVIEW_INFO__TAGS);
@@ -952,6 +964,9 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     initEAttribute(getAdtObjectTag_PossibleParentTags(), theXMLTypePackage.getString(),
         "possibleParentTags", null, 0, -1, IAdtObjectTag.class, IS_TRANSIENT, !IS_VOLATILE,
         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAdtObjectTag_CorrectParentTag(), getTag(), null, "correctParentTag", null, 0,
+        1, IAdtObjectTag.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+        IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(tagPreviewInfoEClass, ITagPreviewInfo.class, "TagPreviewInfo", !IS_ABSTRACT,
         !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
