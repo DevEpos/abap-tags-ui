@@ -59,6 +59,7 @@ public class Messages extends NLS {
   public static String AbapTagManagerView_NewGlobalTagAction_xtol;
   public static String AbapTagManagerView_NewUserTagAction_xtol;
   public static String AbapTagManagerView_NoProjectAvailable_xmsg;
+  public static String AbapTagManagerView_removeAssignedObjectsAction_xmit;
   public static String AbapTagManagerView_SharedTagsFolder_xlbl;
   public static String AbapTagManagerView_SharedUserSelectionDialog_xtit;
   public static String AbapTagManagerView_ShareTagAction_xmit;
@@ -66,6 +67,9 @@ public class Messages extends NLS {
   public static String AbapTagManagerView_TagListInProject_xmsg;
   public static String AbapTagManagerView_TagsLoadingJobTitle_xmsg;
   public static String AbapTagManagerView_TagsNotLoadedInProject_xmsg;
+  public static String AbapTagManagerView_unassignTagsJob_xtit;
+  public static String AbapTagManagerView_unassignTagsMessage_xmsg;
+  public static String AbapTagManagerView_unassignTagsMessage_xtit;
   public static String AbapTagManagerView_UnshareTagsJob_xmsg;
   public static String AbapTagManagerView_UpdateTagJobTitle_xmsg;
   public static String AbapTagManagerView_UserTagsFolder_xlbl;
