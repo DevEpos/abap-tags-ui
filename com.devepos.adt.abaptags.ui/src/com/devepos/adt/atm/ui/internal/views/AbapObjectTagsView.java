@@ -96,6 +96,7 @@ import com.devepos.adt.base.ui.adtobject.AdtObjectFactory;
 import com.devepos.adt.base.ui.adtobject.IAdtObject;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.search.IAdtRisSearchResultProxy;
+import com.devepos.adt.base.ui.tree.FolderTreeNode;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.ICollectionTreeNode;
 import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
@@ -120,17 +121,20 @@ public class AbapObjectTagsView extends ViewPart {
   public static final String VIEW_ID = "com.devepos.adt.atm.ui.views.AbapObjectTags"; //$NON-NLS-1$
   private static final String LINK_TO_EDITOR_PREF = "com.devepos.adt.atm.ui.views.AbapObjectTags.linkToEditor"; //$NON-NLS-1$
   private final IAbapTagsService abapTagsService;
-  private Action addTagsAction;
-  private CopyToClipboardAction copyToClipBoardAction;
   private IAdtObject currentAdtObject;
+
+  private CopyToClipboardAction copyToClipBoardAction;
   private PreferenceToggleAction linkToEditorAction;
-  private Composite mainComposite;
+  private Action addTagsAction;
   private Action otherObjectAction;
   private Action refreshAction;
+  private Action focusOnObject;
+
+  private Composite mainComposite;
   private Tree tree;
+  private ViewDescriptionLabel viewLabel;
   private TreeInput treeResult;
   private TreeViewer treeViewer;
-  private ViewDescriptionLabel viewLabel;
   private String destinationOwner;
 
   public AbapObjectTagsView() {
@@ -157,52 +161,86 @@ public class AbapObjectTagsView extends ViewPart {
   }
 
   private class DeleteTagsAction extends Action {
-    private final Map<String, List<IAdtObjectTag>> tagMap = new HashMap<>();
-    private ITaggedObjectList tgobjList;
+    private final List<IAdtObjectTag> tags = new ArrayList<>();
+    private final Map<IAdtObjectTag, List<IAdtObjectReference>> parentObjectTagMap = new HashMap<>();
+    private final String objectUri;
 
-    public DeleteTagsAction() {
+    public DeleteTagsAction(final IAdtObject adtObject) {
       super(Messages.AbapObjectTagsView_DeleteTagAction_xmit, PlatformUI.getWorkbench()
           .getSharedImages()
           .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
+      objectUri = adtObject.getReference().getUri();
     }
 
-    public void addTag(final IAdtObjectTag tag, final ITreeNode tagNode) {
-      if (tgobjList == null) {
-        tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
-      }
-      final ITreeNode parent = tagNode.getParent();
-      String objectUri = null;
-      if (parent instanceof IAdtObjectReferenceNode) {
-        objectUri = ((IAdtObjectReferenceNode) parent).getObjectReference().getUri();
-      }
+    public void addTag(final IAdtObjectTag tag) {
+      tags.add(tag);
+    }
 
-      List<IAdtObjectTag> tagList;
-      if (objectUri == null) {
+    public void addTagWithParent(final IAdtObjectReferenceNode objectNode) {
+      // 1) check if parent is tag node
+      ICollectionTreeNode parentNode = objectNode.getParent();
+      if (!(parentNode instanceof FolderTreeNode)) {
         return;
       }
-      tagList = tagMap.get(objectUri);
-      if (tagList == null) {
-        tagList = new ArrayList<>();
-        tagMap.put(objectUri, tagList);
+
+      // 2) retrieve tag from folder node
+      IAdtObjectTag tag = parentNode.getAdapter(IAdtObjectTag.class);
+      if (tag == null) {
+        return;
       }
-      tagList.add(tag);
+      // 3) map tag to object node
+      List<IAdtObjectReference> objects = parentObjectTagMap.get(tag);
+      if (objects == null) {
+        objects = new ArrayList<>();
+        parentObjectTagMap.put(tag, objects);
+      }
+      objects.add(objectNode.getObjectReference());
+    }
+
+    public boolean isEmpty() {
+      return tags.isEmpty() && parentObjectTagMap.isEmpty();
     }
 
     @Override
     public void run() {
-      final ITaggedObjectList tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
-
-      for (final String objectUri : tagMap.keySet()) {
-        final ITaggedObject taggedObject = IAbapTagsFactory.eINSTANCE.createTaggedObject();
-        final IAdtObjRef objectRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
-        objectRef.setUri(objectUri);
-        taggedObject.setObjectRef(objectRef);
-        taggedObject.getTags().addAll(tagMap.get(objectUri));
-        tgobjList.getTaggedObjects().add(taggedObject);
-      }
+      final ITaggedObjectList tgobjList = collectJobPayload();
 
       final Job deleteTagsJob = createDeleteTagsJob(tgobjList);
       deleteTagsJob.schedule();
+    }
+
+    private ITaggedObjectList collectJobPayload() {
+      final ITaggedObjectList tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
+
+      final ITaggedObject taggedObject = IAbapTagsFactory.eINSTANCE.createTaggedObject();
+      final IAdtObjRef objectRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
+      objectRef.setUri(objectUri);
+      taggedObject.setObjectRef(objectRef);
+
+      // add direct tags
+      for (IAdtObjectTag tag : tags) {
+        taggedObject.getTags().add(tag);
+        parentObjectTagMap.remove(tag);
+      }
+
+      // add tags with with selected parent objects
+      for (Entry<IAdtObjectTag, List<IAdtObjectReference>> tagToParentObjects : parentObjectTagMap
+          .entrySet()) {
+        IAdtObjectTag tag = tagToParentObjects.getKey();
+
+        for (IAdtObjectReference parentObject : tagToParentObjects.getValue()) {
+          IAdtObjectTag tagWithParent = IAbapTagsFactory.eINSTANCE.createAdtObjectTag();
+          tagWithParent.setId(tag.getId());
+          tagWithParent.setParentTagId(tag.getParentTagId());
+          tagWithParent.setParentObjectName(parentObject.getName());
+          tagWithParent.setParentObjectType(parentObject.getType());
+          tagWithParent.setParentObjectUri(parentObject.getUri());
+          taggedObject.getTags().add(tagWithParent);
+        }
+      }
+
+      tgobjList.getTaggedObjects().add(taggedObject);
+      return tgobjList;
     }
 
     private Job createDeleteTagsJob(final ITaggedObjectList tgobjList) {
@@ -222,9 +260,9 @@ public class AbapObjectTagsView extends ViewPart {
 
   private class TaggedObjectInfoProvider implements IElementInfoProvider {
 
-    private String objectUri;
+    private final String objectUri;
 
-    public TaggedObjectInfoProvider(String objectUri) {
+    public TaggedObjectInfoProvider(final String objectUri) {
       this.objectUri = objectUri;
     }
 
@@ -255,9 +293,9 @@ public class AbapObjectTagsView extends ViewPart {
       return Messages.AbapObjectTagsView_LoadingTaggedObjectInfoJob_xmsg;
     }
 
-    private void addHierarchicalTags(String destinationId,
-        AdtObjectReferenceElementInfo adtObjRefElemInfo,
-        Map<TagKey, List<IAdtObjectTag>> hierarchicalTags) {
+    private void addHierarchicalTags(final String destinationId,
+        final AdtObjectReferenceElementInfo adtObjRefElemInfo,
+        final Map<TagKey, List<IAdtObjectTag>> hierarchicalTags) {
 
       for (Entry<TagKey, List<IAdtObjectTag>> entry : hierarchicalTags.entrySet()) {
         // check if the list contains
@@ -300,17 +338,21 @@ public class AbapObjectTagsView extends ViewPart {
 
     }
 
-    private void collectParentObject(String destinationId, IAdtObjectTag tag,
-        ElementInfoCollection tagElementInfoColl) {
+    private void collectParentObject(final String destinationId, final IAdtObjectTag tag,
+        final ElementInfoCollection tagElementInfoColl) {
       IAdtObjectReferenceElementInfo parentObjectRef = new AdtObjectReferenceElementInfo(tag
           .getParentObjectName());
       parentObjectRef.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
           destinationId, tag.getParentObjectName(), tag.getParentObjectType(), tag
               .getParentObjectUri()));
       tagElementInfoColl.getChildren().add(parentObjectRef);
+      // clear the parent object information from the tag
+      tag.setParentObjectName(null);
+      tag.setParentObjectType(null);
+      tag.setParentObjectUri(null);
     }
 
-    private void collectTags(String destinationId, final ITaggedObject taggedObject,
+    private void collectTags(final String destinationId, final ITaggedObject taggedObject,
         final AdtObjectReferenceElementInfo adtObjRefElemInfo) {
       final Map<TagKey, List<IAdtObjectTag>> hierarchicalTags = new HashMap<>();
 
@@ -357,8 +399,17 @@ public class AbapObjectTagsView extends ViewPart {
     public IAdtObjectTag tag;
     private int hash;
 
-    public TagKey(IAdtObjectTag tag) {
+    public TagKey(final IAdtObjectTag tag) {
       this.tag = tag;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+      if (o instanceof TagKey) {
+        TagKey key2 = (TagKey) o;
+        return hashCode() == key2.hashCode();
+      }
+      return super.equals(o);
     }
 
     @Override
@@ -371,15 +422,6 @@ public class AbapObjectTagsView extends ViewPart {
         }
       }
       return hash;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      if (o instanceof TagKey) {
-        TagKey key2 = (TagKey) o;
-        return hashCode() == key2.hashCode();
-      }
-      return super.equals(o);
     }
 
   }
@@ -588,7 +630,7 @@ public class AbapObjectTagsView extends ViewPart {
       return;
     }
     final List<IAdtObjectReference> adtObjRefs = new ArrayList<>();
-    DeleteTagsAction deleteTagsAction = null;
+    DeleteTagsAction deleteTagsAction = new DeleteTagsAction(currentAdtObject);
     final List<IAdtObjectReference> previewAdtObjRefs = new ArrayList<>();
 
     for (final Object selectedObject : selection.toList()) {
@@ -599,14 +641,12 @@ public class AbapObjectTagsView extends ViewPart {
           previewAdtObjRefs.add(adtObjectRef);
         }
         adtObjRefs.add(adtObjectRef);
+        deleteTagsAction.addTagWithParent(objRefNode);
       } else if (selectedObject instanceof ITreeNode) {
         final ITreeNode tagNode = (ITreeNode) selectedObject;
         final IAdtObjectTag tag = tagNode.getAdapter(IAdtObjectTag.class);
         if (tag != null) {
-          if (deleteTagsAction == null) {
-            deleteTagsAction = new DeleteTagsAction();
-          }
-          deleteTagsAction.addTag(tag, tagNode);
+          deleteTagsAction.addTag(tag);
         }
       }
     }
@@ -622,10 +662,15 @@ public class AbapObjectTagsView extends ViewPart {
       menu.add(new Separator(IGeneralMenuConstants.GROUP_ADDITIONS));
       menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, CommandFactory
           .createContribItemById(IGeneralCommandConstants.WHERE_USED_IN, true, null));
+      if (adtObjRefs.size() == 1) {
+        focusOnObject.setText(String.format(Messages.AbapObjectTagsView_focusOnObjectAction_xmit,
+            adtObjRefs.get(0).getName()));
+        menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, focusOnObject);
+      }
     }
 
     menu.add(new Separator(IGeneralMenuConstants.GROUP_EDIT));
-    if (deleteTagsAction != null) {
+    if (deleteTagsAction != null && !deleteTagsAction.isEmpty()) {
       menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, deleteTagsAction);
     }
     menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, copyToClipBoardAction);
@@ -660,6 +705,21 @@ public class AbapObjectTagsView extends ViewPart {
       if (e.getProperty().equals(IAction.CHECKED) && (Boolean) e.getNewValue()) {
         updateInputFromEditor();
       }
+    });
+    focusOnObject = ActionFactory.createAction(/* will be filled later */"", null, () -> {
+      IStructuredSelection sel = treeViewer.getStructuredSelection();
+      if (sel == null || sel.isEmpty() || sel.size() > 1) {
+        return;
+      }
+
+      Object selObject = sel.getFirstElement();
+      if (!(selObject instanceof IAdtObjectReferenceNode)) {
+        return;
+      }
+
+      IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) selObject;
+      updateInput(AdtObjectFactory.create(adtObjRefNode.getObjectReference(), currentAdtObject
+          .getProject()), true);
     });
     addTagsAction = ActionFactory.createAction(Messages.AbapObjectTagsView_AddTagsAction_xtol,
         AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.ASSIGN_TAG), () -> {

@@ -28,6 +28,7 @@ public class Messages extends NLS {
   public static String AbapObjectTagsView_AddTagsAction_xtol;
   public static String AbapObjectTagsView_DeleteTagAction_xmit;
   public static String AbapObjectTagsView_DeleteTagsJob_xmsg;
+  public static String AbapObjectTagsView_focusOnObjectAction_xmit;
   public static String AbapObjectTagsView_NoInputAvailable_xmsg;
   public static String AbapObjectTagsView_NoTagsAssigned_xmsg;
   public static String AbapObjectTagsView_LinkToEditorAction_xtol;
