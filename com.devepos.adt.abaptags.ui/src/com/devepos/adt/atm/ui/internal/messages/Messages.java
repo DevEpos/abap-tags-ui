@@ -89,6 +89,8 @@ public class Messages extends NLS {
   public static String OpenInSearchDialogAction_Label_xmit;
   public static String OpenTaggedObjectSearchPreferences_ActionLabel_xmit;
   public static String ParentObjectFilterDialog_FilterText_xmsg;
+  public static String ParentObjectFilterDialog_objectNameColumnName_xtit;
+  public static String ParentObjectFilterDialog_tagColumnName_xtit;
   public static String ParentObjectFilterDialog_Title_xtit;
   public static String SearchPreferencesPage_DisplayObjectTypes_xckl;
   public static String SearchPreferencesPage_DisplayPackages_xckl;

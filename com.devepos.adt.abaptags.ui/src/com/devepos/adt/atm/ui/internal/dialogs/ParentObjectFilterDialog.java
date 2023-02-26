@@ -71,8 +71,8 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
   }
 
   private enum Column {
-    TAG(150, "Tag"),
-    OBJECT_NAME(280, "Object Name");
+    TAG(150, Messages.ParentObjectFilterDialog_tagColumnName_xtit),
+    OBJECT_NAME(280, Messages.ParentObjectFilterDialog_objectNameColumnName_xtit);
 
     public final int defaultWidth;
     public final String tooltip;
@@ -227,7 +227,7 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
   @Override
   protected SearchSelectionDialog<ITaggedObject, String>.SearchResultObject performSearch(
       final String filter, final IProgressMonitor monitor) throws CoreException {
-    parameters.setQuery(StringUtil.isEmpty(filter) ? "*" : filter);
+    parameters.setQuery(StringUtil.isEmpty(filter) ? "*" : filter); //$NON-NLS-1$
     final ITaggedObjectList taggedObjList = service.findObjects(
         ParentObjectFilterDialog.this.destinationId, ParentObjectFilterDialog.this.parameters);
 
