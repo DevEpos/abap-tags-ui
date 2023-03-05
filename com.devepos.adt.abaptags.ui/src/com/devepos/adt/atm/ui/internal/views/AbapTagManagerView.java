@@ -17,6 +17,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -765,10 +766,13 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
 
   private void handleDeleteTags() {
     final ITagList tagList = buildNewTagListFromSelection(null);
-    if (!MessageDialog.openQuestion(getSite().getShell(),
+
+    if (MessageDialog.open(MessageDialog.WARNING, getSite().getShell(),
         Messages.AbapTagManagerView_DeleteTagsMsgTitle_xtit,
-        Messages.AbapTagManagerView_DeleteTagsPrompt_xmsg) || !ProjectUtil.ensureLoggedOnToProject(
-            lastProject).isOK()) {
+        Messages.AbapTagManagerView_DeleteTagsPrompt_xmsg, SWT.NONE, new String[] {
+            IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL }) != 0 || !ProjectUtil
+                .ensureLoggedOnToProject(lastProject)
+                .isOK()) {
       return;
     }
     final Job deleteJob = Job.create(Messages.AbapTagManagerView_DeleteTagsJobTitle_xmsg,
@@ -829,9 +833,12 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
         tgobj.getTags().add(objTag);
       }
     }
-    if (!MessageDialog.openQuestion(getSite().getShell(), Messages.AbapTagManagerView_unassignTagsMessage_xtit,
-        Messages.AbapTagManagerView_unassignTagsMessage_xmsg)
-        || !ProjectUtil.ensureLoggedOnToProject(lastProject).isOK()) {
+    if (MessageDialog.open(MessageDialog.WARNING, getSite().getShell(),
+        Messages.AbapTagManagerView_unassignTagsMessage_xtit,
+        Messages.AbapTagManagerView_unassignTagsMessage_xmsg, SWT.NONE, new String[] {
+            IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL }) != 0 || !ProjectUtil
+                .ensureLoggedOnToProject(lastProject)
+                .isOK()) {
       return;
     }
     final Job deleteJob = Job.create(Messages.AbapTagManagerView_unassignTagsJob_xtit, monitor -> {
@@ -895,7 +902,8 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
         PlatformUI.getWorkbench()
             .getSharedImages()
             .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE), this::handleDeleteTags);
-    removeTaggedObjectsAction = ActionFactory.createAction(Messages.AbapTagManagerView_removeAssignedObjectsAction_xmit, null,
+    removeTaggedObjectsAction = ActionFactory.createAction(
+        Messages.AbapTagManagerView_removeAssignedObjectsAction_xmit, null,
         this::handleRemoveAllTaggedObjects);
     editTagAction = ActionFactory.createAction(Messages.AbapTagManagerView_EditTagAction_xmit,
         AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.EDIT_ACTION), () -> handleEditTag(
