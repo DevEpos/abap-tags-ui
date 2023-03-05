@@ -259,4 +259,47 @@
             parameterId="tagId">
       </parameterSection>
    </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="com.devepos.adt.atm.ui.internal.tree.TagsTreeContentAndLabelProvider"
+            icon="icons/TagsFolder.png"
+            id="com.devepos.adt.abaptags.tags"
+            labelProvider="com.devepos.adt.atm.ui.internal.tree.TagsTreeContentAndLabelProvider"
+            name="ABAP Tags"
+            priority="highest">
+         <triggerPoints>
+            <or>
+               <and>
+                  <instanceof
+                        value="org.eclipse.core.resources.IProject">
+                  </instanceof>
+                  <test
+                        property="org.eclipse.core.resources.projectNature"
+                        value="com.sap.adt.abapnature">
+                  </test>
+               </and>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+               <instanceof
+                     value="com.devepos.adt.base.ui.tree.ITreeNode">
+               </instanceof>
+            </or>
+         </possibleChildren>
+      </navigatorContent>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.viewer">
+      <viewerContentBinding
+            viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension
+                  pattern="com.devepos.adt.abaptags.tags">
+            </contentExtension>
+         </includes>
+      </viewerContentBinding>
+   </extension>
 </plugin>
