@@ -22,4 +22,5 @@ Export-Package: com.devepos.adt.atm;x-friends:="com.devepos.adt.abaptags.ui",
  com.devepos.adt.atm.internal.tags;x-friends:="com.devepos.adt.abaptags.ui",
  com.devepos.adt.atm.search;x-friends:="com.devepos.adt.abaptags.ui",
  com.devepos.adt.atm.tagging;x-friends:="com.devepos.adt.abaptags.ui",
- com.devepos.adt.atm.tags;x-friends:="com.devepos.adt.abaptags.ui"
+ com.devepos.adt.atm.tags;x-friends:="com.devepos.adt.abaptags.ui",
+ com.devepos.adt.atm.tree;x-friends:="com.devepos.adt.abaptags.ui"
