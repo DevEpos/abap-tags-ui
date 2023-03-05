@@ -322,20 +322,20 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TagSearchScope">
-    <eLiterals name="ALL" literal="all"/>
-    <eLiterals name="GLOBAL" value="1" literal="global"/>
-    <eLiterals name="USER" value="2" literal="user"/>
-    <eLiterals name="SHARED" value="3" literal="SHARED"/>
+    <eLiterals name="ALL" value="1" literal="all"/>
+    <eLiterals name="GLOBAL" value="2" literal="global"/>
+    <eLiterals name="USER" value="3" literal="user"/>
+    <eLiterals name="SHARED" value="4" literal="SHARED"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TagQueryType">
-    <eLiterals name="OBJECT_NAME" literal="objectName"/>
-    <eLiterals name="OBJECT_URI" value="1" literal="objectUri"/>
-    <eLiterals name="OBJECT_NAME_TYPE_COMBO" value="2" literal="objectNameTypeCombo"/>
+    <eLiterals name="OBJECT_NAME" value="1" literal="objectName"/>
+    <eLiterals name="OBJECT_URI" value="2" literal="objectUri"/>
+    <eLiterals name="OBJECT_NAME_TYPE_COMBO" value="3" literal="objectNameTypeCombo"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TagInfoType">
-    <eLiterals name="ALL" literal="all"/>
-    <eLiterals name="CHILDREN" value="1" literal="children"/>
-    <eLiterals name="SEARCH_FOCUS" value="2" literal="searchFocus">
+    <eLiterals name="ALL" value="1" literal="all"/>
+    <eLiterals name="CHILDREN" value="2" literal="children"/>
+    <eLiterals name="SEARCH_FOCUS" value="3" literal="searchFocus">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Only information about tags that included in the search filter"/>
       </eAnnotations>

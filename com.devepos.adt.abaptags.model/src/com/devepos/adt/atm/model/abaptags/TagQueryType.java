@@ -27,7 +27,7 @@ public enum TagQueryType implements Enumerator {
    * @generated
    * @ordered
    */
-  OBJECT_NAME(0, "OBJECT_NAME", "objectName"),
+  OBJECT_NAME(1, "OBJECT_NAME", "objectName"),
 
   /**
    * The '<em><b>OBJECT URI</b></em>' literal object.
@@ -38,7 +38,7 @@ public enum TagQueryType implements Enumerator {
    * @generated
    * @ordered
    */
-  OBJECT_URI(1, "OBJECT_URI", "objectUri"),
+  OBJECT_URI(2, "OBJECT_URI", "objectUri"),
 
   /**
    * The '<em><b>OBJECT NAME TYPE COMBO</b></em>' literal object. <!--
@@ -48,7 +48,7 @@ public enum TagQueryType implements Enumerator {
    * @generated
    * @ordered
    */
-  OBJECT_NAME_TYPE_COMBO(2, "OBJECT_NAME_TYPE_COMBO", "objectNameTypeCombo");
+  OBJECT_NAME_TYPE_COMBO(3, "OBJECT_NAME_TYPE_COMBO", "objectNameTypeCombo");
 
   /**
    * The '<em><b>OBJECT NAME</b></em>' literal value.
@@ -60,7 +60,7 @@ public enum TagQueryType implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int OBJECT_NAME_VALUE = 0;
+  public static final int OBJECT_NAME_VALUE = 1;
 
   /**
    * The '<em><b>OBJECT URI</b></em>' literal value.
@@ -72,7 +72,7 @@ public enum TagQueryType implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int OBJECT_URI_VALUE = 1;
+  public static final int OBJECT_URI_VALUE = 2;
 
   /**
    * The '<em><b>OBJECT NAME TYPE COMBO</b></em>' literal value. <!--
@@ -83,7 +83,7 @@ public enum TagQueryType implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int OBJECT_NAME_TYPE_COMBO_VALUE = 2;
+  public static final int OBJECT_NAME_TYPE_COMBO_VALUE = 3;
 
   /**
    * An array of all the '<em><b>Tag Query Type</b></em>' enumerators. <!--

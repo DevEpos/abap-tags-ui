@@ -27,7 +27,7 @@ public enum TagInfoType implements Enumerator {
    * @generated
    * @ordered
    */
-  ALL(0, "ALL", "all"),
+  ALL(1, "ALL", "all"),
 
   /**
    * The '<em><b>CHILDREN</b></em>' literal object.
@@ -38,7 +38,7 @@ public enum TagInfoType implements Enumerator {
    * @generated
    * @ordered
    */
-  CHILDREN(1, "CHILDREN", "children"),
+  CHILDREN(2, "CHILDREN", "children"),
   /**
    * The '<em><b>SEARCH FOCUS</b></em>' literal object.
    * <!-- begin-user-doc -->
@@ -51,7 +51,7 @@ public enum TagInfoType implements Enumerator {
    * @generated
    * @ordered
    */
-  SEARCH_FOCUS(2, "SEARCH_FOCUS", "searchFocus");
+  SEARCH_FOCUS(3, "SEARCH_FOCUS", "searchFocus");
 
   /**
    * The '<em><b>ALL</b></em>' literal value.
@@ -63,7 +63,7 @@ public enum TagInfoType implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int ALL_VALUE = 0;
+  public static final int ALL_VALUE = 1;
 
   /**
    * The '<em><b>CHILDREN</b></em>' literal value.
@@ -75,7 +75,7 @@ public enum TagInfoType implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int CHILDREN_VALUE = 1;
+  public static final int CHILDREN_VALUE = 2;
 
   /**
    * The '<em><b>SEARCH FOCUS</b></em>' literal value.
@@ -90,7 +90,7 @@ public enum TagInfoType implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int SEARCH_FOCUS_VALUE = 2;
+  public static final int SEARCH_FOCUS_VALUE = 3;
 
   /**
    * An array of all the '<em><b>Tag Info Type</b></em>' enumerators. <!--
