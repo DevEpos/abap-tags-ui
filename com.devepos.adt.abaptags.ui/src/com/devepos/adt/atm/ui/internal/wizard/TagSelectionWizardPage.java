@@ -340,6 +340,9 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
   private void determinePreCheckedTags(final EList<ITag> tags) {
     for (final ITag tag : tags) {
       if (tag.getTaggedObjectCount() > 0) {
+        if (!StringUtil.isEmpty(tag.getParentTagId())) {
+          continue;
+        }
         preCheckedTags.add(tag);
         if (tag.getTaggedObjectCount() == objectCount) {
           uncheckableTags.add(tag);
@@ -545,7 +548,12 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     @Override
     protected void appendTagName(final ITag tag, final StyledString text) {
       if (!StringUtil.isEmpty(tag.getId())) {
-        if (tag.getTaggedObjectCount() == objectCount) {
+        /*
+         * hierarchical tags can be assigned multiple times, so a tagged object count > objectCount
+         * does not always mean that all selected objects are tagged
+         * CHECK: should an entry be made bold only if a single object is selected for tagging
+         */
+        if (tag.getTaggedObjectCount() >= objectCount) {
           text.append(tag.getName(), StylerFactory.BOLD_STYLER);
         } else {
           text.append(tag.getName());
