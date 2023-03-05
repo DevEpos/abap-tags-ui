@@ -662,7 +662,7 @@ public class AbapObjectTagsView extends ViewPart {
       menu.add(new Separator(IGeneralMenuConstants.GROUP_ADDITIONS));
       menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, CommandFactory
           .createContribItemById(IGeneralCommandConstants.WHERE_USED_IN, true, null));
-      if (adtObjRefs.size() == 1) {
+      if (adtObjRefs.size() == 1 && selection.size() == 1) {
         focusOnObject.setText(String.format(Messages.AbapObjectTagsView_focusOnObjectAction_xmit,
             adtObjRefs.get(0).getName()));
         menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, focusOnObject);
