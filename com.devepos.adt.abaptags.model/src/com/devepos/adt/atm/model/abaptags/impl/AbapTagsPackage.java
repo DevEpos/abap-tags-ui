@@ -22,6 +22,8 @@ import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult;
 import com.devepos.adt.atm.model.abaptags.ResultGroupLevel;
 import com.devepos.adt.atm.model.abaptags.TagInfoType;
 import com.devepos.adt.atm.model.abaptags.TagQueryFocus;
@@ -91,6 +93,22 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * @generated
    */
   private EClass taggedObjectSearchParamsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass taggedObjectTreeObjectEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass taggedObjectTreeResultEClass = null;
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -685,6 +703,72 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTaggedObjectTreeObject() {
+    return taggedObjectTreeObjectEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getTaggedObjectTreeObject_ObjectRef() {
+    return (EReference) taggedObjectTreeObjectEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectTreeObject_TaggedObjectCount() {
+    return (EAttribute) taggedObjectTreeObjectEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTaggedObjectTreeResult() {
+    return taggedObjectTreeResultEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getTaggedObjectTreeResult_Objects() {
+    return (EReference) taggedObjectTreeResultEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getTaggedObjectTreeResult_Tags() {
+    return (EReference) taggedObjectTreeResultEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -832,6 +916,14 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__MATCHES_ALL_TAGS);
     createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__WITH_TAG_INFO);
     createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__TAG_INFO_TYPE);
+
+    taggedObjectTreeObjectEClass = createEClass(TAGGED_OBJECT_TREE_OBJECT);
+    createEReference(taggedObjectTreeObjectEClass, TAGGED_OBJECT_TREE_OBJECT__OBJECT_REF);
+    createEAttribute(taggedObjectTreeObjectEClass, TAGGED_OBJECT_TREE_OBJECT__TAGGED_OBJECT_COUNT);
+
+    taggedObjectTreeResultEClass = createEClass(TAGGED_OBJECT_TREE_RESULT);
+    createEReference(taggedObjectTreeResultEClass, TAGGED_OBJECT_TREE_RESULT__OBJECTS);
+    createEReference(taggedObjectTreeResultEClass, TAGGED_OBJECT_TREE_RESULT__TAGS);
 
     // Create enums
     tagSearchScopeEEnum = createEEnum(TAG_SEARCH_SCOPE);
@@ -1026,6 +1118,26 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
         !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(taggedObjectTreeObjectEClass, ITaggedObjectTreeObject.class,
+        "TaggedObjectTreeObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTaggedObjectTreeObject_ObjectRef(), theAdtBasePackage.getAdtObjRef(), null,
+        "objectRef", null, 0, 1, ITaggedObjectTreeObject.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+        IS_ORDERED);
+    initEAttribute(getTaggedObjectTreeObject_TaggedObjectCount(), ecorePackage.getEInt(),
+        "taggedObjectCount", null, 0, 1, ITaggedObjectTreeObject.class, IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(taggedObjectTreeResultEClass, ITaggedObjectTreeResult.class,
+        "TaggedObjectTreeResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTaggedObjectTreeResult_Objects(), getTaggedObjectTreeObject(), null,
+        "objects", null, 0, -1, ITaggedObjectTreeResult.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+        IS_ORDERED);
+    initEReference(getTaggedObjectTreeResult_Tags(), getTag(), null, "tags", null, 0, -1,
+        ITaggedObjectTreeResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+        !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     // Initialize enums and add enum literals
     initEEnum(tagSearchScopeEEnum, TagSearchScope.class, "TagSearchScope");
     addEEnumLiteral(tagSearchScopeEEnum, TagSearchScope.ALL);
@@ -1155,6 +1267,18 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         "attribute", "name", "withTagInfo", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectSearchParams_TagInfoType(), source, new String[] { "kind",
         "attribute", "name", "tagInfoType", "namespace", "##targetNamespace" });
+    addAnnotation(taggedObjectTreeObjectEClass, source, new String[] { "kind", "elementOnly",
+        "name", "object" });
+    addAnnotation(getTaggedObjectTreeObject_ObjectRef(), source, new String[] { "kind", "element",
+        "name", "adtObjRef", "namespace", "http://www.devepos.com/adt/base" });
+    addAnnotation(getTaggedObjectTreeObject_TaggedObjectCount(), source, new String[] { "kind",
+        "attribute", "name", "taggedObjectCount", "namespace", "##targetNamespace" });
+    addAnnotation(taggedObjectTreeResultEClass, source, new String[] { "kind", "elementOnly",
+        "name", "tagTreeResult" });
+    addAnnotation(getTaggedObjectTreeResult_Objects(), source, new String[] { "kind", "element",
+        "name", "object", "namespace", "http://www.devepos.com/adt/base" });
+    addAnnotation(getTaggedObjectTreeResult_Tags(), source, new String[] { "kind", "element",
+        "name", "tag", "namespace", "##targetNamespace" });
   }
 
 } // AbapTagsPackage

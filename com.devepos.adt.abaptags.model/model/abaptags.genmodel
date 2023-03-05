@@ -89,5 +89,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/withTagInfo"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/tagInfoType"/>
     </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TaggedObjectTreeObject">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TaggedObjectTreeObject/objectRef"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectTreeObject/taggedObjectCount"/>
+    </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TaggedObjectTreeResult">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TaggedObjectTreeResult/objects"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TaggedObjectTreeResult/tags"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

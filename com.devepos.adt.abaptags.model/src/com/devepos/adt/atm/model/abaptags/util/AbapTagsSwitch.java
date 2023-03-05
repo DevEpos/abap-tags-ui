@@ -15,6 +15,8 @@ import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult;
 
 /**
  * <!-- begin-user-doc --> The <b>Switch</b> for the model's inheritance
@@ -144,6 +146,22 @@ public class AbapTagsSwitch<T> extends Switch<T> {
       }
       return result;
     }
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT: {
+      ITaggedObjectTreeObject taggedObjectTreeObject = (ITaggedObjectTreeObject) theEObject;
+      T result = caseTaggedObjectTreeObject(taggedObjectTreeObject);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT: {
+      ITaggedObjectTreeResult taggedObjectTreeResult = (ITaggedObjectTreeResult) theEObject;
+      T result = caseTaggedObjectTreeResult(taggedObjectTreeResult);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
     default:
       return defaultCase(theEObject);
     }
@@ -261,6 +279,42 @@ public class AbapTagsSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseTaggedObjectSearchParams(final ITaggedObjectSearchParams object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tagged Object Tree
+   * Object</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tagged Object Tree
+   *         Object</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTaggedObjectTreeObject(final ITaggedObjectTreeObject object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tagged Object Tree
+   * Result</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tagged Object Tree
+   *         Result</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTaggedObjectTreeResult(final ITaggedObjectTreeResult object) {
     return null;
   }
 

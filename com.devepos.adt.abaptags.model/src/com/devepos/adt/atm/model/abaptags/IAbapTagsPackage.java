@@ -714,6 +714,112 @@ public interface IAbapTagsPackage extends EPackage {
   int TAGGED_OBJECT_SEARCH_PARAMS_OPERATION_COUNT = 0;
 
   /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeObject <em>Tagged Object Tree
+   * Object</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeObject
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectTreeObject()
+   * @generated
+   */
+  int TAGGED_OBJECT_TREE_OBJECT = 8;
+
+  /**
+   * The feature id for the '<em><b>Object Ref</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_TREE_OBJECT__OBJECT_REF = 0;
+
+  /**
+   * The feature id for the '<em><b>Tagged Object Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_TREE_OBJECT__TAGGED_OBJECT_COUNT = 1;
+
+  /**
+   * The number of structural features of the '<em>Tagged Object Tree Object</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_TREE_OBJECT_FEATURE_COUNT = 2;
+
+  /**
+   * The number of operations of the '<em>Tagged Object Tree Object</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_TREE_OBJECT_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeResult <em>Tagged Object Tree
+   * Result</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeResult
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectTreeResult()
+   * @generated
+   */
+  int TAGGED_OBJECT_TREE_RESULT = 9;
+
+  /**
+   * The feature id for the '<em><b>Objects</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_TREE_RESULT__OBJECTS = 0;
+
+  /**
+   * The feature id for the '<em><b>Tags</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_TREE_RESULT__TAGS = 1;
+
+  /**
+   * The number of structural features of the '<em>Tagged Object Tree Result</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_TREE_RESULT_FEATURE_COUNT = 2;
+
+  /**
+   * The number of operations of the '<em>Tagged Object Tree Result</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_TREE_RESULT_OPERATION_COUNT = 0;
+
+  /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagSearchScope <em>Tag
    * Search Scope</em>}' enum.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -722,7 +828,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagSearchScope()
    * @generated
    */
-  int TAG_SEARCH_SCOPE = 8;
+  int TAG_SEARCH_SCOPE = 10;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagQueryType <em>Tag
@@ -733,7 +839,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagQueryType()
    * @generated
    */
-  int TAG_QUERY_TYPE = 9;
+  int TAG_QUERY_TYPE = 11;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagInfoType <em>Tag Info
@@ -744,7 +850,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagInfoType()
    * @generated
    */
-  int TAG_INFO_TYPE = 10;
+  int TAG_INFO_TYPE = 12;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagQueryFocus <em>Tag
@@ -755,7 +861,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagQueryFocus()
    * @generated
    */
-  int TAG_QUERY_FOCUS = 11;
+  int TAG_QUERY_FOCUS = 13;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.ResultGroupLevel
@@ -767,7 +873,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getResultGroupLevel()
    * @generated
    */
-  int RESULT_GROUP_LEVEL = 12;
+  int RESULT_GROUP_LEVEL = 14;
 
   /**
    * The meta object id for the '<em>Image</em>' data type.
@@ -778,7 +884,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getImage()
    * @generated
    */
-  int IMAGE = 13;
+  int IMAGE = 15;
 
   /**
    * Returns the meta object for class
@@ -1363,6 +1469,87 @@ public interface IAbapTagsPackage extends EPackage {
   EAttribute getTaggedObjectSearchParams_TagInfoType();
 
   /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject <em>Tagged Object Tree
+   * Object</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Tagged Object Tree Object</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject
+   * @generated
+   */
+  EClass getTaggedObjectTreeObject();
+
+  /**
+   * Returns the meta object for the containment reference
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject#getObjectRef <em>Object
+   * Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference '<em>Object Ref</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject#getObjectRef()
+   * @see #getTaggedObjectTreeObject()
+   * @generated
+   */
+  EReference getTaggedObjectTreeObject_ObjectRef();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject#getTaggedObjectCount
+   * <em>Tagged Object Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Tagged Object Count</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject#getTaggedObjectCount()
+   * @see #getTaggedObjectTreeObject()
+   * @generated
+   */
+  EAttribute getTaggedObjectTreeObject_TaggedObjectCount();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult <em>Tagged Object Tree
+   * Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Tagged Object Tree Result</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult
+   * @generated
+   */
+  EClass getTaggedObjectTreeResult();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult#getObjects
+   * <em>Objects</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Objects</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult#getObjects()
+   * @see #getTaggedObjectTreeResult()
+   * @generated
+   */
+  EReference getTaggedObjectTreeResult_Objects();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult#getTags <em>Tags</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Tags</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult#getTags()
+   * @see #getTaggedObjectTreeResult()
+   * @generated
+   */
+  EReference getTaggedObjectTreeResult_Tags();
+
+  /**
    * Returns the meta object for enum '{@link com.devepos.adt.atm.model.abaptags.TagSearchScope
    * <em>Tag Search Scope</em>}'.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1873,6 +2060,70 @@ public interface IAbapTagsPackage extends EPackage {
      */
     EAttribute TAGGED_OBJECT_SEARCH_PARAMS__TAG_INFO_TYPE = eINSTANCE
         .getTaggedObjectSearchParams_TagInfoType();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeObject <em>Tagged Object Tree
+     * Object</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeObject
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectTreeObject()
+     * @generated
+     */
+    EClass TAGGED_OBJECT_TREE_OBJECT = eINSTANCE.getTaggedObjectTreeObject();
+
+    /**
+     * The meta object literal for the '<em><b>Object Ref</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference TAGGED_OBJECT_TREE_OBJECT__OBJECT_REF = eINSTANCE
+        .getTaggedObjectTreeObject_ObjectRef();
+
+    /**
+     * The meta object literal for the '<em><b>Tagged Object Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_TREE_OBJECT__TAGGED_OBJECT_COUNT = eINSTANCE
+        .getTaggedObjectTreeObject_TaggedObjectCount();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeResult <em>Tagged Object Tree
+     * Result</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeResult
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectTreeResult()
+     * @generated
+     */
+    EClass TAGGED_OBJECT_TREE_RESULT = eINSTANCE.getTaggedObjectTreeResult();
+
+    /**
+     * The meta object literal for the '<em><b>Objects</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference TAGGED_OBJECT_TREE_RESULT__OBJECTS = eINSTANCE.getTaggedObjectTreeResult_Objects();
+
+    /**
+     * The meta object literal for the '<em><b>Tags</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference TAGGED_OBJECT_TREE_RESULT__TAGS = eINSTANCE.getTaggedObjectTreeResult_Tags();
 
     /**
      * The meta object literal for the '{@link com.devepos.adt.atm.model.abaptags.TagSearchScope

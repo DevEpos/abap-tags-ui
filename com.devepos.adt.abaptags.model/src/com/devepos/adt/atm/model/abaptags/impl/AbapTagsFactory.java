@@ -19,6 +19,8 @@ import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult;
 import com.devepos.adt.atm.model.abaptags.ResultGroupLevel;
 import com.devepos.adt.atm.model.abaptags.TagInfoType;
 import com.devepos.adt.atm.model.abaptags.TagQueryFocus;
@@ -84,6 +86,10 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
       return createTaggedObjectList();
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS:
       return createTaggedObjectSearchParams();
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT:
+      return createTaggedObjectTreeObject();
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT:
+      return createTaggedObjectTreeResult();
     default:
       throw new IllegalArgumentException("The class '" + eClass.getName()
           + "' is not a valid classifier");
@@ -217,6 +223,30 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   public ITaggedObjectSearchParams createTaggedObjectSearchParams() {
     TaggedObjectSearchParams taggedObjectSearchParams = new TaggedObjectSearchParams();
     return taggedObjectSearchParams;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ITaggedObjectTreeObject createTaggedObjectTreeObject() {
+    TaggedObjectTreeObject taggedObjectTreeObject = new TaggedObjectTreeObject();
+    return taggedObjectTreeObject;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ITaggedObjectTreeResult createTaggedObjectTreeResult() {
+    TaggedObjectTreeResult taggedObjectTreeResult = new TaggedObjectTreeResult();
+    return taggedObjectTreeResult;
   }
 
   /**

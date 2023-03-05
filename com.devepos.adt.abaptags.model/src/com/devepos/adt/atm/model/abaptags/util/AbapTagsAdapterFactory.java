@@ -16,6 +16,8 @@ import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult;
 
 /**
  * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides
@@ -112,6 +114,16 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
     @Override
     public Adapter caseTaggedObjectSearchParams(final ITaggedObjectSearchParams object) {
       return createTaggedObjectSearchParamsAdapter();
+    }
+
+    @Override
+    public Adapter caseTaggedObjectTreeObject(final ITaggedObjectTreeObject object) {
+      return createTaggedObjectTreeObjectAdapter();
+    }
+
+    @Override
+    public Adapter caseTaggedObjectTreeResult(final ITaggedObjectTreeResult object) {
+      return createTaggedObjectTreeResultAdapter();
     }
 
     @Override
@@ -253,6 +265,40 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createTaggedObjectSearchParamsAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject <em>Tagged Object Tree
+   * Object</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject
+   * @generated
+   */
+  public Adapter createTaggedObjectTreeObjectAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult <em>Tagged Object Tree
+   * Result</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult
+   * @generated
+   */
+  public Adapter createTaggedObjectTreeResultAdapter() {
     return null;
   }
 
