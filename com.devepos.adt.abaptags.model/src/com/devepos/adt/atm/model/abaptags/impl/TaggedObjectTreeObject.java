@@ -25,6 +25,10 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRef;
  * Ref</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeObject#getTaggedObjectCount
  * <em>Tagged Object Count</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeObject#getParentTagId
+ * <em>Parent Tag Id</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeObject#isExpandable
+ * <em>Expandable</em>}</li>
  * </ul>
  *
  * @generated
@@ -65,6 +69,50 @@ public class TaggedObjectTreeObject extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected int taggedObjectCount = TAGGED_OBJECT_COUNT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getParentTagId() <em>Parent Tag Id</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getParentTagId()
+   * @generated
+   * @ordered
+   */
+  protected static final String PARENT_TAG_ID_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getParentTagId() <em>Parent Tag Id</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getParentTagId()
+   * @generated
+   * @ordered
+   */
+  protected String parentTagId = PARENT_TAG_ID_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isExpandable() <em>Expandable</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #isExpandable()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean EXPANDABLE_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isExpandable() <em>Expandable</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #isExpandable()
+   * @generated
+   * @ordered
+   */
+  protected boolean expandable = EXPANDABLE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -183,6 +231,60 @@ public class TaggedObjectTreeObject extends MinimalEObjectImpl.Container impleme
    * @generated
    */
   @Override
+  public String getParentTagId() {
+    return parentTagId;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setParentTagId(final String newParentTagId) {
+    String oldParentTagId = parentTagId;
+    parentTagId = newParentTagId;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__PARENT_TAG_ID, oldParentTagId, parentTagId));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean isExpandable() {
+    return expandable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setExpandable(final boolean newExpandable) {
+    boolean oldExpandable = expandable;
+    expandable = newExpandable;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__EXPANDABLE, oldExpandable, expandable));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
       final NotificationChain msgs) {
     switch (featureID) {
@@ -205,6 +307,10 @@ public class TaggedObjectTreeObject extends MinimalEObjectImpl.Container impleme
       return getObjectRef();
     case IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__TAGGED_OBJECT_COUNT:
       return getTaggedObjectCount();
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__PARENT_TAG_ID:
+      return getParentTagId();
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__EXPANDABLE:
+      return isExpandable();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -223,6 +329,12 @@ public class TaggedObjectTreeObject extends MinimalEObjectImpl.Container impleme
       return;
     case IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__TAGGED_OBJECT_COUNT:
       setTaggedObjectCount((Integer) newValue);
+      return;
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__PARENT_TAG_ID:
+      setParentTagId((String) newValue);
+      return;
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__EXPANDABLE:
+      setExpandable((Boolean) newValue);
       return;
     }
     super.eSet(featureID, newValue);
@@ -243,6 +355,12 @@ public class TaggedObjectTreeObject extends MinimalEObjectImpl.Container impleme
     case IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__TAGGED_OBJECT_COUNT:
       setTaggedObjectCount(TAGGED_OBJECT_COUNT_EDEFAULT);
       return;
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__PARENT_TAG_ID:
+      setParentTagId(PARENT_TAG_ID_EDEFAULT);
+      return;
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__EXPANDABLE:
+      setExpandable(EXPANDABLE_EDEFAULT);
+      return;
     }
     super.eUnset(featureID);
   }
@@ -260,6 +378,11 @@ public class TaggedObjectTreeObject extends MinimalEObjectImpl.Container impleme
       return objectRef != null;
     case IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__TAGGED_OBJECT_COUNT:
       return taggedObjectCount != TAGGED_OBJECT_COUNT_EDEFAULT;
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__PARENT_TAG_ID:
+      return PARENT_TAG_ID_EDEFAULT == null ? parentTagId != null
+          : !PARENT_TAG_ID_EDEFAULT.equals(parentTagId);
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__EXPANDABLE:
+      return expandable != EXPANDABLE_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -279,6 +402,10 @@ public class TaggedObjectTreeObject extends MinimalEObjectImpl.Container impleme
     StringBuilder result = new StringBuilder(super.toString());
     result.append(" (taggedObjectCount: ");
     result.append(taggedObjectCount);
+    result.append(", parentTagId: ");
+    result.append(parentTagId);
+    result.append(", expandable: ");
+    result.append(expandable);
     result.append(')');
     return result.toString();
   }

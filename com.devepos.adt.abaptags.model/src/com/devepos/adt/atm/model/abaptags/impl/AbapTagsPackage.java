@@ -742,6 +742,28 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * @generated
    */
   @Override
+  public EAttribute getTaggedObjectTreeObject_ParentTagId() {
+    return (EAttribute) taggedObjectTreeObjectEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectTreeObject_Expandable() {
+    return (EAttribute) taggedObjectTreeObjectEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EClass getTaggedObjectTreeResult() {
     return taggedObjectTreeResultEClass;
   }
@@ -920,6 +942,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     taggedObjectTreeObjectEClass = createEClass(TAGGED_OBJECT_TREE_OBJECT);
     createEReference(taggedObjectTreeObjectEClass, TAGGED_OBJECT_TREE_OBJECT__OBJECT_REF);
     createEAttribute(taggedObjectTreeObjectEClass, TAGGED_OBJECT_TREE_OBJECT__TAGGED_OBJECT_COUNT);
+    createEAttribute(taggedObjectTreeObjectEClass, TAGGED_OBJECT_TREE_OBJECT__PARENT_TAG_ID);
+    createEAttribute(taggedObjectTreeObjectEClass, TAGGED_OBJECT_TREE_OBJECT__EXPANDABLE);
 
     taggedObjectTreeResultEClass = createEClass(TAGGED_OBJECT_TREE_RESULT);
     createEReference(taggedObjectTreeResultEClass, TAGGED_OBJECT_TREE_RESULT__OBJECTS);
@@ -1127,6 +1151,12 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     initEAttribute(getTaggedObjectTreeObject_TaggedObjectCount(), ecorePackage.getEInt(),
         "taggedObjectCount", null, 0, 1, ITaggedObjectTreeObject.class, IS_TRANSIENT, !IS_VOLATILE,
         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectTreeObject_ParentTagId(), theXMLTypePackage.getString(),
+        "parentTagId", null, 0, 1, ITaggedObjectTreeObject.class, IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectTreeObject_Expandable(), theXMLTypePackage.getBoolean(),
+        "expandable", null, 0, 1, ITaggedObjectTreeObject.class, IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(taggedObjectTreeResultEClass, ITaggedObjectTreeResult.class,
         "TaggedObjectTreeResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1273,10 +1303,14 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         "name", "adtObjRef", "namespace", "http://www.devepos.com/adt/base" });
     addAnnotation(getTaggedObjectTreeObject_TaggedObjectCount(), source, new String[] { "kind",
         "attribute", "name", "taggedObjectCount", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectTreeObject_ParentTagId(), source, new String[] { "kind",
+        "attribute", "name", "parentTagId", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectTreeObject_Expandable(), source, new String[] { "kind",
+        "attribute", "name", "expandable", "namespace", "##targetNamespace" });
     addAnnotation(taggedObjectTreeResultEClass, source, new String[] { "kind", "elementOnly",
         "name", "tagTreeResult" });
     addAnnotation(getTaggedObjectTreeResult_Objects(), source, new String[] { "kind", "element",
-        "name", "object", "namespace", "http://www.devepos.com/adt/base" });
+        "name", "object", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectTreeResult_Tags(), source, new String[] { "kind", "element",
         "name", "tag", "namespace", "##targetNamespace" });
   }

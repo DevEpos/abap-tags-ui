@@ -34,8 +34,7 @@ public interface ITaggedObjectTreeResult extends EObject {
    * @return the value of the '<em>Objects</em>' containment reference list.
    * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectTreeResult_Objects()
    * @model containment="true"
-   *        extendedMetaData="kind='element' name='object'
-   *        namespace='http://www.devepos.com/adt/base'"
+   *        extendedMetaData="kind='element' name='object' namespace='##targetNamespace'"
    * @generated
    */
   EList<ITaggedObjectTreeObject> getObjects();

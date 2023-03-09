@@ -19,6 +19,10 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRef;
  * Ref</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject#getTaggedObjectCount
  * <em>Tagged Object Count</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject#getParentTagId <em>Parent
+ * Tag Id</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject#isExpandable
+ * <em>Expandable</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectTreeObject()
@@ -81,5 +85,59 @@ public interface ITaggedObjectTreeObject extends EObject {
    * @generated
    */
   void setTaggedObjectCount(int value);
+
+  /**
+   * Returns the value of the '<em><b>Parent Tag Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Parent Tag Id</em>' attribute.
+   * @see #setParentTagId(String)
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectTreeObject_ParentTagId()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.String" transient="true"
+   *        extendedMetaData="kind='attribute' name='parentTagId' namespace='##targetNamespace'"
+   * @generated
+   */
+  String getParentTagId();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject#getParentTagId <em>Parent
+   * Tag Id</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Parent Tag Id</em>' attribute.
+   * @see #getParentTagId()
+   * @generated
+   */
+  void setParentTagId(String value);
+
+  /**
+   * Returns the value of the '<em><b>Expandable</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Expandable</em>' attribute.
+   * @see #setExpandable(boolean)
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectTreeObject_Expandable()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.Boolean" transient="true"
+   *        extendedMetaData="kind='attribute' name='expandable' namespace='##targetNamespace'"
+   * @generated
+   */
+  boolean isExpandable();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject#isExpandable
+   * <em>Expandable</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Expandable</em>' attribute.
+   * @see #isExpandable()
+   * @generated
+   */
+  void setExpandable(boolean value);
 
 } // ITaggedObjectTreeObject

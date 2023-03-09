@@ -92,6 +92,8 @@
     <genClasses ecoreClass="abaptags.ecore#//TaggedObjectTreeObject">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TaggedObjectTreeObject/objectRef"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectTreeObject/taggedObjectCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectTreeObject/parentTagId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectTreeObject/expandable"/>
     </genClasses>
     <genClasses ecoreClass="abaptags.ecore#//TaggedObjectTreeResult">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TaggedObjectTreeResult/objects"/>

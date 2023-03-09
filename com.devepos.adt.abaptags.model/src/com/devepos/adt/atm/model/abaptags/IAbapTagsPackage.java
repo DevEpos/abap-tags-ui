@@ -747,6 +747,26 @@ public interface IAbapTagsPackage extends EPackage {
   int TAGGED_OBJECT_TREE_OBJECT__TAGGED_OBJECT_COUNT = 1;
 
   /**
+   * The feature id for the '<em><b>Parent Tag Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_TREE_OBJECT__PARENT_TAG_ID = 2;
+
+  /**
+   * The feature id for the '<em><b>Expandable</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_TREE_OBJECT__EXPANDABLE = 3;
+
+  /**
    * The number of structural features of the '<em>Tagged Object Tree Object</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -754,7 +774,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TAGGED_OBJECT_TREE_OBJECT_FEATURE_COUNT = 2;
+  int TAGGED_OBJECT_TREE_OBJECT_FEATURE_COUNT = 4;
 
   /**
    * The number of operations of the '<em>Tagged Object Tree Object</em>' class.
@@ -1510,6 +1530,34 @@ public interface IAbapTagsPackage extends EPackage {
   EAttribute getTaggedObjectTreeObject_TaggedObjectCount();
 
   /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject#getParentTagId <em>Parent
+   * Tag Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Parent Tag Id</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject#getParentTagId()
+   * @see #getTaggedObjectTreeObject()
+   * @generated
+   */
+  EAttribute getTaggedObjectTreeObject_ParentTagId();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject#isExpandable
+   * <em>Expandable</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Expandable</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject#isExpandable()
+   * @see #getTaggedObjectTreeObject()
+   * @generated
+   */
+  EAttribute getTaggedObjectTreeObject_Expandable();
+
+  /**
    * Returns the meta object for class
    * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult <em>Tagged Object Tree
    * Result</em>}'.
@@ -2093,6 +2141,26 @@ public interface IAbapTagsPackage extends EPackage {
      */
     EAttribute TAGGED_OBJECT_TREE_OBJECT__TAGGED_OBJECT_COUNT = eINSTANCE
         .getTaggedObjectTreeObject_TaggedObjectCount();
+
+    /**
+     * The meta object literal for the '<em><b>Parent Tag Id</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_TREE_OBJECT__PARENT_TAG_ID = eINSTANCE
+        .getTaggedObjectTreeObject_ParentTagId();
+
+    /**
+     * The meta object literal for the '<em><b>Expandable</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_TREE_OBJECT__EXPANDABLE = eINSTANCE
+        .getTaggedObjectTreeObject_Expandable();
 
     /**
      * The meta object literal for the
