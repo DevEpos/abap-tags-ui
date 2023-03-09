@@ -263,10 +263,10 @@
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
             activeByDefault="true"
-            contentProvider="com.devepos.adt.atm.ui.internal.tree.TagsTreeContentAndLabelProvider"
+            contentProvider="com.devepos.adt.atm.ui.internal.tree.TaggedObjectTreeContentAndLabelProvider"
             icon="icons/TagsFolder.png"
             id="com.devepos.adt.abaptags.tags"
-            labelProvider="com.devepos.adt.atm.ui.internal.tree.TagsTreeContentAndLabelProvider"
+            labelProvider="com.devepos.adt.atm.ui.internal.tree.TaggedObjectTreeContentAndLabelProvider"
             name="ABAP Tags"
             priority="highest">
          <triggerPoints>
