@@ -27,7 +27,8 @@ Require-Bundle: com.devepos.adt.abaptags.model,
  org.eclipse.ui,
  org.eclipse.search,
  org.eclipse.ui.navigator,
- org.eclipse.ui.navigator.resources
+ org.eclipse.ui.navigator.resources,
+ org.eclipse.ui.ide
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: com.devepos.adt.abaptags.ui
 Bundle-ActivationPolicy: lazy

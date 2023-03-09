@@ -289,6 +289,16 @@
                </instanceof>
             </or>
          </possibleChildren>
+         <actionProvider
+               class="com.devepos.adt.atm.ui.internal.actions.TaggedObjectTreeNodeActionProvider"
+               id="com.devepos.adt.atm.ui.taggedObjectTree.configure"
+               overrides="org.eclipse.ui.navigator.resources.PropertiesActionProvider">
+            <enablement>
+               <adapt
+                     type="com.devepos.adt.base.ui.tree.ITreeNode">
+               </adapt>
+            </enablement>
+         </actionProvider>
       </navigatorContent>
    </extension>
    <extension
