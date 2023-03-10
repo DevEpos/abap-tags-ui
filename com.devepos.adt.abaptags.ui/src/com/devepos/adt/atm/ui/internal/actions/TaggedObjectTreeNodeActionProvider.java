@@ -44,10 +44,12 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
     super.fillContextMenu(menu);
 
     var relevantSelectedNodes = getRelevantNodesFromSelection();
-    if (relevantSelectedNodes != null && !relevantSelectedNodes.isEmpty()) {
-      menu.appendToGroup("group.build", new RefreshFolderAction(relevantSelectedNodes,
-          getActionSite().getStructuredViewer()));
+    if (relevantSelectedNodes == null || relevantSelectedNodes.isEmpty()) {
+      return;
     }
+
+    menu.appendToGroup("group.build", new RefreshFolderAction(relevantSelectedNodes, getActionSite()
+        .getStructuredViewer()));
   }
 
   private List<ILazyLoadingNode> getRelevantNodesFromSelection() {

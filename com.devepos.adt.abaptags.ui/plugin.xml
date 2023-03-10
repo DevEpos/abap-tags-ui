@@ -265,7 +265,7 @@
             activeByDefault="true"
             contentProvider="com.devepos.adt.atm.ui.internal.tree.TaggedObjectTreeContentAndLabelProvider"
             icon="icons/TagsFolder.png"
-            id="com.devepos.adt.abaptags.tags"
+            id="com.devepos.adt.atm.tags"
             labelProvider="com.devepos.adt.atm.ui.internal.tree.TaggedObjectTreeContentAndLabelProvider"
             name="ABAP Tags"
             priority="highest">
@@ -299,7 +299,41 @@
                </adapt>
             </enablement>
          </actionProvider>
+         <commonSorter
+               class="com.devepos.adt.atm.ui.internal.tree.TaggedObjectTreeNodeSorter"
+               id="com.devepos.adt.atm.taggedObjectTree.sorter">
+         </commonSorter>
       </navigatorContent>
+      <actionProvider
+            class="com.devepos.adt.atm.ui.internal.actions.AdtObjectRefOpenActionProvider"
+            id="com.devepos.adt.atm.projectexplorer.openAction"
+            overrides="org.eclipse.ui.navigator.resources.OpenActions"
+            priority="lowest">
+         <enablement>
+            <and>
+               <adapt
+                     type="com.sap.adt.tools.core.IAdtObjectReference">
+               </adapt>
+               <instanceof
+                     value="com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode">
+               </instanceof>
+            </and>
+         </enablement>
+      </actionProvider>
+      <actionProvider
+            class="com.sap.adt.projectexplorer.ui.internal.action.AbapRepositoryObjectOpenInProjectActionProvider"
+            id="com.devepos.adt.atm.projectexplorer.openInProjectAction">
+         <enablement>
+            <and>
+               <adapt
+                     type="com.sap.adt.tools.core.IAdtObjectReference">
+               </adapt>
+               <instanceof
+                     value="com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode">
+               </instanceof>
+            </and>
+         </enablement>
+      </actionProvider>
    </extension>
    <extension
          point="org.eclipse.ui.navigator.viewer">
@@ -307,9 +341,20 @@
             viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
             <contentExtension
-                  pattern="com.devepos.adt.abaptags.tags">
+                  pattern="com.devepos.adt.atm.tags">
             </contentExtension>
          </includes>
       </viewerContentBinding>
+      <viewerActionBinding
+            viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <actionExtension
+                  pattern="com.devepos.adt.atm.projectexplorer.openAction">
+            </actionExtension>
+            <actionExtension
+                  pattern="com.devepos.adt.atm.projectexplorer.openInProjectAction">
+            </actionExtension>
+         </includes>
+      </viewerActionBinding>
    </extension>
 </plugin>

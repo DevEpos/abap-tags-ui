@@ -9,6 +9,7 @@ Bundle-Localization: OSGI-INF/l10n/bundle
 Require-Bundle: com.devepos.adt.abaptags.model,
  com.devepos.adt.abaptags.backend,
  com.devepos.adt.base,
+ com.sap.adt.projectexplorer.ui,
  com.devepos.adt.base.ui,
  com.sap.adt.project.ui,
  com.sap.adt.ris.search.ui,

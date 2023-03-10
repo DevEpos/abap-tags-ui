@@ -125,8 +125,8 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
       objectElementInfo.setAdtObjectReference(adtObjectRefEmf);
       if (o.isExpandable()) {
         objectElementInfo.setLazyLoadingSupport(true);
-        objectElementInfo.setElementInfoProvider(new TagLoader(destinationId, tagId,
-            adtObjectRefEmf));
+        objectElementInfo.setElementInfoProvider(new TagLoader(destinationId, o
+            .getParentTagId() != null ? o.getParentTagId() : tagId, adtObjectRefEmf));
       }
       return objectElementInfo;
     }
