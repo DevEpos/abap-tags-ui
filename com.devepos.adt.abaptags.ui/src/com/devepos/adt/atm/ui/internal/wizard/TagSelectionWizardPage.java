@@ -414,7 +414,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     }).toArray(String[]::new));
     tagTypeCombo.select(0);
     tagTypeCombo.addModifyListener(e -> {
-      treeContentProvider.setVisbleTagScope(TagSearchScope.get(tagTypeCombo.getSelectionIndex()));
+      var selectedScope = tagTypeCombo.getItem(tagTypeCombo.getSelectionIndex());
+      treeContentProvider.setVisbleTagScope(TagSearchScope.getByName(selectedScope.toUpperCase()));
       checkBoxViewer.refresh();
       setCheckedElements();
     });
