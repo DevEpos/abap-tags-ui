@@ -325,7 +325,7 @@
     <eLiterals name="ALL" value="1" literal="all"/>
     <eLiterals name="GLOBAL" value="2" literal="global"/>
     <eLiterals name="USER" value="3" literal="user"/>
-    <eLiterals name="SHARED" value="4" literal="SHARED"/>
+    <eLiterals name="SHARED" value="4" literal="shared"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TagQueryType">
     <eLiterals name="OBJECT_NAME" value="1" literal="objectName"/>
@@ -342,12 +342,12 @@
     </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TagQueryFocus">
-    <eLiterals name="OBJECT" literal="object"/>
-    <eLiterals name="PARENT_OBJECT" value="1" literal="parentObject"/>
+    <eLiterals name="OBJECT" value="1" literal="object"/>
+    <eLiterals name="PARENT_OBJECT" value="2" literal="parentObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ResultGroupLevel">
-    <eLiterals name="BY_OBJECT" literal="byObject"/>
-    <eLiterals name="BY_TAG_AND_OBJECT" value="1" literal="byTagAndObject"/>
+    <eLiterals name="BY_OBJECT" value="1" literal="byObject"/>
+    <eLiterals name="BY_TAG_AND_OBJECT" value="2" literal="byTagAndObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Image" instanceClassName="org.eclipse.swt.graphics.Image"/>
   <eClassifiers xsi:type="ecore:EClass" name="TaggedObjectTreeObject">

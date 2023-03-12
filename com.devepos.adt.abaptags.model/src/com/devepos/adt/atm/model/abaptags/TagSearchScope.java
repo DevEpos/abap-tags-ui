@@ -59,7 +59,7 @@ public enum TagSearchScope implements Enumerator {
    * @generated
    * @ordered
    */
-  SHARED(4, "SHARED", "SHARED");
+  SHARED(4, "SHARED", "shared");
 
   /**
    * The '<em><b>ALL</b></em>' literal value.
@@ -103,7 +103,7 @@ public enum TagSearchScope implements Enumerator {
    * end-user-doc -->
    *
    * @see #SHARED
-   * @model
+   * @model literal="shared"
    * @generated
    * @ordered
    */

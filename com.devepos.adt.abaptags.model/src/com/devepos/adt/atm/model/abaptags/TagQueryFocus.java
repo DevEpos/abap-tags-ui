@@ -27,7 +27,7 @@ public enum TagQueryFocus implements Enumerator {
    * @generated
    * @ordered
    */
-  OBJECT(0, "OBJECT", "object"),
+  OBJECT(1, "OBJECT", "object"),
 
   /**
    * The '<em><b>PARENT OBJECT</b></em>' literal object.
@@ -38,7 +38,7 @@ public enum TagQueryFocus implements Enumerator {
    * @generated
    * @ordered
    */
-  PARENT_OBJECT(1, "PARENT_OBJECT", "parentObject");
+  PARENT_OBJECT(2, "PARENT_OBJECT", "parentObject");
 
   /**
    * The '<em><b>OBJECT</b></em>' literal value.
@@ -50,7 +50,7 @@ public enum TagQueryFocus implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int OBJECT_VALUE = 0;
+  public static final int OBJECT_VALUE = 1;
 
   /**
    * The '<em><b>PARENT OBJECT</b></em>' literal value.
@@ -62,7 +62,7 @@ public enum TagQueryFocus implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int PARENT_OBJECT_VALUE = 1;
+  public static final int PARENT_OBJECT_VALUE = 2;
 
   /**
    * An array of all the '<em><b>Tag Query Focus</b></em>' enumerators. <!--

@@ -28,7 +28,7 @@ public enum ResultGroupLevel implements Enumerator {
    * @generated
    * @ordered
    */
-  BY_OBJECT(0, "BY_OBJECT", "byObject"),
+  BY_OBJECT(1, "BY_OBJECT", "byObject"),
   /**
    * The '<em><b>BY TAG AND OBJECT</b></em>' literal object.
    * <!-- begin-user-doc -->
@@ -38,7 +38,7 @@ public enum ResultGroupLevel implements Enumerator {
    * @generated
    * @ordered
    */
-  BY_TAG_AND_OBJECT(1, "BY_TAG_AND_OBJECT", "byTagAndObject");
+  BY_TAG_AND_OBJECT(2, "BY_TAG_AND_OBJECT", "byTagAndObject");
 
   /**
    * The '<em><b>BY OBJECT</b></em>' literal value.
@@ -50,7 +50,7 @@ public enum ResultGroupLevel implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int BY_OBJECT_VALUE = 0;
+  public static final int BY_OBJECT_VALUE = 1;
 
   /**
    * The '<em><b>BY TAG AND OBJECT</b></em>' literal value.
@@ -62,7 +62,7 @@ public enum ResultGroupLevel implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int BY_TAG_AND_OBJECT_VALUE = 1;
+  public static final int BY_TAG_AND_OBJECT_VALUE = 2;
 
   /**
    * An array of all the '<em><b>Result Group Level</b></em>' enumerators.
