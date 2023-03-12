@@ -1,6 +1,6 @@
 package com.devepos.adt.atm.tree;
 
-import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult;
 
 /**
@@ -14,8 +14,8 @@ public interface ITaggedObjectTreeService {
    * Finds nodes in the the Tagged Object Tree
    *
    * @param destinationId destination Id for ABAP project
-   * @param parameters    instance of search parameters
+   * @param request       request for tree
    * @return result for tree
    */
-  ITaggedObjectTreeResult findNodes(String destinationId, ITaggedObjectSearchParams parameters);
+  ITaggedObjectTreeResult findNodes(String destinationId, ITaggedObjectTreeRequest request);
 }
