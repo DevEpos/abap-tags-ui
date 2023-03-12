@@ -1,4 +1,4 @@
-package com.devepos.adt.atm.ui.internal.tree;
+package com.devepos.adt.atm.ui.internal.projectexplorer.tree;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,9 +19,6 @@ import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult;
-import com.devepos.adt.atm.model.abaptags.TagQueryFocus;
-import com.devepos.adt.atm.model.abaptags.TagQueryType;
-import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.tree.ITaggedObjectTreeService;
 import com.devepos.adt.atm.tree.TaggedObjectTreeServicesFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
@@ -76,20 +73,17 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
 
     @Override
     public List<IElementInfo> getElements() {
-      var searchParams = IAbapTagsFactory.eINSTANCE.createTaggedObjectSearchParams();
-      searchParams.setSearchScope(TagSearchScope.ALL);
+      var treeRequest = IAbapTagsFactory.eINSTANCE.createTaggedObjectTreeRequest();
       if (tagId != null) {
-        searchParams.getTagIds().add(tagId);
+        treeRequest.setTagId(tagId);
       }
       if (objectRef != null) {
-        searchParams.setQuery(String.format("%s:%s", objectRef.getName(), objectRef.getType()
-            .substring(0, 4)));
-        searchParams.setQueryType(TagQueryType.OBJECT_NAME_TYPE_COMBO);
-        searchParams.setQueryFocus(TagQueryFocus.PARENT_OBJECT);
+        treeRequest.setParentObjectType(objectRef.getType().substring(0, 4));
+        treeRequest.setParentObjectName(objectRef.getName());
       }
 
       try {
-        var treeResult = treeService.findNodes(destinationId, searchParams);
+        var treeResult = treeService.findNodes(destinationId, treeRequest);
         var foundElements = new ArrayList<IElementInfo>();
 
         fillObjectResults(treeResult, foundElements);
@@ -123,6 +117,9 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
       var objectElementInfo = new AdtObjectReferenceElementInfo(objectRef.getName(), objectRef
           .getName(), objectRef.getDescription());
       objectElementInfo.setAdtObjectReference(adtObjectRefEmf);
+      // mark this adt object element info as launchable, so the project explorer will create the
+      // necessary items in the context menu
+      objectElementInfo.getProperties().put("LAUNCHABLE", Boolean.TRUE.toString());
       if (o.isExpandable()) {
         objectElementInfo.setLazyLoadingSupport(true);
         objectElementInfo.setElementInfoProvider(new TagLoader(destinationId, o
@@ -188,13 +185,10 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
 
   @Override
   public void addListener(final ILabelProviderListener listener) {
-    // TODO Auto-generated method stub
   }
 
   @Override
   public void dispose() {
-    // TODO Auto-generated method stub
-
   }
 
   @Override
@@ -264,10 +258,13 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
       var tag = node.getAdapter(ITag.class);
       if (tag != null) {
         appendTagName(tag, text);
-        // appendCounterText(tag, text);
 
+        // if (tag.getTaggedObjectCount() > 0) {
+        // appendCounterText(tag, text);
+        // } else {
         text.append(" (" + ((ICollectionTreeNode) node).getSizeAsString() + ")",
             StyledString.COUNTER_STYLER);
+        // }
         appendDescription(tag, text);
       } else {
         text.append(node.getName());
@@ -295,9 +292,6 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
   }
 
   protected void appendCounterText(final ITag tag, final StyledString text) {
-    // if (noCounterText) {
-    // return;
-    // }
     if (!StringUtil.isEmpty(tag.getId())) {
       text.append(" (" + tag.getTaggedObjectCount() + ")", StyledString.COUNTER_STYLER);
     }
@@ -305,9 +299,6 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
   }
 
   protected void appendDescription(final ITag tagNode, final StyledString text) {
-    // if (noDescription) {
-    // return;
-    // }
     if (tagNode.getDescription() != null) {
       text.append("  " + tagNode.getDescription(), StylerFactory.createCustomStyler(SWT.ITALIC,
           JFacePreferences.DECORATIONS_COLOR, null));

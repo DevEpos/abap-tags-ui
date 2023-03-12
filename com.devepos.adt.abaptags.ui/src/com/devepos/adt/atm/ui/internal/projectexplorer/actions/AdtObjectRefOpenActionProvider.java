@@ -1,4 +1,4 @@
-package com.devepos.adt.atm.ui.internal.actions;
+package com.devepos.adt.atm.ui.internal.projectexplorer.actions;
 
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.IStructuredSelection;

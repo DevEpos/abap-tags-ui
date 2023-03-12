@@ -47,6 +47,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.navigator.ICommonMenuConstants;
 import org.eclipse.ui.part.ViewPart;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
@@ -633,6 +634,11 @@ public class AbapObjectTagsView extends ViewPart {
     DeleteTagsAction deleteTagsAction = new DeleteTagsAction(currentAdtObject);
     final List<IAdtObjectReference> previewAdtObjRefs = new ArrayList<>();
 
+    menu.add(new Separator(ICommonMenuConstants.GROUP_OPEN));
+    menu.add(new Separator(IGeneralMenuConstants.GROUP_ADDITIONS));
+    menu.add(new Separator(IGeneralMenuConstants.GROUP_EDIT));
+    menu.add(new Separator(ICommonMenuConstants.GROUP_PROPERTIES));
+
     for (final Object selectedObject : selection.toList()) {
       if (selectedObject instanceof IAdtObjectReferenceNode) {
         final IAdtObjectReferenceNode objRefNode = (IAdtObjectReferenceNode) selectedObject;
@@ -652,24 +658,24 @@ public class AbapObjectTagsView extends ViewPart {
     }
 
     if (!adtObjRefs.isEmpty()) {
-      menu.add(new OpenAdtObjectAction(getProject(), adtObjRefs));
+      menu.appendToGroup(ICommonMenuConstants.GROUP_OPEN, new OpenAdtObjectAction(getProject(),
+          adtObjRefs));
     }
     if (!previewAdtObjRefs.isEmpty()) {
-      menu.add(new ExecuteAdtObjectAction(getProject(), previewAdtObjRefs, true));
+      menu.appendToGroup(ICommonMenuConstants.GROUP_OPEN, new ExecuteAdtObjectAction(getProject(),
+          previewAdtObjRefs, true));
     }
 
     if (!adtObjRefs.isEmpty()) {
-      menu.add(new Separator(IGeneralMenuConstants.GROUP_ADDITIONS));
-      menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, CommandFactory
-          .createContribItemById(IGeneralCommandConstants.WHERE_USED_IN, true, null));
       if (adtObjRefs.size() == 1 && selection.size() == 1) {
+        menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, CommandFactory
+            .createContribItemById(IGeneralCommandConstants.WHERE_USED_IN, true, null));
         focusOnObject.setText(String.format(Messages.AbapObjectTagsView_focusOnObjectAction_xmit,
             adtObjRefs.get(0).getName()));
-        menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, focusOnObject);
+        menu.appendToGroup(ICommonMenuConstants.GROUP_OPEN, focusOnObject);
       }
     }
 
-    menu.add(new Separator(IGeneralMenuConstants.GROUP_EDIT));
     if (deleteTagsAction != null && !deleteTagsAction.isEmpty()) {
       menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, deleteTagsAction);
     }

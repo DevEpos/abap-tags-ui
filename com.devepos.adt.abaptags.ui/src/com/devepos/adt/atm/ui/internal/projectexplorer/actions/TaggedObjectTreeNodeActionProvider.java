@@ -1,4 +1,4 @@
-package com.devepos.adt.atm.ui.internal.actions;
+package com.devepos.adt.atm.ui.internal.projectexplorer.actions;
 
 import java.util.List;
 import java.util.stream.Collectors;

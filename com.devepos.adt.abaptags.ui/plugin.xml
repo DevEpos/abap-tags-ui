@@ -263,10 +263,10 @@
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
             activeByDefault="true"
-            contentProvider="com.devepos.adt.atm.ui.internal.tree.TaggedObjectTreeContentAndLabelProvider"
+            contentProvider="com.devepos.adt.atm.ui.internal.projectexplorer.tree.TaggedObjectTreeContentAndLabelProvider"
             icon="icons/TagsFolder.png"
             id="com.devepos.adt.atm.tags"
-            labelProvider="com.devepos.adt.atm.ui.internal.tree.TaggedObjectTreeContentAndLabelProvider"
+            labelProvider="com.devepos.adt.atm.ui.internal.projectexplorer.tree.TaggedObjectTreeContentAndLabelProvider"
             name="ABAP Tags"
             priority="highest">
          <triggerPoints>
@@ -290,7 +290,7 @@
             </or>
          </possibleChildren>
          <actionProvider
-               class="com.devepos.adt.atm.ui.internal.actions.TaggedObjectTreeNodeActionProvider"
+               class="com.devepos.adt.atm.ui.internal.projectexplorer.actions.TaggedObjectTreeNodeActionProvider"
                id="com.devepos.adt.atm.ui.taggedObjectTree.configure"
                overrides="org.eclipse.ui.navigator.resources.PropertiesActionProvider">
             <enablement>
@@ -300,12 +300,12 @@
             </enablement>
          </actionProvider>
          <commonSorter
-               class="com.devepos.adt.atm.ui.internal.tree.TaggedObjectTreeNodeSorter"
+               class="com.devepos.adt.atm.ui.internal.projectexplorer.tree.TaggedObjectTreeNodeSorter"
                id="com.devepos.adt.atm.taggedObjectTree.sorter">
          </commonSorter>
       </navigatorContent>
       <actionProvider
-            class="com.devepos.adt.atm.ui.internal.actions.AdtObjectRefOpenActionProvider"
+            class="com.devepos.adt.atm.ui.internal.projectexplorer.actions.AdtObjectRefOpenActionProvider"
             id="com.devepos.adt.atm.projectexplorer.openAction"
             overrides="org.eclipse.ui.navigator.resources.OpenActions"
             priority="lowest">

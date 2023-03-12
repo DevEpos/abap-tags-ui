@@ -1,4 +1,4 @@
-package com.devepos.adt.atm.ui.internal.tree;
+package com.devepos.adt.atm.ui.internal.projectexplorer.tree;
 
 import java.util.Comparator;
 
