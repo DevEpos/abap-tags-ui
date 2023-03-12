@@ -17,6 +17,7 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult;
 
 /**
@@ -109,6 +110,11 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
     @Override
     public Adapter caseTaggedObjectList(final ITaggedObjectList object) {
       return createTaggedObjectListAdapter();
+    }
+
+    @Override
+    public Adapter caseTaggedObjectTreeRequest(final ITaggedObjectTreeRequest object) {
+      return createTaggedObjectTreeRequestAdapter();
     }
 
     @Override
@@ -248,6 +254,23 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createTaggedObjectListAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest <em>Tagged Object Tree
+   * Request</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest
+   * @generated
+   */
+  public Adapter createTaggedObjectTreeRequestAdapter() {
     return null;
   }
 

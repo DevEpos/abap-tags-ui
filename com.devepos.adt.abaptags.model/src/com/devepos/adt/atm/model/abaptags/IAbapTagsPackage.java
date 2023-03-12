@@ -592,6 +592,69 @@ public interface IAbapTagsPackage extends EPackage {
 
   /**
    * The meta object id for the
+   * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeRequest <em>Tagged Object Tree
+   * Request</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeRequest
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectTreeRequest()
+   * @generated
+   */
+  int TAGGED_OBJECT_TREE_REQUEST = 7;
+
+  /**
+   * The feature id for the '<em><b>Tag Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_TREE_REQUEST__TAG_ID = 0;
+
+  /**
+   * The feature id for the '<em><b>Parent Object Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_TREE_REQUEST__PARENT_OBJECT_NAME = 1;
+
+  /**
+   * The feature id for the '<em><b>Parent Object Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_TREE_REQUEST__PARENT_OBJECT_TYPE = 2;
+
+  /**
+   * The number of structural features of the '<em>Tagged Object Tree Request</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_TREE_REQUEST_FEATURE_COUNT = 3;
+
+  /**
+   * The number of operations of the '<em>Tagged Object Tree Request</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_TREE_REQUEST_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the
    * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectSearchParams <em>Tagged Object
    * Search Params</em>}' class.
    * <!-- begin-user-doc --> <!--
@@ -601,7 +664,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectSearchParams()
    * @generated
    */
-  int TAGGED_OBJECT_SEARCH_PARAMS = 7;
+  int TAGGED_OBJECT_SEARCH_PARAMS = 8;
 
   /**
    * The feature id for the '<em><b>Tag Ids</b></em>' attribute list. <!--
@@ -724,7 +787,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectTreeObject()
    * @generated
    */
-  int TAGGED_OBJECT_TREE_OBJECT = 8;
+  int TAGGED_OBJECT_TREE_OBJECT = 9;
 
   /**
    * The feature id for the '<em><b>Object Ref</b></em>' containment reference.
@@ -797,7 +860,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectTreeResult()
    * @generated
    */
-  int TAGGED_OBJECT_TREE_RESULT = 9;
+  int TAGGED_OBJECT_TREE_RESULT = 10;
 
   /**
    * The feature id for the '<em><b>Objects</b></em>' containment reference list.
@@ -848,7 +911,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagSearchScope()
    * @generated
    */
-  int TAG_SEARCH_SCOPE = 10;
+  int TAG_SEARCH_SCOPE = 11;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagQueryType <em>Tag
@@ -859,7 +922,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagQueryType()
    * @generated
    */
-  int TAG_QUERY_TYPE = 11;
+  int TAG_QUERY_TYPE = 12;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagInfoType <em>Tag Info
@@ -870,7 +933,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagInfoType()
    * @generated
    */
-  int TAG_INFO_TYPE = 12;
+  int TAG_INFO_TYPE = 13;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagQueryFocus <em>Tag
@@ -881,7 +944,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagQueryFocus()
    * @generated
    */
-  int TAG_QUERY_FOCUS = 13;
+  int TAG_QUERY_FOCUS = 14;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.ResultGroupLevel
@@ -893,7 +956,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getResultGroupLevel()
    * @generated
    */
-  int RESULT_GROUP_LEVEL = 14;
+  int RESULT_GROUP_LEVEL = 15;
 
   /**
    * The meta object id for the '<em>Image</em>' data type.
@@ -904,7 +967,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getImage()
    * @generated
    */
-  int IMAGE = 15;
+  int IMAGE = 16;
 
   /**
    * Returns the meta object for class
@@ -1344,6 +1407,60 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    */
   EReference getTaggedObjectList_TaggedObjects();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest <em>Tagged Object Tree
+   * Request</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Tagged Object Tree Request</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest
+   * @generated
+   */
+  EClass getTaggedObjectTreeRequest();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest#getTagId <em>Tag Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Tag Id</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest#getTagId()
+   * @see #getTaggedObjectTreeRequest()
+   * @generated
+   */
+  EAttribute getTaggedObjectTreeRequest_TagId();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest#getParentObjectName
+   * <em>Parent Object Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Parent Object Name</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest#getParentObjectName()
+   * @see #getTaggedObjectTreeRequest()
+   * @generated
+   */
+  EAttribute getTaggedObjectTreeRequest_ParentObjectName();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest#getParentObjectType
+   * <em>Parent Object Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Parent Object Type</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest#getParentObjectType()
+   * @see #getTaggedObjectTreeRequest()
+   * @generated
+   */
+  EAttribute getTaggedObjectTreeRequest_ParentObjectType();
 
   /**
    * Returns the meta object for class
@@ -2005,6 +2122,48 @@ public interface IAbapTagsPackage extends EPackage {
      * @generated
      */
     EReference TAGGED_OBJECT_LIST__TAGGED_OBJECTS = eINSTANCE.getTaggedObjectList_TaggedObjects();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeRequest <em>Tagged Object
+     * Tree Request</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeRequest
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectTreeRequest()
+     * @generated
+     */
+    EClass TAGGED_OBJECT_TREE_REQUEST = eINSTANCE.getTaggedObjectTreeRequest();
+
+    /**
+     * The meta object literal for the '<em><b>Tag Id</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_TREE_REQUEST__TAG_ID = eINSTANCE.getTaggedObjectTreeRequest_TagId();
+
+    /**
+     * The meta object literal for the '<em><b>Parent Object Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_TREE_REQUEST__PARENT_OBJECT_NAME = eINSTANCE
+        .getTaggedObjectTreeRequest_ParentObjectName();
+
+    /**
+     * The meta object literal for the '<em><b>Parent Object Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_TREE_REQUEST__PARENT_OBJECT_TYPE = eINSTANCE
+        .getTaggedObjectTreeRequest_ParentObjectType();
 
     /**
      * The meta object literal for the

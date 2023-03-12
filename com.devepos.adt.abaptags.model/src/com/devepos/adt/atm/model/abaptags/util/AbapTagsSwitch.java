@@ -16,6 +16,7 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult;
 
 /**
@@ -133,6 +134,14 @@ public class AbapTagsSwitch<T> extends Switch<T> {
     case IAbapTagsPackage.TAGGED_OBJECT_LIST: {
       ITaggedObjectList taggedObjectList = (ITaggedObjectList) theEObject;
       T result = caseTaggedObjectList(taggedObjectList);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_REQUEST: {
+      ITaggedObjectTreeRequest taggedObjectTreeRequest = (ITaggedObjectTreeRequest) theEObject;
+      T result = caseTaggedObjectTreeRequest(taggedObjectTreeRequest);
       if (result == null) {
         result = defaultCase(theEObject);
       }
@@ -262,6 +271,24 @@ public class AbapTagsSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseTaggedObjectList(final ITaggedObjectList object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tagged Object Tree
+   * Request</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tagged Object Tree
+   *         Request</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTaggedObjectTreeRequest(final ITaggedObjectTreeRequest object) {
     return null;
   }
 

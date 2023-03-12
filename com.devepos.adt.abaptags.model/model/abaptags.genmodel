@@ -77,6 +77,11 @@
     <genClasses ecoreClass="abaptags.ecore#//TaggedObjectList">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TaggedObjectList/taggedObjects"/>
     </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TaggedObjectTreeRequest">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectTreeRequest/tagId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectTreeRequest/parentObjectName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectTreeRequest/parentObjectType"/>
+    </genClasses>
     <genClasses ecoreClass="abaptags.ecore#//TaggedObjectSearchParams">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/tagIds"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/searchScope"/>

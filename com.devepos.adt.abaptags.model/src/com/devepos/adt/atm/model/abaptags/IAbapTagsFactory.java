@@ -80,6 +80,16 @@ public interface IAbapTagsFactory extends EFactory {
   ITaggedObjectList createTaggedObjectList();
 
   /**
+   * Returns a new object of class '<em>Tagged Object Tree Request</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Tagged Object Tree Request</em>'.
+   * @generated
+   */
+  ITaggedObjectTreeRequest createTaggedObjectTreeRequest();
+
+  /**
    * Returns a new object of class '<em>Tagged Object Search Params</em>'. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    *

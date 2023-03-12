@@ -23,6 +23,7 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult;
 import com.devepos.adt.atm.model.abaptags.ResultGroupLevel;
 import com.devepos.adt.atm.model.abaptags.TagInfoType;
@@ -86,6 +87,14 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * @generated
    */
   private EClass taggedObjectListEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass taggedObjectTreeRequestEClass = null;
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -592,6 +601,50 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTaggedObjectTreeRequest() {
+    return taggedObjectTreeRequestEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectTreeRequest_TagId() {
+    return (EAttribute) taggedObjectTreeRequestEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectTreeRequest_ParentObjectName() {
+    return (EAttribute) taggedObjectTreeRequestEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectTreeRequest_ParentObjectType() {
+    return (EAttribute) taggedObjectTreeRequestEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -926,6 +979,11 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     taggedObjectListEClass = createEClass(TAGGED_OBJECT_LIST);
     createEReference(taggedObjectListEClass, TAGGED_OBJECT_LIST__TAGGED_OBJECTS);
 
+    taggedObjectTreeRequestEClass = createEClass(TAGGED_OBJECT_TREE_REQUEST);
+    createEAttribute(taggedObjectTreeRequestEClass, TAGGED_OBJECT_TREE_REQUEST__TAG_ID);
+    createEAttribute(taggedObjectTreeRequestEClass, TAGGED_OBJECT_TREE_REQUEST__PARENT_OBJECT_NAME);
+    createEAttribute(taggedObjectTreeRequestEClass, TAGGED_OBJECT_TREE_REQUEST__PARENT_OBJECT_TYPE);
+
     taggedObjectSearchParamsEClass = createEClass(TAGGED_OBJECT_SEARCH_PARAMS);
     createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__TAG_IDS);
     createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__SEARCH_SCOPE);
@@ -1109,6 +1167,18 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         null, 0, -1, ITaggedObjectList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
         IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(taggedObjectTreeRequestEClass, ITaggedObjectTreeRequest.class,
+        "TaggedObjectTreeRequest", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTaggedObjectTreeRequest_TagId(), ecorePackage.getEString(), "tagId", null, 0,
+        1, ITaggedObjectTreeRequest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectTreeRequest_ParentObjectName(), ecorePackage.getEString(),
+        "parentObjectName", null, 0, 1, ITaggedObjectTreeRequest.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectTreeRequest_ParentObjectType(), ecorePackage.getEString(),
+        "parentObjectType", null, 0, 1, ITaggedObjectTreeRequest.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(taggedObjectSearchParamsEClass, ITaggedObjectSearchParams.class,
         "TaggedObjectSearchParams", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getTaggedObjectSearchParams_TagIds(), ecorePackage.getEString(), "tagIds", null,
@@ -1275,6 +1345,14 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         "taggedObjects" });
     addAnnotation(getTaggedObjectList_TaggedObjects(), source, new String[] { "kind", "element",
         "name", "taggedObject", "namespace", "##targetNamespace" });
+    addAnnotation(taggedObjectTreeRequestEClass, source, new String[] { "kind", "elementOnly",
+        "name", "taggedObjectTreeRequest" });
+    addAnnotation(getTaggedObjectTreeRequest_TagId(), source, new String[] { "name", "tagId",
+        "namespace", "##targetNamespace", "kind", "attribute" });
+    addAnnotation(getTaggedObjectTreeRequest_ParentObjectName(), source, new String[] { "kind",
+        "attribute", "name", "parentObjectName", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectTreeRequest_ParentObjectType(), source, new String[] { "kind",
+        "attribute", "name", "parentObjectType", "namespace", "##targetNamespace" });
     addAnnotation(taggedObjectSearchParamsEClass, source, new String[] { "kind", "elementOnly",
         "name", "taggedObjectSearchParams" });
     addAnnotation(getTaggedObjectSearchParams_TagIds(), source, new String[] { "kind", "element",

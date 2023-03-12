@@ -20,6 +20,7 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult;
 import com.devepos.adt.atm.model.abaptags.ResultGroupLevel;
 import com.devepos.adt.atm.model.abaptags.TagInfoType;
@@ -84,6 +85,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
       return createTaggedObject();
     case IAbapTagsPackage.TAGGED_OBJECT_LIST:
       return createTaggedObjectList();
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_REQUEST:
+      return createTaggedObjectTreeRequest();
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS:
       return createTaggedObjectSearchParams();
     case IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT:
@@ -212,6 +215,18 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   public ITaggedObjectList createTaggedObjectList() {
     TaggedObjectList taggedObjectList = new TaggedObjectList();
     return taggedObjectList;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ITaggedObjectTreeRequest createTaggedObjectTreeRequest() {
+    TaggedObjectTreeRequest taggedObjectTreeRequest = new TaggedObjectTreeRequest();
+    return taggedObjectTreeRequest;
   }
 
   /**
