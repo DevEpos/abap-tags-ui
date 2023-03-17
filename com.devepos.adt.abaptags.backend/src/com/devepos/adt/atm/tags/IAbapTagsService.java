@@ -6,6 +6,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.base.model.adtbase.IUser;
@@ -35,6 +36,15 @@ public interface IAbapTagsService {
    *         ABAP Tags Plugin is available in the given ABAP project
    */
   IStatus testShareTagsFeatureAvailability(IProject project);
+
+  /**
+   * Returns {@link Status#OK_STATUS} if it is possible to run a tags deletion check
+   * in the given ABAP project
+   *
+   * @param project ABAP project
+   * @return Status with severity {@link IStatus#OK} if the feature is available
+   */
+  IStatus testTagDeletionCheckFeatureAvailability(IProject project);
 
   /**
    * Creates/updates tags
@@ -128,4 +138,13 @@ public interface IAbapTagsService {
    * @return List of shared users
    */
   List<IUser> getSharedUsers(String destinationId, String tagId);
+
+  /**
+   * Runs a check if the passed list of tags can be safely deleted
+   * 
+   * @param destinationId destination of ABAP Project
+   * @param tagList       list of tags to be deleted
+   * @return deletion check result
+   */
+  ITagDeletionCheckResult runTagDeletionCheck(String destinationId, ITagList tagList);
 }
