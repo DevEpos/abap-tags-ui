@@ -555,9 +555,9 @@ public class AbapObjectTagsView extends ViewPart {
 
     createViewer(mainComposite);
     viewLabel = new ViewDescriptionLabel(mainComposite);
-    clearInput();
 
     initializeActions();
+    clearInput();
 
     initToolbar(getViewSite().getActionBars());
     hookContextMenu();
@@ -593,6 +593,9 @@ public class AbapObjectTagsView extends ViewPart {
 
   private void clearInput() {
     currentAdtObject = null;
+    if (addTagsAction != null) {
+      addTagsAction.setEnabled(false);
+    }
     treeResult.clearInput();
     viewLabel.updateLabel(Messages.AbapObjectTagsView_NoInputAvailable_xmsg);
   }
@@ -838,6 +841,7 @@ public class AbapObjectTagsView extends ViewPart {
       viewLabel.updateLabel(" [" + currentAdtObject.getProject().getName() + "] " + currentAdtObject //$NON-NLS-1$ //$NON-NLS-2$
           .getName(), currentAdtObject.getImage());
       destinationOwner = DestinationUtil.getDestinationOwner(currentAdtObject.getProject());
+      addTagsAction.setEnabled(true);
     }
   }
 
