@@ -34,6 +34,7 @@ import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.swt.SWT;
@@ -77,6 +78,7 @@ import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
 import com.devepos.adt.atm.ui.internal.search.TaggedObjectSearchQuery;
+import com.devepos.adt.atm.ui.internal.wizard.DeleteTagsWizard;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.IUser;
@@ -127,6 +129,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   private Composite mainComposite;
   private final IPreferenceStore prefStore;
   private Action refreshAction;
+
   private final ISelectionListener selectionListener = new ISelectionListener() {
     private boolean isUpdatingSelection = false;
 
@@ -171,6 +174,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   private ViewDescriptionLabel viewLabel;
   private String lastDestinationOwner = ""; //$NON-NLS-1$
   private boolean tagsSharingPossible;
+  private boolean tagDeletionCheckPossible;
   private ContextHelper contextHelper;
 
   public AbapTagManagerView() {
@@ -481,7 +485,8 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
     }
   }
 
-  private ITagList buildNewTagListFromSelection(final Predicate<ITag> tagConditionCheck) {
+  private ITagList buildNewTagListFromSelection(final Predicate<ITag> tagConditionCheck,
+      final boolean includeBasicTagProperties) {
     ITagList newTagList = IAbapTagsFactory.eINSTANCE.createTagList();
     final IStructuredSelection sel = treeViewer.getStructuredSelection();
     if (sel == null || sel.isEmpty()) {
@@ -492,8 +497,15 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
         if (tagConditionCheck != null && !tagConditionCheck.test((ITag) selectedObj)) {
           continue;
         }
-        final ITag tag = IAbapTagsFactory.eINSTANCE.createTag();
-        tag.setId(((ITag) selectedObj).getId());
+        final var tag = IAbapTagsFactory.eINSTANCE.createTag();
+        final var selectedTag = (ITag) selectedObj;
+        tag.setId(selectedTag.getId());
+        if (includeBasicTagProperties) {
+          tag.setName(selectedTag.getName());
+          tag.setOwner(selectedTag.getOwner());
+          tag.setShared(selectedTag.isShared());
+          tag.setSharedForMe(selectedTag.isSharedForMe());
+        }
         newTagList.getTags().add(tag);
       }
 
@@ -534,6 +546,8 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
       return false;
     }
     tagsSharingPossible = tagsService.testShareTagsFeatureAvailability(lastProject).isOK();
+    tagDeletionCheckPossible = tagsService.testTagDeletionCheckFeatureAvailability(lastProject)
+        .isOK();
     setControlsEnabled(true);
     viewLabel.updateLabel(NLS.bind(Messages.AbapTagManagerView_TagListInProject_xmsg, lastProject
         .getName()));
@@ -765,29 +779,45 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   }
 
   private void handleDeleteTags() {
-    final ITagList tagList = buildNewTagListFromSelection(null);
+    final var tagList = buildNewTagListFromSelection(null, true);
 
-    if (MessageDialog.open(MessageDialog.WARNING, getSite().getShell(),
-        Messages.AbapTagManagerView_DeleteTagsMsgTitle_xtit,
-        Messages.AbapTagManagerView_DeleteTagsPrompt_xmsg, SWT.NONE, new String[] {
-            IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL }) != 0 || !ProjectUtil
-                .ensureLoggedOnToProject(lastProject)
-                .isOK()) {
+    if (!ProjectUtil.ensureLoggedOnToProject(lastProject).isOK()) {
       return;
     }
-    final Job deleteJob = Job.create(Messages.AbapTagManagerView_DeleteTagsJobTitle_xmsg,
-        monitor -> {
-          final IStatus status = tagsService.deleteTags(tagList, DestinationUtil.getDestinationId(
-              lastProject), TagSearchScope.ALL);
-          if (!status.isOK()) {
-            MessageDialog.openError(getSite().getShell(),
-                Messages.AbapTagManagerView_ErrorMessageTitle_xtit,
-                Messages.AbapTagManagerView_ErrorDuringTagDeletion_xmsg + status.getMessage());
-          }
-          refreshTags();
-          monitor.done();
-        });
-    deleteJob.schedule();
+
+    if (tagDeletionCheckPossible) {
+      var wizard = new DeleteTagsWizard(tagList);
+      wizard.setProject(lastProject);
+      final var dialog = new WizardDialog(PlatformUI.getWorkbench()
+          .getActiveWorkbenchWindow()
+          .getShell(), wizard);
+      dialog.open();
+
+      if (wizard.hasDeletionOccurred()) {
+        refreshTags();
+      }
+    } else {
+      // Fallback logic if deletion check not available in backend
+      if (MessageDialog.open(MessageDialog.WARNING, getSite().getShell(),
+          Messages.AbapTagManagerView_DeleteTagsMsgTitle_xtit,
+          Messages.AbapTagManagerView_DeleteTagsPrompt_xmsg, SWT.NONE, new String[] {
+              IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL }) != 0) {
+        return;
+      }
+      final Job deleteJob = Job.create(Messages.AbapTagManagerView_DeleteTagsJobTitle_xmsg,
+          monitor -> {
+            final IStatus status = tagsService.deleteTags(tagList, DestinationUtil.getDestinationId(
+                lastProject), TagSearchScope.ALL);
+            if (!status.isOK()) {
+              MessageDialog.openError(getSite().getShell(),
+                  Messages.AbapTagManagerView_ErrorMessageTitle_xtit,
+                  Messages.AbapTagManagerView_ErrorDuringTagDeletion_xmsg + status.getMessage());
+            }
+            refreshTags();
+            monitor.done();
+          });
+      deleteJob.schedule();
+    }
   }
 
   private void handleEditTag(final ITag t) {
@@ -850,8 +880,8 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   }
 
   private void handleUnshareTag() {
-    final ITagList sharedTagList = buildNewTagListFromSelection(t -> t.isShared() && t
-        .isEditable());
+    final ITagList sharedTagList = buildNewTagListFromSelection(t -> t.isShared() && t.isEditable(),
+        false);
     final Job job = Job.create(Messages.AbapTagManagerView_UnshareTagsJob_xmsg, monitor -> {
       final IStatus serviceStatus = tagsService.unshareTags(DestinationUtil.getDestinationId(
           lastProject), sharedTagList);
