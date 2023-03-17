@@ -14,6 +14,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult#getTaggedObjectCount
+ * <em>Tagged Object Count</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult#getObjects
  * <em>Objects</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult#getTags <em>Tags</em>}</li>
@@ -24,6 +26,20 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface ITaggedObjectTreeResult extends EObject {
+  /**
+   * Returns the value of the '<em><b>Tagged Object Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Tagged Object Count</em>' attribute.
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectTreeResult_TaggedObjectCount()
+   * @model transient="true" suppressedSetVisibility="true"
+   *        extendedMetaData="kind='attribute' name='taggedObjectCount'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  int getTaggedObjectCount();
+
   /**
    * Returns the value of the '<em><b>Objects</b></em>' containment reference list.
    * The list contents are of type

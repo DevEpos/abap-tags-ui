@@ -20,4 +20,5 @@
             type="abaptags"
             class="com.devepos.adt.atm.model.abaptags.util.AbapTagsResourceFactory"/>
    </extension>
+
 </plugin>

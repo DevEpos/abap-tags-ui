@@ -4,10 +4,12 @@ package com.devepos.adt.atm.model.abaptags.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -25,6 +27,8 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult;
  * The following features are implemented:
  * </p>
  * <ul>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeResult#getTaggedObjectCount
+ * <em>Tagged Object Count</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeResult#getObjects
  * <em>Objects</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeResult#getTags
@@ -35,6 +39,30 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult;
  */
 public class TaggedObjectTreeResult extends MinimalEObjectImpl.Container implements
     ITaggedObjectTreeResult {
+  /**
+   * The default value of the '{@link #getTaggedObjectCount() <em>Tagged Object Count</em>}'
+   * attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getTaggedObjectCount()
+   * @generated
+   * @ordered
+   */
+  protected static final int TAGGED_OBJECT_COUNT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getTaggedObjectCount() <em>Tagged Object Count</em>}'
+   * attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getTaggedObjectCount()
+   * @generated
+   * @ordered
+   */
+  protected int taggedObjectCount = TAGGED_OBJECT_COUNT_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getObjects() <em>Objects</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -76,6 +104,33 @@ public class TaggedObjectTreeResult extends MinimalEObjectImpl.Container impleme
   @Override
   protected EClass eStaticClass() {
     return IAbapTagsPackage.Literals.TAGGED_OBJECT_TREE_RESULT;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public int getTaggedObjectCount() {
+    return taggedObjectCount;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public void setTaggedObjectCount(final int newTaggedObjectCount) {
+    int oldTaggedObjectCount = taggedObjectCount;
+    taggedObjectCount = newTaggedObjectCount;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT__TAGGED_OBJECT_COUNT, oldTaggedObjectCount,
+          taggedObjectCount));
+    }
   }
 
   /**
@@ -135,6 +190,8 @@ public class TaggedObjectTreeResult extends MinimalEObjectImpl.Container impleme
   @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT__TAGGED_OBJECT_COUNT:
+      return getTaggedObjectCount();
     case IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT__OBJECTS:
       return getObjects();
     case IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT__TAGS:
@@ -153,6 +210,9 @@ public class TaggedObjectTreeResult extends MinimalEObjectImpl.Container impleme
   @Override
   public void eSet(final int featureID, final Object newValue) {
     switch (featureID) {
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT__TAGGED_OBJECT_COUNT:
+      setTaggedObjectCount((Integer) newValue);
+      return;
     case IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT__OBJECTS:
       getObjects().clear();
       getObjects().addAll((Collection<? extends ITaggedObjectTreeObject>) newValue);
@@ -174,6 +234,9 @@ public class TaggedObjectTreeResult extends MinimalEObjectImpl.Container impleme
   @Override
   public void eUnset(final int featureID) {
     switch (featureID) {
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT__TAGGED_OBJECT_COUNT:
+      setTaggedObjectCount(TAGGED_OBJECT_COUNT_EDEFAULT);
+      return;
     case IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT__OBJECTS:
       getObjects().clear();
       return;
@@ -193,12 +256,33 @@ public class TaggedObjectTreeResult extends MinimalEObjectImpl.Container impleme
   @Override
   public boolean eIsSet(final int featureID) {
     switch (featureID) {
+    case IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT__TAGGED_OBJECT_COUNT:
+      return taggedObjectCount != TAGGED_OBJECT_COUNT_EDEFAULT;
     case IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT__OBJECTS:
       return objects != null && !objects.isEmpty();
     case IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT__TAGS:
       return tags != null && !tags.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String toString() {
+    if (eIsProxy()) {
+      return super.toString();
+    }
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (taggedObjectCount: ");
+    result.append(taggedObjectCount);
+    result.append(')');
+    return result.toString();
   }
 
 } // TaggedObjectTreeResult

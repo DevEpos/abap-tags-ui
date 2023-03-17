@@ -860,7 +860,17 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectTreeResult()
    * @generated
    */
-  int TAGGED_OBJECT_TREE_RESULT = 10;
+  int TAGGED_OBJECT_TREE_RESULT = 12;
+
+  /**
+   * The feature id for the '<em><b>Tagged Object Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_TREE_RESULT__TAGGED_OBJECT_COUNT = 0;
 
   /**
    * The feature id for the '<em><b>Objects</b></em>' containment reference list.
@@ -870,7 +880,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TAGGED_OBJECT_TREE_RESULT__OBJECTS = 0;
+  int TAGGED_OBJECT_TREE_RESULT__OBJECTS = 1;
 
   /**
    * The feature id for the '<em><b>Tags</b></em>' containment reference list.
@@ -880,7 +890,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TAGGED_OBJECT_TREE_RESULT__TAGS = 1;
+  int TAGGED_OBJECT_TREE_RESULT__TAGS = 2;
 
   /**
    * The number of structural features of the '<em>Tagged Object Tree Result</em>' class.
@@ -890,7 +900,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TAGGED_OBJECT_TREE_RESULT_FEATURE_COUNT = 2;
+  int TAGGED_OBJECT_TREE_RESULT_FEATURE_COUNT = 3;
 
   /**
    * The number of operations of the '<em>Tagged Object Tree Result</em>' class.
@@ -1688,6 +1698,20 @@ public interface IAbapTagsPackage extends EPackage {
   EClass getTaggedObjectTreeResult();
 
   /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult#getTaggedObjectCount
+   * <em>Tagged Object Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Tagged Object Count</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult#getTaggedObjectCount()
+   * @see #getTaggedObjectTreeResult()
+   * @generated
+   */
+  EAttribute getTaggedObjectTreeResult_TaggedObjectCount();
+
+  /**
    * Returns the meta object for the containment reference list
    * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult#getObjects
    * <em>Objects</em>}'.
@@ -2333,6 +2357,16 @@ public interface IAbapTagsPackage extends EPackage {
      * @generated
      */
     EClass TAGGED_OBJECT_TREE_RESULT = eINSTANCE.getTaggedObjectTreeResult();
+
+    /**
+     * The meta object literal for the '<em><b>Tagged Object Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_TREE_RESULT__TAGGED_OBJECT_COUNT = eINSTANCE
+        .getTaggedObjectTreeResult_TaggedObjectCount();
 
     /**
      * The meta object literal for the '<em><b>Objects</b></em>' containment reference list feature.
