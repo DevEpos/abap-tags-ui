@@ -30,7 +30,7 @@ public class TaggingPreferencePage extends BaseFieldEditorPrefPage {
    * @param parent the parent composite
    */
   private void createSettings(final Composite parent) {
-    final Group wizardGroup = new Group(parent, SWT.NONE);
+    final var wizardGroup = new Group(parent, SWT.NONE);
     wizardGroup.setText(Messages.TaggingPreferencePage_TagWizardSettings_xgrp);
 
     GridDataFactory.fillDefaults().grab(true, false).applyTo(wizardGroup);
@@ -38,7 +38,16 @@ public class TaggingPreferencePage extends BaseFieldEditorPrefPage {
     addBooleanEditor(IObjectTaggingPrefs.AUTO_EXPAND_TAGS,
         Messages.TaggingPreferencePage_AutoExpandTagsOnTagSelectionPage_xchk, wizardGroup);
 
-    // reset group margins because of field editors
     adjustMargins(wizardGroup);
+
+    final var tagManagerGroup = new Group(parent, SWT.NONE);
+    tagManagerGroup.setText(Messages.TaggingPreferencePage_TagManagerSettings_xgrp);
+
+    GridDataFactory.fillDefaults().grab(true, false).applyTo(tagManagerGroup);
+
+    addBooleanEditor(ITagManagerPrefs.AUTO_EXPAND_TAGS,
+        Messages.TaggingPreferencePage_AutoExpandTagsOnTagManagerReloade_xchk, tagManagerGroup);
+
+    adjustMargins(tagManagerGroup);
   }
 }

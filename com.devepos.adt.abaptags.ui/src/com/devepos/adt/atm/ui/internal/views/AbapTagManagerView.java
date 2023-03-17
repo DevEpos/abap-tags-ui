@@ -76,6 +76,7 @@ import com.devepos.adt.atm.ui.internal.dialogs.EditTagDataDialog;
 import com.devepos.adt.atm.ui.internal.help.HelpContexts;
 import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
+import com.devepos.adt.atm.ui.internal.preferences.ITagManagerPrefs;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
 import com.devepos.adt.atm.ui.internal.search.TaggedObjectSearchQuery;
 import com.devepos.adt.atm.ui.internal.wizard.DeleteTagsWizard;
@@ -1001,9 +1002,14 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
       Display.getDefault().asyncExec(() -> {
         // TODO: cache old selected tag/folder and find correct object via folder name/tag id
         // so the user can continue working from the previously selected object
-        treeViewer.setInput(tagFolders.getFolders(tagsSharingPossible));
+        var folders = tagFolders.getFolders(tagsSharingPossible);
+        treeViewer.setInput(folders);
         treeViewer.refresh();
-        treeViewer.expandAll();
+        if (prefStore.getBoolean(ITagManagerPrefs.AUTO_EXPAND_TAGS)) {
+          treeViewer.expandAll();
+        } else {
+          treeViewer.expandToLevel(2);
+        }
       });
       monitor.done();
     });
