@@ -5,9 +5,11 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.ui.navigator.CommonActionProvider;
+import org.eclipse.ui.navigator.ICommonMenuConstants;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 import org.eclipse.ui.services.IServiceLocator;
 
+import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.util.AdtUIUtil;
 import com.sap.adt.project.IProjectProvider;
@@ -42,13 +44,14 @@ public class AdtObjectRefOpenActionProvider extends CommonActionProvider {
     if (selection != null) {
       initOpenAction();
       openAction.selectionChanged(selection);
-      menu.appendToGroup("group.open", openAction);
+      menu.appendToGroup(ICommonMenuConstants.GROUP_OPEN, openAction);
     }
   }
 
   private void initOpenAction() {
     if (openAction == null) {
-      openAction = new SelectionListenerAction("Open") {
+      openAction = new SelectionListenerAction(
+          Messages.AdtObjectRefOpenActionProvider_OpenAction_xmit) {
 
         @Override
         public void run() {

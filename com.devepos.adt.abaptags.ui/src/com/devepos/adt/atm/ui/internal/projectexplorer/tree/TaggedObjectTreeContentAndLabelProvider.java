@@ -1,12 +1,13 @@
 package com.devepos.adt.atm.ui.internal.projectexplorer.tree;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.jface.preference.JFacePreferences;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -24,6 +25,7 @@ import com.devepos.adt.atm.tree.TaggedObjectTreeServicesFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.IImages;
 import com.devepos.adt.atm.ui.internal.ImageUtil;
+import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.elementinfo.AdtObjectReferenceElementInfo;
@@ -33,9 +35,9 @@ import com.devepos.adt.base.elementinfo.IElementInfoCollection;
 import com.devepos.adt.base.elementinfo.IElementInfoProvider;
 import com.devepos.adt.base.elementinfo.LazyLoadingElementInfo;
 import com.devepos.adt.base.ui.StylerFactory;
+import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.ICollectionTreeNode;
-import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingFolderNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
@@ -46,25 +48,47 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeContentProvider
     implements ILabelProvider, IStyledLabelProvider {
 
+  // For now only a single tree node is stored per project, later this could be several
+  private static final QualifiedName SESSION_PROP_TAGGED_OBJECT_TREE = new QualifiedName(
+      "com.devepos.adt.atm.ui", "taggedObjectTrees"); //$NON-NLS-1$ //$NON-NLS-2$
+
   private final ITaggedObjectTreeService treeService = TaggedObjectTreeServicesFactory
       .createTaggedObjectTreeService();
-
-  private final Map<IProject, ILazyLoadingNode> projectRootNodeMap = new HashMap<>();
 
   public TaggedObjectTreeContentAndLabelProvider() {
   }
 
-  private class TagLoader implements IElementInfoProvider {
+  private class RootNode extends LazyLoadingFolderNode {
+
+    private TaggedObjectTreeLoader treeLoader;
+
+    public RootNode(TaggedObjectTreeLoader tagLoader) {
+      super(Messages.TaggedObjectTreeContentAndLabelProvider_TaggedObjectsNodeName_xtit, tagLoader,
+          null, AbapTagsUIPlugin.getDefault().getImage(IImages.GLOBAL_TAGS_FOLDER));
+      this.treeLoader = tagLoader;
+    }
+
+    public String getSizeAsString() {
+      if (isLoading() || !isLoaded()) {
+        return "?"; //$NON-NLS-1$
+      }
+      return treeLoader != null ? new DecimalFormat("###,###").format(treeLoader.getFolderSize()) //$NON-NLS-1$
+          : "0"; //$NON-NLS-1$
+    }
+  }
+
+  private class TaggedObjectTreeLoader implements IElementInfoProvider {
 
     private final String tagId;
     private final IAdtObjectReference objectRef;
     private final String destinationId;
+    private int folderSize;
 
-    public TagLoader(final String destinationId) {
+    public TaggedObjectTreeLoader(final String destinationId) {
       this(destinationId, null, null);
     }
 
-    public TagLoader(final String destinationId, final String tagId,
+    public TaggedObjectTreeLoader(final String destinationId, final String tagId,
         final IAdtObjectReference objectRef) {
       this.destinationId = destinationId;
       this.tagId = tagId;
@@ -86,6 +110,8 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
         var treeResult = treeService.findNodes(destinationId, treeRequest);
         var foundElements = new ArrayList<IElementInfo>();
 
+        folderSize = treeResult.getTaggedObjectCount();
+
         fillObjectResults(treeResult, foundElements);
         fillTagResults(treeResult, foundElements);
         return foundElements;
@@ -95,19 +121,13 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
       }
     }
 
-    @Override
-    public String getProviderDescription() {
-      return "Loading Tree Nodes...";
+    public int getFolderSize() {
+      return folderSize;
     }
 
-    private void fillObjectResults(final ITaggedObjectTreeResult treeResult,
-        final List<IElementInfo> resultElements) {
-      treeResult.getObjects()
-          .stream()
-          .filter(o -> StringUtil.isEmpty(o.getParentTagId()))
-          .forEach(o -> {
-            resultElements.add(createAdtObjectRef(o));
-          });
+    @Override
+    public String getProviderDescription() {
+      return Messages.TaggedObjectTreeContentAndLabelProvider_LoadingTaggedObjectTreeJob_xtit;
     }
 
     private AdtObjectReferenceElementInfo createAdtObjectRef(final ITaggedObjectTreeObject o) {
@@ -119,13 +139,23 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
       objectElementInfo.setAdtObjectReference(adtObjectRefEmf);
       // mark this adt object element info as launchable, so the project explorer will create the
       // necessary items in the context menu
-      objectElementInfo.getProperties().put("LAUNCHABLE", Boolean.TRUE.toString());
+      objectElementInfo.getProperties().put("LAUNCHABLE", Boolean.TRUE.toString()); //$NON-NLS-1$
       if (o.isExpandable()) {
         objectElementInfo.setLazyLoadingSupport(true);
-        objectElementInfo.setElementInfoProvider(new TagLoader(destinationId, o
+        objectElementInfo.setElementInfoProvider(new TaggedObjectTreeLoader(destinationId, o
             .getParentTagId() != null ? o.getParentTagId() : tagId, adtObjectRefEmf));
       }
       return objectElementInfo;
+    }
+
+    private void fillObjectResults(final ITaggedObjectTreeResult treeResult,
+        final List<IElementInfo> resultElements) {
+      treeResult.getObjects()
+          .stream()
+          .filter(o -> StringUtil.isEmpty(o.getParentTagId()))
+          .forEach(o -> {
+            resultElements.add(createAdtObjectRef(o));
+          });
     }
 
     private void fillTagResults(final ITaggedObjectTreeResult treeResult,
@@ -156,7 +186,7 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
           resultElements.add(tagNode);
         } else {
           var tagNode = new LazyLoadingElementInfo(t.getName(), ImageUtil.getImageForTag(t, false),
-              new TagLoader(destinationId, t.getId(), null));
+              new TaggedObjectTreeLoader(destinationId, t.getId(), null));
           tagNode.setAdditionalInfo(t);
           resultElements.add(tagNode);
         }
@@ -167,8 +197,8 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
         final List<ITag> childTags) {
       for (var childTag : childTags) {
         if (childTag.getChildTags().isEmpty()) {
-          var lazyTagNode = new LazyLoadingElementInfo(childTag.getName(), null, new TagLoader(
-              destinationId, childTag.getId(), null));
+          var lazyTagNode = new LazyLoadingElementInfo(childTag.getName(), null,
+              new TaggedObjectTreeLoader(destinationId, childTag.getId(), null));
           lazyTagNode.setAdditionalInfo(childTag);
           collection.getChildren().add(lazyTagNode);
         } else {
@@ -194,15 +224,13 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
   @Override
   public Object[] getChildren(final Object parentElement) {
     if (parentElement instanceof IProject) {
-      var lazyNode = projectRootNodeMap.get(parentElement);
-      // was node already fetched once?
-      if (lazyNode == null) {
-        lazyNode = new LazyLoadingFolderNode("Tagged Objects", new TagLoader(DestinationUtil
-            .getDestinationId((IProject) parentElement)), null, AbapTagsUIPlugin.getDefault()
-                .getImage(IImages.GLOBAL_TAGS_FOLDER));
-        projectRootNodeMap.put((IProject) parentElement, lazyNode);
+      var project = (IProject) parentElement;
+      if (isTaggedObjectTreesAvailable(project)) {
+        var childNodes = (Object[]) getTaggedObjectTrees(project);
+        if (childNodes != null) {
+          return childNodes;
+        }
       }
-      return new Object[] { lazyNode };
     }
     return super.getChildren(parentElement);
   }
@@ -247,11 +275,14 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
     final var text = new StyledString();
     final var node = (ITreeNode) element;
 
-    if (node instanceof IAdtObjectReferenceNode) {
+    if (node instanceof RootNode) {
+      text.append(node.getName());
+      text.append(" (" + ((RootNode) node).getSizeAsString() + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
+    } else if (node instanceof IAdtObjectReferenceNode) {
       var objRefNode = (IAdtObjectReferenceNode) node;
       text.append(objRefNode.getName());
       if (!StringUtil.isEmpty(objRefNode.getDescription())) {
-        text.append("  " + objRefNode.getDescription(), StylerFactory.createCustomStyler(SWT.ITALIC,
+        text.append("  " + objRefNode.getDescription(), StylerFactory.createCustomStyler(SWT.ITALIC, //$NON-NLS-1$
             JFacePreferences.DECORATIONS_COLOR, null));
       }
     } else {
@@ -259,12 +290,9 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
       if (tag != null) {
         appendTagName(tag, text);
 
-        // if (tag.getTaggedObjectCount() > 0) {
-        // appendCounterText(tag, text);
-        // } else {
-        text.append(" (" + ((ICollectionTreeNode) node).getSizeAsString() + ")",
+        // Ignore count from tag node and take the child nodes as count instead
+        text.append(" (" + ((ICollectionTreeNode) node).getSizeAsString() + ")", //$NON-NLS-1$ //$NON-NLS-2$
             StyledString.COUNTER_STYLER);
-        // }
         appendDescription(tag, text);
       } else {
         text.append(node.getName());
@@ -293,14 +321,14 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
 
   protected void appendCounterText(final ITag tag, final StyledString text) {
     if (!StringUtil.isEmpty(tag.getId())) {
-      text.append(" (" + tag.getTaggedObjectCount() + ")", StyledString.COUNTER_STYLER);
+      text.append(" (" + tag.getTaggedObjectCount() + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
   }
 
   protected void appendDescription(final ITag tagNode, final StyledString text) {
     if (tagNode.getDescription() != null) {
-      text.append("  " + tagNode.getDescription(), StylerFactory.createCustomStyler(SWT.ITALIC,
+      text.append("  " + tagNode.getDescription(), StylerFactory.createCustomStyler(SWT.ITALIC, //$NON-NLS-1$
           JFacePreferences.DECORATIONS_COLOR, null));
     }
   }
@@ -311,5 +339,31 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
     } else {
       text.append(tag.getName());
     }
+  }
+
+  private Object[] getTaggedObjectTrees(IProject project) {
+    try {
+      var sessionProp = project.getSessionProperty(SESSION_PROP_TAGGED_OBJECT_TREE);
+      if (sessionProp != null && sessionProp instanceof Object[]) {
+        return (Object[]) sessionProp;
+      } else {
+        var lazyNode = new RootNode(new TaggedObjectTreeLoader(DestinationUtil.getDestinationId(
+            project)));
+        sessionProp = new Object[] { lazyNode };
+        project.setSessionProperty(SESSION_PROP_TAGGED_OBJECT_TREE, sessionProp);
+        return (Object[]) sessionProp;
+      }
+    } catch (CoreException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  private boolean isTaggedObjectTreesAvailable(IProject project) {
+    if (!ProjectUtil.isLoggedOnToProject(project)) {
+      return false;
+    }
+
+    return treeService.testTreeFeatureAvailability(project).isOK();
   }
 }

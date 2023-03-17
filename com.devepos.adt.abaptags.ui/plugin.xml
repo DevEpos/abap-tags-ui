@@ -267,8 +267,8 @@
             icon="icons/TagsFolder.png"
             id="com.devepos.adt.atm.tags"
             labelProvider="com.devepos.adt.atm.ui.internal.projectexplorer.tree.TaggedObjectTreeContentAndLabelProvider"
-            name="ABAP Tags"
-            priority="highest">
+            name="%navigatorContent.taggedObjectTree.name"
+            priority="higher">
          <triggerPoints>
             <or>
                <and>

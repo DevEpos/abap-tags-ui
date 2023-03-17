@@ -20,6 +20,9 @@ public class Messages extends NLS {
   public static String TaggedObjectSearchQuery_SearchTaskName_xmsg;
   public static String TaggedObjectSearchQuery_TaggedObjectSearchLabel_xmsg;
   public static String TaggedObjectSearchResult_SearchLabel_xmsg;
+  public static String TaggedObjectTreeContentAndLabelProvider_LoadingTaggedObjectTreeJob_xtit;
+  public static String TaggedObjectTreeContentAndLabelProvider_TaggedObjectsNodeName_xtit;
+  public static String TaggedObjectTreeNodeActionProvider_RefreshAction_xmit;
   public static String TaggingObjectWizard_NoTagsAvailableMessage_xmsg;
   public static String TaggingObjectWizard_TagsServiceError_xtit;
   public static String TaggingPreferencePage_AutoExpandTagsOnTagManagerReloade_xchk;
@@ -75,6 +78,7 @@ public class Messages extends NLS {
   public static String AbapTagManagerView_UnshareTagsJob_xmsg;
   public static String AbapTagManagerView_UpdateTagJobTitle_xmsg;
   public static String AbapTagManagerView_UserTagsFolder_xlbl;
+  public static String AdtObjectRefOpenActionProvider_OpenAction_xmit;
   public static String DeleteTagsWizard_WizardTitle_xtit;
   public static String DeleteTagsWizardPage_DeletionCheckJob_xmsg;
   public static String DeleteTagsWizardPage_DeletionNotPossibleError_xmsg;
