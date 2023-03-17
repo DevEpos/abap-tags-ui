@@ -568,6 +568,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     @Override
     protected void appendCounterText(final ITag tag, final StyledString text) {
       if (!StringUtil.isEmpty(tag.getId()) && objectCount > 1) {
+        // CHECK: Could look strange if objects have multiple parents (e.g. 4 of 2)
         text.append(" (" + tag.getTaggedObjectCount() + " of " + objectCount + ")", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             StyledString.COUNTER_STYLER);
       }
