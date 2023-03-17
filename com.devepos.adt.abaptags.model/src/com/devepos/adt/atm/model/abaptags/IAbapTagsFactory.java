@@ -99,6 +99,26 @@ public interface IAbapTagsFactory extends EFactory {
   ITaggedObjectSearchParams createTaggedObjectSearchParams();
 
   /**
+   * Returns a new object of class '<em>Tag Deletion Check Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Tag Deletion Check Result</em>'.
+   * @generated
+   */
+  ITagDeletionCheckResult createTagDeletionCheckResult();
+
+  /**
+   * Returns a new object of class '<em>Tag Deletion Check Object</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Tag Deletion Check Object</em>'.
+   * @generated
+   */
+  ITagDeletionCheckObject createTagDeletionCheckObject();
+
+  /**
    * Returns a new object of class '<em>Tagged Object Tree Object</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

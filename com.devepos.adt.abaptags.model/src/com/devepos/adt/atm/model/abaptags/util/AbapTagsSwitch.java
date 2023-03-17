@@ -10,6 +10,8 @@ import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagBase;
+import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject;
+import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
@@ -150,6 +152,22 @@ public class AbapTagsSwitch<T> extends Switch<T> {
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS: {
       ITaggedObjectSearchParams taggedObjectSearchParams = (ITaggedObjectSearchParams) theEObject;
       T result = caseTaggedObjectSearchParams(taggedObjectSearchParams);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAbapTagsPackage.TAG_DELETION_CHECK_RESULT: {
+      ITagDeletionCheckResult tagDeletionCheckResult = (ITagDeletionCheckResult) theEObject;
+      T result = caseTagDeletionCheckResult(tagDeletionCheckResult);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAbapTagsPackage.TAG_DELETION_CHECK_OBJECT: {
+      ITagDeletionCheckObject tagDeletionCheckObject = (ITagDeletionCheckObject) theEObject;
+      T result = caseTagDeletionCheckObject(tagDeletionCheckObject);
       if (result == null) {
         result = defaultCase(theEObject);
       }
@@ -306,6 +324,42 @@ public class AbapTagsSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseTaggedObjectSearchParams(final ITaggedObjectSearchParams object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tag Deletion Check
+   * Result</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tag Deletion Check
+   *         Result</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTagDeletionCheckResult(final ITagDeletionCheckResult object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tag Deletion Check
+   * Object</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tag Deletion Check
+   *         Object</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTagDeletionCheckObject(final ITagDeletionCheckObject object) {
     return null;
   }
 

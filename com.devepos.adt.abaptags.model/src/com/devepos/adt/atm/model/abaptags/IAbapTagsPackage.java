@@ -778,6 +778,122 @@ public interface IAbapTagsPackage extends EPackage {
 
   /**
    * The meta object id for the
+   * '{@link com.devepos.adt.atm.model.abaptags.impl.TagDeletionCheckResult <em>Tag Deletion Check
+   * Result</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.impl.TagDeletionCheckResult
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagDeletionCheckResult()
+   * @generated
+   */
+  int TAG_DELETION_CHECK_RESULT = 9;
+
+  /**
+   * The feature id for the '<em><b>Checked Tags</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_DELETION_CHECK_RESULT__CHECKED_TAGS = 0;
+
+  /**
+   * The number of structural features of the '<em>Tag Deletion Check Result</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_DELETION_CHECK_RESULT_FEATURE_COUNT = 1;
+
+  /**
+   * The number of operations of the '<em>Tag Deletion Check Result</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_DELETION_CHECK_RESULT_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.atm.model.abaptags.impl.TagDeletionCheckObject <em>Tag Deletion Check
+   * Object</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.impl.TagDeletionCheckObject
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagDeletionCheckObject()
+   * @generated
+   */
+  int TAG_DELETION_CHECK_OBJECT = 10;
+
+  /**
+   * The feature id for the '<em><b>Tag Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_DELETION_CHECK_OBJECT__TAG_ID = 0;
+
+  /**
+   * The feature id for the '<em><b>Deletable</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_DELETION_CHECK_OBJECT__DELETABLE = 1;
+
+  /**
+   * The feature id for the '<em><b>Message</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_DELETION_CHECK_OBJECT__MESSAGE = 2;
+
+  /**
+   * The feature id for the '<em><b>Message Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_DELETION_CHECK_OBJECT__MESSAGE_TYPE = 3;
+
+  /**
+   * The number of structural features of the '<em>Tag Deletion Check Object</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_DELETION_CHECK_OBJECT_FEATURE_COUNT = 4;
+
+  /**
+   * The number of operations of the '<em>Tag Deletion Check Object</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_DELETION_CHECK_OBJECT_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the
    * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectTreeObject <em>Tagged Object Tree
    * Object</em>}' class.
    * <!-- begin-user-doc -->
@@ -787,7 +903,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectTreeObject()
    * @generated
    */
-  int TAGGED_OBJECT_TREE_OBJECT = 9;
+  int TAGGED_OBJECT_TREE_OBJECT = 11;
 
   /**
    * The feature id for the '<em><b>Object Ref</b></em>' containment reference.
@@ -921,7 +1037,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagSearchScope()
    * @generated
    */
-  int TAG_SEARCH_SCOPE = 11;
+  int TAG_SEARCH_SCOPE = 13;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagQueryType <em>Tag
@@ -932,7 +1048,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagQueryType()
    * @generated
    */
-  int TAG_QUERY_TYPE = 12;
+  int TAG_QUERY_TYPE = 14;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagInfoType <em>Tag Info
@@ -943,7 +1059,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagInfoType()
    * @generated
    */
-  int TAG_INFO_TYPE = 13;
+  int TAG_INFO_TYPE = 15;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagQueryFocus <em>Tag
@@ -954,7 +1070,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagQueryFocus()
    * @generated
    */
-  int TAG_QUERY_FOCUS = 14;
+  int TAG_QUERY_FOCUS = 16;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.ResultGroupLevel
@@ -966,7 +1082,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getResultGroupLevel()
    * @generated
    */
-  int RESULT_GROUP_LEVEL = 15;
+  int RESULT_GROUP_LEVEL = 17;
 
   /**
    * The meta object id for the '<em>Image</em>' data type.
@@ -977,7 +1093,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getImage()
    * @generated
    */
-  int IMAGE = 16;
+  int IMAGE = 18;
 
   /**
    * Returns the meta object for class
@@ -1614,6 +1730,101 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    */
   EAttribute getTaggedObjectSearchParams_TagInfoType();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult <em>Tag Deletion Check
+   * Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Tag Deletion Check Result</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult
+   * @generated
+   */
+  EClass getTagDeletionCheckResult();
+
+  /**
+   * Returns the meta object for the reference list
+   * '{@link com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult#getCheckedTags <em>Checked
+   * Tags</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the reference list '<em>Checked Tags</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult#getCheckedTags()
+   * @see #getTagDeletionCheckResult()
+   * @generated
+   */
+  EReference getTagDeletionCheckResult_CheckedTags();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject <em>Tag Deletion Check
+   * Object</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Tag Deletion Check Object</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject
+   * @generated
+   */
+  EClass getTagDeletionCheckObject();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject#getTagId <em>Tag Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Tag Id</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject#getTagId()
+   * @see #getTagDeletionCheckObject()
+   * @generated
+   */
+  EAttribute getTagDeletionCheckObject_TagId();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject#isDeletable
+   * <em>Deletable</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Deletable</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject#isDeletable()
+   * @see #getTagDeletionCheckObject()
+   * @generated
+   */
+  EAttribute getTagDeletionCheckObject_Deletable();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject#getMessage
+   * <em>Message</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Message</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject#getMessage()
+   * @see #getTagDeletionCheckObject()
+   * @generated
+   */
+  EAttribute getTagDeletionCheckObject_Message();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject#getMessageType <em>Message
+   * Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Message Type</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject#getMessageType()
+   * @see #getTagDeletionCheckObject()
+   * @generated
+   */
+  EAttribute getTagDeletionCheckObject_MessageType();
 
   /**
    * Returns the meta object for class
@@ -2291,6 +2502,80 @@ public interface IAbapTagsPackage extends EPackage {
      */
     EAttribute TAGGED_OBJECT_SEARCH_PARAMS__TAG_INFO_TYPE = eINSTANCE
         .getTaggedObjectSearchParams_TagInfoType();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.atm.model.abaptags.impl.TagDeletionCheckResult <em>Tag Deletion Check
+     * Result</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.impl.TagDeletionCheckResult
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagDeletionCheckResult()
+     * @generated
+     */
+    EClass TAG_DELETION_CHECK_RESULT = eINSTANCE.getTagDeletionCheckResult();
+
+    /**
+     * The meta object literal for the '<em><b>Checked Tags</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference TAG_DELETION_CHECK_RESULT__CHECKED_TAGS = eINSTANCE
+        .getTagDeletionCheckResult_CheckedTags();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.atm.model.abaptags.impl.TagDeletionCheckObject <em>Tag Deletion Check
+     * Object</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.impl.TagDeletionCheckObject
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagDeletionCheckObject()
+     * @generated
+     */
+    EClass TAG_DELETION_CHECK_OBJECT = eINSTANCE.getTagDeletionCheckObject();
+
+    /**
+     * The meta object literal for the '<em><b>Tag Id</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAG_DELETION_CHECK_OBJECT__TAG_ID = eINSTANCE.getTagDeletionCheckObject_TagId();
+
+    /**
+     * The meta object literal for the '<em><b>Deletable</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAG_DELETION_CHECK_OBJECT__DELETABLE = eINSTANCE
+        .getTagDeletionCheckObject_Deletable();
+
+    /**
+     * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAG_DELETION_CHECK_OBJECT__MESSAGE = eINSTANCE.getTagDeletionCheckObject_Message();
+
+    /**
+     * The meta object literal for the '<em><b>Message Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAG_DELETION_CHECK_OBJECT__MESSAGE_TYPE = eINSTANCE
+        .getTagDeletionCheckObject_MessageType();
 
     /**
      * The meta object literal for the

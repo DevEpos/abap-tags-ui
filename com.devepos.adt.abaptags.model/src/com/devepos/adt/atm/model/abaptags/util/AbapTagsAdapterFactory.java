@@ -11,6 +11,8 @@ import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagBase;
+import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject;
+import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
@@ -120,6 +122,16 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
     @Override
     public Adapter caseTaggedObjectSearchParams(final ITaggedObjectSearchParams object) {
       return createTaggedObjectSearchParamsAdapter();
+    }
+
+    @Override
+    public Adapter caseTagDeletionCheckResult(final ITagDeletionCheckResult object) {
+      return createTagDeletionCheckResultAdapter();
+    }
+
+    @Override
+    public Adapter caseTagDeletionCheckObject(final ITagDeletionCheckObject object) {
+      return createTagDeletionCheckObjectAdapter();
     }
 
     @Override
@@ -288,6 +300,40 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createTaggedObjectSearchParamsAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult <em>Tag Deletion Check
+   * Result</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult
+   * @generated
+   */
+  public Adapter createTagDeletionCheckResultAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject <em>Tag Deletion Check
+   * Object</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject
+   * @generated
+   */
+  public Adapter createTagDeletionCheckObjectAdapter() {
     return null;
   }
 

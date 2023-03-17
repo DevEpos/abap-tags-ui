@@ -94,6 +94,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/withTagInfo"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/tagInfoType"/>
     </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TagDeletionCheckResult">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference abaptags.ecore#//TagDeletionCheckResult/checkedTags"/>
+    </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TagDeletionCheckObject">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TagDeletionCheckObject/tagId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TagDeletionCheckObject/deletable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TagDeletionCheckObject/message"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TagDeletionCheckObject/messageType"/>
+    </genClasses>
     <genClasses ecoreClass="abaptags.ecore#//TaggedObjectTreeObject">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TaggedObjectTreeObject/objectRef"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectTreeObject/taggedObjectCount"/>

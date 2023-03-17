@@ -17,6 +17,8 @@ import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagBase;
+import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject;
+import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
@@ -102,6 +104,22 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * @generated
    */
   private EClass taggedObjectSearchParamsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass tagDeletionCheckResultEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass tagDeletionCheckObjectEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -762,6 +780,83 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * @generated
    */
   @Override
+  public EClass getTagDeletionCheckResult() {
+    return tagDeletionCheckResultEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getTagDeletionCheckResult_CheckedTags() {
+    return (EReference) tagDeletionCheckResultEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTagDeletionCheckObject() {
+    return tagDeletionCheckObjectEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTagDeletionCheckObject_TagId() {
+    return (EAttribute) tagDeletionCheckObjectEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTagDeletionCheckObject_Deletable() {
+    return (EAttribute) tagDeletionCheckObjectEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTagDeletionCheckObject_Message() {
+    return (EAttribute) tagDeletionCheckObjectEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTagDeletionCheckObject_MessageType() {
+    return (EAttribute) tagDeletionCheckObjectEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EClass getTaggedObjectTreeObject() {
     return taggedObjectTreeObjectEClass;
   }
@@ -1008,6 +1103,15 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__WITH_TAG_INFO);
     createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__TAG_INFO_TYPE);
 
+    tagDeletionCheckResultEClass = createEClass(TAG_DELETION_CHECK_RESULT);
+    createEReference(tagDeletionCheckResultEClass, TAG_DELETION_CHECK_RESULT__CHECKED_TAGS);
+
+    tagDeletionCheckObjectEClass = createEClass(TAG_DELETION_CHECK_OBJECT);
+    createEAttribute(tagDeletionCheckObjectEClass, TAG_DELETION_CHECK_OBJECT__TAG_ID);
+    createEAttribute(tagDeletionCheckObjectEClass, TAG_DELETION_CHECK_OBJECT__DELETABLE);
+    createEAttribute(tagDeletionCheckObjectEClass, TAG_DELETION_CHECK_OBJECT__MESSAGE);
+    createEAttribute(tagDeletionCheckObjectEClass, TAG_DELETION_CHECK_OBJECT__MESSAGE_TYPE);
+
     taggedObjectTreeObjectEClass = createEClass(TAGGED_OBJECT_TREE_OBJECT);
     createEReference(taggedObjectTreeObjectEClass, TAGGED_OBJECT_TREE_OBJECT__OBJECT_REF);
     createEAttribute(taggedObjectTreeObjectEClass, TAGGED_OBJECT_TREE_OBJECT__TAGGED_OBJECT_COUNT);
@@ -1224,6 +1328,28 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
         !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(tagDeletionCheckResultEClass, ITagDeletionCheckResult.class,
+        "TagDeletionCheckResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTagDeletionCheckResult_CheckedTags(), getTagDeletionCheckObject(), null,
+        "checkedTags", null, 0, -1, ITagDeletionCheckResult.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+        IS_ORDERED);
+
+    initEClass(tagDeletionCheckObjectEClass, ITagDeletionCheckObject.class,
+        "TagDeletionCheckObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTagDeletionCheckObject_TagId(), ecorePackage.getEString(), "tagId", null, 0,
+        1, ITagDeletionCheckObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTagDeletionCheckObject_Deletable(), theXMLTypePackage.getBoolean(),
+        "deletable", null, 0, 1, ITagDeletionCheckObject.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTagDeletionCheckObject_Message(), ecorePackage.getEString(), "message", null,
+        0, 1, ITagDeletionCheckObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTagDeletionCheckObject_MessageType(), theAdtBasePackage.getMessageType(),
+        "messageType", null, 0, 1, ITagDeletionCheckObject.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(taggedObjectTreeObjectEClass, ITaggedObjectTreeObject.class,
         "TaggedObjectTreeObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTaggedObjectTreeObject_ObjectRef(), theAdtBasePackage.getAdtObjRef(), null,
@@ -1390,6 +1516,20 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         "attribute", "name", "withTagInfo", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectSearchParams_TagInfoType(), source, new String[] { "kind",
         "attribute", "name", "tagInfoType", "namespace", "##targetNamespace" });
+    addAnnotation(tagDeletionCheckResultEClass, source, new String[] { "kind", "elementOnly",
+        "name", "deletionCheckResult" });
+    addAnnotation(getTagDeletionCheckResult_CheckedTags(), source, new String[] { "kind", "element",
+        "name", "checkedTag", "namespace", "##targetNamespace" });
+    addAnnotation(tagDeletionCheckObjectEClass, source, new String[] { "kind", "elementOnly",
+        "name", "checkedTag" });
+    addAnnotation(getTagDeletionCheckObject_TagId(), source, new String[] { "name", "tagId",
+        "namespace", "##targetNamespace", "kind", "attribute" });
+    addAnnotation(getTagDeletionCheckObject_Deletable(), source, new String[] { "kind", "attribute",
+        "name", "isDeletable", "namespace", "##targetNamespace" });
+    addAnnotation(getTagDeletionCheckObject_Message(), source, new String[] { "kind", "attribute",
+        "name", "message", "namespace", "##targetNamespace" });
+    addAnnotation(getTagDeletionCheckObject_MessageType(), source, new String[] { "kind",
+        "attribute", "name", "messageType", "namespace", "##targetNamespace" });
     addAnnotation(taggedObjectTreeObjectEClass, source, new String[] { "kind", "elementOnly",
         "name", "object" });
     addAnnotation(getTaggedObjectTreeObject_ObjectRef(), source, new String[] { "kind", "element",

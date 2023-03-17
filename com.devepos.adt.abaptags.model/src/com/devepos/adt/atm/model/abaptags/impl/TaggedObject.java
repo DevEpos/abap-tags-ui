@@ -84,7 +84,8 @@ public class TaggedObject extends MinimalEObjectImpl.Container implements ITagge
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -105,7 +106,8 @@ public class TaggedObject extends MinimalEObjectImpl.Container implements ITagge
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
