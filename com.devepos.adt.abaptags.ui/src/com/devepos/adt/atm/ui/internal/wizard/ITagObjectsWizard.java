@@ -2,7 +2,6 @@ package com.devepos.adt.atm.ui.internal.wizard;
 
 import java.util.List;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.wizard.IWizard;
 
 import com.devepos.adt.atm.model.abaptags.ITag;
@@ -16,21 +15,7 @@ import com.devepos.adt.base.ui.wizard.IBaseWizardPage;
  *
  * @author stockbal
  */
-public interface ITagObjectsWizard extends IWizard {
-
-  /**
-   * Returns the current project
-   *
-   * @return the current project
-   */
-  IProject getProject();
-
-  /**
-   * Sets the current project of the wizard
-   *
-   * @param project the project to be set in the wizard
-   */
-  void setProject(IProject project);
+public interface ITagObjectsWizard extends IWizard, IBaseWizard {
 
   /**
    * Clears all objects from the tagged objects list
