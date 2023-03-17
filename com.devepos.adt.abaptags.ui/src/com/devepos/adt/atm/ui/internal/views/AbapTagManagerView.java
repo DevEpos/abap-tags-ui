@@ -1026,7 +1026,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
 
   private void showTagsOfLastSelectedProject() {
     final IProject project = ProjectUtil.getCurrentAbapProject(lastSelection);
-    if (project != lastProject) {
+    if (project != lastProject && project != null) {
       lastProject = project;
       loadViewInput();
     }
