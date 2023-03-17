@@ -73,6 +73,16 @@ public class Messages extends NLS {
   public static String AbapTagManagerView_UnshareTagsJob_xmsg;
   public static String AbapTagManagerView_UpdateTagJobTitle_xmsg;
   public static String AbapTagManagerView_UserTagsFolder_xlbl;
+  public static String DeleteTagsWizard_WizardTitle_xtit;
+  public static String DeleteTagsWizardPage_DeletionCheckJob_xmsg;
+  public static String DeleteTagsWizardPage_DeletionNotPossibleError_xmsg;
+  public static String DeleteTagsWizardPage_IssuesColumn_xtit;
+  public static String DeleteTagsWizardPage_NoTagsAvailableError_xmsg;
+  public static String DeleteTagsWizardPage_NoTagsSelectedError_xmsg;
+  public static String DeleteTagsWizardPage_PageDescription_xtit;
+  public static String DeleteTagsWizardPage_PageTitle_xtit;
+  public static String DeleteTagsWizardPage_Selected_xlbl;
+  public static String DeleteTagsWizardPage_TagColumn_xtit;
   public static String EditTagDataDialog_CreateGlobalTagTitle_xtit;
   public static String EditTagDataDialog_CreateUserTagTitle_xtit;
   public static String EditTagDataDialog_DescriptionInput_xlbl;
