@@ -1,5 +1,7 @@
 package com.devepos.adt.atm.ui.internal.dialogs;
 
+import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,7 +17,9 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerCell;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
@@ -46,6 +50,7 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
   private final ITaggedObjectSearchParams parameters;
   private final ITaggedObjectSearchService service;
   private final String destinationOwner;
+  private CustomViewerComparator comparator;
 
   public ParentObjectFilterDialog(final Shell shell, final String destinationId,
       final List<String> possibleParentTags) {
@@ -56,7 +61,6 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
 
     setTitle(Messages.ParentObjectFilterDialog_Title_xtit);
     setFilterLabel(Messages.ParentObjectFilterDialog_FilterText_xmsg);
-    // setResultLabelProvider(new DelegatingStyledCellLabelProvider(new ItemsLabelProvider()));
     setDetailsLabelProvider(new ItemsLabelProvider());
     setInitialJobDelay(0L);
 
@@ -162,6 +166,43 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
     }
   }
 
+  private static class CustomViewerComparator extends ViewerComparator {
+    private Column col;
+    private boolean isDescendingSort = true;
+
+    @Override
+    public int compare(final Viewer viewer, final Object e1, final Object e2) {
+      var obj1 = (ITaggedObject) e1;
+      var obj2 = (ITaggedObject) e2;
+      int rc = 0;
+
+      if (col != null) {
+        switch (col) {
+        case OBJECT_NAME:
+          rc = obj1.getObjectRef().getName().compareTo(obj2.getObjectRef().getName());
+          break;
+        case TAG:
+          rc = obj1.getTags().get(0).getName().compareTo(obj2.getTags().get(0).getName());
+          break;
+        }
+      }
+      return isDescendingSort ? -rc : rc;
+    }
+
+    public int getDirection() {
+      return isDescendingSort ? SWT.DOWN : SWT.UP;
+    }
+
+    public void setColumn(final Column col) {
+      if (this.col == col) {
+        isDescendingSort = !isDescendingSort;
+      } else {
+        isDescendingSort = true;
+      }
+      this.col = col;
+    }
+  }
+
   /*
    * Label provider for the selected result part
    */
@@ -208,7 +249,8 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
   @Override
   protected void configureDefaultResultViewer(final TableViewer tableViewer) {
     tableViewer.getTable().setHeaderVisible(true);
-
+    comparator = new CustomViewerComparator();
+    tableViewer.setComparator(comparator);
     for (Column c : Column.values()) {
       createColumn(tableViewer, c, new ColumnLabelProvider(c));
     }
@@ -249,7 +291,12 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
     viewerColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(cellLabelProvider));
     viewerColumn.getColumn().setWidth(column.defaultWidth);
     viewerColumn.getColumn().setMoveable(false);
+    viewerColumn.getColumn().addSelectionListener(widgetSelectedAdapter(l -> {
+      comparator.setColumn(column);
+      treeViewer.getTable().setSortDirection(comparator.getDirection());
+      treeViewer.getTable().setSortColumn(viewerColumn.getColumn());
+      treeViewer.refresh();
+    }));
     return viewerColumn;
   }
-
 }
