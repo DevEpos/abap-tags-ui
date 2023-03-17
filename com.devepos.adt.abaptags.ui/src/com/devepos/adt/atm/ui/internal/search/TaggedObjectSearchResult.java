@@ -9,12 +9,10 @@ import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.ISearchResult;
 import org.eclipse.search.ui.ISearchResultListener;
 
-import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.IImages;
-import com.devepos.adt.atm.ui.internal.ImageUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
@@ -22,8 +20,6 @@ import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.tree.AdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
-import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
-import com.devepos.adt.base.ui.tree.LazyLoadingFolderNode;
 
 public class TaggedObjectSearchResult implements ISearchResult {
   private final TaggedObjectSearchQuery query;
@@ -34,7 +30,6 @@ public class TaggedObjectSearchResult implements ISearchResult {
   private int resultCount;
   private boolean hasMoreResults;
   private boolean isGroupedResult;
-  private String destinationOwner;
 
   public TaggedObjectSearchResult(final TaggedObjectSearchQuery tagSearchQuery) {
     query = tagSearchQuery;
@@ -102,7 +97,6 @@ public class TaggedObjectSearchResult implements ISearchResult {
   }
 
   public void addSearchResult(final ITaggedObjectList result) {
-    destinationOwner = query.getProjectProvider().getDestinationData().getUser();
     if (result != null && result.getTaggedObjects().size() > 0) {
       internalSearchResult = result;
       resultCount = result.getTaggedObjects().size();
@@ -146,22 +140,10 @@ public class TaggedObjectSearchResult implements ISearchResult {
 
     for (final ITaggedObject taggedObject : internalSearchResult.getTaggedObjects()) {
       final IAdtObjRef objectRef = taggedObject.getObjectRef();
-      /*
-       * if tags are present it means the ADT object has tags with child tags so an
-       * expansion is possible
-       */
       final AdtObjectReferenceNode objRefNode = new AdtObjectReferenceNode(objectRef.getName(),
           objectRef.getName(), objectRef.getDescription(), AdtObjectReferenceModelFactory
               .createReference(query.getDestinationId(), objectRef));
       nodes.add(objRefNode);
-
-      for (final IAdtObjectTag tag : taggedObject.getTags()) {
-        final ILazyLoadingNode lazyTagNode = new LazyLoadingFolderNode(tag.getName(),
-            new TaggedObjectSearchInfoProvider(query.getDestinationId(), objectRef, tag, query
-                .getSearchParams()
-                .getMaxResults()), objRefNode, ImageUtil.getObjectTagImage(tag, destinationOwner));
-        objRefNode.addChild(lazyTagNode);
-      }
     }
     treeResult = nodes.toArray(new IAdtObjectReferenceNode[nodes.size()]);
   }
