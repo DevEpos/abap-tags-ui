@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html id="doc-page">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="../css/main.css" />
+<title>Tagged Object Tree</title>
+</head>
+
+<body id="doc-body">
+	<h2 class="heading">Tagged Object Tree</h2>
+	Dynamic Tree, similar to the
+	<em>ABAP Repository Trees</em> that is located in the
+	<em>Project Explorer</em>
+
+	<div class="alert warning">
+		<div class="alert-info__text"></div>
+		For this feature you have to install at least Version <strong>v2.0.0</strong>
+		of the ADT Backend <a
+			href="https://github.com/stockbal/abap-tags-backend" target="_blank"
+			class="link">abap-tags-backend</a>
+	</div>
+
+	<figure>
+		<img src="../images/tagged_object_tree.png">
+		<figcaption>Tagged Object Tree Node in Project Explorer</figcaption>
+	</figure>
+
+	<h3 class="heading">Tree Features</h3>
+
+	<p>
+		At root level this tree shows all the User-, Shared- and Global-Tags
+		that have Objects directly assigned or at a lower level of a given Tag
+		hierarchy.<br>Each sub node that again has children has the
+		option to expand it, which in turn will load the assigned objects or
+		the underlying Tags.<br>To refresh the content of a given node
+		you can either press the
+		<code class="code">F5</code>
+		key or select the <em>Refresh</em> action from the nodes' context menu
+	</p>
+	<p>
+		On Repository Object nodes like <em>Classes</em>, <em>Interfaces</em>,
+		etc. you also have the option to execute common things like <em>Running
+			ABAP Unit Tests</em>, <em>Executing the Object</em> or just open the
+		Object in a differen ABAP Project of the current Workspace
+	</p>
+
+	<div class="alert info">
+		<div class="alert-tip__text"></div>
+		To hide the <em>Tagged Objects</em> node from the Project Explorer
+		just deselect it via the filter dialog.
+		<figure>
+			<img src="../images/project_explorer_filters.png">
+			<figcaption>Filters of Project Explorer</figcaption>
+		</figure>
+	</div>
+
+	<h4 class="heading">Counter on Root Node</h4>
+	The
+	<em>Tagged Objects</em> node also displays a counter upon first loading
+	of its content. This counter represents all tagged objects of the user.
+	That means all tagged objects in global and user scope, and also all
+	those tagged objects that are available to the user via
+	<em>Shared Tags</em>.
+	<figure>
+		<img src="../images/tagged_object_tree__root_count.png">
+		<figcaption>Counter on Root Node</figcaption>
+	</figure>
+</body>
+</html>

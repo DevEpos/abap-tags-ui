@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html id="doc-page">
+<head>
+<link rel="stylesheet" type="text/css" href="../../css/main.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Version 1.6.0</title>
+</head>
+
+<body id="doc-body">
+	<h2 class="heading">Version 1.6.0</h2>
+	<h3>
+		Tagged Object Tree <span class="new-feature"></span>
+	</h3>
+	Dynamic Tree, similar to the
+	<em>ABAP Repository Trees</em> that is located in the
+	<em>Project Explorer</em> View (see
+	<a href="../tagged_object_tree.html" class="link">here</a> for more
+	information).
+	<h4>Features</h4>
+	<ul class="list">
+		<li>Lists all Tags that have assigned objects (direct or on lower
+			tree levels)</li>
+		<li>Upon expanding a node in the tree the assigned tags or
+			objects are loaded on the fly</li>
+		<li>Assigned Objects (e.g. Classes, Interfaces, etc.) have
+			context menu entries like <em>Run as</em>, <em>Open with...</em> or <em>Share
+				Link</em>
+		</li>
+	</ul>
+
+	<h3>Tag Manager View</h3>
+	<h4>Features</h4>
+	<ul class="list">
+		<li>New deletion dialog for Tags &rarr; Tags can only be deleted
+			now if no more objects are assigned to it or tags on a lower tree
+			level</li>
+		<li>New context menu entry <em>Remove assigned Objects</em> that
+			deletes all assigned objects of that node
+		</li>
+	</ul>
+
+	<h3>Tag Objects Wizard</h3>
+	<h4>Features</h4>
+	<ul class="list">
+		<li>Hierarchical Tags do no longer require a mandatory parent
+			object</li>
+		<li>A hierarchical Tags can now be assigned multiple times with
+			different parent objects</li>
+		<li>A hierarchical Tag can be assigned with any tagged parent
+			object in the same tree (ascending only)</li>
+	</ul>
+
+	<h3>Object Tags View</h3>
+	<h4>Features</h4>
+	<ul class="list">
+		<li>Parent objects are now visible as well if an object is tagged
+			with a hierarchical Tag and a parent object was chosen</li>
+	</ul>
+
+	<h3>ABAP Tagged Object Search</h3>
+	<h4>Changes</h4>
+	<ul class="list">
+		<li>Browsing of referenced child objects via Parent Tag
+			assignments was removed &rarr; <em>Tagged Object Tree</em> should be
+			used instead
+		</li>
+	</ul>
+</body>
+</html>
