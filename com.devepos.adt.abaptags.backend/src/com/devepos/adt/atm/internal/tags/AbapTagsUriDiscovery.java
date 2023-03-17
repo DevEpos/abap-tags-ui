@@ -19,6 +19,7 @@ public class AbapTagsUriDiscovery extends AbapTagsUriDiscoveryBase {
 
   private static final String DISCOVERY_TERM_TAGS = "tags"; //$NON-NLS-1$
   private static final String DISCOVERY_TERM_SHARE_TAGS = "shareTags"; //$NON-NLS-1$
+  private static final String DISCOVERY_TERM_TAG_DEL_CHECK = "tagsDeletionCheck"; //$NON-NLS-1$
 
   public AbapTagsUriDiscovery(final String destination) {
     super(destination, DISCOVERY_SCHEME);
@@ -40,6 +41,15 @@ public class AbapTagsUriDiscovery extends AbapTagsUriDiscoveryBase {
    */
   public URI getShareTagsUri() {
     return getUriFromCollectionMember(DISCOVERY_TERM_SHARE_TAGS);
+  }
+
+  /**
+   * Retrieves Resource URI for running a deletion check for tags
+   * 
+   * @return resource URI
+   */
+  public URI getTagDeletionCheckUri() {
+    return getUriFromCollectionMember(DISCOVERY_TERM_TAG_DEL_CHECK);
   }
 
   /**

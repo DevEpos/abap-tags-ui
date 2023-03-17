@@ -19,27 +19,30 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum TagQueryFocus implements Enumerator {
   /**
-   * The '<em><b>OBJECT</b></em>' literal object. <!-- begin-user-doc --> <!--
+   * The '<em><b>OBJECT</b></em>' literal object.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #OBJECT_VALUE
    * @generated
    * @ordered
    */
-  OBJECT(0, "OBJECT", "object"),
+  OBJECT(1, "OBJECT", "object"),
 
   /**
-   * The '<em><b>PARENT OBJECT</b></em>' literal object. <!-- begin-user-doc -->
+   * The '<em><b>PARENT OBJECT</b></em>' literal object.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @see #PARENT_OBJECT_VALUE
    * @generated
    * @ordered
    */
-  PARENT_OBJECT(1, "PARENT_OBJECT", "parentObject");
+  PARENT_OBJECT(2, "PARENT_OBJECT", "parentObject");
 
   /**
-   * The '<em><b>OBJECT</b></em>' literal value. <!-- begin-user-doc --> <!--
+   * The '<em><b>OBJECT</b></em>' literal value.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #OBJECT
@@ -47,10 +50,11 @@ public enum TagQueryFocus implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int OBJECT_VALUE = 0;
+  public static final int OBJECT_VALUE = 1;
 
   /**
-   * The '<em><b>PARENT OBJECT</b></em>' literal value. <!-- begin-user-doc -->
+   * The '<em><b>PARENT OBJECT</b></em>' literal value.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @see #PARENT_OBJECT
@@ -58,7 +62,7 @@ public enum TagQueryFocus implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int PARENT_OBJECT_VALUE = 1;
+  public static final int PARENT_OBJECT_VALUE = 2;
 
   /**
    * An array of all the '<em><b>Tag Query Focus</b></em>' enumerators. <!--
@@ -70,8 +74,8 @@ public enum TagQueryFocus implements Enumerator {
       PARENT_OBJECT, };
 
   /**
-   * A public read-only list of all the '<em><b>Tag Query Focus</b></em>'
-   * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * A public read-only list of all the '<em><b>Tag Query Focus</b></em>' enumerators.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
@@ -79,8 +83,8 @@ public enum TagQueryFocus implements Enumerator {
       VALUES_ARRAY));
 
   /**
-   * Returns the '<em><b>Tag Query Focus</b></em>' literal with the specified
-   * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the '<em><b>Tag Query Focus</b></em>' literal with the specified literal value.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param literal the literal.
    * @return the matching enumerator or <code>null</code>.
@@ -96,8 +100,8 @@ public enum TagQueryFocus implements Enumerator {
   }
 
   /**
-   * Returns the '<em><b>Tag Query Focus</b></em>' literal with the specified
-   * name. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the '<em><b>Tag Query Focus</b></em>' literal with the specified name.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param name the name.
    * @return the matching enumerator or <code>null</code>.
@@ -113,8 +117,8 @@ public enum TagQueryFocus implements Enumerator {
   }
 
   /**
-   * Returns the '<em><b>Tag Query Focus</b></em>' literal with the specified
-   * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the '<em><b>Tag Query Focus</b></em>' literal with the specified integer value.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the integer value.
    * @return the matching enumerator or <code>null</code>.
@@ -152,7 +156,8 @@ public enum TagQueryFocus implements Enumerator {
   private final String literal;
 
   /**
-   * Only this class can construct instances. <!-- begin-user-doc --> <!--
+   * Only this class can construct instances.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @generated
@@ -194,8 +199,8 @@ public enum TagQueryFocus implements Enumerator {
   }
 
   /**
-   * Returns the literal value of the enumerator, which is its string
-   * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the literal value of the enumerator, which is its string representation.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */

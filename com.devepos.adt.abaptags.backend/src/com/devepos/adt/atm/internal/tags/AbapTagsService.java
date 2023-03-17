@@ -10,6 +10,7 @@ import org.eclipse.osgi.util.NLS;
 
 import com.devepos.adt.atm.AbapTagsPlugin;
 import com.devepos.adt.atm.internal.messages.Messages;
+import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.tags.IAbapTagsService;
@@ -53,6 +54,18 @@ public class AbapTagsService implements IAbapTagsService {
     }
     return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(
         Messages.AbapTagsService_TagsNotSupported_xmsg, project.getName()));
+  }
+
+  @Override
+  public IStatus testTagDeletionCheckFeatureAvailability(final IProject project) {
+    final var destinationId = DestinationUtil.getDestinationId(project);
+    final var uriDiscovery = new AbapTagsUriDiscovery(destinationId);
+    if (uriDiscovery.isResourceDiscoverySuccessful() && uriDiscovery
+        .getTagDeletionCheckUri() != null) {
+      return Status.OK_STATUS;
+    }
+    return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(
+        Messages.AbapTagsService_DeletionCheckNotPossible_xmsg, project.getName()));
   }
 
   @Override
@@ -353,6 +366,21 @@ public class AbapTagsService implements IAbapTagsService {
     } catch (final ResourceException exc) {
       exc.printStackTrace();
     }
+  }
+
+  @Override
+  public ITagDeletionCheckResult runTagDeletionCheck(final String destinationId,
+      final ITagList tagList) {
+    final var uriDiscovery = new AbapTagsUriDiscovery(destinationId);
+    final var session = AdtSystemSessionFactory.createSystemSessionFactory()
+        .createStatelessSession(destinationId);
+
+    final var restResource = AdtRestResourceFactory.createRestResourceFactory()
+        .createRestResource(uriDiscovery.getTagDeletionCheckUri(), session);
+    restResource.addContentHandler(new AbapTagsContentHandler());
+    restResource.addContentHandler(new TagDeletionCheckResultContentHandler());
+
+    return restResource.post(null, ITagDeletionCheckResult.class, tagList);
   }
 
 }

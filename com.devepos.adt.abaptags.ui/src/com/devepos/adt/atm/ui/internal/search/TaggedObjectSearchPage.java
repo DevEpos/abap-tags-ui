@@ -20,7 +20,6 @@ import org.eclipse.swt.widgets.Label;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
-import com.devepos.adt.atm.model.abaptags.TagInfoType;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
@@ -125,8 +124,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
     final ITaggedObjectSearchParams searchParams = IAbapTagsFactory.eINSTANCE
         .createTaggedObjectSearchParams();
     searchParams.setMaxResults(prefStore.getInt(ITaggedObjectSearchPrefs.MAX_RESULTS));
-    searchParams.setWithTagInfo(true);
-    searchParams.setTagInfoType(TagInfoType.CHILDREN);
+    searchParams.setWithTagInfo(false);
 
     tagsTree.getSelectedTags().forEach(tag -> searchParams.addTag(tag));
     searchParams.setMatchesAllTags(matchAllTagsButton.getSelection());

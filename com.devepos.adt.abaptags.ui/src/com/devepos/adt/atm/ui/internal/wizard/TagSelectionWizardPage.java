@@ -58,6 +58,7 @@ import com.devepos.adt.atm.ui.internal.preferences.IObjectTaggingPrefs;
 import com.devepos.adt.atm.ui.internal.tree.TagFilter;
 import com.devepos.adt.atm.ui.internal.tree.TagLabelProvider;
 import com.devepos.adt.atm.ui.internal.tree.TagTreeContentProvider;
+import com.devepos.adt.atm.ui.internal.util.TagParentCollector;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
@@ -78,7 +79,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
   private final Set<ITag> preCheckedTags = new HashSet<>();
   private final Set<ITag> uncheckableTags = new HashSet<>();
   private final List<ITag> newTags = new ArrayList<>();
-  private boolean needsParentObjectSelection;
+  private boolean isParentObjectSelectionPossible;
   private String owner;
   private Button removeTagButton;
   private Combo tagTypeCombo;
@@ -102,7 +103,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
   @Override
   public boolean canFlipToNextPage() {
-    return isPageComplete() && StringUtil.isEmpty(getErrorMessage()) && needsParentObjectSelection;
+    return isPageComplete() && StringUtil.isEmpty(getErrorMessage())
+        && isParentObjectSelectionPossible;
   }
 
   @Override
@@ -113,7 +115,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         clearCheckedTags();
         owner = null;
         newTags.clear();
-        needsParentObjectSelection = false;
+        isParentObjectSelectionPossible = false;
         getWizard().setCanFinish(false);
       }
       getWizard().completePreviousPage(this);
@@ -126,6 +128,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
           .isEmpty()) {
         loadTagPreviewInfo();
       }
+    } else {
+      updatePageStatus();
     }
     super.setVisible(visible);
   }
@@ -156,8 +160,12 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         objectTag.setImage(ImageUtil.getImageForTag(selectedTag, false));
         final EObject parent = selectedTag.eContainer();
         if (parent instanceof ITag) {
-          objectTag.setParentTagId(((ITag) parent).getId());
-          objectTag.setParentTagName(((ITag) parent).getName());
+          ITag parentTag = (ITag) parent;
+          objectTag.setParentTagId(parentTag.getId());
+          objectTag.setParentTagName(parentTag.getName());
+          objectTag.getPossibleParentTags()
+              .addAll(TagParentCollector.collectParentTagIds(parentTag));
+          objectTag.setCorrectParentTag(parentTag);
         }
         taggedObject.getTags().add(objectTag);
       }
@@ -332,6 +340,9 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
   private void determinePreCheckedTags(final EList<ITag> tags) {
     for (final ITag tag : tags) {
       if (tag.getTaggedObjectCount() > 0) {
+        if (!StringUtil.isEmpty(tag.getParentTagId())) {
+          continue;
+        }
         preCheckedTags.add(tag);
         if (tag.getTaggedObjectCount() == objectCount) {
           uncheckableTags.add(tag);
@@ -403,7 +414,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     }).toArray(String[]::new));
     tagTypeCombo.select(0);
     tagTypeCombo.addModifyListener(e -> {
-      treeContentProvider.setVisbleTagScope(TagSearchScope.get(tagTypeCombo.getSelectionIndex()));
+      var selectedScope = tagTypeCombo.getItem(tagTypeCombo.getSelectionIndex());
+      treeContentProvider.setVisbleTagScope(TagSearchScope.getByName(selectedScope.toUpperCase()));
       checkBoxViewer.refresh();
       setCheckedElements();
     });
@@ -499,21 +511,19 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
           false);
     }
     boolean isComplete = false;
-    needsParentObjectSelection = false;
+    isParentObjectSelectionPossible = false;
     if (tagStatus == null || tagStatus.isOK()) {
       setErrorMessage(null);
       isComplete = checkedTags.size() > 0;
-      if (!isComplete) {
-        getWizard().setCanFinish(false);
-      } else {
+      getWizard().setCanFinish(isComplete);
+      if (isComplete) {
         for (final ITag tag : checkedTags) {
           final EObject parent = tag.eContainer();
           if (parent instanceof ITag) {
-            needsParentObjectSelection = true;
+            isParentObjectSelectionPossible = true;
             break;
           }
         }
-        getWizard().setCanFinish(!needsParentObjectSelection);
       }
     } else {
       setErrorMessage(tagStatus.getMessage());
@@ -539,7 +549,12 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     @Override
     protected void appendTagName(final ITag tag, final StyledString text) {
       if (!StringUtil.isEmpty(tag.getId())) {
-        if (tag.getTaggedObjectCount() == objectCount) {
+        /*
+         * hierarchical tags can be assigned multiple times, so a tagged object count > objectCount
+         * does not always mean that all selected objects are tagged
+         * CHECK: should an entry be made bold only if a single object is selected for tagging
+         */
+        if (tag.getTaggedObjectCount() >= objectCount) {
           text.append(tag.getName(), StylerFactory.BOLD_STYLER);
         } else {
           text.append(tag.getName());
@@ -553,6 +568,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     @Override
     protected void appendCounterText(final ITag tag, final StyledString text) {
       if (!StringUtil.isEmpty(tag.getId()) && objectCount > 1) {
+        // CHECK: Could look strange if objects have multiple parents (e.g. 4 of 2)
         text.append(" (" + tag.getTaggedObjectCount() + " of " + objectCount + ")", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             StyledString.COUNTER_STYLER);
       }

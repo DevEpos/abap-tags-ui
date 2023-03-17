@@ -18,7 +18,8 @@ Export-Package: com.devepos.adt.atm.model.abaptags;
   x-friends:="com.devepos.adt.abaptags.ui,
    com.devepos.adt.abaptags.backend",
  com.devepos.adt.atm.model.abaptags.impl;x-internal:=true,
- com.devepos.adt.atm.model.abaptags.util;x-internal:=true,
+ com.devepos.adt.atm.model.abaptags.util;
+  x-friends:="com.devepos.adt.abaptags.backend",
  com.devepos.adt.atm.model.validation;
   x-friends:="com.devepos.adt.abaptags.ui,
    com.devepos.adt.abaptags.backend"

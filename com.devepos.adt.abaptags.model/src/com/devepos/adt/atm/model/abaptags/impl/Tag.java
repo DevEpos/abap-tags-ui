@@ -29,38 +29,30 @@ import com.devepos.adt.base.util.StringUtil;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getDescription
- * <em>Description</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getChildTags <em>Child
- * Tags</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getCreatedBy
- * <em>Created By</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getCreatedDateTime
- * <em>Created Date Time</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getChangedBy
- * <em>Changed By</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getChangedDateTime
- * <em>Changed Date Time</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getTaggedObjectCount
- * <em>Tagged Object Count</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#isShared
- * <em>Shared</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#isSharedForMe
- * <em>Shared For Me</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#isChanged
- * <em>Changed</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getParentTagId
- * <em>Parent Tag Id</em>}</li>
- * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getSharedUsers
- * <em>Shared Users</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getDescription <em>Description</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getChildTags <em>Child Tags</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getCreatedBy <em>Created By</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getCreatedDateTime <em>Created Date
+ * Time</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getChangedBy <em>Changed By</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getChangedDateTime <em>Changed Date
+ * Time</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getTaggedObjectCount <em>Tagged Object
+ * Count</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#isShared <em>Shared</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#isSharedForMe <em>Shared For Me</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#isChanged <em>Changed</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getParentTagId <em>Parent Tag
+ * Id</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.Tag#getSharedUsers <em>Shared Users</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class Tag extends TagBase implements ITag {
   /**
-   * The default value of the '{@link #getDescription() <em>Description</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getDescription()
    * @generated
@@ -69,8 +61,8 @@ public class Tag extends TagBase implements ITag {
   protected static final String DESCRIPTION_EDEFAULT = "";
 
   /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getDescription()
    * @generated
@@ -79,8 +71,9 @@ public class Tag extends TagBase implements ITag {
   protected String description = DESCRIPTION_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getChildTags() <em>Child Tags</em>}'
-   * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getChildTags() <em>Child Tags</em>}' containment reference
+   * list.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getChildTags()
    * @generated
@@ -89,8 +82,8 @@ public class Tag extends TagBase implements ITag {
   protected EList<ITag> childTags;
 
   /**
-   * The default value of the '{@link #getCreatedBy() <em>Created By</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getCreatedBy() <em>Created By</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getCreatedBy()
    * @generated
@@ -99,8 +92,8 @@ public class Tag extends TagBase implements ITag {
   protected static final String CREATED_BY_EDEFAULT = "";
 
   /**
-   * The cached value of the '{@link #getCreatedBy() <em>Created By</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getCreatedBy() <em>Created By</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getCreatedBy()
    * @generated
@@ -109,8 +102,8 @@ public class Tag extends TagBase implements ITag {
   protected String createdBy = CREATED_BY_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getCreatedDateTime() <em>Created Date
-   * Time</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getCreatedDateTime() <em>Created Date Time</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getCreatedDateTime()
    * @generated
@@ -119,8 +112,8 @@ public class Tag extends TagBase implements ITag {
   protected static final String CREATED_DATE_TIME_EDEFAULT = "";
 
   /**
-   * The cached value of the '{@link #getCreatedDateTime() <em>Created Date
-   * Time</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getCreatedDateTime() <em>Created Date Time</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getCreatedDateTime()
    * @generated
@@ -129,8 +122,8 @@ public class Tag extends TagBase implements ITag {
   protected String createdDateTime = CREATED_DATE_TIME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getChangedBy() <em>Changed By</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getChangedBy() <em>Changed By</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getChangedBy()
    * @generated
@@ -139,8 +132,8 @@ public class Tag extends TagBase implements ITag {
   protected static final String CHANGED_BY_EDEFAULT = "";
 
   /**
-   * The cached value of the '{@link #getChangedBy() <em>Changed By</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getChangedBy() <em>Changed By</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getChangedBy()
    * @generated
@@ -149,8 +142,8 @@ public class Tag extends TagBase implements ITag {
   protected String changedBy = CHANGED_BY_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getChangedDateTime() <em>Changed Date
-   * Time</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getChangedDateTime() <em>Changed Date Time</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getChangedDateTime()
    * @generated
@@ -159,8 +152,8 @@ public class Tag extends TagBase implements ITag {
   protected static final String CHANGED_DATE_TIME_EDEFAULT = "";
 
   /**
-   * The cached value of the '{@link #getChangedDateTime() <em>Changed Date
-   * Time</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getChangedDateTime() <em>Changed Date Time</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getChangedDateTime()
    * @generated
@@ -169,8 +162,9 @@ public class Tag extends TagBase implements ITag {
   protected String changedDateTime = CHANGED_DATE_TIME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getTaggedObjectCount() <em>Tagged Object
-   * Count</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getTaggedObjectCount() <em>Tagged Object Count</em>}'
+   * attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getTaggedObjectCount()
    * @generated
@@ -179,8 +173,9 @@ public class Tag extends TagBase implements ITag {
   protected static final int TAGGED_OBJECT_COUNT_EDEFAULT = 0;
 
   /**
-   * The cached value of the '{@link #getTaggedObjectCount() <em>Tagged Object
-   * Count</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getTaggedObjectCount() <em>Tagged Object Count</em>}'
+   * attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getTaggedObjectCount()
    * @generated
@@ -209,8 +204,8 @@ public class Tag extends TagBase implements ITag {
   protected boolean shared = SHARED_EDEFAULT;
 
   /**
-   * The default value of the '{@link #isSharedForMe() <em>Shared For Me</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #isSharedForMe() <em>Shared For Me</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #isSharedForMe()
    * @generated
@@ -219,8 +214,8 @@ public class Tag extends TagBase implements ITag {
   protected static final boolean SHARED_FOR_ME_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isSharedForMe() <em>Shared For Me</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #isSharedForMe() <em>Shared For Me</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #isSharedForMe()
    * @generated
@@ -249,8 +244,8 @@ public class Tag extends TagBase implements ITag {
   protected boolean changed = CHANGED_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getParentTagId() <em>Parent Tag Id</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getParentTagId() <em>Parent Tag Id</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParentTagId()
    * @generated
@@ -259,8 +254,8 @@ public class Tag extends TagBase implements ITag {
   protected static final String PARENT_TAG_ID_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getParentTagId() <em>Parent Tag Id</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getParentTagId() <em>Parent Tag Id</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParentTagId()
    * @generated
@@ -269,8 +264,9 @@ public class Tag extends TagBase implements ITag {
   protected String parentTagId = PARENT_TAG_ID_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getSharedUsers() <em>Shared Users</em>}'
-   * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getSharedUsers() <em>Shared Users</em>}' containment reference
+   * list.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getSharedUsers()
    * @generated
@@ -344,7 +340,8 @@ public class Tag extends TagBase implements ITag {
   @Override
   public EList<ITag> getChildTags() {
     if (childTags == null) {
-      childTags = new EObjectContainmentEList<>(ITag.class, this, IAbapTagsPackage.TAG__CHILD_TAGS);
+      childTags = new EObjectContainmentEList<>(ITag.class, this,
+          IAbapTagsPackage.TAG__CHILD_TAGS);
     }
     return childTags;
   }

@@ -27,6 +27,10 @@ public interface IImages {
    * Default banner for Tagging wizard
    */
   String TAGS_WIZBAN_DEFAULT = "IMG_TAGS_WIZBAN_DEFAULT";
+  /**
+   * Wizard banner for Tag deletion wizard
+   */
+  String DELETE_TAGS_WIZBAN = "IMG_DELETE_TAGS_WIZBAN";
   /*
    * Image for Folder of Global Tags
    */
