@@ -245,7 +245,7 @@
       <view
             category="com.devepos.adt"
             class="com.devepos.adt.atm.ui.internal.views.AbapObjectTagsView"
-            icon="icons/Tag.png"
+            icon="icons/ObjectTags.png"
             id="com.devepos.adt.atm.ui.views.AbapObjectTags"
             name="%views.name.abapObjectTags"
             restorable="true">
