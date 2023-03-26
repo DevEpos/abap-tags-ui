@@ -1,5 +1,7 @@
 package com.devepos.adt.atm.tagging;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.CoreException;
 
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
@@ -44,7 +46,7 @@ public interface IAdtObjTaggingService {
    * @return the found object information
    * @throws CoreException
    */
-  ITaggedObject getObject(String destinationId, String objectUri) throws CoreException;
+  List<ITaggedObject> getObjectInfo(String destinationId, String objectUri) throws CoreException;
 
   /**
    * Deletes the tags from the ADT objects

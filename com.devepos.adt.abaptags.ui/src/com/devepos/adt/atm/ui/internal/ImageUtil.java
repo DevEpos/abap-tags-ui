@@ -6,6 +6,7 @@ import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.base.util.StringUtil;
+import com.sap.adt.tools.core.ui.AbapCoreUi;
 
 /**
  * Utility for retrieving images
@@ -13,6 +14,7 @@ import com.devepos.adt.base.util.StringUtil;
  * @author stockbal
  *
  */
+@SuppressWarnings("restriction")
 public class ImageUtil {
 
   /**
@@ -54,5 +56,20 @@ public class ImageUtil {
       return AbapTagsUIPlugin.getDefault().getImage(IImages.SHARED_TAG);
     }
     return AbapTagsUIPlugin.getDefault().getImage(IImages.USER_TAG);
+  }
+
+  /**
+   * Returns image for a local class
+   */
+  public static Image getLocalClassImage() {
+    return AbapCoreUi.getSharedImages().getClassImage(false, false, false, false, false, true);
+  }
+
+  /**
+   * Returns image for a local interface
+   */
+  public static Image getLocalInterfaceImage() {
+    return AbapCoreUi.getSharedImages().getInterfaceImage(false, false, true);
+
   }
 }

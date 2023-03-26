@@ -1,5 +1,7 @@
 package com.devepos.adt.atm.internal.tagging;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -78,7 +80,7 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
   }
 
   @Override
-  public ITaggedObject getObject(final String destinationId, final String objectUri)
+  public List<ITaggedObject> getObjectInfo(final String destinationId, final String objectUri)
       throws CoreException {
     try {
 
@@ -93,8 +95,7 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
       final ITaggedObjectList objectList = restResource.get(null, ITaggedObjectList.class,
           new QueryParameter("objectUri", objectUri));
       return objectList != null && !objectList.getTaggedObjects().isEmpty() ? objectList
-          .getTaggedObjects()
-          .get(0) : null;
+          .getTaggedObjects() : null;
     } catch (final ResourceException exc) {
       exc.printStackTrace();
       throw new CoreException(new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc
