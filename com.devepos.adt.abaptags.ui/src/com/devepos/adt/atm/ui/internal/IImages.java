@@ -59,5 +59,9 @@ public interface IImages {
    * Image for a user tag that is shared with others
    */
   String USER_TAG_W_SHARED_OVERLAY = "IMG_USER_TAG_SHARED_OVR";
+  /**
+   * Image for a folder with local objects
+   */
+  String LOCAL_OBJECTS_FOLDER = "IMG_LOCAL_OBJS_FOLDER";
 
 }

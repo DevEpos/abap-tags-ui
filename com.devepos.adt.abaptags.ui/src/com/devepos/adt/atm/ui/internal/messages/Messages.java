@@ -40,6 +40,7 @@ public class Messages extends NLS {
   public static String AbapObjectTagsView_NoTagsAssigned_xmsg;
   public static String AbapObjectTagsView_LinkToEditorAction_xtol;
   public static String AbapObjectTagsView_LoadingTaggedObjectInfoJob_xmsg;
+  public static String AbapObjectTagsView_TaggedComponentsFolder_xlbl;
   public static String AbapTagManagerView_FindTaggedObjectsAction_xmit;
   public static String AbapTagManagerView_FindTaggedObjectsActionMatchAllTags_xmit;
   public static String AbapTagManagerView_ViewerFilterText_xmsg;
