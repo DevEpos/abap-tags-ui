@@ -381,4 +381,17 @@
          </includes>
       </viewerActionBinding>
    </extension>
+   <extension
+         point="org.eclipse.ui.themes">
+      <colorDefinition
+            categoryId="com.devepos.adt.atm.ui"
+            id="com.devepos.adt.atm.ui.CompParentForegroundColor"
+            label="%colorDefinition.CompParentForegroundColor.label"
+            value="64,128,128">
+      </colorDefinition>
+      <themeElementCategory
+            id="com.devepos.adt.atm.ui"
+            label="%themeElementCategory.label">
+      </themeElementCategory>
+   </extension>
 </plugin>
