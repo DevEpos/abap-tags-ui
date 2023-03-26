@@ -50,6 +50,8 @@ import com.devepos.adt.atm.model.abaptags.TagSearchScope;
  * <em>With Tag Info</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectSearchParams#getTagInfoType
  * <em>Tag Info Type</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectSearchParams#isExcludeComponents
+ * <em>Exclude Components</em>}</li>
  * </ul>
  *
  * @generated
@@ -242,6 +244,28 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
    * @ordered
    */
   protected TagInfoType tagInfoType = TAG_INFO_TYPE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isExcludeComponents() <em>Exclude Components</em>}'
+   * attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #isExcludeComponents()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean EXCLUDE_COMPONENTS_EDEFAULT = false;
+  /**
+   * The cached value of the '{@link #isExcludeComponents() <em>Exclude Components</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #isExcludeComponents()
+   * @generated
+   * @ordered
+   */
+  protected boolean excludeComponents = EXCLUDE_COMPONENTS_EDEFAULT;
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -529,6 +553,34 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean isExcludeComponents() {
+    return excludeComponents;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setExcludeComponents(final boolean newExcludeComponents) {
+    boolean oldExcludeComponents = excludeComponents;
+    excludeComponents = newExcludeComponents;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__EXCLUDE_COMPONENTS, oldExcludeComponents,
+          excludeComponents));
+    }
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -556,6 +608,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
       return isWithTagInfo();
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__TAG_INFO_TYPE:
       return getTagInfoType();
+    case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__EXCLUDE_COMPONENTS:
+      return isExcludeComponents();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -600,6 +654,9 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__TAG_INFO_TYPE:
       setTagInfoType((TagInfoType) newValue);
       return;
+    case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__EXCLUDE_COMPONENTS:
+      setExcludeComponents((Boolean) newValue);
+      return;
     }
     super.eSet(featureID, newValue);
   }
@@ -642,6 +699,9 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__TAG_INFO_TYPE:
       setTagInfoType(TAG_INFO_TYPE_EDEFAULT);
       return;
+    case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__EXCLUDE_COMPONENTS:
+      setExcludeComponents(EXCLUDE_COMPONENTS_EDEFAULT);
+      return;
     }
     super.eUnset(featureID);
   }
@@ -674,6 +734,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
       return withTagInfo != WITH_TAG_INFO_EDEFAULT;
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__TAG_INFO_TYPE:
       return tagInfoType != TAG_INFO_TYPE_EDEFAULT;
+    case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS__EXCLUDE_COMPONENTS:
+      return excludeComponents != EXCLUDE_COMPONENTS_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -710,6 +772,8 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
     result.append(withTagInfo);
     result.append(", tagInfoType: ");
     result.append(tagInfoType);
+    result.append(", excludeComponents: ");
+    result.append(excludeComponents);
     result.append(')');
     return result.toString();
   }

@@ -93,6 +93,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/matchesAllTags"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/withTagInfo"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/tagInfoType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectSearchParams/excludeComponents"/>
     </genClasses>
     <genClasses ecoreClass="abaptags.ecore#//TagDeletionCheckResult">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference abaptags.ecore#//TagDeletionCheckResult/checkedTags"/>

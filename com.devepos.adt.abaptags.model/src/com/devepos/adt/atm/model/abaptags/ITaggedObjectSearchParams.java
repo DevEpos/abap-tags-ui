@@ -33,6 +33,8 @@ import org.eclipse.emf.ecore.EObject;
  * Tag Info</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#getTagInfoType <em>Tag
  * Info Type</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isExcludeComponents
+ * <em>Exclude Components</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectSearchParams()
@@ -314,5 +316,32 @@ public interface ITaggedObjectSearchParams extends EObject {
    * @generated
    */
   void setTagInfoType(TagInfoType value);
+
+  /**
+   * Returns the value of the '<em><b>Exclude Components</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Exclude Components</em>' attribute.
+   * @see #setExcludeComponents(boolean)
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectSearchParams_ExcludeComponents()
+   * @model extendedMetaData="kind='attribute' name='excludeComponents'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  boolean isExcludeComponents();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isExcludeComponents
+   * <em>Exclude Components</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Exclude Components</em>' attribute.
+   * @see #isExcludeComponents()
+   * @generated
+   */
+  void setExcludeComponents(boolean value);
 
 } // ITaggedObjectSearchParams

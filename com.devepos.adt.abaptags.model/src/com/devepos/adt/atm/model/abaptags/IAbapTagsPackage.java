@@ -759,13 +759,23 @@ public interface IAbapTagsPackage extends EPackage {
   int TAGGED_OBJECT_SEARCH_PARAMS__TAG_INFO_TYPE = 9;
 
   /**
+   * The feature id for the '<em><b>Exclude Components</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_SEARCH_PARAMS__EXCLUDE_COMPONENTS = 10;
+
+  /**
    * The number of structural features of the '<em>Tagged Object Search Params</em>' class.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int TAGGED_OBJECT_SEARCH_PARAMS_FEATURE_COUNT = 10;
+  int TAGGED_OBJECT_SEARCH_PARAMS_FEATURE_COUNT = 11;
 
   /**
    * The number of operations of the '<em>Tagged Object Search Params</em>' class.
@@ -1732,6 +1742,20 @@ public interface IAbapTagsPackage extends EPackage {
   EAttribute getTaggedObjectSearchParams_TagInfoType();
 
   /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isExcludeComponents
+   * <em>Exclude Components</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Exclude Components</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams#isExcludeComponents()
+   * @see #getTaggedObjectSearchParams()
+   * @generated
+   */
+  EAttribute getTaggedObjectSearchParams_ExcludeComponents();
+
+  /**
    * Returns the meta object for class
    * '{@link com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult <em>Tag Deletion Check
    * Result</em>}'.
@@ -2502,6 +2526,16 @@ public interface IAbapTagsPackage extends EPackage {
      */
     EAttribute TAGGED_OBJECT_SEARCH_PARAMS__TAG_INFO_TYPE = eINSTANCE
         .getTaggedObjectSearchParams_TagInfoType();
+
+    /**
+     * The meta object literal for the '<em><b>Exclude Components</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_SEARCH_PARAMS__EXCLUDE_COMPONENTS = eINSTANCE
+        .getTaggedObjectSearchParams_ExcludeComponents();
 
     /**
      * The meta object literal for the
