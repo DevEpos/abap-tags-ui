@@ -63,7 +63,6 @@ import com.devepos.adt.base.ui.action.CollapseAllTreeNodesAction;
 import com.devepos.adt.base.ui.action.CollapseTreeNodesAction;
 import com.devepos.adt.base.ui.action.CommandFactory;
 import com.devepos.adt.base.ui.action.CopyToClipboardAction;
-import com.devepos.adt.base.ui.action.ExecuteAdtObjectAction;
 import com.devepos.adt.base.ui.action.OpenAdtObjectAction;
 import com.devepos.adt.base.ui.search.ISearchResultPageExtension;
 import com.devepos.adt.base.ui.tree.ActionTreeNode;
@@ -81,7 +80,8 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 public class TaggedObjectSearchResultPage extends Page implements ISearchResultPage,
     ISearchResultListener, ISearchResultPageExtension<TaggedObjectSearchQuery> {
-  private String id;
+
+  private String pageId;
   private ISearchResultViewPart searchViewPart;
   private Tree resultTree;
   private TreeViewer resultTreeViewer;
@@ -237,12 +237,12 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 
   @Override
   public void setID(final String id) {
-    this.id = id;
+    pageId = id;
   }
 
   @Override
   public String getID() {
-    return id;
+    return pageId;
   }
 
   @Override
@@ -308,6 +308,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     }
     menu.add(new Separator(IContextMenuConstants.GROUP_NEW));
     menu.add(new Separator(IContextMenuConstants.GROUP_OPEN));
+    menu.add(new Separator(IContextMenuConstants.GROUP_EDIT));
     menu.add(new Separator(IContextMenuConstants.GROUP_SEARCH));
 
     boolean selectionHasExpandedNodes = false;
@@ -338,26 +339,17 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
       menu.appendToGroup(IContextMenuConstants.GROUP_OPEN, new OpenAdtObjectAction(projectProvider
           .getProject(), adtObjRefs));
     }
-    if (!previewAdtObjRefs.isEmpty()) {
-      menu.appendToGroup(IContextMenuConstants.GROUP_OPEN, new ExecuteAdtObjectAction(
-          projectProvider.getProject(), previewAdtObjRefs, true));
-    }
-    if (!executableAdtObjRefs.isEmpty()) {
-      menu.appendToGroup(IContextMenuConstants.GROUP_OPEN, new ExecuteAdtObjectAction(
-          projectProvider.getProject(), executableAdtObjRefs, false));
-    }
 
     if (!adtObjRefs.isEmpty()) {
-      menu.add(new Separator(IContextMenuConstants.GROUP_ADDITIONS));
-      menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, CommandFactory
-          .createContribItemById(IGeneralCommandConstants.WHERE_USED_IN, true, null));
+      menu.appendToGroup(IContextMenuConstants.GROUP_SEARCH, CommandFactory.createContribItemById(
+          IGeneralCommandConstants.WHERE_USED_IN, true, null));
+
     }
 
     if (selectionHasExpandedNodes) {
       menu.add(collapseNodesAction);
     }
 
-    menu.add(new Separator(IContextMenuConstants.GROUP_EDIT));
     menu.appendToGroup(IContextMenuConstants.GROUP_EDIT, copyToClipBoardAction);
   }
 
