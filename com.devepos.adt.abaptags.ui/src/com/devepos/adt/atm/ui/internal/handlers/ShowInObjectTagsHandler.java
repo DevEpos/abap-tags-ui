@@ -18,6 +18,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.tags.IAbapTagsService;
+import com.devepos.adt.atm.ui.internal.util.AdtObjectCapabilities;
 import com.devepos.adt.atm.ui.internal.views.AbapObjectTagsView;
 import com.devepos.adt.base.ui.adtobject.IAdtObject;
 import com.devepos.adt.base.ui.util.EditorUtil;
@@ -64,6 +65,8 @@ public class ShowInObjectTagsHandler extends AbstractHandler {
         currentSelectedObject = Adapters.adapt(selectedObject, IAdtObject.class);
       }
     }
+    // check if selected object is taggable
+    validateSelectedObject();
     if (currentSelectedObject != null) {
       final IProject project = currentSelectedObject.getProject();
       if (!abapTagsService.testTagsFeatureAvailability(project).isOK()) {
@@ -88,6 +91,16 @@ public class ShowInObjectTagsHandler extends AbstractHandler {
       return selection.getFirstElement();
     }
     return null;
+  }
+
+  private void validateSelectedObject() {
+    if (currentSelectedObject == null) {
+      return;
+    }
+
+    if (!AdtObjectCapabilities.getInstance().isValidForObjectTagsView(currentSelectedObject)) {
+      currentSelectedObject = null;
+    }
   }
 
 }

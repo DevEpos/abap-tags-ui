@@ -77,9 +77,14 @@
                         operator="and">
                      <adapt
                            type="com.devepos.adt.base.ui.adtobject.IAdtObject">
-                        <test
-                              property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
-                        </test>
+                        <and>
+                           <test
+                                 property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
+                           </test>
+                           <test
+                                 property="com.devepos.adt.atm.ui.adtObject.isTaggable">
+                           </test>
+                        </and>
                      </adapt>
                   </iterate>
                </with>
@@ -182,6 +187,13 @@
             id="com.devepos.adt.atm.ui.ProjectFeatureTester"
             namespace="com.devepos.adt.atm.ui.features"
             properties="abaptagsAvailable"
+            type="com.devepos.adt.base.ui.adtobject.IAdtObject">
+      </propertyTester>
+      <propertyTester
+            class="com.devepos.adt.atm.ui.internal.propertytester.AdtObjectPropertyTester"
+            id="com.devepos.adt.atm.ui.AdtObjectPropertyTester"
+            namespace="com.devepos.adt.atm.ui.adtObject"
+            properties="isTaggable"
             type="com.devepos.adt.base.ui.adtobject.IAdtObject">
       </propertyTester>
    </extension>
