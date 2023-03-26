@@ -208,12 +208,6 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            category="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
-            class="com.devepos.adt.atm.ui.internal.preferences.SearchPreferencesPage"
-            id="com.devepos.adt.atm.ui.preferencePages.Search"
-            name="%preferences.page.search">
-      </page>
-      <page
             category="com.devepos.adt.preferences"
             class="com.devepos.adt.atm.ui.internal.preferences.MainPreferencesPage"
             id="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
@@ -221,9 +215,27 @@
       </page>
       <page
             category="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
+            class="com.devepos.adt.atm.ui.internal.preferences.SearchPreferencesPage"
+            id="com.devepos.adt.atm.ui.preferencePages.Search"
+            name="%preferences.page.search">
+      </page>
+      <page
+            category="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
             class="com.devepos.adt.atm.ui.internal.preferences.TaggingPreferencePage"
             id="com.devepos.adt.atm.ui.preferencePages.ObjectTagging"
             name="%preferences.page.objecttagging">
+      </page>
+      <page
+            category="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
+            class="com.devepos.adt.atm.ui.internal.preferences.TaggedObjectTreePreferencePage"
+            id="com.devepos.adt.atm.ui.preferencePages.TaggedObjectTree"
+            name="%preferences.page.taggedobjecttree">
+      </page>
+      <page
+            category="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
+            class="com.devepos.adt.atm.ui.internal.preferences.TagManagerPreferencePage"
+            id="com.devepos.adt.atm.ui.preferencePages.TagManager"
+            name="%preferences.page.tagmanager">
       </page>
    </extension>
    <extension

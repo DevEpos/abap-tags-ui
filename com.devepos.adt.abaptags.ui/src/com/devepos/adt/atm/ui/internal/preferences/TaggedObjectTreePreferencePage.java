@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.Group;
 
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 
-public class TaggingPreferencePage extends BaseFieldEditorPrefPage {
+public class TaggedObjectTreePreferencePage extends BaseFieldEditorPrefPage {
 
   @Override
   protected Control createContents(final Composite parent) {
@@ -30,14 +30,16 @@ public class TaggingPreferencePage extends BaseFieldEditorPrefPage {
    * @param parent the parent composite
    */
   private void createSettings(final Composite parent) {
-    final var wizardGroup = new Group(parent, SWT.NONE);
-    wizardGroup.setText(Messages.TaggingPreferencePage_TagWizardSettings_xgrp);
+    final var treeGroup = new Group(parent, SWT.NONE);
+    treeGroup.setText(Messages.TaggedObjectTreePreferencePage_TreeSettingsGroup_xlbl);
 
-    GridDataFactory.fillDefaults().grab(true, false).applyTo(wizardGroup);
+    GridDataFactory.fillDefaults().grab(true, false).applyTo(treeGroup);
 
-    addBooleanEditor(IObjectTaggingPrefs.AUTO_EXPAND_TAGS,
-        Messages.TaggingPreferencePage_AutoExpandTagsOnTagSelectionPage_xchk, wizardGroup);
+    addBooleanEditor(ITaggedObjectTreePrefs.DISPLAY_OBJECT_TYPES,
+        Messages.SearchPreferencesPage_DisplayObjectTypes_xckl, treeGroup);
+    addBooleanEditor(ITaggedObjectTreePrefs.DISPLAY_DESCRIPTIONS,
+        Messages.SearchPreferencesPage_DisplayShortDescriptions_xckl, treeGroup);
 
-    adjustMargins(wizardGroup);
+    adjustMargins(treeGroup);
   }
 }

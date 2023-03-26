@@ -23,12 +23,14 @@ public class Messages extends NLS {
   public static String TaggedObjectTreeContentAndLabelProvider_LoadingTaggedObjectTreeJob_xtit;
   public static String TaggedObjectTreeContentAndLabelProvider_TaggedObjectsNodeName_xtit;
   public static String TaggedObjectTreeNodeActionProvider_RefreshAction_xmit;
+  public static String TaggedObjectTreePreferencePage_TreeSettingsGroup_xlbl;
   public static String TaggingObjectWizard_NoTagsAvailableMessage_xmsg;
   public static String TaggingObjectWizard_TagsServiceError_xtit;
   public static String TaggingPreferencePage_AutoExpandTagsOnTagManagerReloade_xchk;
   public static String TaggingPreferencePage_AutoExpandTagsOnTagSelectionPage_xchk;
   public static String TaggingPreferencePage_TagManagerSettings_xgrp;
   public static String TaggingPreferencePage_TagWizardSettings_xgrp;
+  public static String TagManagerPreferencePage_TreeSettingsGroup_xlbl;
   public static String General_TagsTitle_TagsTitle;
   public static String AbapObjectTagsView_AddTagsAction_xtol;
   public static String AbapObjectTagsView_DeleteTagAction_xmit;
