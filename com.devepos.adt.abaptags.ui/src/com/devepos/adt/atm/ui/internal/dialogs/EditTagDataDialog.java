@@ -23,7 +23,7 @@ import com.devepos.adt.atm.model.validation.TagListValidator;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.util.StringUtil;
-import com.sap.adt.util.ui.SWTUtil;
+import com.sap.adt.util.ui.swt.AdtSWTUtilFactory;
 
 public class EditTagDataDialog extends TitleAreaDialog {
   private static final String DIALOG_SETTINGS_NAME = EditTagDataDialog.class.getCanonicalName();
@@ -74,7 +74,7 @@ public class EditTagDataDialog extends TitleAreaDialog {
 
     final Label nameLabel = new Label(mainComposite, SWT.NONE);
     nameLabel.setText(Messages.EditTagDataDialog_NameInput_xlbl);
-    SWTUtil.setMandatory(nameLabel, true);
+    AdtSWTUtilFactory.getOrCreateSWTUtil().setMandatory(nameLabel, true);
 
     nameInput = new Text(mainComposite, SWT.BORDER);
     GridDataFactory.fillDefaults().grab(true, false).applyTo(nameInput);
