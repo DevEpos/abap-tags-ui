@@ -179,6 +179,34 @@
             </visibleWhen>
          </command>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.sap.adt.tools.core.ui.outline?beginof=additions">
+         <command
+               commandId="com.devepos.adt.atm.ui.command.tagSelectedObjects"
+               icon="icons/AssignTag.png"
+               label="%menu.cmd.tagObjects.label"
+               mnemonic="a"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+                <iterate
+                      operator="and">
+                   <adapt
+                         type="com.devepos.adt.base.ui.adtobject.IAdtObject">
+                      <and>
+                         <test
+                               property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
+                         </test>
+                         <test
+                               property="com.devepos.adt.atm.ui.adtObject.isTaggable">
+                         </test>
+                      </and>
+                   </adapt>
+                </iterate>
+            </visibleWhen>
+         </command>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
