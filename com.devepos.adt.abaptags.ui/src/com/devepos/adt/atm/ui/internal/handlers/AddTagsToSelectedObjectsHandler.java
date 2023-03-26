@@ -31,6 +31,8 @@ public class AddTagsToSelectedObjectsHandler extends AbstractHandler {
     for (final IAdtObject adtObj : selectedObjects) {
       final IAdtObjRef adtObjRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
       adtObjRef.setUri(adtObj.getReference().getUri());
+      adtObjRef.setName(adtObj.getName());
+      adtObjRef.setType(adtObj.getReference().getType());
       adtObjRefList.getObjectReferences().add(adtObjRef);
     }
 

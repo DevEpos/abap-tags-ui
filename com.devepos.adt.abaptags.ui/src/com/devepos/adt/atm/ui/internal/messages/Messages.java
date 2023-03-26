@@ -149,6 +149,8 @@ public class Messages extends NLS {
   public static String TagSelectionWizardPage_TagScopeUser_xlbl;
   public static String TagSelectionWizardPage_TagSelectionNotReversable_xmsg;
   public static String TagSelectionWizardPage_Title_xtit;
+  public static String TypeLabels_LocalClass_xlbl;
+  public static String TypeLabels_LocalInterface_xlbl;
   static {
     // initialize resource bundle
     NLS.initializeMessages(BUNDLE_NAME, Messages.class);
