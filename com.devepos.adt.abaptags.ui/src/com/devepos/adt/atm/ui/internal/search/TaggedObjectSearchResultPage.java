@@ -64,6 +64,7 @@ import com.devepos.adt.base.ui.action.CollapseTreeNodesAction;
 import com.devepos.adt.base.ui.action.CommandFactory;
 import com.devepos.adt.base.ui.action.CopyToClipboardAction;
 import com.devepos.adt.base.ui.action.OpenAdtObjectAction;
+import com.devepos.adt.base.ui.action.OpenColorPreferencePageAction;
 import com.devepos.adt.base.ui.search.ISearchResultPageExtension;
 import com.devepos.adt.base.ui.tree.ActionTreeNode;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
@@ -94,20 +95,20 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
   private CollapseTreeNodesAction collapseNodesAction;
   private CopyToClipboardAction copyToClipBoardAction;
   private OpenTaggedObjectSearchPreferences openPreferencesAction;
+  private OpenColorPreferencePageAction openColorPrefPageAction;
   private IPropertyChangeListener prefStoreListener;
   private IPreferenceStore prefStore;
   private final List<String> executableObjectTypes;
   private ContextHelper contextHelper;
-  private IPropertyChangeListener colorPropertyChangeListener;
+  private final IPropertyChangeListener colorPropertyChangeListener;
 
   public TaggedObjectSearchResultPage() {
     executableObjectTypes = Stream.of("CLAS/OC", "PROG/P", "TRAN/T", "FUGR/FF", "WAPA/WO",
         "WDYA/YY", "WDCA/YA").collect(Collectors.toList());
     colorPropertyChangeListener = event -> {
-      if (IColorConstants.COMP_PARENT_COLOR.equals(event.getProperty())) {
-        if (resultTreeViewer != null && !resultTreeViewer.getControl().isDisposed()) {
-          resultTreeViewer.refresh();
-        }
+      if (IColorConstants.COMP_PARENT_COLOR.equals(event.getProperty()) && (resultTreeViewer != null
+          && !resultTreeViewer.getControl().isDisposed())) {
+        resultTreeViewer.refresh();
       }
     };
     JFaceResources.getColorRegistry().addListener(colorPropertyChangeListener);
@@ -174,9 +175,13 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), copyToClipBoardAction);
     actionBars.updateActionBars();
 
-    actionBars.getMenuManager().add(new ObjectLabelDecorationMenu());
-    actionBars.getMenuManager().add(new Separator());
-    actionBars.getMenuManager().add(openPreferencesAction);
+    var menu = actionBars.getMenuManager();
+
+    menu.add(new ObjectLabelDecorationMenu());
+    menu.add(new Separator());
+    menu.add(openColorPrefPageAction);
+    menu.add(new Separator());
+    menu.add(openPreferencesAction);
 
   }
 
@@ -286,6 +291,9 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     copyToClipBoardAction = new CopyToClipboardAction();
     copyToClipBoardAction.registerViewer(resultTreeViewer);
     openPreferencesAction = new OpenTaggedObjectSearchPreferences();
+    openColorPrefPageAction = new OpenColorPreferencePageAction();
+    openColorPrefPageAction.setColorId(IColorConstants.COMP_PARENT_COLOR);
+    openColorPrefPageAction.setCategories(IColorConstants.COLOR_NAMESPACE);
   }
 
   private void hookContextMenu() {
