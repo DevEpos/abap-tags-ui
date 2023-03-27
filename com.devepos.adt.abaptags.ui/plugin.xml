@@ -77,9 +77,14 @@
                         operator="and">
                      <adapt
                            type="com.devepos.adt.base.ui.adtobject.IAdtObject">
-                        <test
-                              property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
-                        </test>
+                        <and>
+                           <test
+                                 property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
+                           </test>
+                           <test
+                                 property="com.devepos.adt.atm.ui.adtObject.isTaggable">
+                           </test>
+                        </and>
                      </adapt>
                   </iterate>
                </with>
@@ -174,6 +179,34 @@
             </visibleWhen>
          </command>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.sap.adt.tools.core.ui.outline?beginof=additions">
+         <command
+               commandId="com.devepos.adt.atm.ui.command.tagSelectedObjects"
+               icon="icons/AssignTag.png"
+               label="%menu.cmd.tagObjects.label"
+               mnemonic="a"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+                <iterate
+                      operator="and">
+                   <adapt
+                         type="com.devepos.adt.base.ui.adtobject.IAdtObject">
+                      <and>
+                         <test
+                               property="com.devepos.adt.atm.ui.features.abaptagsAvailable">
+                         </test>
+                         <test
+                               property="com.devepos.adt.atm.ui.adtObject.isTaggable">
+                         </test>
+                      </and>
+                   </adapt>
+                </iterate>
+            </visibleWhen>
+         </command>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
@@ -182,6 +215,13 @@
             id="com.devepos.adt.atm.ui.ProjectFeatureTester"
             namespace="com.devepos.adt.atm.ui.features"
             properties="abaptagsAvailable"
+            type="com.devepos.adt.base.ui.adtobject.IAdtObject">
+      </propertyTester>
+      <propertyTester
+            class="com.devepos.adt.atm.ui.internal.propertytester.AdtObjectPropertyTester"
+            id="com.devepos.adt.atm.ui.AdtObjectPropertyTester"
+            namespace="com.devepos.adt.atm.ui.adtObject"
+            properties="isTaggable"
             type="com.devepos.adt.base.ui.adtobject.IAdtObject">
       </propertyTester>
    </extension>
@@ -208,12 +248,6 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            category="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
-            class="com.devepos.adt.atm.ui.internal.preferences.SearchPreferencesPage"
-            id="com.devepos.adt.atm.ui.preferencePages.Search"
-            name="%preferences.page.search">
-      </page>
-      <page
             category="com.devepos.adt.preferences"
             class="com.devepos.adt.atm.ui.internal.preferences.MainPreferencesPage"
             id="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
@@ -221,9 +255,27 @@
       </page>
       <page
             category="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
+            class="com.devepos.adt.atm.ui.internal.preferences.SearchPreferencesPage"
+            id="com.devepos.adt.atm.ui.preferencePages.Search"
+            name="%preferences.page.search">
+      </page>
+      <page
+            category="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
             class="com.devepos.adt.atm.ui.internal.preferences.TaggingPreferencePage"
             id="com.devepos.adt.atm.ui.preferencePages.ObjectTagging"
             name="%preferences.page.objecttagging">
+      </page>
+      <page
+            category="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
+            class="com.devepos.adt.atm.ui.internal.preferences.TaggedObjectTreePreferencePage"
+            id="com.devepos.adt.atm.ui.preferencePages.TaggedObjectTree"
+            name="%preferences.page.taggedobjecttree">
+      </page>
+      <page
+            category="com.devepos.adt.atm.ui.preferencePages.ABAPTags"
+            class="com.devepos.adt.atm.ui.internal.preferences.TagManagerPreferencePage"
+            id="com.devepos.adt.atm.ui.preferencePages.TagManager"
+            name="%preferences.page.tagmanager">
       </page>
    </extension>
    <extension
@@ -356,5 +408,18 @@
             </actionExtension>
          </includes>
       </viewerActionBinding>
+   </extension>
+   <extension
+         point="org.eclipse.ui.themes">
+      <colorDefinition
+            categoryId="com.devepos.adt.atm.ui"
+            id="com.devepos.adt.atm.ui.CompParentForegroundColor"
+            label="%colorDefinition.CompParentForegroundColor.label"
+            value="64,128,128">
+      </colorDefinition>
+      <themeElementCategory
+            id="com.devepos.adt.atm.ui"
+            label="%themeElementCategory.label">
+      </themeElementCategory>
    </extension>
 </plugin>

@@ -1,14 +1,19 @@
 package com.devepos.adt.atm.ui.internal.projectexplorer.actions;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.search.ui.IContextMenuConstants;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.ui.navigator.CommonActionProvider;
@@ -27,6 +32,8 @@ import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
  * @author Ludwig Stockbauer-Muhr
  */
 public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
+
+  private List<String> unusedMenuGroups;
 
   public TaggedObjectTreeNodeActionProvider() {
     super();
@@ -88,6 +95,8 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
 
     menu.appendToGroup(ICommonMenuConstants.GROUP_BUILD, new RefreshFolderAction(
         relevantSelectedNodes, getActionSite().getStructuredViewer()));
+
+    deleteUnusedMenuGroups(menu);
   }
 
   private void addCollapseAction(final IMenuManager menu) {
@@ -100,6 +109,38 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
         break;
       }
     }
+  }
+
+  private void deleteUnusedMenuGroups(final IMenuManager menu) {
+    IContributionItem[] items = menu.getItems();
+    if (items == null || items.length == 0) {
+      return;
+    }
+
+    var groupsToDelete = fetchMenuGroupsForDeletion();
+    if (groupsToDelete == null || groupsToDelete.isEmpty()) {
+      return;
+    }
+
+    for (IContributionItem item : items) {
+      String id = item.getId();
+      if (id == null) {
+        continue;
+      }
+      if (groupsToDelete.contains(id)) {
+        menu.remove(item);
+      }
+    }
+  }
+
+  private List<String> fetchMenuGroupsForDeletion() {
+    if (unusedMenuGroups == null) {
+      unusedMenuGroups = new ArrayList<>(Arrays.asList(IContextMenuConstants.GROUP_GENERATE,
+          IContextMenuConstants.GROUP_SEARCH, IContextMenuConstants.GROUP_BUILD,
+          IContextMenuConstants.GROUP_GOTO, IWorkbenchActionConstants.MB_ADDITIONS,
+          IContextMenuConstants.GROUP_VIEWER_SETUP, IContextMenuConstants.GROUP_PROPERTIES));
+    }
+    return unusedMenuGroups;
   }
 
   private List<ILazyLoadingNode> getRelevantNodesFromSelection() {

@@ -43,6 +43,7 @@ import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.tree.TaggedObjectTreeContentProvider;
 import com.devepos.adt.atm.ui.internal.util.TagParentCollector;
+import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.base.ui.action.ActionFactory;
@@ -142,6 +143,11 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
     private Image getAdtObjectTypeImage(final String type) {
       if (type == null || type.isEmpty()) {
         return null;
+      }
+      if (IAdtObjectTypeConstants.LOCAL_CLASS.equals(type)) {
+        return ImageUtil.getLocalClassImage();
+      } else if (IAdtObjectTypeConstants.LOCAL_INTERFACE.equals(type)) {
+        return ImageUtil.getLocalInterfaceImage();
       }
       return AdtTypeUtil.getInstance().getTypeImage(type);
     }

@@ -151,6 +151,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
       objRefNew.setUri(adtObjRef.getUri());
       objRefNew.setName(adtObjRef.getName());
       objRefNew.setType(adtObjRef.getType());
+      objRefNew.setParentName(adtObjRef.getParentName());
       taggedObject.setObjectRef(objRefNew);
       for (final ITag selectedTag : checkedTags) {
         final IAdtObjectTag objectTag = IAbapTagsFactory.eINSTANCE.createAdtObjectTag();

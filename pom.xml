@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.devepos.adt</groupId>
 	<artifactId>com.devepos.adt.abaptags.parent</artifactId>
-	<version>1.6.0-SNAPSHOT</version>
+	<version>1.7.0-SNAPSHOT</version>
 	<name>ABAP Tags</name>
 	<packaging>pom</packaging>
 	<modules>
@@ -45,7 +45,8 @@
 		</profile>
 	</profiles>
 	<properties>
-		<tycho-version>2.7.0</tycho-version>
+		<tycho-version>2.7.5</tycho-version>
+		<eclipse-version>2023-03</eclipse-version>
 	</properties>
 	<build>
 		<pluginManagement>
@@ -109,12 +110,12 @@
 	<repositories>
 		<repository>
 			<id>eclipse-latest</id>
-			<url>http://download.eclipse.org/releases/latest</url>
+			<url>http://download.eclipse.org/releases/${eclipse-version}</url>
 			<layout>p2</layout>
 		</repository>
 		<repository>
 			<id>adt-latest</id>
-			<url>https://tools.hana.ondemand.com/latest</url>
+			<url>https://tools.hana.ondemand.com/${eclipse-version}</url>
 			<layout>p2</layout>
 		</repository>
 	</repositories>

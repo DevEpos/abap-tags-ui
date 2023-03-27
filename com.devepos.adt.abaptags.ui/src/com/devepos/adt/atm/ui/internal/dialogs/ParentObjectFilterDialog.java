@@ -71,6 +71,7 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
     parameters.setResultGroupLevel(ResultGroupLevel.BY_TAG_AND_OBJECT);
     parameters.setTagInfoType(TagInfoType.SEARCH_FOCUS);
     parameters.setMaxResults(50);
+    parameters.setExcludeComponents(true);
     service = TaggedObjectSearchFactory.createTaggedObjectSearchService();
   }
 

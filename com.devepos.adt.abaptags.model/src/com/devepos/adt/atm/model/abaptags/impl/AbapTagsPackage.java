@@ -780,6 +780,17 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * @generated
    */
   @Override
+  public EAttribute getTaggedObjectSearchParams_ExcludeComponents() {
+    return (EAttribute) taggedObjectSearchParamsEClass.getEStructuralFeatures().get(10);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EClass getTagDeletionCheckResult() {
     return tagDeletionCheckResultEClass;
   }
@@ -1102,6 +1113,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__MATCHES_ALL_TAGS);
     createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__WITH_TAG_INFO);
     createEAttribute(taggedObjectSearchParamsEClass, TAGGED_OBJECT_SEARCH_PARAMS__TAG_INFO_TYPE);
+    createEAttribute(taggedObjectSearchParamsEClass,
+        TAGGED_OBJECT_SEARCH_PARAMS__EXCLUDE_COMPONENTS);
 
     tagDeletionCheckResultEClass = createEClass(TAG_DELETION_CHECK_RESULT);
     createEReference(tagDeletionCheckResultEClass, TAG_DELETION_CHECK_RESULT__CHECKED_TAGS);
@@ -1327,6 +1340,9 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     initEAttribute(getTaggedObjectSearchParams_TagInfoType(), getTagInfoType(), "tagInfoType", null,
         0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
         !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectSearchParams_ExcludeComponents(), ecorePackage.getEBoolean(),
+        "excludeComponents", null, 0, 1, ITaggedObjectSearchParams.class, !IS_TRANSIENT,
+        !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(tagDeletionCheckResultEClass, ITagDeletionCheckResult.class,
         "TagDeletionCheckResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1516,6 +1532,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         "attribute", "name", "withTagInfo", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectSearchParams_TagInfoType(), source, new String[] { "kind",
         "attribute", "name", "tagInfoType", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectSearchParams_ExcludeComponents(), source, new String[] { "kind",
+        "attribute", "name", "excludeComponents", "namespace", "##targetNamespace" });
     addAnnotation(tagDeletionCheckResultEClass, source, new String[] { "kind", "elementOnly",
         "name", "deletionCheckResult" });
     addAnnotation(getTagDeletionCheckResult_CheckedTags(), source, new String[] { "kind", "element",

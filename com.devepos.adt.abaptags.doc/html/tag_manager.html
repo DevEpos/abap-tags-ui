@@ -25,7 +25,7 @@
 		<figcaption>Tag Manager View</figcaption>
 	</figure>
 
-	<h3>Sharing User Tags</h3>
+	<h3 class="heading">Sharing User Tags</h3>
 	<div class="alert info">
 		<div class="alert-info__text"></div>
 		You can only share normal user tags and the root node of hierarchical
@@ -47,6 +47,24 @@
 	<figure>
 		<img src="../images/tag_sharing_user_selection.png">
 		<figcaption>User selection for Tag Sharing</figcaption>
+	</figure>
+
+	<h3 class="heading">Deleting Tags</h3>
+	<p>
+		Starting with the Backend Version <strong>2.0</strong>, Tags can no
+		longer be deleted if there are still objects assigned to it or any
+		child Tags of the selected Tag.<br>This should be viewed as an
+		additional safe guard against accidental deletion of a Tag and its
+		assigned Objects.
+	</p>
+	<p>Upon triggering the deletion of one or several Tags you will see
+		a wiard dialog which will give you an overview of the selected Tags,
+		and more importantly it will show you if a selected Tag can be safely
+		deleted or not</p>
+
+	<figure>
+		<img src="../images/delete_tags_wizard.png">
+		<figcaption>Deletion Wizard for Tags</figcaption>
 	</figure>
 </body>
 </html>

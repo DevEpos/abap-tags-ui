@@ -8,7 +8,10 @@ import java.util.stream.Collectors;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.QualifiedName;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.JFacePreferences;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
@@ -26,6 +29,11 @@ import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.IImages;
 import com.devepos.adt.atm.ui.internal.ImageUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
+import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectTreePrefs;
+import com.devepos.adt.atm.ui.internal.util.AdtObjectUtil;
+import com.devepos.adt.atm.ui.internal.util.IColorConstants;
+import com.devepos.adt.atm.ui.internal.util.ITaggedObjectPropertyNameConstants;
+import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.elementinfo.AdtObjectReferenceElementInfo;
@@ -41,6 +49,7 @@ import com.devepos.adt.base.ui.tree.ICollectionTreeNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingFolderNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
+import com.devepos.adt.base.ui.tree.launchable.ILaunchableNode;
 import com.devepos.adt.base.ui.util.AdtTypeUtil;
 import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
@@ -55,7 +64,35 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
   private final ITaggedObjectTreeService treeService = TaggedObjectTreeServicesFactory
       .createTaggedObjectTreeService();
 
+  private IPreferenceStore prefStore;
+  private IPropertyChangeListener colorPropertyChangeListener;
+  private boolean showDescriptions;
+  private boolean showObjectTypes;
+
   public TaggedObjectTreeContentAndLabelProvider() {
+    super();
+    prefStore = AbapTagsUIPlugin.getDefault().getPreferenceStore();
+    showDescriptions = prefStore.getBoolean(ITaggedObjectTreePrefs.DISPLAY_DESCRIPTIONS);
+    showObjectTypes = prefStore.getBoolean(ITaggedObjectTreePrefs.DISPLAY_OBJECT_TYPES);
+
+    prefStore.addPropertyChangeListener(l -> {
+      var prop = l.getProperty();
+      if (prop.startsWith("com.devepos.adt.atm.ui.taggedObjectTree.")) {
+        if (prop.equals(ITaggedObjectTreePrefs.DISPLAY_DESCRIPTIONS)) {
+          showDescriptions = (boolean) l.getNewValue();
+        } else if (prop.equals(ITaggedObjectTreePrefs.DISPLAY_OBJECT_TYPES)) {
+          showObjectTypes = (boolean) l.getNewValue();
+        }
+        refreshViewer();
+      }
+    });
+
+    colorPropertyChangeListener = event -> {
+      if (IColorConstants.COMP_PARENT_COLOR.equals(event.getProperty())) {
+        refreshViewer();
+      }
+    };
+    JFaceResources.getColorRegistry().addListener(colorPropertyChangeListener);
   }
 
   private class RootNode extends LazyLoadingFolderNode {
@@ -106,19 +143,14 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
         treeRequest.setParentObjectName(objectRef.getName());
       }
 
-      try {
-        var treeResult = treeService.findNodes(destinationId, treeRequest);
-        var foundElements = new ArrayList<IElementInfo>();
+      var treeResult = treeService.findNodes(destinationId, treeRequest);
+      var foundElements = new ArrayList<IElementInfo>();
 
-        folderSize = treeResult.getTaggedObjectCount();
+      folderSize = treeResult.getTaggedObjectCount();
 
-        fillObjectResults(treeResult, foundElements);
-        fillTagResults(treeResult, foundElements);
-        return foundElements;
-      } catch (Exception exc) {
-        exc.printStackTrace();
-        return null;
-      }
+      fillObjectResults(treeResult, foundElements);
+      fillTagResults(treeResult, foundElements);
+      return foundElements;
     }
 
     public int getFolderSize() {
@@ -136,10 +168,16 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
           .getName(), objectRef.getType(), objectRef.getUri());
       var objectElementInfo = new AdtObjectReferenceElementInfo(objectRef.getName(), objectRef
           .getName(), objectRef.getDescription());
+      if (!StringUtil.isEmpty(objectRef.getParentName())) {
+        objectElementInfo.getProperties()
+            .put(ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME, objectRef
+                .getParentName());
+      }
       objectElementInfo.setAdtObjectReference(adtObjectRefEmf);
       // mark this adt object element info as launchable, so the project explorer will create the
       // necessary items in the context menu
-      objectElementInfo.getProperties().put("LAUNCHABLE", Boolean.TRUE.toString()); //$NON-NLS-1$
+      objectElementInfo.getProperties()
+          .put(ILaunchableNode.class.getName(), Boolean.TRUE.toString()); // $NON-NLS-1$
       if (o.isExpandable()) {
         objectElementInfo.setLazyLoadingSupport(true);
         objectElementInfo.setElementInfoProvider(new TaggedObjectTreeLoader(destinationId, o
@@ -219,6 +257,9 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
 
   @Override
   public void dispose() {
+    if (colorPropertyChangeListener != null) {
+      JFaceResources.getColorRegistry().removeListener(colorPropertyChangeListener);
+    }
   }
 
   @Override
@@ -244,7 +285,15 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
   public Image getImage(final Object element) {
     if (element instanceof IAdtObjectReferenceNode) {
       var adtObjRef = ((IAdtObjectReferenceNode) element).getObjectReference();
-      return adtObjRef != null ? AdtTypeUtil.getInstance().getTypeImage(adtObjRef.getType()) : null;
+      var type = adtObjRef.getType();
+      if (IAdtObjectTypeConstants.LOCAL_CLASS.equals(type)) {
+        return ImageUtil.getLocalClassImage();
+      } else if (IAdtObjectTypeConstants.LOCAL_INTERFACE.equals(type)) {
+        return ImageUtil.getLocalInterfaceImage();
+      } else {
+        return adtObjRef != null ? AdtTypeUtil.getInstance().getTypeImage(adtObjRef.getType())
+            : null;
+      }
     }
     if (element instanceof ITreeNode) {
       var nodeTag = ((ITreeNode) element).getAdapter(ITag.class);
@@ -279,12 +328,7 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
       text.append(node.getName());
       text.append(" (" + ((RootNode) node).getSizeAsString() + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
     } else if (node instanceof IAdtObjectReferenceNode) {
-      var objRefNode = (IAdtObjectReferenceNode) node;
-      text.append(objRefNode.getName());
-      if (!StringUtil.isEmpty(objRefNode.getDescription())) {
-        text.append("  " + objRefNode.getDescription(), StylerFactory.createCustomStyler(SWT.ITALIC, //$NON-NLS-1$
-            JFacePreferences.DECORATIONS_COLOR, null));
-      }
+      setObjRefNodeText(text, (IAdtObjectReferenceNode) node);
     } else {
       var tag = node.getAdapter(ITag.class);
       if (tag != null) {
@@ -295,7 +339,7 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
             StyledString.COUNTER_STYLER);
         appendDescription(tag, text);
       } else {
-        text.append(node.getName());
+        text.append(node.getDisplayName());
       }
     }
 
@@ -305,7 +349,7 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
   @Override
   public String getText(final Object element) {
     if (element instanceof ITreeNode) {
-      return ((ITreeNode) element).getName();
+      return ((ITreeNode) element).getDisplayName();
     }
     return null;
   }
@@ -365,5 +409,23 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
     }
 
     return treeService.testTreeFeatureAvailability(project).isOK();
+  }
+
+  private void setObjRefNodeText(StyledString text, IAdtObjectReferenceNode objRefNode) {
+    text.append(objRefNode.getName());
+    if (showObjectTypes) {
+      AdtObjectUtil.appendAdtTypeDescription(objRefNode, text);
+    }
+    var parentName = objRefNode.getPropertyValue(
+        ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
+    if (parentName != null) {
+      text.append(" [" + parentName + "]", StylerFactory.createCustomStyler(SWT.NORMAL,
+          IColorConstants.COMP_PARENT_COLOR, null));
+    }
+
+    if (showDescriptions && !StringUtil.isEmpty(objRefNode.getDescription())) {
+      text.append("  " + objRefNode.getDescription(), StylerFactory.createCustomStyler(SWT.ITALIC, //$NON-NLS-1$
+          JFacePreferences.DECORATIONS_COLOR, null));
+    }
   }
 }

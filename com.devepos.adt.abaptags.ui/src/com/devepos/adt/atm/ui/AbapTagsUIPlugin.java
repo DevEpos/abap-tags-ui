@@ -62,8 +62,8 @@ public class AbapTagsUIPlugin extends AbstractAdtUIPlugin {
     registerImage(reg, IImages.NEW_GLOBAL_TAG, "icons/NewTag.png");
     registerImage(reg, IImages.SHARED_TAG, "icons/SharedTag.png");
     registerImage(reg, IImages.SHARED_TAGS_FOLDER, "icons/SharedTagsFolder.png");
-    registerImage(reg, IImages.DELETE_TAGS_WIZBAN,
-        "icons/wizard/DeleteTagsWizard_Banner.png");
+    registerImage(reg, IImages.DELETE_TAGS_WIZBAN, "icons/wizard/DeleteTagsWizard_Banner.png");
+    registerImage(reg, IImages.LOCAL_OBJECTS_FOLDER, "icons/LocalObjectsFolder.png");
 
     registerUserTagSharedOverlayImage(reg);
   }
