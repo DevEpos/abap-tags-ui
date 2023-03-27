@@ -11,7 +11,7 @@
 	<h2 class="heading">Tagged Object Search</h2>
 	<p>
 		The <i>ABAP Tagged Object search</i> allows the searching for tagged
-		ADT objects. It is integrated in the eclipse <i>Search</i> dialog,
+		Repository objects. It is integrated in the Eclipse <i>Search</i> dialog,
 		which can be called via
 		<code class="code">STRG</code>
 		+
@@ -19,10 +19,11 @@
 		or the eclipse menu <i>Search ➠ Search...</i>
 	<p>
 	<h3 class="heading">The User Interface</h3>
-	<figure id="figure1">
+	<figure>
 		<img src="../images/tag_search.png">
 		<figcaption>The Tag Search Dialog</figcaption>
 	</figure>
+
 	<!-- Description of general setup of the Search view -->
 	<p>The Search Dialog Page is structured into the following controls</p>
 	<ol class="list">
@@ -33,10 +34,34 @@
 		<li>A text input control to enter the target ABAP Project. The
 			control supports content assist</li>
 	</ol>
+
 	<h3 class="heading">The Result View</h3>
-	<figure id="figure2">
+	<figure>
 		<img src="../images/tag_search_result.png">
 		<figcaption>The Search Result View</figcaption>
+	</figure>
+
+	<h4 class="heading">Tagged Components</h4>
+	<p>
+		Tagged components (i.e. local classes/interfaces of a global class)
+		are displayed in a special way.<br>Instead of the name of the
+		repository object you will see the local class name after the icon.
+		The owning parent object - the global class - will be displayed in a
+		customizable color afterwards.
+	</p>
+	<figure>
+		<img src="../images/tag_search_result__comp_results.png">
+		<figcaption>Tagged components in the result</figcaption>
+	</figure>
+
+	<p>
+		To customize the color of the parent object go to <em>General
+			&gt; Appearance &gt; Colors and Fonts</em> and navigate to the category <em>ABAP
+			Tags</em>.
+	</p>
+	<figure>
+		<img src="../images/tags_color_prefs.png">
+		<figcaption>Color preference for Parent Object</figcaption>
 	</figure>
 </body>
 </html>

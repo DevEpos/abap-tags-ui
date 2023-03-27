@@ -3,6 +3,8 @@
    <topic href="html/overview.html" label="About ABAP Tags">
    </topic>
    <topic href="html/overview.html" label="Concepts">
+      <topic href="html/tagging.html" label="Add Tags To Objects">
+      </topic>
       <topic href="html/tag_wizard.html" label="Tag Objects Wizard">
          <topic href="html/tag_wizard/object_selection.html" label="Object Selection">
          </topic>
