@@ -30,6 +30,7 @@ import com.devepos.adt.atm.ui.internal.IImages;
 import com.devepos.adt.atm.ui.internal.ImageUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectTreePrefs;
+import com.devepos.adt.atm.ui.internal.util.AdtObjectUtil;
 import com.devepos.adt.atm.ui.internal.util.IColorConstants;
 import com.devepos.adt.atm.ui.internal.util.ITaggedObjectPropertyNameConstants;
 import com.devepos.adt.base.IAdtObjectTypeConstants;
@@ -51,7 +52,6 @@ import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
 import com.devepos.adt.base.ui.tree.launchable.ILaunchableNode;
 import com.devepos.adt.base.ui.util.AdtTypeUtil;
 import com.devepos.adt.base.util.StringUtil;
-import com.sap.adt.project.IProjectProvider;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeContentProvider
@@ -414,27 +414,7 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
   private void setObjRefNodeText(StyledString text, IAdtObjectReferenceNode objRefNode) {
     text.append(objRefNode.getName());
     if (showObjectTypes) {
-      var type = objRefNode.getAdtObjectType();
-      if (type != null) {
-        String typeLabel = null;
-        if (type.equals(IAdtObjectTypeConstants.LOCAL_CLASS)) {
-          typeLabel = Messages.TypeLabels_LocalClass_xlbl;
-        } else if (type.equals(IAdtObjectTypeConstants.LOCAL_INTERFACE)) {
-          typeLabel = Messages.TypeLabels_LocalInterface_xlbl;
-        } else {
-          typeLabel = AdtTypeUtil.getInstance().getTypeDescription(type);
-          if (typeLabel == null) {
-            var projectProvider = objRefNode.getAdapter(IProjectProvider.class);
-            if (projectProvider != null)
-              typeLabel = AdtTypeUtil.getInstance()
-                  .getTypeDescriptionByProject(objRefNode.getAdtObjectType(), projectProvider
-                      .getProject());
-          }
-        }
-        if (typeLabel != null) {
-          text.append(String.format(" (%s)", typeLabel), StyledString.QUALIFIER_STYLER);
-        }
-      }
+      AdtObjectUtil.appendAdtTypeDescription(objRefNode, text);
     }
     var parentName = objRefNode.getPropertyValue(
         ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);

@@ -65,6 +65,7 @@ import com.devepos.adt.atm.ui.internal.help.HelpContexts;
 import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.util.AdtObjectCapabilities;
+import com.devepos.adt.atm.ui.internal.util.AdtObjectUtil;
 import com.devepos.adt.atm.ui.internal.util.ITaggedObjectPropertyNameConstants;
 import com.devepos.adt.atm.ui.internal.wizard.TagObjectsWizard;
 import com.devepos.adt.base.IAdtObjectTypeConstants;
@@ -499,7 +500,7 @@ public class AbapObjectTagsView extends ViewPart {
    *
    * @author stockbal
    */
-  private class ViewLabelProvider extends LabelProvider implements ILabelProvider,
+  private static class ViewLabelProvider extends LabelProvider implements ILabelProvider,
       IStyledLabelProvider {
 
     @Override
@@ -542,7 +543,7 @@ public class AbapObjectTagsView extends ViewPart {
 
         if (element instanceof IAdtObjectReferenceNode) {
           isAdtObjectRefNode = true;
-          setObjRefNodeText((IAdtObjectReferenceNode) element, text);
+          AdtObjectUtil.appendAdtTypeDescription((IAdtObjectReferenceNode) element, text);
         }
 
         if (element instanceof ICollectionTreeNode && !isAdtObjectRefNode) {
@@ -574,26 +575,6 @@ public class AbapObjectTagsView extends ViewPart {
       final ITreeNode searchResult = (ITreeNode) element;
 
       return searchResult.getName();
-    }
-
-    private void setObjRefNodeText(final IAdtObjectReferenceNode adtObjRefNode,
-        final StyledString text) {
-      var adtObjType = adtObjRefNode.getAdtObjectType();
-      String typeLabel = null;
-      if (adtObjType.equals(IAdtObjectTypeConstants.LOCAL_CLASS)) {
-        typeLabel = Messages.TypeLabels_LocalClass_xlbl;
-      } else if (adtObjType.equals(IAdtObjectTypeConstants.LOCAL_INTERFACE)) {
-        typeLabel = Messages.TypeLabels_LocalInterface_xlbl;
-      } else {
-        typeLabel = AdtTypeUtil.getInstance().getTypeDescription(adtObjType);
-        if (typeLabel == null) {
-          typeLabel = AdtTypeUtil.getInstance()
-              .getTypeDescriptionByProject(adtObjRefNode.getAdtObjectType(), getProject());
-        }
-      }
-      if (typeLabel != null) {
-        text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
-      }
     }
   }
 
@@ -751,7 +732,7 @@ public class AbapObjectTagsView extends ViewPart {
           previewAdtObjRefs, true));
     }
 
-    if (!adtObjRefs.isEmpty() && (adtObjRefs.size() == 1 && selection.size() == 1)) {
+    if (!adtObjRefs.isEmpty() && adtObjRefs.size() == 1 && selection.size() == 1) {
 
       menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, CommandFactory
           .createContribItemById(IGeneralCommandConstants.WHERE_USED_IN, true, null));
