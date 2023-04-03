@@ -67,7 +67,7 @@ import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.util.AdtObjectCapabilities;
 import com.devepos.adt.atm.ui.internal.util.AdtObjectUtil;
 import com.devepos.adt.atm.ui.internal.util.ITaggedObjectPropertyNameConstants;
-import com.devepos.adt.atm.ui.internal.wizard.TagObjectsWizard;
+import com.devepos.adt.atm.ui.internal.wizard.tagging.TagObjectsWizard;
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
 import com.devepos.adt.base.destinations.DestinationUtil;

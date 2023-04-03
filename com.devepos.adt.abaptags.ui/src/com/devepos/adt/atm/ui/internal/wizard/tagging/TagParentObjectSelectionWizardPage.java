@@ -1,4 +1,4 @@
-package com.devepos.adt.atm.ui.internal.wizard;
+package com.devepos.adt.atm.ui.internal.wizard.tagging;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -305,8 +305,8 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
   }
 
   @Override
-  public ITagObjectsWizard getWizard() {
-    return (ITagObjectsWizard) super.getWizard();
+  public TagObjectsWizard getWizard() {
+    return (TagObjectsWizard) super.getWizard();
   }
 
   @Override

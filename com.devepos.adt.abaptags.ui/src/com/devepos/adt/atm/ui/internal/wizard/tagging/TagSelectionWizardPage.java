@@ -1,4 +1,4 @@
-package com.devepos.adt.atm.ui.internal.wizard;
+package com.devepos.adt.atm.ui.internal.wizard.tagging;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -92,8 +92,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
   }
 
   @Override
-  public ITagObjectsWizard getWizard() {
-    return (ITagObjectsWizard) super.getWizard();
+  public TagObjectsWizard getWizard() {
+    return (TagObjectsWizard) super.getWizard();
   }
 
   @Override
@@ -139,12 +139,12 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     if (!isDirty()) {
       return;
     }
-    getWizard().getSelectedTags().clear();
-    getWizard().getSelectedTags().addAll(checkedTags);
-    getWizard().getTaggedObjectList().getTaggedObjects().clear();
+    var wizard = getWizard();
+    wizard.getSelectedTags().clear();
+    wizard.getSelectedTags().addAll(checkedTags);
+    wizard.getTaggedObjectList().getTaggedObjects().clear();
 
-    final List<IAdtObjRef> objectsToBeTagged = getWizard().getCurrentTagPreviewInfo()
-        .getAdtObjectRefs();
+    final List<IAdtObjRef> objectsToBeTagged = wizard.getCurrentTagPreviewInfo().getAdtObjectRefs();
     for (final IAdtObjRef adtObjRef : objectsToBeTagged) {
       final ITaggedObject taggedObject = IAbapTagsFactory.eINSTANCE.createTaggedObject();
       final IAdtObjRef objRefNew = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
@@ -170,7 +170,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         }
         taggedObject.getTags().add(objectTag);
       }
-      getWizard().getTaggedObjectList().getTaggedObjects().add(taggedObject);
+      wizard.getTaggedObjectList().getTaggedObjects().add(taggedObject);
     }
     setDirty(false);
   }

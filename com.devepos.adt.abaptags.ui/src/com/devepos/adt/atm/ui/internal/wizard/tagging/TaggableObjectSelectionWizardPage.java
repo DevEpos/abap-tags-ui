@@ -1,4 +1,4 @@
-package com.devepos.adt.atm.ui.internal.wizard;
+package com.devepos.adt.atm.ui.internal.wizard.tagging;
 
 import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
 
@@ -23,6 +23,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -87,7 +88,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
   public void createControl(final Composite parent) {
     final Composite root = new Composite(parent, SWT.NONE);
     HelpUtil.setHelp(root, HelpContexts.TAG_WIZARD_OBJECT_SELECTION);
-    GridLayoutFactory.swtDefaults().applyTo(root);
+    GridLayoutFactory.swtDefaults().margins(0, 0).applyTo(root);
 
     createProjectInput(root);
     createObjectsList(root);
@@ -98,8 +99,8 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
   }
 
   @Override
-  public ITagObjectsWizard getWizard() {
-    return (ITagObjectsWizard) super.getWizard();
+  public TagObjectsWizard getWizard() {
+    return (TagObjectsWizard) super.getWizard();
   }
 
   @Override
@@ -112,7 +113,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 
   protected void createProjectInput(final Composite root) {
     projectInput = new ProjectInput(true);
-    projectInput.createControl(root);
+    projectInput.createControl(root, new Point(5, 5));
     projectInput.addProjectValidator(project -> AbapTagsServiceFactory.createTagsService()
         .testTagsFeatureAvailability(project));
     projectInput.addStatusChangeListener(status -> {

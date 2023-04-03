@@ -7,7 +7,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import com.devepos.adt.atm.ui.internal.wizard.TagObjectsWizard;
+import com.devepos.adt.atm.ui.internal.wizard.tagging.TagObjectsWizard;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 
 public class AddTagsToObjectsHandler extends AbstractHandler {

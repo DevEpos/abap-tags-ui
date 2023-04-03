@@ -1,14 +1,12 @@
-package com.devepos.adt.atm.ui.internal.wizard;
+package com.devepos.adt.atm.ui.internal.wizard.tagging;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 
@@ -20,6 +18,7 @@ import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.IImages;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
+import com.devepos.adt.atm.ui.internal.wizard.AbstractWizardBase;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
@@ -30,14 +29,12 @@ import com.devepos.adt.base.ui.wizard.IBaseWizardPage;
  *
  * @author stockbal
  */
-public class TagObjectsWizard extends Wizard implements ITagObjectsWizard {
+public class TagObjectsWizard extends AbstractWizardBase {
 
   private final ITaggedObjectList taggedObjectList = IAbapTagsFactory.eINSTANCE
       .createTaggedObjectList();
   private IAdtObjRefList selectedAdtObjRefList = IAdtBaseFactory.eINSTANCE.createAdtObjRefList();
   private ITagPreviewInfo tagPreviewInfo = IAbapTagsFactory.eINSTANCE.createTagPreviewInfo();
-  private IProject project;
-  private boolean canFinish;
   private final boolean skipObjectSelection;
   private List<ITag> selectedTags;
   private boolean success;
@@ -83,6 +80,7 @@ public class TagObjectsWizard extends Wizard implements ITagObjectsWizard {
 
   @Override
   public boolean performFinish() {
+    var project = getProject();
     if (project == null) {
       return false;
     }
@@ -119,49 +117,14 @@ public class TagObjectsWizard extends Wizard implements ITagObjectsWizard {
     return true;
   }
 
-  @Override
-  public boolean canFinish() {
-    return canFinish;
-  }
-
-  @Override
-  public void setCanFinish(final boolean canFinish) {
-    this.canFinish = canFinish;
-  }
-
-  @Override
-  public void completePreviousPage(final IBaseWizardPage page) {
-    final IWizardPage prev = page.getPreviousPage();
-    if (prev == null || !(prev instanceof IBaseWizardPage)) {
-      return;
-    }
-    final IBaseWizardPage previousPage = (IBaseWizardPage) prev;
-
-    if (previousPage.isDirty()) {
-      previousPage.completePage();
-    }
-  }
-
-  @Override
-  public boolean isPreviousPageDirty(final IBaseWizardPage page) {
-    final IWizardPage prev = page.getPreviousPage();
-    if (prev == null || !(prev instanceof IBaseWizardPage)) {
-      return false;
-    }
-    return ((IBaseWizardPage) prev).isDirty();
-  }
-
-  @Override
   public void clearTaggedObjects() {
     taggedObjectList.getTaggedObjects().clear();
   }
 
-  @Override
   public IAdtObjRefList getSelectedObjects() {
     return selectedAdtObjRefList;
   }
 
-  @Override
   public void setSelectedObjects(final IAdtObjRefList selectedObjects) {
     if (selectedObjects == null) {
       selectedAdtObjRefList.getObjectReferences().clear();
@@ -171,17 +134,14 @@ public class TagObjectsWizard extends Wizard implements ITagObjectsWizard {
 
   }
 
-  @Override
   public ITaggedObjectList getTaggedObjectList() {
     return taggedObjectList;
   }
 
-  @Override
   public ITagPreviewInfo getCurrentTagPreviewInfo() {
     return tagPreviewInfo;
   }
 
-  @Override
   public void setCurrentTagPreviewInfo(final ITagPreviewInfo tagPreviewInfo) {
     if (tagPreviewInfo != null) {
       this.tagPreviewInfo = tagPreviewInfo;
@@ -191,23 +151,11 @@ public class TagObjectsWizard extends Wizard implements ITagObjectsWizard {
     }
   }
 
-  @Override
-  public IProject getProject() {
-    return project;
-  }
-
-  @Override
-  public void setProject(final IProject project) {
-    this.project = project;
-  }
-
-  @Override
   public void setSelectedTags(final List<ITag> tags) {
     selectedTags = tags;
 
   }
 
-  @Override
   public List<ITag> getSelectedTags() {
     if (selectedTags == null) {
       selectedTags = new ArrayList<>();

@@ -1,4 +1,4 @@
-package com.devepos.adt.atm.ui.internal.wizard;
+package com.devepos.adt.atm.ui.internal.wizard.tagdeletion;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -278,8 +278,8 @@ public class DeleteTagsWizardPage extends AbstractBaseWizardPage {
       setErrorMessage(Messages.DeleteTagsWizardPage_NoTagsSelectedError_xmsg);
     }
 
-    selectionInfo.setText(String.format("%d %s %s", checkedCount, checkedCount == 1 ? "Tag"
-        : "Tags", Messages.DeleteTagsWizardPage_Selected_xlbl));
+    selectionInfo.setText(String.format("%d Tag%s %s", checkedCount, checkedCount == 1 ? "" : "s",
+        Messages.DeleteTagsWizardPage_Selected_xlbl));
 
     setPageComplete(checkedCount > 0);
   }

@@ -1,12 +1,10 @@
-package com.devepos.adt.atm.ui.internal.wizard;
+package com.devepos.adt.atm.ui.internal.wizard.tagdeletion;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Display;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
@@ -16,12 +14,12 @@ import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.IImages;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
+import com.devepos.adt.atm.ui.internal.wizard.AbstractWizardBase;
 import com.devepos.adt.base.destinations.DestinationUtil;
 
-public class DeleteTagsWizard extends Wizard implements IBaseWizard {
+public class DeleteTagsWizard extends AbstractWizardBase {
 
   private final ITagList tagsForDeletion;
-  private IProject project;
   private boolean deletionOccurred;
   private final Set<String> selectedTagsForDeletion = new HashSet<>();
 
@@ -39,11 +37,6 @@ public class DeleteTagsWizard extends Wizard implements IBaseWizard {
     addPage(deleteTagsPage);
   }
 
-  @Override
-  public IProject getProject() {
-    return project;
-  }
-
   public ITagList getTagsForDeletion() {
     return tagsForDeletion;
   }
@@ -56,7 +49,7 @@ public class DeleteTagsWizard extends Wizard implements IBaseWizard {
   public boolean performFinish() {
     var tagsService = AbapTagsServiceFactory.createTagsService();
     final IStatus status = tagsService.deleteTags(getFinalizedTagsForDeletion(), DestinationUtil
-        .getDestinationId(project), TagSearchScope.ALL);
+        .getDestinationId(getProject()), TagSearchScope.ALL);
     if (status.isOK()) {
       deletionOccurred = true;
       return true;
@@ -66,11 +59,6 @@ public class DeleteTagsWizard extends Wizard implements IBaseWizard {
           Messages.AbapTagManagerView_ErrorDuringTagDeletion_xmsg + status.getMessage());
     });
     return false;
-  }
-
-  @Override
-  public void setProject(final IProject project) {
-    this.project = project;
   }
 
   public void setTagCheckedForDeletion(final String tagId, final boolean checked) {

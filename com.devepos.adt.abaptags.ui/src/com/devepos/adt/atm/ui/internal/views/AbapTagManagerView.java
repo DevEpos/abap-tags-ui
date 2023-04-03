@@ -79,7 +79,7 @@ import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.preferences.ITagManagerPrefs;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
 import com.devepos.adt.atm.ui.internal.search.TaggedObjectSearchQuery;
-import com.devepos.adt.atm.ui.internal.wizard.DeleteTagsWizard;
+import com.devepos.adt.atm.ui.internal.wizard.tagdeletion.DeleteTagsWizard;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.IUser;
