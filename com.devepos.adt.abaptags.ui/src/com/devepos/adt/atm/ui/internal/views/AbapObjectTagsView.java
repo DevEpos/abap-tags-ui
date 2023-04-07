@@ -539,6 +539,7 @@ public class AbapObjectTagsView extends ViewPart {
           text.append(treeNode.getDisplayName(), StylerFactory.ITALIC_STYLER);
           return text;
         }
+
         text.append(treeNode.getDisplayName());
 
         if (element instanceof IAdtObjectReferenceNode) {

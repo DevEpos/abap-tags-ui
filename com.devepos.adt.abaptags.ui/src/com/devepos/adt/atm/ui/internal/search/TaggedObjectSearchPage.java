@@ -1,5 +1,7 @@
 package com.devepos.adt.atm.ui.internal.search;
 
+import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.jobs.Job;
@@ -16,6 +18,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.ITagList;
@@ -30,6 +34,9 @@ import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
 import com.devepos.adt.atm.ui.internal.tree.TagSelectionTree;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.project.IAbapProjectProvider;
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseImages;
+import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.project.ProjectInput;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.search.IChangeableSearchPage;
@@ -42,8 +49,6 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
   public static final String PAGE_ID = "com.devepos.adt.atm.ui.searchpage.tags"; //$NON-NLS-1$
   private static final String LAST_PROJECT_PREF = "com.devepos.adt.abaptags.ui.taggedObjectSearch.lastProject"; //$NON-NLS-1$
   private ISearchPageContainer container;
-  // private CheckboxTreeViewer tagsTreeViewer;
-  // private final ITagList tagList = IAbapTagsFactory.eINSTANCE.createTagList();
   private Composite mainComposite;
   private ProjectInput projectInput;
   private IAbapProjectProvider projectProvider;
@@ -51,11 +56,13 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
   private Label searchStatusImageLabel;
   private Label searchStatusTextLabel;
   private IStatus currentStatus;
-  private IProject currentProject;
   private Button matchAllTagsButton;
-  private final IPreferenceStore prefStore;
   private TagSelectionTree tagsTree;
+  private ToolBar treeToolBar;
+
+  private final IPreferenceStore prefStore;
   private Job loadTagsJob;
+  private IProject currentProject;
 
   public TaggedObjectSearchPage() {
     prefStore = AbapTagsUIPlugin.getDefault().getPreferenceStore();
@@ -92,6 +99,8 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
     setControl(mainComposite);
 
     createTagsTree(mainComposite);
+    createTreeToolbar();
+
     final Label separator = new Label(mainComposite, SWT.SEPARATOR | SWT.HORIZONTAL);
     separator.setVisible(false);
     GridDataFactory.fillDefaults().hint(SWT.DEFAULT, 5).grab(true, false).applyTo(separator);
@@ -115,7 +124,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
       return false;
     }
 
-    if (!tagsTree.hasSelection()) {
+    if (!tagsTree.hasCheckedTags()) {
       updateOKStatus();
       return false;
     }
@@ -126,7 +135,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
     searchParams.setMaxResults(prefStore.getInt(ITaggedObjectSearchPrefs.MAX_RESULTS));
     searchParams.setWithTagInfo(false);
 
-    tagsTree.getSelectedTags().forEach(tag -> searchParams.addTag(tag));
+    tagsTree.getCheckedTags().forEach(tag -> searchParams.addTag(tag));
     searchParams.setMatchesAllTags(matchAllTagsButton.getSelection());
 
     final TaggedObjectSearchQuery searchQuery = new TaggedObjectSearchQuery(searchParams);
@@ -145,7 +154,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
   public void setInputFromSearchQuery(final TaggedObjectSearchQuery query) {
     projectInput.setProjectName(query.getProjectProvider().getProjectName());
     matchAllTagsButton.setSelection(query.getSearchParams().isMatchesAllTags());
-    tagsTree.setSelectedTags(query.getSearchParams().getTagIds());
+    tagsTree.setCheckedTagIds(query.getSearchParams().getTagIds());
   }
 
   @Override
@@ -179,24 +188,6 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
     });
   }
 
-  private void loadTags(final IProject project) {
-    if (loadTagsJob != null && loadTagsJob.getResult() == null) {
-      loadTagsJob.cancel();
-    }
-    loadTagsJob = Job.createSystem(Messages.TaggedObjectSearchPage_LoadingTagsJob_xmsg, monitor -> {
-      final ITagList tagList = AbapTagsServiceFactory.createTagsService()
-          .readTags(DestinationUtil.getDestinationId(project), TagSearchScope.ALL, false);
-      monitor.done();
-      if (tagList != null) {
-        if (tagsTree != null) {
-          tagsTree.setTags(tagList.getTags(), true);
-        }
-        loadTagsJob = null;
-      }
-    });
-    loadTagsJob.schedule();
-  }
-
   private void createStatusArea(final Composite parent) {
     statusArea = new Composite(parent, SWT.NONE);
 
@@ -218,13 +209,63 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
 
     tagsTree = new TagSelectionTree();
     tagsTree.createControl(tagsGroup);
-    tagsTree.addSelectionChangeListener(l -> {
+    tagsTree.addCheckStateListener(l -> {
       updateOKStatus();
     });
 
     matchAllTagsButton = new Button(tagsGroup, SWT.CHECK);
     matchAllTagsButton.setText(Messages.TaggedObjectSearchPage_MatchAllTags_xckl);
     GridDataFactory.fillDefaults().applyTo(matchAllTagsButton);
+  }
+
+  private void createTreeToolbar() {
+    var filterComposite = tagsTree.getTreeFilterComposite();
+    treeToolBar = new ToolBar(filterComposite, SWT.FLAT | SWT.HORIZONTAL);
+    GridDataFactory.fillDefaults().grab(false, false).align(SWT.END, SWT.END).applyTo(treeToolBar);
+
+    var expandAll = new ToolItem(treeToolBar, SWT.PUSH);
+    expandAll.setToolTipText(Messages.TagSelectionWizardPage_ExpandAll_xbut);
+    expandAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.EXPAND_ALL));
+    expandAll.addSelectionListener(widgetSelectedAdapter(l -> {
+      tagsTree.expandAll();
+
+    }));
+
+    final var collapseAll = new ToolItem(treeToolBar, SWT.PUSH);
+    collapseAll.setToolTipText(Messages.TagSelectionWizardPage_CollapseAll_xbut);
+    collapseAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.COLLAPSE_ALL));
+    collapseAll.addSelectionListener(widgetSelectedAdapter(l -> {
+      tagsTree.collapseAll();
+    }));
+
+    new ToolItem(treeToolBar, SWT.SEPARATOR);
+
+    final var uncheckAll = new ToolItem(treeToolBar, SWT.PUSH);
+    uncheckAll.setToolTipText(AdtBaseUIResources.getString(IAdtBaseStrings.UncheckAll_xlbl));
+
+    uncheckAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.UNCHECK_ALL));
+    uncheckAll.addSelectionListener(widgetSelectedAdapter(l -> {
+      tagsTree.setCheckedTags(null);
+      updateOKStatus();
+    }));
+  }
+
+  private void loadTags(final IProject project) {
+    if (loadTagsJob != null && loadTagsJob.getResult() == null) {
+      loadTagsJob.cancel();
+    }
+    loadTagsJob = Job.createSystem(Messages.TaggedObjectSearchPage_LoadingTagsJob_xmsg, monitor -> {
+      final ITagList tagList = AbapTagsServiceFactory.createTagsService()
+          .readTags(DestinationUtil.getDestinationId(project), TagSearchScope.ALL, false);
+      monitor.done();
+      if (tagList != null) {
+        if (tagsTree != null) {
+          tagsTree.setTags(tagList.getTags(), true);
+        }
+        loadTagsJob = null;
+      }
+    });
+    loadTagsJob.schedule();
   }
 
   private void setInitialData() {
@@ -272,7 +313,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
       if (currentStatus != null) {
         isError = IStatus.ERROR == currentStatus.getSeverity();
       }
-      container.setPerformActionEnabled(tagsTree.hasSelection() && !isError);
+      container.setPerformActionEnabled(tagsTree.hasCheckedTags() && !isError);
     });
   }
 }

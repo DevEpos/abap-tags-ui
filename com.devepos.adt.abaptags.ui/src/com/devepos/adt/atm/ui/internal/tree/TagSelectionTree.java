@@ -5,13 +5,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
+import org.eclipse.jface.viewers.ICheckStateListener;
+import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Tree;
 
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
@@ -25,29 +31,37 @@ import com.devepos.adt.base.ui.tree.FilterableTree;
  */
 public class TagSelectionTree {
   private CheckboxTreeViewer tagsTreeViewer;
-  private List<ITag> tagList = new ArrayList<>();
+  private IContentProvider contentProvider;
+  private IStyledLabelProvider labelProvider;
+
   private FilterableTree tagsTree;
+
+  private final List<ITag> tagList = new ArrayList<>();
   private final Set<ITag> checkedTags;
-  private final TagFilter patternFilter;
-  private List<String> previouslyCheckedTagIds;
-  private Set<ISelectionChangedListener> selectionChangeListeners = new HashSet<>();
+  private List<String> checkedTagIds;
+  private final Set<ICheckStateListener> checkedStateListener = new HashSet<>();
 
   public TagSelectionTree() {
     checkedTags = new HashSet<>();
-    patternFilter = new TagFilter();
   }
 
-  public void addSelectionChangeListener(final ISelectionChangedListener l) {
-    selectionChangeListeners.add(l);
+  public void addCheckStateListener(final ICheckStateListener l) {
+    checkedStateListener.add(l);
+  }
+
+  public void collapseAll() {
+    if (isTreeOnline()) {
+      tagsTreeViewer.collapseAll();
+    }
   }
 
   public void createControl(final Composite parent) {
     tagsTree = new FilterableTree(parent, Messages.TaggedObjectSearchPage_TagsTreeFilterText_xmsg,
-        false) {
+        false, true) {
       @Override
       protected void filterJobCompleted() {
         super.filterJobCompleted();
-        setCheckedElements();
+        setCheckedElementsInTree();
         if (tagsTree.getFilterString() == null || tagsTree.getFilterString().trim().isEmpty()) {
           tagsTreeViewer.collapseAll();
         }
@@ -63,15 +77,16 @@ public class TagSelectionTree {
     });
     tagsTreeViewer = new CheckboxTreeViewer(tagsTree, SWT.V_SCROLL | SWT.MULTI | SWT.BORDER);
     tagsTree.setViewer(tagsTreeViewer);
+    applyTreeLayoutData(tagsTreeViewer.getTree());
     tagsTree.setExpandAllOnFilterEmpty(false);
 
-    tagsTreeViewer.addFilter(patternFilter);
-    tagsTreeViewer.setContentProvider(new TagTreeContentProvider());
-    tagsTreeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new TagLabelProvider(true,
-        false)));
+    tagsTreeViewer.setContentProvider(contentProvider != null ? contentProvider
+        : new TagTreeContentProvider());
+    tagsTreeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(labelProvider != null
+        ? labelProvider
+        : new TagLabelProvider(true, false)));
     tagsTreeViewer.setInput(tagList);
     tagsTree.setBackgroundMode(SWT.INHERIT_DEFAULT);
-    GridDataFactory.fillDefaults().grab(true, true).hint(300, 350).applyTo(tagsTree);
 
     tagsTreeViewer.addCheckStateListener(e -> {
       if (e.getChecked()) {
@@ -79,16 +94,129 @@ public class TagSelectionTree {
       } else {
         checkedTags.remove(e.getElement());
       }
-      fireSelectionChanged();
+      fireCheckedStateChanged();
     });
   }
 
-  public Set<ITag> getSelectedTags() {
+  public Composite getTreeFilterComposite() {
+    if (!isTreeOnline()) {
+      throw new IllegalStateException("Tree is not online yet!");
+    }
+    return tagsTree.getFilterComposite();
+  }
+
+  public void expandAll() {
+    if (isTreeOnline()) {
+      tagsTreeViewer.expandAll();
+    }
+  }
+
+  public Set<ITag> getCheckedTags() {
     return checkedTags;
   }
 
-  public boolean hasSelection() {
+  public IStructuredSelection getViewerSelection() {
+    if (isTreeOnline()) {
+      return tagsTreeViewer.getStructuredSelection();
+    }
+    return StructuredSelection.EMPTY;
+  }
+
+  public boolean hasCheckedTags() {
     return !checkedTags.isEmpty();
+  }
+
+  public boolean hasViewerInput() {
+    return isTreeOnline() && !tagList.isEmpty() && tagsTreeViewer.getInput() != null;
+  }
+
+  public void hookContextMenu(final MenuManager menuMgr) {
+    if (!isTreeOnline()) {
+      return;
+    }
+    var tree = tagsTreeViewer.getTree();
+    var menu = menuMgr.createContextMenu(tree);
+    tree.setMenu(menu);
+  }
+
+  public void refresh() {
+    if (tagsTree != null && !tagsTree.isDisposed()) {
+      tagsTreeViewer.refresh();
+    }
+
+  }
+
+  public void removeCheckedStateListener(final ICheckStateListener l) {
+    checkedStateListener.remove(l);
+  }
+
+  public void reset() {
+    tagList.clear();
+    tagsTreeViewer.refresh();
+  }
+
+  public void setCheckedElementsInTree() {
+    for (var checkedItem : checkedTags) {
+      tagsTreeViewer.setChecked(checkedItem, true);
+    }
+  }
+
+  public void setCheckedTagIds(final List<String> tagIds) {
+    checkedTagIds = tagIds;
+  }
+
+  public void setCheckedTags(final List<ITag> tags) {
+    checkedTags.clear();
+    if (tags != null) {
+      checkedTags.addAll(tags);
+    }
+    if (isTreeOnline()) {
+      uncheckAllTags();
+      setCheckedElementsInTree();
+    }
+  }
+
+  /**
+   * Sets a custom content provider for the tree viewer
+   *
+   * @param contentProvider content provider for the tree viewer
+   */
+  public void setContentProvider(final IContentProvider contentProvider) {
+    this.contentProvider = contentProvider;
+  }
+
+  public void setFocus() {
+    if (tagsTree != null && !tagsTree.isDisposed()) {
+      tagsTree.setFocus();
+    }
+  }
+
+  /**
+   * Sets a custom label provider for the tree viewer
+   *
+   * @param labelProvider label provider for the tree viewer
+   */
+  public void setLabelProvider(final IStyledLabelProvider labelProvider) {
+    this.labelProvider = labelProvider;
+  }
+
+  public void setTagChecked(final ITag tag, final boolean checked, final boolean includeChildren) {
+    if (tag == null) {
+      return;
+    }
+
+    if (checked) {
+      checkedTags.add(tag);
+    } else {
+      checkedTags.remove(tag);
+    }
+    if (includeChildren) {
+      setTagCheckedRecursive(tag, checked);
+    }
+
+    // update Tree
+    setCheckedElementsInTree();
+    refresh();
   }
 
   /**
@@ -100,57 +228,30 @@ public class TagSelectionTree {
    *                    asynchronously
    */
   public void setTags(final List<ITag> tags, final boolean asyncUpdate) {
-    if (tagsTree != null && !tagsTree.isDisposed()) {
+    if (isTreeOnline()) {
       tagList.clear();
-      tagList.addAll(tags);
+      checkedTags.clear();
+      if (tags != null) {
+        tagList.addAll(tags);
+      }
       if (asyncUpdate) {
         Display.getDefault().asyncExec(() -> {
           tagsTreeViewer.refresh();
-          determineCheckedTagsFromPreviousSearch();
+          updateCheckedTagsFromTagIdList();
         });
       } else {
         tagsTreeViewer.refresh();
-        determineCheckedTagsFromPreviousSearch();
+        updateCheckedTagsFromTagIdList();
       }
     }
   }
 
-  public void removeSelectionChangeListener(final ISelectionChangedListener l) {
-    selectionChangeListeners.remove(l);
-  }
-
-  public void reset() {
-    tagList.clear();
-    tagsTreeViewer.refresh();
-  }
-
-  public void setFocus() {
-    if (tagsTree != null && !tagsTree.isDisposed()) {
-      tagsTree.setFocus();
-    }
-  }
-
-  public void setSelectedTags(final List<String> tagIds) {
-    previouslyCheckedTagIds = tagIds;
-  }
-
-  private void determineCheckedTagsFromPreviousSearch() {
-    if (previouslyCheckedTagIds == null || previouslyCheckedTagIds.isEmpty()) {
-      return;
-    }
-    if (tagList != null && !tagList.isEmpty()) {
-      tagList.stream().forEach(this::findAndSetTagAsChecked);
-      if (!checkedTags.isEmpty()) {
-        setCheckedElements();
-        tagsTreeViewer.refresh();
-        fireSelectionChanged();
-      }
-    }
-    previouslyCheckedTagIds = null;
+  protected void applyTreeLayoutData(final Tree tree) {
+    GridDataFactory.fillDefaults().grab(true, true).hint(300, 350).applyTo(tree);
   }
 
   private void findAndSetTagAsChecked(final ITag tag) {
-    if (previouslyCheckedTagIds.contains(tag.getId())) {
+    if (checkedTagIds.contains(tag.getId())) {
       checkedTags.add(tag);
     }
     for (final ITag childTag : tag.getChildTags()) {
@@ -158,15 +259,46 @@ public class TagSelectionTree {
     }
   }
 
-  private void fireSelectionChanged() {
-    for (ISelectionChangedListener l : selectionChangeListeners) {
-      l.selectionChanged(null);
+  private void fireCheckedStateChanged() {
+    for (var l : checkedStateListener) {
+      l.checkStateChanged(null);
     }
   }
 
-  private void setCheckedElements() {
-    for (final Object checkedItem : checkedTags) {
-      tagsTreeViewer.setChecked(checkedItem, true);
+  private boolean isTreeOnline() {
+    return tagsTreeViewer != null && tagsTreeViewer.getTree() != null && !tagsTreeViewer.getTree()
+        .isDisposed();
+  }
+
+  private void setTagCheckedRecursive(final ITag tag, final boolean checked) {
+    for (var childTag : tag.getChildTags()) {
+      if (checked) {
+        checkedTags.add(childTag);
+      } else {
+        checkedTags.remove(childTag);
+      }
+      setTagCheckedRecursive(childTag, checked);
     }
+  }
+
+  private void uncheckAllTags() {
+    for (var currentlyChecked : tagsTreeViewer.getCheckedElements()) {
+      tagsTreeViewer.setChecked(currentlyChecked, false);
+    }
+  }
+
+  private void updateCheckedTagsFromTagIdList() {
+    if (checkedTagIds == null || checkedTagIds.isEmpty()) {
+      return;
+    }
+    if (tagList != null && !tagList.isEmpty()) {
+      tagList.stream().forEach(this::findAndSetTagAsChecked);
+      if (!checkedTags.isEmpty()) {
+        setCheckedElementsInTree();
+        tagsTreeViewer.refresh();
+        fireCheckedStateChanged();
+      }
+    }
+    checkedTagIds = null;
   }
 }
