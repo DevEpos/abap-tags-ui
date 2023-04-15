@@ -18,6 +18,8 @@ public class AdtObjTaggingUriDiscovery extends AbapTagsUriDiscoveryBase {
   private static final String DISCOVERY_RELATION_TAGS = "http://www.devepos.com/adt/relations/atm/taggedobjects";
   private static final String DISCOVERY_TEMPLATE_TAG_PREVIEW = "/previewInfo"; //$NON-NLS-1$
   private static final String DISCOVERY_TERM_TAGS = "objecttagging";
+  private static final String DISCOVERY_TERM_TAGGED_OBJ_DEL_CHECK = "taggedObjectDeletionCheck";
+  private static final String DISCOVERY_TERM_TAGGED_OBJ_DELETION = "taggedObjectDeletion";
 
   public AdtObjTaggingUriDiscovery(final String destination) {
     super(destination, DISCOVERY_SCHEME);
@@ -30,6 +32,20 @@ public class AdtObjTaggingUriDiscovery extends AbapTagsUriDiscoveryBase {
    */
   public URI getTaggingUri() {
     return getUriFromCollectionMember(DISCOVERY_TERM_TAGS);
+  }
+
+  /**
+   * Retrieves resource URI for running a deletion check for tagged objects
+   */
+  public URI getTaggedObjectDelCheckUri() {
+    return getUriFromCollectionMember(DISCOVERY_TERM_TAGGED_OBJ_DEL_CHECK);
+  }
+
+  /**
+   * Retrieves Resource URI for deletion of tagged objects
+   */
+  public URI getTaggedObjectDeletionUri() {
+    return getUriFromCollectionMember(DISCOVERY_TERM_TAGGED_OBJ_DELETION);
   }
 
   /**
