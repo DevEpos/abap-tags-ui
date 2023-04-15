@@ -1039,6 +1039,485 @@ public interface IAbapTagsPackage extends EPackage {
   int TAGGED_OBJECT_TREE_RESULT_OPERATION_COUNT = 0;
 
   /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectListRequest <em>Tagged Object List
+   * Request</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectListRequest
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectListRequest()
+   * @generated
+   */
+  int TAGGED_OBJECT_LIST_REQUEST = 13;
+
+  /**
+   * The feature id for the '<em><b>Tag Ids</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_LIST_REQUEST__TAG_IDS = 0;
+
+  /**
+   * The feature id for the '<em><b>Tagged Object Ids</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_LIST_REQUEST__TAGGED_OBJECT_IDS = 1;
+
+  /**
+   * The feature id for the '<em><b>Tagged Object Infos</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_LIST_REQUEST__TAGGED_OBJECT_INFOS = 2;
+
+  /**
+   * The feature id for the '<em><b>Load Child Objects</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_LIST_REQUEST__LOAD_CHILD_OBJECTS = 3;
+
+  /**
+   * The number of structural features of the '<em>Tagged Object List Request</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_LIST_REQUEST_FEATURE_COUNT = 4;
+
+  /**
+   * The number of operations of the '<em>Tagged Object List Request</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_LIST_REQUEST_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectInfo
+   * <em>Tagged Object Info</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectInfo
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectInfo()
+   * @generated
+   */
+  int TAGGED_OBJECT_INFO = 14;
+
+  /**
+   * The feature id for the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO__ID = 0;
+
+  /**
+   * The feature id for the '<em><b>Tag Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO__TAG_ID = 1;
+
+  /**
+   * The feature id for the '<em><b>Tag Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO__TAG_NAME = 2;
+
+  /**
+   * The feature id for the '<em><b>Tag Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO__TAG_TYPE = 3;
+
+  /**
+   * The feature id for the '<em><b>Object Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO__OBJECT_NAME = 4;
+
+  /**
+   * The feature id for the '<em><b>Object Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO__OBJECT_TYPE = 5;
+
+  /**
+   * The feature id for the '<em><b>Component Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO__COMPONENT_NAME = 6;
+
+  /**
+   * The feature id for the '<em><b>Component Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO__COMPONENT_TYPE = 7;
+
+  /**
+   * The feature id for the '<em><b>Parent Tag Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO__PARENT_TAG_ID = 8;
+
+  /**
+   * The feature id for the '<em><b>Parent Tag Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO__PARENT_TAG_NAME = 9;
+
+  /**
+   * The feature id for the '<em><b>Parent Object Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO__PARENT_OBJECT_NAME = 10;
+
+  /**
+   * The feature id for the '<em><b>Parent Object Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO__PARENT_OBJECT_TYPE = 11;
+
+  /**
+   * The number of structural features of the '<em>Tagged Object Info</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO_FEATURE_COUNT = 12;
+
+  /**
+   * The number of operations of the '<em>Tagged Object Info</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectInfoList
+   * <em>Tagged Object Info List</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectInfoList
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectInfoList()
+   * @generated
+   */
+  int TAGGED_OBJECT_INFO_LIST = 15;
+
+  /**
+   * The feature id for the '<em><b>Tagged Object Infos</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO_LIST__TAGGED_OBJECT_INFOS = 0;
+
+  /**
+   * The number of structural features of the '<em>Tagged Object Info List</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO_LIST_FEATURE_COUNT = 1;
+
+  /**
+   * The number of operations of the '<em>Tagged Object Info List</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO_LIST_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectDeletionCheckRequest <em>Tagged
+   * Object Deletion Check Request</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectDeletionCheckRequest
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectDeletionCheckRequest()
+   * @generated
+   */
+  int TAGGED_OBJECT_DELETION_CHECK_REQUEST = 16;
+
+  /**
+   * The feature id for the '<em><b>Tagged Object Ids</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_DELETION_CHECK_REQUEST__TAGGED_OBJECT_IDS = 0;
+
+  /**
+   * The number of structural features of the '<em>Tagged Object Deletion Check Request</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_DELETION_CHECK_REQUEST_FEATURE_COUNT = 1;
+
+  /**
+   * The number of operations of the '<em>Tagged Object Deletion Check Request</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_DELETION_CHECK_REQUEST_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectDeletionCheckResult <em>Tagged
+   * Object Deletion Check Result</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectDeletionCheckResult
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectDeletionCheckResult()
+   * @generated
+   */
+  int TAGGED_OBJECT_DELETION_CHECK_RESULT = 17;
+
+  /**
+   * The feature id for the '<em><b>Checked Objects</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_DELETION_CHECK_RESULT__CHECKED_OBJECTS = 0;
+
+  /**
+   * The number of structural features of the '<em>Tagged Object Deletion Check Result</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_DELETION_CHECK_RESULT_FEATURE_COUNT = 1;
+
+  /**
+   * The number of operations of the '<em>Tagged Object Deletion Check Result</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_DELETION_CHECK_RESULT_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectDeletionCheckObject <em>Tagged
+   * Object Deletion Check Object</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectDeletionCheckObject
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectDeletionCheckObject()
+   * @generated
+   */
+  int TAGGED_OBJECT_DELETION_CHECK_OBJECT = 18;
+
+  /**
+   * The feature id for the '<em><b>Tagged Object Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_DELETION_CHECK_OBJECT__TAGGED_OBJECT_ID = 0;
+
+  /**
+   * The feature id for the '<em><b>Deletable</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_DELETION_CHECK_OBJECT__DELETABLE = 1;
+
+  /**
+   * The feature id for the '<em><b>Message</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_DELETION_CHECK_OBJECT__MESSAGE = 2;
+
+  /**
+   * The feature id for the '<em><b>Message Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_DELETION_CHECK_OBJECT__MESSAGE_TYPE = 3;
+
+  /**
+   * The feature id for the '<em><b>Dependent Object Ids</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_DELETION_CHECK_OBJECT__DEPENDENT_OBJECT_IDS = 4;
+
+  /**
+   * The number of structural features of the '<em>Tagged Object Deletion Check Object</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_DELETION_CHECK_OBJECT_FEATURE_COUNT = 5;
+
+  /**
+   * The number of operations of the '<em>Tagged Object Deletion Check Object</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_DELETION_CHECK_OBJECT_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectDeleteRequest <em>Tagged Object
+   * Delete Request</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectDeleteRequest
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectDeleteRequest()
+   * @generated
+   */
+  int TAGGED_OBJECT_DELETE_REQUEST = 19;
+
+  /**
+   * The feature id for the '<em><b>Object Id</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_DELETE_REQUEST__OBJECT_ID = 0;
+
+  /**
+   * The number of structural features of the '<em>Tagged Object Delete Request</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_DELETE_REQUEST_FEATURE_COUNT = 1;
+
+  /**
+   * The number of operations of the '<em>Tagged Object Delete Request</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_DELETE_REQUEST_OPERATION_COUNT = 0;
+
+  /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagSearchScope <em>Tag
    * Search Scope</em>}' enum.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1047,7 +1526,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagSearchScope()
    * @generated
    */
-  int TAG_SEARCH_SCOPE = 13;
+  int TAG_SEARCH_SCOPE = 20;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagQueryType <em>Tag
@@ -1058,7 +1537,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagQueryType()
    * @generated
    */
-  int TAG_QUERY_TYPE = 14;
+  int TAG_QUERY_TYPE = 21;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagInfoType <em>Tag Info
@@ -1069,7 +1548,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagInfoType()
    * @generated
    */
-  int TAG_INFO_TYPE = 15;
+  int TAG_INFO_TYPE = 22;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagQueryFocus <em>Tag
@@ -1080,7 +1559,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagQueryFocus()
    * @generated
    */
-  int TAG_QUERY_FOCUS = 16;
+  int TAG_QUERY_FOCUS = 23;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.ResultGroupLevel
@@ -1092,7 +1571,19 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getResultGroupLevel()
    * @generated
    */
-  int RESULT_GROUP_LEVEL = 17;
+  int RESULT_GROUP_LEVEL = 24;
+
+  /**
+   * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagType <em>Tag
+   * Type</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.TagType
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagType()
+   * @generated
+   */
+  int TAG_TYPE = 25;
 
   /**
    * The meta object id for the '<em>Image</em>' data type.
@@ -1103,7 +1594,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getImage()
    * @generated
    */
-  int IMAGE = 18;
+  int IMAGE = 26;
 
   /**
    * Returns the meta object for class
@@ -1974,6 +2465,442 @@ public interface IAbapTagsPackage extends EPackage {
   EReference getTaggedObjectTreeResult_Tags();
 
   /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest <em>Tagged Object List
+   * Request</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Tagged Object List Request</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest
+   * @generated
+   */
+  EClass getTaggedObjectListRequest();
+
+  /**
+   * Returns the meta object for the attribute list
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest#getTagIds <em>Tag
+   * Ids</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute list '<em>Tag Ids</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest#getTagIds()
+   * @see #getTaggedObjectListRequest()
+   * @generated
+   */
+  EAttribute getTaggedObjectListRequest_TagIds();
+
+  /**
+   * Returns the meta object for the attribute list
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest#getTaggedObjectIds
+   * <em>Tagged Object Ids</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute list '<em>Tagged Object Ids</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest#getTaggedObjectIds()
+   * @see #getTaggedObjectListRequest()
+   * @generated
+   */
+  EAttribute getTaggedObjectListRequest_TaggedObjectIds();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest#getTaggedObjectInfos
+   * <em>Tagged Object Infos</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Tagged Object Infos</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest#getTaggedObjectInfos()
+   * @see #getTaggedObjectListRequest()
+   * @generated
+   */
+  EReference getTaggedObjectListRequest_TaggedObjectInfos();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest#isLoadChildObjects <em>Load
+   * Child Objects</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Load Child Objects</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest#isLoadChildObjects()
+   * @see #getTaggedObjectListRequest()
+   * @generated
+   */
+  EAttribute getTaggedObjectListRequest_LoadChildObjects();
+
+  /**
+   * Returns the meta object for class '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo
+   * <em>Tagged Object Info</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Tagged Object Info</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo
+   * @generated
+   */
+  EClass getTaggedObjectInfo();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getId <em>Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Id</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getId()
+   * @see #getTaggedObjectInfo()
+   * @generated
+   */
+  EAttribute getTaggedObjectInfo_Id();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getTagId <em>Tag Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Tag Id</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getTagId()
+   * @see #getTaggedObjectInfo()
+   * @generated
+   */
+  EAttribute getTaggedObjectInfo_TagId();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getTagName <em>Tag Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Tag Name</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getTagName()
+   * @see #getTaggedObjectInfo()
+   * @generated
+   */
+  EAttribute getTaggedObjectInfo_TagName();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getTagType <em>Tag Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Tag Type</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getTagType()
+   * @see #getTaggedObjectInfo()
+   * @generated
+   */
+  EAttribute getTaggedObjectInfo_TagType();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getObjectName <em>Object
+   * Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Object Name</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getObjectName()
+   * @see #getTaggedObjectInfo()
+   * @generated
+   */
+  EAttribute getTaggedObjectInfo_ObjectName();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getObjectType <em>Object
+   * Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Object Type</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getObjectType()
+   * @see #getTaggedObjectInfo()
+   * @generated
+   */
+  EAttribute getTaggedObjectInfo_ObjectType();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getComponentName <em>Component
+   * Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Component Name</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getComponentName()
+   * @see #getTaggedObjectInfo()
+   * @generated
+   */
+  EAttribute getTaggedObjectInfo_ComponentName();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getComponentType <em>Component
+   * Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Component Type</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getComponentType()
+   * @see #getTaggedObjectInfo()
+   * @generated
+   */
+  EAttribute getTaggedObjectInfo_ComponentType();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentTagId <em>Parent Tag
+   * Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Parent Tag Id</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentTagId()
+   * @see #getTaggedObjectInfo()
+   * @generated
+   */
+  EAttribute getTaggedObjectInfo_ParentTagId();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentTagName <em>Parent Tag
+   * Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Parent Tag Name</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentTagName()
+   * @see #getTaggedObjectInfo()
+   * @generated
+   */
+  EAttribute getTaggedObjectInfo_ParentTagName();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentObjectName <em>Parent
+   * Object Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Parent Object Name</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentObjectName()
+   * @see #getTaggedObjectInfo()
+   * @generated
+   */
+  EAttribute getTaggedObjectInfo_ParentObjectName();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentObjectType <em>Parent
+   * Object Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Parent Object Type</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentObjectType()
+   * @see #getTaggedObjectInfo()
+   * @generated
+   */
+  EAttribute getTaggedObjectInfo_ParentObjectType();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfoList <em>Tagged Object Info
+   * List</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Tagged Object Info List</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfoList
+   * @generated
+   */
+  EClass getTaggedObjectInfoList();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfoList#getTaggedObjectInfos
+   * <em>Tagged Object Infos</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Tagged Object Infos</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfoList#getTaggedObjectInfos()
+   * @see #getTaggedObjectInfoList()
+   * @generated
+   */
+  EReference getTaggedObjectInfoList_TaggedObjectInfos();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckRequest <em>Tagged Object
+   * Deletion Check Request</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Tagged Object Deletion Check Request</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckRequest
+   * @generated
+   */
+  EClass getTaggedObjectDeletionCheckRequest();
+
+  /**
+   * Returns the meta object for the attribute list
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckRequest#getTaggedObjectIds
+   * <em>Tagged Object Ids</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute list '<em>Tagged Object Ids</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckRequest#getTaggedObjectIds()
+   * @see #getTaggedObjectDeletionCheckRequest()
+   * @generated
+   */
+  EAttribute getTaggedObjectDeletionCheckRequest_TaggedObjectIds();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckResult <em>Tagged Object
+   * Deletion Check Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Tagged Object Deletion Check Result</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckResult
+   * @generated
+   */
+  EClass getTaggedObjectDeletionCheckResult();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckResult#getCheckedObjects
+   * <em>Checked Objects</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Checked Objects</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckResult#getCheckedObjects()
+   * @see #getTaggedObjectDeletionCheckResult()
+   * @generated
+   */
+  EReference getTaggedObjectDeletionCheckResult_CheckedObjects();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject <em>Tagged Object
+   * Deletion Check Object</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Tagged Object Deletion Check Object</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject
+   * @generated
+   */
+  EClass getTaggedObjectDeletionCheckObject();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject#getTaggedObjectId
+   * <em>Tagged Object Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Tagged Object Id</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject#getTaggedObjectId()
+   * @see #getTaggedObjectDeletionCheckObject()
+   * @generated
+   */
+  EAttribute getTaggedObjectDeletionCheckObject_TaggedObjectId();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject#isDeletable
+   * <em>Deletable</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Deletable</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject#isDeletable()
+   * @see #getTaggedObjectDeletionCheckObject()
+   * @generated
+   */
+  EAttribute getTaggedObjectDeletionCheckObject_Deletable();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject#getMessage
+   * <em>Message</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Message</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject#getMessage()
+   * @see #getTaggedObjectDeletionCheckObject()
+   * @generated
+   */
+  EAttribute getTaggedObjectDeletionCheckObject_Message();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject#getMessageType
+   * <em>Message Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Message Type</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject#getMessageType()
+   * @see #getTaggedObjectDeletionCheckObject()
+   * @generated
+   */
+  EAttribute getTaggedObjectDeletionCheckObject_MessageType();
+
+  /**
+   * Returns the meta object for the attribute list
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject#getDependentObjectIds
+   * <em>Dependent Object Ids</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute list '<em>Dependent Object Ids</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject#getDependentObjectIds()
+   * @see #getTaggedObjectDeletionCheckObject()
+   * @generated
+   */
+  EAttribute getTaggedObjectDeletionCheckObject_DependentObjectIds();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectDeleteRequest <em>Tagged Object Delete
+   * Request</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Tagged Object Delete Request</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectDeleteRequest
+   * @generated
+   */
+  EClass getTaggedObjectDeleteRequest();
+
+  /**
+   * Returns the meta object for the attribute list
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectDeleteRequest#getObjectId <em>Object
+   * Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute list '<em>Object Id</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectDeleteRequest#getObjectId()
+   * @see #getTaggedObjectDeleteRequest()
+   * @generated
+   */
+  EAttribute getTaggedObjectDeleteRequest_ObjectId();
+
+  /**
    * Returns the meta object for enum '{@link com.devepos.adt.atm.model.abaptags.TagSearchScope
    * <em>Tag Search Scope</em>}'.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -2028,6 +2955,18 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    */
   EEnum getResultGroupLevel();
+
+  /**
+   * Returns the meta object for enum '{@link com.devepos.adt.atm.model.abaptags.TagType <em>Tag
+   * Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for enum '<em>Tag Type</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.TagType
+   * @generated
+   */
+  EEnum getTagType();
 
   /**
    * Returns the meta object for data type '{@link org.eclipse.swt.graphics.Image <em>Image</em>}'.
@@ -2706,6 +3645,340 @@ public interface IAbapTagsPackage extends EPackage {
     EReference TAGGED_OBJECT_TREE_RESULT__TAGS = eINSTANCE.getTaggedObjectTreeResult_Tags();
 
     /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectListRequest <em>Tagged Object
+     * List Request</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectListRequest
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectListRequest()
+     * @generated
+     */
+    EClass TAGGED_OBJECT_LIST_REQUEST = eINSTANCE.getTaggedObjectListRequest();
+
+    /**
+     * The meta object literal for the '<em><b>Tag Ids</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_LIST_REQUEST__TAG_IDS = eINSTANCE.getTaggedObjectListRequest_TagIds();
+
+    /**
+     * The meta object literal for the '<em><b>Tagged Object Ids</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_LIST_REQUEST__TAGGED_OBJECT_IDS = eINSTANCE
+        .getTaggedObjectListRequest_TaggedObjectIds();
+
+    /**
+     * The meta object literal for the '<em><b>Tagged Object Infos</b></em>' containment reference
+     * list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference TAGGED_OBJECT_LIST_REQUEST__TAGGED_OBJECT_INFOS = eINSTANCE
+        .getTaggedObjectListRequest_TaggedObjectInfos();
+
+    /**
+     * The meta object literal for the '<em><b>Load Child Objects</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_LIST_REQUEST__LOAD_CHILD_OBJECTS = eINSTANCE
+        .getTaggedObjectListRequest_LoadChildObjects();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectInfo <em>Tagged Object
+     * Info</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectInfo
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectInfo()
+     * @generated
+     */
+    EClass TAGGED_OBJECT_INFO = eINSTANCE.getTaggedObjectInfo();
+
+    /**
+     * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_INFO__ID = eINSTANCE.getTaggedObjectInfo_Id();
+
+    /**
+     * The meta object literal for the '<em><b>Tag Id</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_INFO__TAG_ID = eINSTANCE.getTaggedObjectInfo_TagId();
+
+    /**
+     * The meta object literal for the '<em><b>Tag Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_INFO__TAG_NAME = eINSTANCE.getTaggedObjectInfo_TagName();
+
+    /**
+     * The meta object literal for the '<em><b>Tag Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_INFO__TAG_TYPE = eINSTANCE.getTaggedObjectInfo_TagType();
+
+    /**
+     * The meta object literal for the '<em><b>Object Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_INFO__OBJECT_NAME = eINSTANCE.getTaggedObjectInfo_ObjectName();
+
+    /**
+     * The meta object literal for the '<em><b>Object Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_INFO__OBJECT_TYPE = eINSTANCE.getTaggedObjectInfo_ObjectType();
+
+    /**
+     * The meta object literal for the '<em><b>Component Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_INFO__COMPONENT_NAME = eINSTANCE.getTaggedObjectInfo_ComponentName();
+
+    /**
+     * The meta object literal for the '<em><b>Component Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_INFO__COMPONENT_TYPE = eINSTANCE.getTaggedObjectInfo_ComponentType();
+
+    /**
+     * The meta object literal for the '<em><b>Parent Tag Id</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_INFO__PARENT_TAG_ID = eINSTANCE.getTaggedObjectInfo_ParentTagId();
+
+    /**
+     * The meta object literal for the '<em><b>Parent Tag Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_INFO__PARENT_TAG_NAME = eINSTANCE.getTaggedObjectInfo_ParentTagName();
+
+    /**
+     * The meta object literal for the '<em><b>Parent Object Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_INFO__PARENT_OBJECT_NAME = eINSTANCE
+        .getTaggedObjectInfo_ParentObjectName();
+
+    /**
+     * The meta object literal for the '<em><b>Parent Object Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_INFO__PARENT_OBJECT_TYPE = eINSTANCE
+        .getTaggedObjectInfo_ParentObjectType();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectInfoList <em>Tagged Object Info
+     * List</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectInfoList
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectInfoList()
+     * @generated
+     */
+    EClass TAGGED_OBJECT_INFO_LIST = eINSTANCE.getTaggedObjectInfoList();
+
+    /**
+     * The meta object literal for the '<em><b>Tagged Object Infos</b></em>' containment reference
+     * list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference TAGGED_OBJECT_INFO_LIST__TAGGED_OBJECT_INFOS = eINSTANCE
+        .getTaggedObjectInfoList_TaggedObjectInfos();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectDeletionCheckRequest <em>Tagged
+     * Object Deletion Check Request</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectDeletionCheckRequest
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectDeletionCheckRequest()
+     * @generated
+     */
+    EClass TAGGED_OBJECT_DELETION_CHECK_REQUEST = eINSTANCE.getTaggedObjectDeletionCheckRequest();
+
+    /**
+     * The meta object literal for the '<em><b>Tagged Object Ids</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_DELETION_CHECK_REQUEST__TAGGED_OBJECT_IDS = eINSTANCE
+        .getTaggedObjectDeletionCheckRequest_TaggedObjectIds();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectDeletionCheckResult <em>Tagged
+     * Object Deletion Check Result</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectDeletionCheckResult
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectDeletionCheckResult()
+     * @generated
+     */
+    EClass TAGGED_OBJECT_DELETION_CHECK_RESULT = eINSTANCE.getTaggedObjectDeletionCheckResult();
+
+    /**
+     * The meta object literal for the '<em><b>Checked Objects</b></em>' containment reference list
+     * feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference TAGGED_OBJECT_DELETION_CHECK_RESULT__CHECKED_OBJECTS = eINSTANCE
+        .getTaggedObjectDeletionCheckResult_CheckedObjects();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectDeletionCheckObject <em>Tagged
+     * Object Deletion Check Object</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectDeletionCheckObject
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectDeletionCheckObject()
+     * @generated
+     */
+    EClass TAGGED_OBJECT_DELETION_CHECK_OBJECT = eINSTANCE.getTaggedObjectDeletionCheckObject();
+
+    /**
+     * The meta object literal for the '<em><b>Tagged Object Id</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_DELETION_CHECK_OBJECT__TAGGED_OBJECT_ID = eINSTANCE
+        .getTaggedObjectDeletionCheckObject_TaggedObjectId();
+
+    /**
+     * The meta object literal for the '<em><b>Deletable</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_DELETION_CHECK_OBJECT__DELETABLE = eINSTANCE
+        .getTaggedObjectDeletionCheckObject_Deletable();
+
+    /**
+     * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_DELETION_CHECK_OBJECT__MESSAGE = eINSTANCE
+        .getTaggedObjectDeletionCheckObject_Message();
+
+    /**
+     * The meta object literal for the '<em><b>Message Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_DELETION_CHECK_OBJECT__MESSAGE_TYPE = eINSTANCE
+        .getTaggedObjectDeletionCheckObject_MessageType();
+
+    /**
+     * The meta object literal for the '<em><b>Dependent Object Ids</b></em>' attribute list
+     * feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_DELETION_CHECK_OBJECT__DEPENDENT_OBJECT_IDS = eINSTANCE
+        .getTaggedObjectDeletionCheckObject_DependentObjectIds();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectDeleteRequest <em>Tagged Object
+     * Delete Request</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.impl.TaggedObjectDeleteRequest
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTaggedObjectDeleteRequest()
+     * @generated
+     */
+    EClass TAGGED_OBJECT_DELETE_REQUEST = eINSTANCE.getTaggedObjectDeleteRequest();
+
+    /**
+     * The meta object literal for the '<em><b>Object Id</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_DELETE_REQUEST__OBJECT_ID = eINSTANCE
+        .getTaggedObjectDeleteRequest_ObjectId();
+
+    /**
      * The meta object literal for the '{@link com.devepos.adt.atm.model.abaptags.TagSearchScope
      * <em>Tag Search Scope</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -2760,6 +4033,18 @@ public interface IAbapTagsPackage extends EPackage {
      * @generated
      */
     EEnum RESULT_GROUP_LEVEL = eINSTANCE.getResultGroupLevel();
+
+    /**
+     * The meta object literal for the '{@link com.devepos.adt.atm.model.abaptags.TagType <em>Tag
+     * Type</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.TagType
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagType()
+     * @generated
+     */
+    EEnum TAG_TYPE = eINSTANCE.getTagType();
 
     /**
      * The meta object literal for the '<em>Image</em>' data type. <!--

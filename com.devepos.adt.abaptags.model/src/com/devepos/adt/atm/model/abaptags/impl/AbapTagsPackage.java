@@ -22,7 +22,14 @@ import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeleteRequest;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckRequest;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckResult;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectInfoList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest;
@@ -32,6 +39,7 @@ import com.devepos.adt.atm.model.abaptags.TagInfoType;
 import com.devepos.adt.atm.model.abaptags.TagQueryFocus;
 import com.devepos.adt.atm.model.abaptags.TagQueryType;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
+import com.devepos.adt.atm.model.abaptags.TagType;
 import com.devepos.adt.base.model.adtbase.IAdtBasePackage;
 
 /**
@@ -138,6 +146,62 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   private EClass taggedObjectTreeResultEClass = null;
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass taggedObjectListRequestEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass taggedObjectInfoEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass taggedObjectInfoListEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass taggedObjectDeletionCheckRequestEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass taggedObjectDeletionCheckResultEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass taggedObjectDeletionCheckObjectEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass taggedObjectDeleteRequestEClass = null;
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -172,6 +236,14 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * @generated
    */
   private EEnum resultGroupLevelEEnum = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EEnum tagTypeEEnum = null;
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -961,6 +1033,358 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTaggedObjectListRequest() {
+    return taggedObjectListRequestEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectListRequest_TagIds() {
+    return (EAttribute) taggedObjectListRequestEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectListRequest_TaggedObjectIds() {
+    return (EAttribute) taggedObjectListRequestEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getTaggedObjectListRequest_TaggedObjectInfos() {
+    return (EReference) taggedObjectListRequestEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectListRequest_LoadChildObjects() {
+    return (EAttribute) taggedObjectListRequestEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTaggedObjectInfo() {
+    return taggedObjectInfoEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectInfo_Id() {
+    return (EAttribute) taggedObjectInfoEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectInfo_TagId() {
+    return (EAttribute) taggedObjectInfoEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectInfo_TagName() {
+    return (EAttribute) taggedObjectInfoEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectInfo_TagType() {
+    return (EAttribute) taggedObjectInfoEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectInfo_ObjectName() {
+    return (EAttribute) taggedObjectInfoEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectInfo_ObjectType() {
+    return (EAttribute) taggedObjectInfoEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectInfo_ComponentName() {
+    return (EAttribute) taggedObjectInfoEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectInfo_ComponentType() {
+    return (EAttribute) taggedObjectInfoEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectInfo_ParentTagId() {
+    return (EAttribute) taggedObjectInfoEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectInfo_ParentTagName() {
+    return (EAttribute) taggedObjectInfoEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectInfo_ParentObjectName() {
+    return (EAttribute) taggedObjectInfoEClass.getEStructuralFeatures().get(10);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectInfo_ParentObjectType() {
+    return (EAttribute) taggedObjectInfoEClass.getEStructuralFeatures().get(11);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTaggedObjectInfoList() {
+    return taggedObjectInfoListEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getTaggedObjectInfoList_TaggedObjectInfos() {
+    return (EReference) taggedObjectInfoListEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTaggedObjectDeletionCheckRequest() {
+    return taggedObjectDeletionCheckRequestEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectDeletionCheckRequest_TaggedObjectIds() {
+    return (EAttribute) taggedObjectDeletionCheckRequestEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTaggedObjectDeletionCheckResult() {
+    return taggedObjectDeletionCheckResultEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getTaggedObjectDeletionCheckResult_CheckedObjects() {
+    return (EReference) taggedObjectDeletionCheckResultEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTaggedObjectDeletionCheckObject() {
+    return taggedObjectDeletionCheckObjectEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectDeletionCheckObject_TaggedObjectId() {
+    return (EAttribute) taggedObjectDeletionCheckObjectEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectDeletionCheckObject_Deletable() {
+    return (EAttribute) taggedObjectDeletionCheckObjectEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectDeletionCheckObject_Message() {
+    return (EAttribute) taggedObjectDeletionCheckObjectEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectDeletionCheckObject_MessageType() {
+    return (EAttribute) taggedObjectDeletionCheckObjectEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectDeletionCheckObject_DependentObjectIds() {
+    return (EAttribute) taggedObjectDeletionCheckObjectEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTaggedObjectDeleteRequest() {
+    return taggedObjectDeleteRequestEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTaggedObjectDeleteRequest_ObjectId() {
+    return (EAttribute) taggedObjectDeleteRequestEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -1009,6 +1433,17 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   @Override
   public EEnum getResultGroupLevel() {
     return resultGroupLevelEEnum;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EEnum getTagType() {
+    return tagTypeEEnum;
   }
 
   /**
@@ -1136,12 +1571,60 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     createEReference(taggedObjectTreeResultEClass, TAGGED_OBJECT_TREE_RESULT__OBJECTS);
     createEReference(taggedObjectTreeResultEClass, TAGGED_OBJECT_TREE_RESULT__TAGS);
 
+    taggedObjectListRequestEClass = createEClass(TAGGED_OBJECT_LIST_REQUEST);
+    createEAttribute(taggedObjectListRequestEClass, TAGGED_OBJECT_LIST_REQUEST__TAG_IDS);
+    createEAttribute(taggedObjectListRequestEClass, TAGGED_OBJECT_LIST_REQUEST__TAGGED_OBJECT_IDS);
+    createEReference(taggedObjectListRequestEClass,
+        TAGGED_OBJECT_LIST_REQUEST__TAGGED_OBJECT_INFOS);
+    createEAttribute(taggedObjectListRequestEClass, TAGGED_OBJECT_LIST_REQUEST__LOAD_CHILD_OBJECTS);
+
+    taggedObjectInfoEClass = createEClass(TAGGED_OBJECT_INFO);
+    createEAttribute(taggedObjectInfoEClass, TAGGED_OBJECT_INFO__ID);
+    createEAttribute(taggedObjectInfoEClass, TAGGED_OBJECT_INFO__TAG_ID);
+    createEAttribute(taggedObjectInfoEClass, TAGGED_OBJECT_INFO__TAG_NAME);
+    createEAttribute(taggedObjectInfoEClass, TAGGED_OBJECT_INFO__TAG_TYPE);
+    createEAttribute(taggedObjectInfoEClass, TAGGED_OBJECT_INFO__OBJECT_NAME);
+    createEAttribute(taggedObjectInfoEClass, TAGGED_OBJECT_INFO__OBJECT_TYPE);
+    createEAttribute(taggedObjectInfoEClass, TAGGED_OBJECT_INFO__COMPONENT_NAME);
+    createEAttribute(taggedObjectInfoEClass, TAGGED_OBJECT_INFO__COMPONENT_TYPE);
+    createEAttribute(taggedObjectInfoEClass, TAGGED_OBJECT_INFO__PARENT_TAG_ID);
+    createEAttribute(taggedObjectInfoEClass, TAGGED_OBJECT_INFO__PARENT_TAG_NAME);
+    createEAttribute(taggedObjectInfoEClass, TAGGED_OBJECT_INFO__PARENT_OBJECT_NAME);
+    createEAttribute(taggedObjectInfoEClass, TAGGED_OBJECT_INFO__PARENT_OBJECT_TYPE);
+
+    taggedObjectInfoListEClass = createEClass(TAGGED_OBJECT_INFO_LIST);
+    createEReference(taggedObjectInfoListEClass, TAGGED_OBJECT_INFO_LIST__TAGGED_OBJECT_INFOS);
+
+    taggedObjectDeletionCheckRequestEClass = createEClass(TAGGED_OBJECT_DELETION_CHECK_REQUEST);
+    createEAttribute(taggedObjectDeletionCheckRequestEClass,
+        TAGGED_OBJECT_DELETION_CHECK_REQUEST__TAGGED_OBJECT_IDS);
+
+    taggedObjectDeletionCheckResultEClass = createEClass(TAGGED_OBJECT_DELETION_CHECK_RESULT);
+    createEReference(taggedObjectDeletionCheckResultEClass,
+        TAGGED_OBJECT_DELETION_CHECK_RESULT__CHECKED_OBJECTS);
+
+    taggedObjectDeletionCheckObjectEClass = createEClass(TAGGED_OBJECT_DELETION_CHECK_OBJECT);
+    createEAttribute(taggedObjectDeletionCheckObjectEClass,
+        TAGGED_OBJECT_DELETION_CHECK_OBJECT__TAGGED_OBJECT_ID);
+    createEAttribute(taggedObjectDeletionCheckObjectEClass,
+        TAGGED_OBJECT_DELETION_CHECK_OBJECT__DELETABLE);
+    createEAttribute(taggedObjectDeletionCheckObjectEClass,
+        TAGGED_OBJECT_DELETION_CHECK_OBJECT__MESSAGE);
+    createEAttribute(taggedObjectDeletionCheckObjectEClass,
+        TAGGED_OBJECT_DELETION_CHECK_OBJECT__MESSAGE_TYPE);
+    createEAttribute(taggedObjectDeletionCheckObjectEClass,
+        TAGGED_OBJECT_DELETION_CHECK_OBJECT__DEPENDENT_OBJECT_IDS);
+
+    taggedObjectDeleteRequestEClass = createEClass(TAGGED_OBJECT_DELETE_REQUEST);
+    createEAttribute(taggedObjectDeleteRequestEClass, TAGGED_OBJECT_DELETE_REQUEST__OBJECT_ID);
+
     // Create enums
     tagSearchScopeEEnum = createEEnum(TAG_SEARCH_SCOPE);
     tagQueryTypeEEnum = createEEnum(TAG_QUERY_TYPE);
     tagInfoTypeEEnum = createEEnum(TAG_INFO_TYPE);
     tagQueryFocusEEnum = createEEnum(TAG_QUERY_FOCUS);
     resultGroupLevelEEnum = createEEnum(RESULT_GROUP_LEVEL);
+    tagTypeEEnum = createEEnum(TAG_TYPE);
 
     // Create data types
     imageEDataType = createEDataType(IMAGE);
@@ -1190,7 +1673,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     initEClass(tagBaseEClass, ITagBase.class, "TagBase", IS_ABSTRACT, !IS_INTERFACE,
         IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getTagBase_Id(), ecorePackage.getEString(), "id", null, 0, 1, ITagBase.class,
-        !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+        !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED,
         IS_ORDERED);
     initEAttribute(getTagBase_Name(), ecorePackage.getEString(), "name", "", 0, 1, ITagBase.class,
         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
@@ -1395,6 +1878,111 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         ITaggedObjectTreeResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
         !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(taggedObjectListRequestEClass, ITaggedObjectListRequest.class,
+        "TaggedObjectListRequest", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTaggedObjectListRequest_TagIds(), theXMLTypePackage.getString(), "tagIds",
+        null, 0, -1, ITaggedObjectListRequest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectListRequest_TaggedObjectIds(), theXMLTypePackage.getString(),
+        "taggedObjectIds", null, 0, -1, ITaggedObjectListRequest.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTaggedObjectListRequest_TaggedObjectInfos(), getTaggedObjectInfo(), null,
+        "taggedObjectInfos", null, 0, -1, ITaggedObjectListRequest.class, !IS_TRANSIENT,
+        !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+        !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectListRequest_LoadChildObjects(), theXMLTypePackage.getBoolean(),
+        "loadChildObjects", null, 0, 1, ITaggedObjectListRequest.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(taggedObjectInfoEClass, ITaggedObjectInfo.class, "TaggedObjectInfo", !IS_ABSTRACT,
+        !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTaggedObjectInfo_Id(), ecorePackage.getEString(), "id", null, 0, 1,
+        ITaggedObjectInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectInfo_TagId(), ecorePackage.getEString(), "tagId", null, 0, 1,
+        ITaggedObjectInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectInfo_TagName(), theXMLTypePackage.getString(), "tagName", null, 0,
+        1, ITaggedObjectInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+        !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectInfo_TagType(), getTagType(), "tagType", null, 0, 1,
+        ITaggedObjectInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectInfo_ObjectName(), ecorePackage.getEString(), "objectName", null,
+        0, 1, ITaggedObjectInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+        !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectInfo_ObjectType(), ecorePackage.getEString(), "objectType", null,
+        0, 1, ITaggedObjectInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+        !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectInfo_ComponentName(), ecorePackage.getEString(), "componentName",
+        null, 0, 1, ITaggedObjectInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectInfo_ComponentType(), ecorePackage.getEString(), "componentType",
+        null, 0, 1, ITaggedObjectInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectInfo_ParentTagId(), ecorePackage.getEString(), "parentTagId",
+        null, 0, 1, ITaggedObjectInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectInfo_ParentTagName(), ecorePackage.getEString(), "parentTagName",
+        null, 0, 1, ITaggedObjectInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectInfo_ParentObjectName(), ecorePackage.getEString(),
+        "parentObjectName", null, 0, 1, ITaggedObjectInfo.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectInfo_ParentObjectType(), ecorePackage.getEString(),
+        "parentObjectType", null, 0, 1, ITaggedObjectInfo.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(taggedObjectInfoListEClass, ITaggedObjectInfoList.class, "TaggedObjectInfoList",
+        !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTaggedObjectInfoList_TaggedObjectInfos(), getTaggedObjectInfo(), null,
+        "taggedObjectInfos", null, 0, -1, ITaggedObjectInfoList.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+        IS_ORDERED);
+
+    initEClass(taggedObjectDeletionCheckRequestEClass, ITaggedObjectDeletionCheckRequest.class,
+        "TaggedObjectDeletionCheckRequest", !IS_ABSTRACT, !IS_INTERFACE,
+        IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTaggedObjectDeletionCheckRequest_TaggedObjectIds(), theXMLTypePackage
+        .getString(), "taggedObjectIds", null, 0, -1, ITaggedObjectDeletionCheckRequest.class,
+        !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+        IS_ORDERED);
+
+    initEClass(taggedObjectDeletionCheckResultEClass, ITaggedObjectDeletionCheckResult.class,
+        "TaggedObjectDeletionCheckResult", !IS_ABSTRACT, !IS_INTERFACE,
+        IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTaggedObjectDeletionCheckResult_CheckedObjects(),
+        getTaggedObjectDeletionCheckObject(), null, "checkedObjects", null, 0, -1,
+        ITaggedObjectDeletionCheckResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(taggedObjectDeletionCheckObjectEClass, ITaggedObjectDeletionCheckObject.class,
+        "TaggedObjectDeletionCheckObject", !IS_ABSTRACT, !IS_INTERFACE,
+        IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTaggedObjectDeletionCheckObject_TaggedObjectId(), ecorePackage.getEString(),
+        "taggedObjectId", null, 0, 1, ITaggedObjectDeletionCheckObject.class, !IS_TRANSIENT,
+        !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectDeletionCheckObject_Deletable(), theXMLTypePackage.getBoolean(),
+        "deletable", null, 0, 1, ITaggedObjectDeletionCheckObject.class, !IS_TRANSIENT,
+        !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectDeletionCheckObject_Message(), ecorePackage.getEString(),
+        "message", null, 0, 1, ITaggedObjectDeletionCheckObject.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectDeletionCheckObject_MessageType(), theAdtBasePackage
+        .getMessageType(), "messageType", null, 0, 1, ITaggedObjectDeletionCheckObject.class,
+        !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+        IS_ORDERED);
+    initEAttribute(getTaggedObjectDeletionCheckObject_DependentObjectIds(), theXMLTypePackage
+        .getString(), "dependentObjectIds", null, 0, -1, ITaggedObjectDeletionCheckObject.class,
+        !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+        IS_ORDERED);
+
+    initEClass(taggedObjectDeleteRequestEClass, ITaggedObjectDeleteRequest.class,
+        "TaggedObjectDeleteRequest", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTaggedObjectDeleteRequest_ObjectId(), theXMLTypePackage.getString(),
+        "objectId", null, 0, -1, ITaggedObjectDeleteRequest.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     // Initialize enums and add enum literals
     initEEnum(tagSearchScopeEEnum, TagSearchScope.class, "TagSearchScope");
     addEEnumLiteral(tagSearchScopeEEnum, TagSearchScope.ALL);
@@ -1419,6 +2007,11 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     initEEnum(resultGroupLevelEEnum, ResultGroupLevel.class, "ResultGroupLevel");
     addEEnumLiteral(resultGroupLevelEEnum, ResultGroupLevel.BY_OBJECT);
     addEEnumLiteral(resultGroupLevelEEnum, ResultGroupLevel.BY_TAG_AND_OBJECT);
+
+    initEEnum(tagTypeEEnum, TagType.class, "TagType");
+    addEEnumLiteral(tagTypeEEnum, TagType.GLOBAL);
+    addEEnumLiteral(tagTypeEEnum, TagType.USER);
+    addEEnumLiteral(tagTypeEEnum, TagType.SHARED);
 
     // Initialize data types
     initEDataType(imageEDataType, Image.class, "Image", IS_SERIALIZABLE,
@@ -1566,6 +2159,70 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         "name", "object", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectTreeResult_Tags(), source, new String[] { "kind", "element",
         "name", "tag", "namespace", "##targetNamespace" });
+    addAnnotation(taggedObjectListRequestEClass, source, new String[] { "kind", "elementOnly",
+        "name", "taggedObjectListRequest" });
+    addAnnotation(getTaggedObjectListRequest_TagIds(), source, new String[] { "kind", "element",
+        "name", "tagId", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectListRequest_TaggedObjectIds(), source, new String[] { "kind",
+        "element", "name", "taggedObjectId", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectListRequest_TaggedObjectInfos(), source, new String[] { "kind",
+        "element", "name", "taggedObjectInfo", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectListRequest_LoadChildObjects(), source, new String[] { "kind",
+        "attribute", "namespace", "##targetNamespace", "name", "loadChildObjects" });
+    addAnnotation(taggedObjectInfoEClass, source, new String[] { "kind", "elementOnly", "name",
+        "taggedObjectInfo" });
+    addAnnotation(getTaggedObjectInfo_Id(), source, new String[] { "kind", "attribute", "name",
+        "id", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectInfo_TagId(), source, new String[] { "kind", "attribute", "name",
+        "tagId", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectInfo_TagName(), source, new String[] { "kind", "attribute", "name",
+        "tagName", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectInfo_TagType(), source, new String[] { "kind", "attribute",
+        "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectInfo_ObjectName(), source, new String[] { "kind", "attribute",
+        "name", "objectName", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectInfo_ObjectType(), source, new String[] { "kind", "attribute",
+        "name", "objectType", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectInfo_ComponentName(), source, new String[] { "kind", "attribute",
+        "name", "componentName", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectInfo_ComponentType(), source, new String[] { "kind", "attribute",
+        "name", "componentType", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectInfo_ParentTagId(), source, new String[] { "kind", "attribute",
+        "name", "parentTagId", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectInfo_ParentTagName(), source, new String[] { "kind", "attribute",
+        "name", "parentTagName", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectInfo_ParentObjectName(), source, new String[] { "kind",
+        "attribute", "name", "parentObjectName", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectInfo_ParentObjectType(), source, new String[] { "kind",
+        "attribute", "name", "parentObjectType", "namespace", "##targetNamespace" });
+    addAnnotation(taggedObjectInfoListEClass, source, new String[] { "kind", "elementOnly", "name",
+        "taggedObjectInfos" });
+    addAnnotation(getTaggedObjectInfoList_TaggedObjectInfos(), source, new String[] { "kind",
+        "element", "name", "taggedObjectInfo", "namespace", "##targetNamespace" });
+    addAnnotation(taggedObjectDeletionCheckRequestEClass, source, new String[] { "kind",
+        "elementOnly", "name", "taggedObjectDelCheckRequest" });
+    addAnnotation(getTaggedObjectDeletionCheckRequest_TaggedObjectIds(), source, new String[] {
+        "kind", "element", "namespace", "##targetNamespace", "name", "taggedObjectId" });
+    addAnnotation(taggedObjectDeletionCheckResultEClass, source, new String[] { "kind",
+        "elementOnly", "name", "taggedObjectDelCheckResult" });
+    addAnnotation(getTaggedObjectDeletionCheckResult_CheckedObjects(), source, new String[] {
+        "kind", "element", "namespace", "##targetNamespace", "name", "checkedObject" });
+    addAnnotation(taggedObjectDeletionCheckObjectEClass, source, new String[] { "kind",
+        "elementOnly", "name", "taggedObjectDeletionCheckObject" });
+    addAnnotation(getTaggedObjectDeletionCheckObject_TaggedObjectId(), source, new String[] {
+        "name", "taggedObjectId", "namespace", "##targetNamespace", "kind", "attribute" });
+    addAnnotation(getTaggedObjectDeletionCheckObject_Deletable(), source, new String[] { "kind",
+        "attribute", "name", "deletable", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectDeletionCheckObject_Message(), source, new String[] { "kind",
+        "attribute", "name", "message", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectDeletionCheckObject_MessageType(), source, new String[] { "kind",
+        "attribute", "name", "messageType", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectDeletionCheckObject_DependentObjectIds(), source, new String[] {
+        "kind", "element", "name", "dependentObjectId", "namespace", "##targetNamespace" });
+    addAnnotation(taggedObjectDeleteRequestEClass, source, new String[] { "kind", "elementOnly",
+        "name", "taggedObjectDelRequest" });
+    addAnnotation(getTaggedObjectDeleteRequest_ObjectId(), source, new String[] { "name",
+        "taggedObjectId", "namespace", "##targetNamespace", "kind", "element" });
   }
 
 } // AbapTagsPackage

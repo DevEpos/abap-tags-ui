@@ -33,6 +33,11 @@
       <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//ResultGroupLevel/BY_OBJECT"/>
       <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//ResultGroupLevel/BY_TAG_AND_OBJECT"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="abaptags.ecore#//TagType">
+      <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagType/GLOBAL"/>
+      <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagType/USER"/>
+      <genEnumLiterals ecoreEnumLiteral="abaptags.ecore#//TagType/SHARED"/>
+    </genEnums>
     <genDataTypes ecoreDataType="abaptags.ecore#//Image"/>
     <genClasses ecoreClass="abaptags.ecore#//TagBase">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TagBase/id"/>
@@ -114,6 +119,45 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectTreeResult/taggedObjectCount"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TaggedObjectTreeResult/objects"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TaggedObjectTreeResult/tags"/>
+    </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TaggedObjectListRequest">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectListRequest/tagIds"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectListRequest/taggedObjectIds"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TaggedObjectListRequest/taggedObjectInfos"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectListRequest/loadChildObjects"/>
+    </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TaggedObjectInfo">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/tagId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/tagName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/tagType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/objectName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/objectType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/componentName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/componentType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/parentTagId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/parentTagName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/parentObjectName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/parentObjectType"/>
+    </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TaggedObjectInfoList">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TaggedObjectInfoList/taggedObjectInfos"/>
+    </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TaggedObjectDeletionCheckRequest">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectDeletionCheckRequest/taggedObjectIds"/>
+    </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TaggedObjectDeletionCheckResult">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TaggedObjectDeletionCheckResult/checkedObjects"/>
+    </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TaggedObjectDeletionCheckObject">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectDeletionCheckObject/taggedObjectId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectDeletionCheckObject/deletable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectDeletionCheckObject/message"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectDeletionCheckObject/messageType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectDeletionCheckObject/dependentObjectIds"/>
+    </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TaggedObjectDeleteRequest">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectDeleteRequest/objectId"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

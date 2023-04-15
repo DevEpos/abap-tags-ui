@@ -16,7 +16,14 @@ import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeleteRequest;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckRequest;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckResult;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectInfoList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest;
@@ -142,6 +149,44 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
     @Override
     public Adapter caseTaggedObjectTreeResult(final ITaggedObjectTreeResult object) {
       return createTaggedObjectTreeResultAdapter();
+    }
+
+    @Override
+    public Adapter caseTaggedObjectListRequest(final ITaggedObjectListRequest object) {
+      return createTaggedObjectListRequestAdapter();
+    }
+
+    @Override
+    public Adapter caseTaggedObjectInfo(final ITaggedObjectInfo object) {
+      return createTaggedObjectInfoAdapter();
+    }
+
+    @Override
+    public Adapter caseTaggedObjectInfoList(final ITaggedObjectInfoList object) {
+      return createTaggedObjectInfoListAdapter();
+    }
+
+    @Override
+    public Adapter caseTaggedObjectDeletionCheckRequest(
+        final ITaggedObjectDeletionCheckRequest object) {
+      return createTaggedObjectDeletionCheckRequestAdapter();
+    }
+
+    @Override
+    public Adapter caseTaggedObjectDeletionCheckResult(
+        final ITaggedObjectDeletionCheckResult object) {
+      return createTaggedObjectDeletionCheckResultAdapter();
+    }
+
+    @Override
+    public Adapter caseTaggedObjectDeletionCheckObject(
+        final ITaggedObjectDeletionCheckObject object) {
+      return createTaggedObjectDeletionCheckObjectAdapter();
+    }
+
+    @Override
+    public Adapter caseTaggedObjectDeleteRequest(final ITaggedObjectDeleteRequest object) {
+      return createTaggedObjectDeleteRequestAdapter();
     }
 
     @Override
@@ -368,6 +413,124 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createTaggedObjectTreeResultAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest <em>Tagged Object List
+   * Request</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest
+   * @generated
+   */
+  public Adapter createTaggedObjectListRequestAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo <em>Tagged Object Info</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo
+   * @generated
+   */
+  public Adapter createTaggedObjectInfoAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfoList <em>Tagged Object Info
+   * List</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfoList
+   * @generated
+   */
+  public Adapter createTaggedObjectInfoListAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckRequest <em>Tagged Object
+   * Deletion Check Request</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckRequest
+   * @generated
+   */
+  public Adapter createTaggedObjectDeletionCheckRequestAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckResult <em>Tagged Object
+   * Deletion Check Result</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckResult
+   * @generated
+   */
+  public Adapter createTaggedObjectDeletionCheckResultAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject <em>Tagged Object
+   * Deletion Check Object</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject
+   * @generated
+   */
+  public Adapter createTaggedObjectDeletionCheckObjectAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectDeleteRequest <em>Tagged Object Delete
+   * Request</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectDeleteRequest
+   * @generated
+   */
+  public Adapter createTaggedObjectDeleteRequestAdapter() {
     return null;
   }
 

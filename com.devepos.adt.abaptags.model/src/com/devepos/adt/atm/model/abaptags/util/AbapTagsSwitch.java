@@ -15,7 +15,14 @@ import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeleteRequest;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckObject;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckRequest;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckResult;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectInfoList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest;
@@ -184,6 +191,62 @@ public class AbapTagsSwitch<T> extends Switch<T> {
     case IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT: {
       ITaggedObjectTreeResult taggedObjectTreeResult = (ITaggedObjectTreeResult) theEObject;
       T result = caseTaggedObjectTreeResult(taggedObjectTreeResult);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAbapTagsPackage.TAGGED_OBJECT_LIST_REQUEST: {
+      ITaggedObjectListRequest taggedObjectListRequest = (ITaggedObjectListRequest) theEObject;
+      T result = caseTaggedObjectListRequest(taggedObjectListRequest);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAbapTagsPackage.TAGGED_OBJECT_INFO: {
+      ITaggedObjectInfo taggedObjectInfo = (ITaggedObjectInfo) theEObject;
+      T result = caseTaggedObjectInfo(taggedObjectInfo);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAbapTagsPackage.TAGGED_OBJECT_INFO_LIST: {
+      ITaggedObjectInfoList taggedObjectInfoList = (ITaggedObjectInfoList) theEObject;
+      T result = caseTaggedObjectInfoList(taggedObjectInfoList);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAbapTagsPackage.TAGGED_OBJECT_DELETION_CHECK_REQUEST: {
+      ITaggedObjectDeletionCheckRequest taggedObjectDeletionCheckRequest = (ITaggedObjectDeletionCheckRequest) theEObject;
+      T result = caseTaggedObjectDeletionCheckRequest(taggedObjectDeletionCheckRequest);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAbapTagsPackage.TAGGED_OBJECT_DELETION_CHECK_RESULT: {
+      ITaggedObjectDeletionCheckResult taggedObjectDeletionCheckResult = (ITaggedObjectDeletionCheckResult) theEObject;
+      T result = caseTaggedObjectDeletionCheckResult(taggedObjectDeletionCheckResult);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAbapTagsPackage.TAGGED_OBJECT_DELETION_CHECK_OBJECT: {
+      ITaggedObjectDeletionCheckObject taggedObjectDeletionCheckObject = (ITaggedObjectDeletionCheckObject) theEObject;
+      T result = caseTaggedObjectDeletionCheckObject(taggedObjectDeletionCheckObject);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAbapTagsPackage.TAGGED_OBJECT_DELETE_REQUEST: {
+      ITaggedObjectDeleteRequest taggedObjectDeleteRequest = (ITaggedObjectDeleteRequest) theEObject;
+      T result = caseTaggedObjectDeleteRequest(taggedObjectDeleteRequest);
       if (result == null) {
         result = defaultCase(theEObject);
       }
@@ -396,6 +459,130 @@ public class AbapTagsSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseTaggedObjectTreeResult(final ITaggedObjectTreeResult object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tagged Object List
+   * Request</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tagged Object List
+   *         Request</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTaggedObjectListRequest(final ITaggedObjectListRequest object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tagged Object Info</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tagged Object Info</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTaggedObjectInfo(final ITaggedObjectInfo object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tagged Object Info
+   * List</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tagged Object Info
+   *         List</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTaggedObjectInfoList(final ITaggedObjectInfoList object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tagged Object Deletion
+   * Check Request</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tagged Object Deletion
+   *         Check Request</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTaggedObjectDeletionCheckRequest(final ITaggedObjectDeletionCheckRequest object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tagged Object Deletion
+   * Check Result</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tagged Object Deletion
+   *         Check Result</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTaggedObjectDeletionCheckResult(final ITaggedObjectDeletionCheckResult object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tagged Object Deletion
+   * Check Object</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tagged Object Deletion
+   *         Check Object</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTaggedObjectDeletionCheckObject(final ITaggedObjectDeletionCheckObject object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tagged Object Delete
+   * Request</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tagged Object Delete
+   *         Request</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTaggedObjectDeleteRequest(final ITaggedObjectDeleteRequest object) {
     return null;
   }
 

@@ -139,6 +139,76 @@ public interface IAbapTagsFactory extends EFactory {
   ITaggedObjectTreeResult createTaggedObjectTreeResult();
 
   /**
+   * Returns a new object of class '<em>Tagged Object List Request</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Tagged Object List Request</em>'.
+   * @generated
+   */
+  ITaggedObjectListRequest createTaggedObjectListRequest();
+
+  /**
+   * Returns a new object of class '<em>Tagged Object Info</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Tagged Object Info</em>'.
+   * @generated
+   */
+  ITaggedObjectInfo createTaggedObjectInfo();
+
+  /**
+   * Returns a new object of class '<em>Tagged Object Info List</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Tagged Object Info List</em>'.
+   * @generated
+   */
+  ITaggedObjectInfoList createTaggedObjectInfoList();
+
+  /**
+   * Returns a new object of class '<em>Tagged Object Deletion Check Request</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Tagged Object Deletion Check Request</em>'.
+   * @generated
+   */
+  ITaggedObjectDeletionCheckRequest createTaggedObjectDeletionCheckRequest();
+
+  /**
+   * Returns a new object of class '<em>Tagged Object Deletion Check Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Tagged Object Deletion Check Result</em>'.
+   * @generated
+   */
+  ITaggedObjectDeletionCheckResult createTaggedObjectDeletionCheckResult();
+
+  /**
+   * Returns a new object of class '<em>Tagged Object Deletion Check Object</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Tagged Object Deletion Check Object</em>'.
+   * @generated
+   */
+  ITaggedObjectDeletionCheckObject createTaggedObjectDeletionCheckObject();
+
+  /**
+   * Returns a new object of class '<em>Tagged Object Delete Request</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Tagged Object Delete Request</em>'.
+   * @generated
+   */
+  ITaggedObjectDeleteRequest createTaggedObjectDeleteRequest();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc --> <!--
    * end-user-doc -->
