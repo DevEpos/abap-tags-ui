@@ -34,6 +34,7 @@ import com.devepos.adt.atm.ui.internal.util.AdtObjectUtil;
 import com.devepos.adt.atm.ui.internal.util.IColorConstants;
 import com.devepos.adt.atm.ui.internal.util.ITaggedObjectPropertyNameConstants;
 import com.devepos.adt.base.IAdtObjectTypeConstants;
+import com.devepos.adt.base.ITadirTypeConstants;
 import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.elementinfo.AdtObjectReferenceElementInfo;
@@ -140,7 +141,14 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
         treeRequest.setTagId(tagId);
       }
       if (objectRef != null) {
-        treeRequest.setParentObjectType(objectRef.getType().substring(0, 4));
+        var type = objectRef.getType();
+        if (type.equals(IAdtObjectTypeConstants.FUNCTION_MODULE)) {
+          treeRequest.setParentObjectType("FUNC"); //$NON-NLS-1$
+        } else if (type.equals(IAdtObjectTypeConstants.FUNCTION_INCLUDE)) {
+          treeRequest.setParentObjectType(ITadirTypeConstants.PROGRAM);
+        } else {
+          treeRequest.setParentObjectType(objectRef.getType().substring(0, 4));
+        }
         treeRequest.setParentObjectName(objectRef.getName());
       }
 
