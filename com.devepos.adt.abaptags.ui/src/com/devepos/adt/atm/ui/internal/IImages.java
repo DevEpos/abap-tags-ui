@@ -31,6 +31,10 @@ public interface IImages {
    * Wizard banner for Tag deletion wizard
    */
   String DELETE_TAGS_WIZBAN = "IMG_DELETE_TAGS_WIZBAN";
+  /**
+   * Wizard banner for deleting Tags from objects
+   */
+  String DELETE_TAGS_FROM_OBJ_WIZBAN = "IMG_DELETE_TAGS_FROM_OBJ_WIZBAN";
   /*
    * Image for Folder of Global Tags
    */
@@ -63,5 +67,17 @@ public interface IImages {
    * Image for a folder with local objects
    */
   String LOCAL_OBJECTS_FOLDER = "IMG_LOCAL_OBJS_FOLDER";
+  /**
+   * Image to indicate either local or global tags
+   */
+  String LOCAL_N_GLOBAL_TAG_COLL = "IMG_LOCAL_N_GLOB_TAG_COLL";
+  /**
+   * Overlays Image {@link #LOCAL_N_GLOBAL_TAG_COLL} with small delete icon
+   */
+  String LOCAL_N_GLOBAL_TAG_COLL_DEL_OVR = "IMG_LOCAL_N_GLOB_TAG_COLL_DEL_OVR";
+  /**
+   * Image for removing assigned tags from objects Action
+   */
+  String REMOVE_ASSIGNED_TAGS = "IMG_REMOVE_ASSIGNED_TAGS";
 
 }
