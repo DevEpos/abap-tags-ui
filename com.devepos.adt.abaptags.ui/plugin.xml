@@ -120,7 +120,7 @@
             locationURI="popup:org.eclipse.ui.menus.showInMenu">
          <command
                commandId="com.devepos.adt.atm.ui.command.showInObjectTags"
-               icon="icons/Tag.png"
+               icon="icons/ObjectTags.png"
                label="%menu.cmd.showInObjectTags.label"
                mnemonic="t"
                style="push">
