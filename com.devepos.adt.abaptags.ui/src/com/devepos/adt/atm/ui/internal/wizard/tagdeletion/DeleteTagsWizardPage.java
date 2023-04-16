@@ -13,10 +13,12 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
+import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -48,12 +50,28 @@ public class DeleteTagsWizardPage extends AbstractBaseWizardPage {
   }
 
   private class ColumnLabelProvider extends CellLabelProvider implements
-      DelegatingStyledCellLabelProvider.IStyledLabelProvider {
+      DelegatingStyledCellLabelProvider.IStyledLabelProvider, IColorProvider {
 
     private final ColumnSpec colSpec;
 
     public ColumnLabelProvider(final ColumnSpec colSpec) {
       this.colSpec = colSpec;
+    }
+
+    @Override
+    public Color getBackground(final Object element) {
+      return null;
+    }
+
+    @Override
+    public Color getForeground(final Object element) {
+      if (element instanceof ITag && colSpec == ColumnSpec.TAG) {
+        var issue = tagDeletionIssues.get(((ITag) element).getId());
+        if (issue != null && !issue.isDeletable()) {
+          return Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY);
+        }
+      }
+      return null;
     }
 
     @Override
@@ -169,7 +187,7 @@ public class DeleteTagsWizardPage extends AbstractBaseWizardPage {
   }
 
   private void createViewer(final Composite parent) {
-    var table = new Table(parent, SWT.V_SCROLL | SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION
+    var table = new Table(parent, SWT.V_SCROLL | SWT.SINGLE | SWT.BORDER | SWT.FULL_SELECTION
         | SWT.CHECK);
     table.setHeaderVisible(true);
 
@@ -179,7 +197,7 @@ public class DeleteTagsWizardPage extends AbstractBaseWizardPage {
         .align(SWT.FILL, SWT.FILL)
         .grab(true, true)
         .minSize(580, 20)
-        .hint(SWT.DEFAULT, table.getItemHeight() * 5)
+        .hint(SWT.DEFAULT, table.getItemHeight() * 10)
         .applyTo(table);
 
     for (var colSpec : ColumnSpec.values()) {
@@ -205,6 +223,7 @@ public class DeleteTagsWizardPage extends AbstractBaseWizardPage {
       updateSelectionInfoLabel();
     });
     tagsTableViewer.setContentProvider(new ArrayContentProvider());
+    tagsTableViewer.getTable().setLinesVisible(true);
 
     selectionInfo = new Label(parent, SWT.NONE);
     GridDataFactory.fillDefaults().applyTo(selectionInfo);
@@ -238,6 +257,13 @@ public class DeleteTagsWizardPage extends AbstractBaseWizardPage {
       setPageComplete(false);
     }
     tagsTableViewer.refresh();
+
+    for (var col : tagsTableViewer.getTable().getColumns()) {
+      col.pack();
+      col.setWidth(col.getWidth() + 7);
+    }
+
+    tagsTableViewer.getTable().setSelection(0);
   }
 
   private void runDeletionCheckForTags() {
@@ -278,9 +304,11 @@ public class DeleteTagsWizardPage extends AbstractBaseWizardPage {
       setErrorMessage(Messages.DeleteTagsWizardPage_NoTagsSelectedError_xmsg);
     }
 
-    selectionInfo.setText(String.format("%d Tag%s %s", checkedCount, checkedCount == 1 ? "" : "s",
+    selectionInfo.setText(String.format(Messages.DeleteTagsWizardPage_TagSelectionFormat_xmsg, checkedCount == 0 ? "No" //$NON-NLS-2$
+        : String.valueOf(checkedCount), checkedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
         Messages.DeleteTagsWizardPage_Selected_xlbl));
 
+    getWizard().setCanFinish(checkedCount > 0);
     setPageComplete(checkedCount > 0);
   }
 }

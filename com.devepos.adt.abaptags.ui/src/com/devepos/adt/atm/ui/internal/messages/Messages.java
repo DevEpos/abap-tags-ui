@@ -92,6 +92,7 @@ public class Messages extends NLS {
   public static String DeleteTagsWizardPage_PageTitle_xtit;
   public static String DeleteTagsWizardPage_Selected_xlbl;
   public static String DeleteTagsWizardPage_TagColumn_xtit;
+  public static String DeleteTagsWizardPage_TagSelectionFormat_xmsg;
   public static String EditTagDataDialog_CreateGlobalTagTitle_xtit;
   public static String EditTagDataDialog_CreateUserTagTitle_xtit;
   public static String EditTagDataDialog_DescriptionInput_xlbl;
