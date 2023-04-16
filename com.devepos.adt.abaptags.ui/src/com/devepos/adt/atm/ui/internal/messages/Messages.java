@@ -6,6 +6,7 @@ public class Messages extends NLS {
   private static final String BUNDLE_NAME = "com.devepos.adt.atm.ui.internal.messages.messages"; //$NON-NLS-1$
   public static String TaggableObjectSelectionWizardPage_Description_xmsg;
   public static String TaggableObjectSelectionWizardPage_NoObjectSelectedWarning_xmsg;
+  public static String TaggableObjectSelectionWizardPage_RemoveObjectAction_xtol;
   public static String TaggableObjectSelectionWizardPage_RemoveSelected_xbut;
   public static String TaggableObjectSelectionWizardPage_SelectedObjectsTableTitle_xtit;
   public static String TaggableObjectSelectionWizardPage_SelectObjects_xbut;
@@ -16,6 +17,7 @@ public class Messages extends NLS {
   public static String TaggedObjectSearchPage_MatchAllTags_xckl;
   public static String TaggedObjectSearchPage_TagsGroup_xtit;
   public static String TaggedObjectSearchPage_TagsTreeFilterText_xmsg;
+  public static String TaggedObjectSearchQuery_MoreTagsInQuery_xlbl;
   public static String TaggedObjectSearchQuery_NoProjectError_xmsg;
   public static String TaggedObjectSearchQuery_SearchTaskName_xmsg;
   public static String TaggedObjectSearchQuery_TaggedObjectSearchLabel_xmsg;
@@ -28,6 +30,8 @@ public class Messages extends NLS {
   public static String TaggingObjectWizard_TagsServiceError_xtit;
   public static String TaggingPreferencePage_AutoExpandTagsOnTagManagerReloade_xchk;
   public static String TaggingPreferencePage_AutoExpandTagsOnTagSelectionPage_xchk;
+  public static String TaggingPreferencePage_LoadAssignedChildrenPref_xchk;
+  public static String TaggingPreferencePage_RemoveTagsFromObjectsPrefs_xgrp;
   public static String TaggingPreferencePage_TagManagerSettings_xgrp;
   public static String TaggingPreferencePage_TagWizardSettings_xgrp;
   public static String TagManagerPreferencePage_TreeSettingsGroup_xlbl;
@@ -170,6 +174,7 @@ public class Messages extends NLS {
   public static String TagSelectionWizardPage_TagScopeGlobal_xlbl;
   public static String TagSelectionWizardPage_TagScopeShared_xlbl;
   public static String TagSelectionWizardPage_TagScopeUser_xlbl;
+  public static String TagSelectionWizardPage_TagSelectionFormat_xmsg;
   public static String TagSelectionWizardPage_TagSelectionNotReversable_xmsg;
   public static String TagSelectionWizardPage_Title_xtit;
   public static String TypeLabels_LocalClass_xlbl;
