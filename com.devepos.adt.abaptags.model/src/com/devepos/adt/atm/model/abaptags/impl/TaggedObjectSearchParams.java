@@ -299,11 +299,16 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container imple
   }
 
   @Override
-  public String getTags() {
+  public String getTagsAsString() {
     if (tags.isEmpty()) {
       return null;
     }
     return tags.stream().collect(Collectors.joining(", "));
+  }
+
+  @Override
+  public Set<String> getTags() {
+    return tags;
   }
 
   /**

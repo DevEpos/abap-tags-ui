@@ -50,8 +50,7 @@ public class TaggedObjectSearchQuery implements ISearchQuery {
       return loggedOnStatus;
     }
 
-    monitor.beginTask(Messages.TaggedObjectSearchQuery_SearchTaskName_xmsg, 1); // Messages.ObjectSearch_SearchJobProgressText_xmsg,
-                                                                                // 1);
+    monitor.beginTask(Messages.TaggedObjectSearchQuery_SearchTaskName_xmsg, 1);
 
     final ITaggedObjectList result = TaggedObjectSearchFactory.createTaggedObjectSearchService()
         .findObjects(projectProvider.getDestinationId(), searchParams);
@@ -68,7 +67,7 @@ public class TaggedObjectSearchQuery implements ISearchQuery {
   @Override
   public String getLabel() {
     return searchParams != null ? Messages.TaggedObjectSearchQuery_TaggedObjectSearchLabel_xmsg
-        : "";
+        : ""; //$NON-NLS-1$
   }
 
   @Override
@@ -122,7 +121,24 @@ public class TaggedObjectSearchQuery implements ISearchQuery {
 
   private String getQuery() {
     if (searchParams != null) {
-      return searchParams.getTags();
+      var query = new StringBuffer();
+      int tagsInString = 0;
+      for (var tag : searchParams.getTags()) {
+        if (query.length() < 40) {
+          if (query.length() > 0) {
+            query.append(", "); //$NON-NLS-1$
+          }
+          query.append(tag);
+          tagsInString++;
+        } else {
+          break;
+        }
+      }
+      if (tagsInString != searchParams.getTags().size()) {
+        query.append(String.format(Messages.TaggedObjectSearchQuery_MoreTagsInQuery_xlbl,
+            searchParams.getTags().size() - tagsInString));
+      }
+      return query.toString();
     }
     return ""; //$NON-NLS-1$
   }

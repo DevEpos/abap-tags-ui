@@ -2,6 +2,8 @@
  */
 package com.devepos.adt.atm.model.abaptags;
 
+import java.util.Set;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
@@ -57,7 +59,12 @@ public interface ITaggedObjectSearchParams extends EObject {
    *
    * @return a separated list of tags
    */
-  String getTags();
+  String getTagsAsString();
+
+  /**
+   * Retrieves the list of tags in the search parameters
+   */
+  Set<String> getTags();
 
   /**
    * Returns the value of the '<em><b>Tag Ids</b></em>' attribute list.
