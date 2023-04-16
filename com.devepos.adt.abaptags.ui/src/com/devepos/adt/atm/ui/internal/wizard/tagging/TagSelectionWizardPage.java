@@ -250,6 +250,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         clearCheckedTags();
         owner = null;
         newTags.clear();
+        checkBoxViewer.setInput(null);
         isParentObjectSelectionPossible = false;
         getWizard().setCanFinish(false);
       }
@@ -490,12 +491,12 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
   private void fillTagsFromPreviewInfo() {
     final var previewInfo = getWizard().getCurrentTagPreviewInfo();
-    if (previewInfo != null) {
+    if (previewInfo != null && checkBoxViewer.getInput() == null) {
       objectCount = previewInfo.getAdtObjectRefs().size();
       if (objectCount > 1) {
         ((Wizard) getWizard()).setWindowTitle(NLS.bind(
             Messages.TagObjectsWizard_MultipleObjectsWizardTitle_xtit, objectCount));
-      } else {
+      } else if (objectCount == 1) {
         ((Wizard) getWizard()).setWindowTitle(Messages.TagObjectsWizard_SingleObjectWizardTitle_xtit
             + previewInfo.getAdtObjectRefs().get(0).getName());
       }
