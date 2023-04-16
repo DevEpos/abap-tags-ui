@@ -192,7 +192,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
   private void createTagsCheckBoxTree(final Composite parent) {
     var group = new Group(parent, SWT.NONE);
-    group.setText(Messages.General_Tags_xlbl);
+    group.setText(Messages.TagSelectionWizardPage_TagsTreeGroup_xtit);
     GridDataFactory.fillDefaults().grab(true, true).applyTo(group);
     GridLayoutFactory.swtDefaults().applyTo(group);
 

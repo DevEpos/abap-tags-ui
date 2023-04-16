@@ -211,11 +211,7 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
     if (visible && (!isPageComplete() || previousPageIsDirty || taggedObjects == null
         || taggedObjects.isEmpty())) {
       if (previousPageIsDirty) {
-        uncheckAllObjects(true);
-        taggedObjects.clear();
-        taggedObjectsById.clear();
-        undeletableTaggedObjects.clear();
-        wizard.setCanFinish(false);
+        clearModelChanges();
         taggedObjectsViewer.refresh();
       }
       wizard.completePreviousPage(this);
@@ -258,13 +254,13 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
     validatePage();
   }
 
-  private void setObjectChecked(final DeletableTaggedObject taggedObject) {
-    if (taggedObject.isDeletable()) {
-      checkedTaggedObjects.add(taggedObject);
-      taggedObjectsViewer.setChecked(taggedObject, true);
-      taggedObject.updateParents();
-    }
-    taggedObject.clearTransientMessage();
+  private void clearModelChanges() {
+    var wizard = getWizard();
+    uncheckAllObjects(true);
+    taggedObjects.clear();
+    taggedObjectsById.clear();
+    undeletableTaggedObjects.clear();
+    wizard.setCanFinish(false);
   }
 
   private void collectAdditionalObjectInformation() {
@@ -470,6 +466,15 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       }
     } catch (final InterruptedException e) {
     }
+  }
+
+  private void setObjectChecked(final DeletableTaggedObject taggedObject) {
+    if (taggedObject.isDeletable()) {
+      checkedTaggedObjects.add(taggedObject);
+      taggedObjectsViewer.setChecked(taggedObject, true);
+      taggedObject.updateParents();
+    }
+    taggedObject.clearTransientMessage();
   }
 
   /*
