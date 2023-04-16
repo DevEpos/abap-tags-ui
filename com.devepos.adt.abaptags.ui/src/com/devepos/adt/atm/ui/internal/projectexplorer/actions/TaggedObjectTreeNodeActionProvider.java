@@ -1,29 +1,30 @@
 package com.devepos.adt.atm.ui.internal.projectexplorer.actions;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.search.ui.IContextMenuConstants;
 import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonMenuConstants;
 
+import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.action.CollapseTreeNodesAction;
+import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
+import com.devepos.adt.base.ui.tree.ITreeNode;
 
 /**
  *
@@ -32,8 +33,7 @@ import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
  * @author Ludwig Stockbauer-Muhr
  */
 public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
-
-  private List<String> unusedMenuGroups;
+  private final static Object[] EMPTY_ARRAY = new Object[0];
 
   public TaggedObjectTreeNodeActionProvider() {
     super();
@@ -55,8 +55,6 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
 
     @Override
     public void run() {
-      super.run();
-
       if (lazyLoadableNodes == null || lazyLoadableNodes.isEmpty()) {
         return;
       }
@@ -73,7 +71,8 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
   @Override
   public void fillActionBars(final IActionBars actionBars) {
     super.fillActionBars(actionBars);
-    var relevantSelectedNodes = getRelevantNodesFromSelection();
+    var selection = getSelection();
+    var relevantSelectedNodes = getRelevantNodesFromSelection(selection);
 
     if (relevantSelectedNodes != null && !relevantSelectedNodes.isEmpty()) {
       actionBars.setGlobalActionHandler(IWorkbenchCommandConstants.FILE_REFRESH,
@@ -84,19 +83,34 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
   @Override
   public void fillContextMenu(final IMenuManager menu) {
     super.fillContextMenu(menu);
+    var selection = getSelection();
 
     // check if selected nodes support collapsing
     addCollapseAction(menu);
 
-    var relevantSelectedNodes = getRelevantNodesFromSelection();
-    if (relevantSelectedNodes == null || relevantSelectedNodes.isEmpty()) {
-      return;
+    boolean tagSelected = isTagNodeSelected(selection);
+
+    // delete menu groups if at least one tag node is selected
+    if (tagSelected) {
+      deleteUnusedMenuGroups(menu);
+    } else if (Stream.of(selection).anyMatch(o -> o instanceof IAdtObjectReferenceNode)) {
+      menu.appendToGroup(ICommonMenuConstants.GROUP_EDIT, new RemoveAssignedTagsAction(this
+          .getActionSite()));
+      menu.appendToGroup(ICommonMenuConstants.GROUP_EDIT, new Separator());
     }
 
-    menu.appendToGroup(ICommonMenuConstants.GROUP_BUILD, new RefreshFolderAction(
-        relevantSelectedNodes, getActionSite().getStructuredViewer()));
+    var relevantSelectedNodes = getRelevantNodesFromSelection(selection);
+    if (relevantSelectedNodes != null && !relevantSelectedNodes.isEmpty()) {
+      if (tagSelected) {
+        menu.add(new Separator());
+        menu.add(new RefreshFolderAction(relevantSelectedNodes, getActionSite()
+            .getStructuredViewer()));
+      } else {
+        menu.appendToGroup(ICommonMenuConstants.GROUP_BUILD, new RefreshFolderAction(
+            relevantSelectedNodes, getActionSite().getStructuredViewer()));
+      }
+    }
 
-    deleteUnusedMenuGroups(menu);
   }
 
   private void addCollapseAction(final IMenuManager menu) {
@@ -117,41 +131,39 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
       return;
     }
 
-    var groupsToDelete = fetchMenuGroupsForDeletion();
-    if (groupsToDelete == null || groupsToDelete.isEmpty()) {
-      return;
-    }
-
-    for (IContributionItem item : items) {
-      String id = item.getId();
-      if (id == null) {
-        continue;
-      }
-      if (groupsToDelete.contains(id)) {
+    for (var item : items) {
+      if (item instanceof Separator) {
         menu.remove(item);
       }
     }
   }
 
-  private List<String> fetchMenuGroupsForDeletion() {
-    if (unusedMenuGroups == null) {
-      unusedMenuGroups = new ArrayList<>(Arrays.asList(IContextMenuConstants.GROUP_GENERATE,
-          IContextMenuConstants.GROUP_SEARCH, IContextMenuConstants.GROUP_BUILD,
-          IContextMenuConstants.GROUP_GOTO, IWorkbenchActionConstants.MB_ADDITIONS,
-          IContextMenuConstants.GROUP_VIEWER_SETUP, IContextMenuConstants.GROUP_PROPERTIES));
-    }
-    return unusedMenuGroups;
-  }
-
-  private List<ILazyLoadingNode> getRelevantNodesFromSelection() {
-    var selection = (IStructuredSelection) getContext().getSelection();
-    if (selection == null || selection.isEmpty()) {
-      return null;
-    }
-
-    return Stream.of(selection.toArray())
+  private List<ILazyLoadingNode> getRelevantNodesFromSelection(final Object[] selection) {
+    return Stream.of(selection)
         .filter(ILazyLoadingNode.class::isInstance)
         .map(ILazyLoadingNode.class::cast)
         .collect(Collectors.toList());
+  }
+
+  private Object[] getSelection() {
+    var selection = (IStructuredSelection) getContext().getSelection();
+    if (selection == null || selection.isEmpty()) {
+      return EMPTY_ARRAY;
+    }
+
+    return selection.toArray();
+  }
+
+  private boolean isTagNodeSelected(final Object[] selection) {
+    return Stream.of(selection).anyMatch(node -> {
+      if (node instanceof ITreeNode && ((ITreeNode) node).getParent() == null) {
+        return true;
+      }
+      if (node instanceof IAdaptable) {
+        var tag = ((IAdaptable) node).getAdapter(ITag.class);
+        return tag != null;
+      }
+      return false;
+    });
   }
 }
