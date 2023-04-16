@@ -13,13 +13,13 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.JFacePreferences;
@@ -38,7 +38,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IActionBars;
@@ -53,7 +52,7 @@ import org.eclipse.ui.part.ViewPart;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
-import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
+import com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo;
 import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
 import com.devepos.adt.atm.tagging.IAdtObjTaggingService;
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
@@ -67,6 +66,7 @@ import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.util.AdtObjectCapabilities;
 import com.devepos.adt.atm.ui.internal.util.AdtObjectUtil;
 import com.devepos.adt.atm.ui.internal.util.ITaggedObjectPropertyNameConstants;
+import com.devepos.adt.atm.ui.internal.wizard.taggedobjectsdeletion.DeleteTaggedObjectsWizard;
 import com.devepos.adt.atm.ui.internal.wizard.tagging.TagObjectsWizard;
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
@@ -126,6 +126,7 @@ public class AbapObjectTagsView extends ViewPart {
   public static final String VIEW_ID = "com.devepos.adt.atm.ui.views.AbapObjectTags"; //$NON-NLS-1$
   private static final String LINK_TO_EDITOR_PREF = "com.devepos.adt.atm.ui.views.AbapObjectTags.linkToEditor"; //$NON-NLS-1$
   private final IAbapTagsService abapTagsService;
+  private final IAdtObjTaggingService taggingService;
   private IAdtObject currentAdtObject;
 
   private CopyToClipboardAction copyToClipBoardAction;
@@ -145,6 +146,7 @@ public class AbapObjectTagsView extends ViewPart {
 
   public AbapObjectTagsView() {
     abapTagsService = AbapTagsServiceFactory.createTagsService();
+    taggingService = AdtObjTaggingServiceFactory.createTaggingService();
   }
 
   private class ContentProvider extends LazyLoadingTreeContentProvider {
@@ -175,18 +177,31 @@ public class AbapObjectTagsView extends ViewPart {
 
     @Override
     public void run() {
-      final ITaggedObjectList tgobjList = collectJobPayload();
-      if (tgobjList == null || tgobjList.getTaggedObjects().isEmpty()) {
-        // TODO: warning or error??
+      var deleteTagsStatus = taggingService.testTaggedObjectDeletionFeatureAvailability(
+          getProject());
+      if (!deleteTagsStatus.isOK()) {
+        MessageDialog.openError(getSite().getShell(),
+            Messages.AbapTagManagerView_ErrorMessageTitle_xtit, deleteTagsStatus.getMessage());
+        return;
+      }
+      final List<ITaggedObjectInfo> tgobjList = collectJobPayload();
+      if (tgobjList == null || tgobjList.isEmpty()) {
         return;
       }
 
-      final Job deleteTagsJob = createDeleteTagsJob(tgobjList);
-      deleteTagsJob.schedule();
+      final var wizard = new DeleteTaggedObjectsWizard();
+      wizard.setProject(getProject());
+      wizard.getTaggedObjectListRequest().getTaggedObjectInfos().addAll(tgobjList);
+      final var dialog = new WizardDialog(getSite().getShell(), wizard);
+      dialog.open();
+
+      if (wizard.hasDeletionOccurred()) {
+        refreshCurrentNode();
+      }
     }
 
-    private ITaggedObjectList collectJobPayload() {
-      final var tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
+    private List<ITaggedObjectInfo> collectJobPayload() {
+      var tgobjList = new ArrayList<ITaggedObjectInfo>();
 
       var selObjects = treeViewer.getStructuredSelection().toList();
 
@@ -225,45 +240,31 @@ public class AbapObjectTagsView extends ViewPart {
       return tgobjList;
     }
 
-    private void addTaggedObject(final ITaggedObjectList tgobjList,
+    private void addTaggedObject(final List<ITaggedObjectInfo> tgobjInfos,
         final IAdtObjectReferenceNode tagOwningObjRefNode, final IAdtObjectReferenceNode parent,
         final IAdtObjectTag tag) {
 
-      var adtObjRef = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
-      // Parent name could be optional, but if null is returned it has no consequence
-      adtObjRef.setParentName(tagOwningObjRefNode.getPropertyValue(
-          ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME));
-      adtObjRef.setName(tagOwningObjRefNode.getName());
-      adtObjRef.setType(tagOwningObjRefNode.getAdtObjectType());
-      adtObjRef.setUri(tagOwningObjRefNode.getObjectReference().getUri());
+      var taggedObjInfo = IAbapTagsFactory.eINSTANCE.createTaggedObjectInfo();
 
-      var taggedObject = IAbapTagsFactory.eINSTANCE.createTaggedObject();
-      taggedObject.setObjectRef(adtObjRef);
-
-      var objectTag = IAbapTagsFactory.eINSTANCE.createAdtObjectTag();
-      objectTag.setId(tag.getId());
-      objectTag.setParentTagId(tag.getParentTagId());
-      if (parent != null) {
-        objectTag.setParentObjectName(parent.getName());
-        objectTag.setParentObjectType(parent.getAdtObjectType());
-        objectTag.setParentObjectUri(parent.getObjectReference().getUri());
+      var parentObjName = tagOwningObjRefNode.getPropertyValue(
+          ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
+      if (parentObjName != null) {
+        taggedObjInfo.setObjectName(parentObjName);
+        taggedObjInfo.setObjectType(IAdtObjectTypeConstants.CLASS);
+        taggedObjInfo.setComponentType(tagOwningObjRefNode.getAdtObjectType());
+        taggedObjInfo.setComponentName(tagOwningObjRefNode.getName());
+      } else {
+        taggedObjInfo.setObjectName(tagOwningObjRefNode.getName());
+        taggedObjInfo.setObjectType(tagOwningObjRefNode.getAdtObjectType());
       }
-      taggedObject.getTags().add(objectTag);
-      tgobjList.getTaggedObjects().add(taggedObject);
+      taggedObjInfo.setTagId(tag.getId());
+      taggedObjInfo.setParentTagId(tag.getParentTagId());
+      if (parent != null) {
+        taggedObjInfo.setParentObjectName(parent.getName());
+        taggedObjInfo.setParentObjectType(parent.getAdtObjectType());
+      }
+      tgobjInfos.add(taggedObjInfo);
     }
-
-    private Job createDeleteTagsJob(final ITaggedObjectList tgobjList) {
-      return Job.create(Messages.AbapObjectTagsView_DeleteTagsJob_xmsg, monitor -> {
-
-        final var taggingService = AdtObjTaggingServiceFactory.createTaggingService();
-        taggingService.deleteTags(DestinationUtil.getDestinationId(getProject()), tgobjList);
-
-        Display.getDefault().asyncExec(() -> {
-          refreshCurrentNode();
-        });
-      });
-    }
-
   }
 
   private class TaggedObjectInfoProvider implements IElementInfoProvider {
