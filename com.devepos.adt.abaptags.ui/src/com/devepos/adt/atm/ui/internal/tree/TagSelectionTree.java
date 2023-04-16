@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Tree;
 
 import com.devepos.adt.atm.model.abaptags.ITag;
-import com.devepos.adt.atm.ui.internal.messages.Messages;
+import com.devepos.adt.base.ui.controls.FilterableComposite;
 import com.devepos.adt.base.ui.tree.FilterableTree;
 
 /**
@@ -37,6 +37,7 @@ public class TagSelectionTree {
   private FilterableTree tagsTree;
 
   private final List<ITag> tagList = new ArrayList<>();
+
   private final Set<ITag> checkedTags;
   private List<String> checkedTagIds;
   private final Set<ICheckStateListener> checkedStateListener = new HashSet<>();
@@ -49,6 +50,13 @@ public class TagSelectionTree {
     checkedStateListener.add(l);
   }
 
+  /**
+   * @see {@link FilterableComposite#addKeyListenerForFilterFocus()
+   */
+  public void addKeyListenerForFilterFocus() {
+    tagsTree.addKeyListenerForFilterFocus();
+  }
+
   public void collapseAll() {
     if (isTreeOnline()) {
       tagsTreeViewer.collapseAll();
@@ -56,8 +64,7 @@ public class TagSelectionTree {
   }
 
   public void createControl(final Composite parent) {
-    tagsTree = new FilterableTree(parent, Messages.TaggedObjectSearchPage_TagsTreeFilterText_xmsg,
-        false, true) {
+    tagsTree = new FilterableTree(parent, null, false, true) {
       @Override
       protected void filterJobCompleted() {
         super.filterJobCompleted();
@@ -98,13 +105,6 @@ public class TagSelectionTree {
     });
   }
 
-  public Composite getTreeFilterComposite() {
-    if (!isTreeOnline()) {
-      throw new IllegalStateException("Tree is not online yet!");
-    }
-    return tagsTree.getFilterComposite();
-  }
-
   public void expandAll() {
     if (isTreeOnline()) {
       tagsTreeViewer.expandAll();
@@ -113,6 +113,13 @@ public class TagSelectionTree {
 
   public Set<ITag> getCheckedTags() {
     return checkedTags;
+  }
+
+  public Composite getTreeFilterComposite() {
+    if (!isTreeOnline()) {
+      throw new IllegalStateException("Tree is not online yet!");
+    }
+    return tagsTree.getFilterComposite();
   }
 
   public IStructuredSelection getViewerSelection() {

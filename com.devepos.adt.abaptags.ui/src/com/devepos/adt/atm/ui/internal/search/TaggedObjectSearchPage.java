@@ -209,6 +209,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
 
     tagsTree = new TagSelectionTree();
     tagsTree.createControl(tagsGroup);
+    tagsTree.addKeyListenerForFilterFocus();
     tagsTree.addCheckStateListener(l -> {
       updateOKStatus();
     });
