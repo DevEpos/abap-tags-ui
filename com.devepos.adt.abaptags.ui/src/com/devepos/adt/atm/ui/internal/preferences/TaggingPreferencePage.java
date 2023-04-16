@@ -39,5 +39,15 @@ public class TaggingPreferencePage extends BaseFieldEditorPrefPage {
         Messages.TaggingPreferencePage_AutoExpandTagsOnTagSelectionPage_xchk, wizardGroup);
 
     adjustMargins(wizardGroup);
+
+    final var removeTagsWizardGroup = new Group(parent, SWT.NONE);
+    removeTagsWizardGroup.setText(Messages.TaggingPreferencePage_RemoveTagsFromObjectsPrefs_xgrp);
+
+    GridDataFactory.fillDefaults().grab(true, false).applyTo(removeTagsWizardGroup);
+
+    addBooleanEditor(IObjectTaggingPrefs.DELETION_AUTO_LOAD_ASSIGNED_CHILDREN,
+        Messages.TaggingPreferencePage_LoadAssignedChildrenPref_xchk, removeTagsWizardGroup);
+
+    adjustMargins(removeTagsWizardGroup);
   }
 }

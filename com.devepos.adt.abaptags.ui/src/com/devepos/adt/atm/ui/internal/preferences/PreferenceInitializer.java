@@ -16,6 +16,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
     prefStore.setDefault(ITaggedObjectSearchPrefs.DISPLAY_DESCRIPTIONS, true);
 
     prefStore.setDefault(IObjectTaggingPrefs.AUTO_EXPAND_TAGS, true);
+    prefStore.setDefault(IObjectTaggingPrefs.DELETION_AUTO_LOAD_ASSIGNED_CHILDREN, false);
 
     prefStore.setDefault(ITagManagerPrefs.AUTO_EXPAND_TAGS, true);
 
