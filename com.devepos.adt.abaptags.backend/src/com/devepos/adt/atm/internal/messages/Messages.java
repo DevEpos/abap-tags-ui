@@ -7,6 +7,8 @@ public class Messages extends NLS {
   public static String AbapTagsService_DeletionCheckNotPossible_xmsg;
   public static String AbapTagsService_ShareTagsNotSupported_xmsg;
   public static String AbapTagsService_TagsNotSupported_xmsg;
+  public static String AdtObjTaggingService_taggedObjectDeletionNotAvailable_xmsg;
+  public static String TaggedObjectSearchService_taggedObjectInfoReseourceNotAvailable_xmsg;
   public static String TaggedObjectTreeService_TaggedObjectTreesNotAvailable_xmsg;
   static {
     // initialize resource bundle

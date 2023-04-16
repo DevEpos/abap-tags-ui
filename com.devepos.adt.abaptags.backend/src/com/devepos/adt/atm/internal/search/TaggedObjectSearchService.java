@@ -7,6 +7,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.devepos.adt.atm.AbapTagsPlugin;
+import com.devepos.adt.atm.internal.messages.Messages;
 import com.devepos.adt.atm.internal.tagging.TaggedObjectListContentHandler;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectInfoList;
@@ -59,7 +60,7 @@ public class TaggedObjectSearchService implements ITaggedObjectSearchService {
     return uriDiscovery.isResourceDiscoverySuccessful() && uriDiscovery
         .getTaggedObjectInfosGetListUri() != null ? Status.OK_STATUS
             : new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, String.format(
-                "Tagged Object Information cannot be retrieved in %s", project.toString()));
+                Messages.TaggedObjectSearchService_taggedObjectInfoReseourceNotAvailable_xmsg, project.toString()));
   }
 
 }

@@ -9,6 +9,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.osgi.util.NLS;
 
 import com.devepos.adt.atm.AbapTagsPlugin;
+import com.devepos.adt.atm.internal.messages.Messages;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
@@ -92,7 +93,7 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
       restResource.addContentHandler(new TaggedObjectListContentHandler());
 
       final var objectList = restResource.get(null, ITaggedObjectList.class, new QueryParameter(
-          "objectUri", objectUri));
+          "objectUri", objectUri)); //$NON-NLS-1$
       return objectList != null && !objectList.getTaggedObjects().isEmpty() ? objectList
           .getTaggedObjects() : null;
     } catch (final ResourceException exc) {
@@ -152,7 +153,7 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
       return Status.OK_STATUS;
     }
     return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(
-        "It is not possible to delete Tagged Objects in project {0}.\nPotential reason -> ABAP Backend is outdated",
+        Messages.AdtObjTaggingService_taggedObjectDeletionNotAvailable_xmsg,
         project.getName()));
   }
 
