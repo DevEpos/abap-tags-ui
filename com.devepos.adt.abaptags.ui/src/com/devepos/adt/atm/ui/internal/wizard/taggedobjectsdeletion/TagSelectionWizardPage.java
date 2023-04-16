@@ -146,6 +146,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
       getWizard().completePreviousPage(this);
       refreshTags();
       validatePage(null, ValidationSource.TAGS);
+      tagSelectionTree.setFocus();
     }
     super.setVisible(visible);
   }
@@ -340,6 +341,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         tagSelectionTree.setTags(tagList.getTags(), true);
         tagSelectionTree.expandAll();
         tagSelectionTree.refresh();
+        tagSelectionTree.selectFirstItem();
+        tagSelectionTree.setFocus();
 
         if (toolBar != null) {
           toolBar.setEnabled(tagSelectionTree.hasViewerInput());

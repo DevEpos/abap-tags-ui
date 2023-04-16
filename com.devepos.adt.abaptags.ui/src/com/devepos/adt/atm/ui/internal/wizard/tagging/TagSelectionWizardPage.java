@@ -507,8 +507,12 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         checkBoxViewer.expandAll();
       }
       setCheckedElements();
+      tagsTree.setSelection(tagsTree.getItems()[0]);
       validatePage();
     }
+    Display.getCurrent().timerExec(100, () -> {
+      tagsTree.setFocus();
+    });
   }
 
   private String getDestinationOwner() {

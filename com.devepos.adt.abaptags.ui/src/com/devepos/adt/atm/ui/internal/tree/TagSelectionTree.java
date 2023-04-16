@@ -162,6 +162,14 @@ public class TagSelectionTree {
     tagsTreeViewer.refresh();
   }
 
+  public void selectFirstItem() {
+    if (!isTreeOnline() || tagsTreeViewer.getInput() == null) {
+      return;
+    }
+    var tree = tagsTreeViewer.getTree();
+    tree.select(tree.getItem(0));
+  }
+
   public void setCheckedElementsInTree() {
     for (var checkedItem : checkedTags) {
       tagsTreeViewer.setChecked(checkedItem, true);
@@ -194,7 +202,10 @@ public class TagSelectionTree {
 
   public void setFocus() {
     if (tagsTree != null && !tagsTree.isDisposed()) {
-      tagsTree.setFocus();
+      var innerTreeControl = tagsTree.getViewer().getControl();
+      if (innerTreeControl != null && !innerTreeControl.isDisposed()) {
+        innerTreeControl.setFocus();
+      }
     }
   }
 

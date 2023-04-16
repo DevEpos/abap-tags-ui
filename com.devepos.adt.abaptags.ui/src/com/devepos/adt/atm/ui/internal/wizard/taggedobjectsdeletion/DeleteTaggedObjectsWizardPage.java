@@ -220,6 +220,8 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       }
       wizard.completePreviousPage(this);
 
+      taggedObjectsViewer.getTable().setFocus();
+
       var objectListRequest = wizard.getTaggedObjectListRequest();
       if (taggedObjects != null && !taggedObjects.isEmpty()) {
         setTableInput();
@@ -498,6 +500,11 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
     }
 
     updateShellSize();
+
+    if (!taggedObjects.isEmpty()) {
+      taggedObjectsViewer.getTable().setSelection(0);
+      taggedObjectsViewer.getTable().setFocus();
+    }
 
     setDirty(true);
   }
