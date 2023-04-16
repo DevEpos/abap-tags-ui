@@ -25,11 +25,13 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.JFacePreferences;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
+import org.eclipse.jface.viewers.IElementComparer;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -38,6 +40,8 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -54,11 +58,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
-import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagList;
-import com.devepos.adt.atm.model.abaptags.ITaggedObject;
-import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
 import com.devepos.adt.atm.model.abaptags.TagInfoType;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
@@ -114,7 +115,9 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
 
   public static final String VIEW_ID = "com.devepos.adt.atm.ui.views.AbapTagManager"; //$NON-NLS-1$
   private static final String MENU_SEP_GROUP_SHARE = "group.share"; //$NON-NLS-1$
+
   protected ISelection lastSelection;
+
   private Action convertTagAction;
   private Action createGlobalTagAction;
   private Action createSubTagAction;
@@ -130,6 +133,24 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   private Composite mainComposite;
   private final IPreferenceStore prefStore;
   private Action refreshAction;
+  private Action shareTagAction;
+  private Action unshareTagAction;
+
+  private final TagFolders tagFolders;
+
+  private Job tagLoadingJob;
+  private final IAbapTagsService tagsService;
+  private final IAdtObjTaggingService objTaggingService;
+
+  private FilterableComposite<TreeViewer, Tree> tree;
+
+  private TreeViewer treeViewer;
+  private ViewDescriptionLabel viewLabel;
+  private String lastDestinationOwner = ""; //$NON-NLS-1$
+  private boolean tagsSharingPossible;
+  private boolean tagDeletionCheckPossible;
+  private ContextHelper contextHelper;
+  private ISelection newSelectionAfterDelete;
 
   private final ISelectionListener selectionListener = new ISelectionListener() {
     private boolean isUpdatingSelection = false;
@@ -160,23 +181,6 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
     }
 
   };
-  private Action shareTagAction;
-  private Action unshareTagAction;
-
-  private final TagFolders tagFolders;
-
-  private Job tagLoadingJob;
-  private final IAbapTagsService tagsService;
-  private final IAdtObjTaggingService objTaggingService;
-
-  private FilterableComposite<TreeViewer, Tree> tree;
-
-  private TreeViewer treeViewer;
-  private ViewDescriptionLabel viewLabel;
-  private String lastDestinationOwner = ""; //$NON-NLS-1$
-  private boolean tagsSharingPossible;
-  private boolean tagDeletionCheckPossible;
-  private ContextHelper contextHelper;
 
   public AbapTagManagerView() {
     tagsService = AbapTagsServiceFactory.createTagsService();
@@ -267,7 +271,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
 
   private static class TreeContentProvider implements ITreeContentProvider {
 
-    private TagFolder[] input;
+    private Object currentInput;
 
     @Override
     public Object[] getChildren(final Object parentElement) {
@@ -282,7 +286,15 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
 
     @Override
     public Object[] getElements(final Object inputElement) {
-      return (Object[]) inputElement;
+      if (inputElement instanceof Object[]) {
+        return (Object[]) inputElement;
+      }
+      if (inputElement instanceof TagFolder) {
+        return ((TagFolder) inputElement).getTags().toArray();
+      } else if (inputElement instanceof ITag) {
+        return ((ITag) inputElement).getChildTags().toArray();
+      }
+      return null;
     }
 
     @Override
@@ -292,7 +304,9 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
         if (container instanceof ITag) {
           return container;
         }
-        return findParentInTopLevelNodes((ITag) element);
+        if (currentInput instanceof TagFolder[]) {
+          return findTagParentInFolders((TagFolder[]) currentInput, (ITag) element);
+        }
       }
       return null;
     }
@@ -310,23 +324,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
 
     @Override
     public void inputChanged(final Viewer viewer, final Object oldInput, final Object newInput) {
-      if (newInput instanceof TagFolder[]) {
-        input = (TagFolder[]) newInput;
-      } else {
-        input = null;
-      }
-    }
-
-    private Object findParentInTopLevelNodes(final ITag element) {
-      if (input == null) {
-        return null;
-      }
-      for (final TagFolder folder : input) {
-        if (folder.getTags().contains(element)) {
-          return folder;
-        }
-      }
-      return null;
+      currentInput = newInput;
     }
 
   }
@@ -427,6 +425,15 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
       }
       return ""; //$NON-NLS-1$
     }
+  }
+
+  private static TagFolder findTagParentInFolders(final TagFolder[] folders, final ITag element) {
+    for (final TagFolder folder : folders) {
+      if (folder.getTags().contains(element)) {
+        return folder;
+      }
+    }
+    return null;
   }
 
   @Override
@@ -588,7 +595,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   }
 
   private void createViewer(final Composite parent) {
-    tree = new FilterableTree(parent, Messages.AbapTagManagerView_ViewerFilterText_xmsg, true);
+    tree = new FilterableTree(parent, null, true);
     tree.setElementMatcher(element -> {
       if (element instanceof ITag) {
         final ITag tag = (ITag) element;
@@ -615,6 +622,46 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
       final Object selObj = structeredSel.getFirstElement();
       if (selObj instanceof ITag && ((ITag) selObj).isEditable()) {
         handleEditTag((ITag) selObj);
+      }
+    });
+    treeViewer.setComparer(new IElementComparer() {
+      @Override
+      public boolean equals(final Object a, final Object b) {
+        return hashCode(a) == hashCode(b);
+      }
+
+      @Override
+      public int hashCode(final Object element) {
+        if (element instanceof ITag) {
+          return 31 * ((ITag) element).getId().hashCode();
+        }
+        if (element instanceof TagFolder) {
+          return ((TagFolder) element).getName().hashCode();
+        }
+        return 0;
+      }
+
+    });
+    treeViewer.getTree().addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyPressed(final KeyEvent e) {
+        var selection = treeViewer.getStructuredSelection();
+        if (selection == null || selection.isEmpty()) {
+          return;
+        }
+        if (selection.size() == 1 && e.character == SWT.CR && e.stateMask == SWT.CTRL) {
+          var selectedElement = selection.getFirstElement();
+          if (selectedElement instanceof TagFolder) {
+            var tagFolder = (TagFolder) selectedElement;
+            if (tagFolder.getType() == TagFolderType.SHARED) {
+            }
+            handleCreateTag(tagFolder.getType() == TagFolderType.USER);
+          } else {
+            handleCreateTagOnSelectedNode();
+          }
+        } else if (e.character == SWT.DEL && e.stateMask == SWT.NONE) {
+          handleDeleteTags();
+        }
       }
     });
   }
@@ -795,6 +842,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
       dialog.open();
 
       if (wizard.hasDeletionOccurred()) {
+        selectNearestTagToCurrentSelection();
         refreshTags();
       }
     } else {
@@ -974,10 +1022,14 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
     if (!checkProjectStatus(false)) {
       return;
     }
-    refreshTags();
+    refreshTags(false);
   }
 
   private void refreshTags() {
+    refreshTags(true);
+  }
+
+  private void refreshTags(final boolean actionTrigger) {
     if (tagLoadingJob != null && tagLoadingJob.getResult() == null) {
       tagLoadingJob.cancel();
     }
@@ -1000,20 +1052,65 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
         }
       }
       Display.getDefault().asyncExec(() -> {
-        // TODO: cache old selected tag/folder and find correct object via folder name/tag id
-        // so the user can continue working from the previously selected object
-        var folders = tagFolders.getFolders(tagsSharingPossible);
-        treeViewer.setInput(folders);
-        treeViewer.refresh();
-        if (prefStore.getBoolean(ITagManagerPrefs.AUTO_EXPAND_TAGS)) {
-          treeViewer.expandAll();
-        } else {
-          treeViewer.expandToLevel(2);
-        }
+        updateViewerInput(actionTrigger);
       });
       monitor.done();
     });
     tagLoadingJob.schedule();
+  }
+
+  /*
+   * Creates new structured selection for the nearest previous sibling depending on the currently
+   * selected tags in the tree
+   */
+  private void selectNearestTagToCurrentSelection() {
+    ITag firstSelectedTag = null;
+    for (var selObj : treeViewer.getStructuredSelection()) {
+      if (selObj instanceof ITag) {
+        firstSelectedTag = (ITag) selObj;
+        break;
+      }
+    }
+
+    if (firstSelectedTag == null) {
+      return;
+    }
+
+    // Is there a previous sibling ??
+    var tagParent = firstSelectedTag.eContainer();
+    boolean startAtNearestFolder = false;
+    if (tagParent instanceof ITag) {
+      ITag previousSibling = null;
+      for (var tag : ((ITag) tagParent).getChildTags()) {
+        if (tag == firstSelectedTag) {
+          break;
+        }
+        previousSibling = tag;
+      }
+      if (previousSibling != null) {
+        newSelectionAfterDelete = new StructuredSelection(previousSibling);
+      } else {
+        newSelectionAfterDelete = new StructuredSelection(tagParent);
+      }
+    } else {
+      startAtNearestFolder = true;
+    }
+
+    if (startAtNearestFolder) {
+      var tagFolder = findTagParentInFolders(tagFolders.getFolders(true), firstSelectedTag);
+      ITag previousSibling = null;
+      for (var tag : tagFolder.getTags()) {
+        if (tag == firstSelectedTag) {
+          break;
+        }
+        previousSibling = tag;
+      }
+      if (previousSibling != null) {
+        newSelectionAfterDelete = new StructuredSelection(previousSibling);
+      } else {
+        newSelectionAfterDelete = new StructuredSelection(tagFolder);
+      }
+    }
   }
 
   private void setControlsEnabled(final boolean enabled) {
@@ -1033,4 +1130,34 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
     lastSelection = null;
   }
 
+  private void updateViewerInput(final boolean actionTrigger) {
+    var oldSelection = treeViewer.getSelection();
+    var expandedPaths = treeViewer.getExpandedElements();
+    var folders = tagFolders.getFolders(tagsSharingPossible);
+    boolean noPreviousInput = treeViewer.getInput() == null;
+
+    treeViewer.setInput(folders);
+    treeViewer.getTree().setRedraw(false);
+
+    if (expandedPaths != null) {
+      treeViewer.setExpandedElements(expandedPaths);
+    }
+
+    if (newSelectionAfterDelete != null) {
+      treeViewer.setSelection(newSelectionAfterDelete);
+    } else if (oldSelection != null) {
+      treeViewer.setSelection(oldSelection);
+    }
+
+    if (!actionTrigger || noPreviousInput) {
+      if (prefStore.getBoolean(ITagManagerPrefs.AUTO_EXPAND_TAGS)) {
+        treeViewer.expandAll();
+      } else {
+        treeViewer.expandToLevel(2);
+      }
+    }
+    treeViewer.getTree().setRedraw(true);
+
+    newSelectionAfterDelete = null;
+  }
 }
