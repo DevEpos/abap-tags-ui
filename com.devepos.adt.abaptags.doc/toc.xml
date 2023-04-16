@@ -3,15 +3,21 @@
    <topic href="html/overview.html" label="About ABAP Tags">
    </topic>
    <topic href="html/overview.html" label="Concepts">
-      <topic href="html/tagging.html" label="Add Tags To Objects">
-      </topic>
-      <topic href="html/tag_wizard.html" label="Tag Objects Wizard">
-         <topic href="html/tag_wizard/object_selection.html" label="Object Selection">
-         </topic>
-         <topic href="html/tag_wizard/tag_selection.html" label="Tag selection">
-         </topic>
-         <topic href="html/tag_wizard/parent_object_selection.html" label="Parent Object Selection">
-         </topic>
+      <topic href="html/tagging.html" label="Managing Tags of Repository Objects">
+        <topic href="html/tag_wizard/index.html" label="Tag Objects Wizard">
+           <topic href="html/tag_wizard/object_selection.html" label="Object Selection">
+           </topic>
+           <topic href="html/tag_wizard/tag_selection.html" label="Tag Selection">
+           </topic>
+           <topic href="html/tag_wizard/parent_object_selection.html" label="Parent Object Selection">
+           </topic>
+        </topic>
+        <topic href="html/unassign_tags_wizard/index.html" label="Remove Tags from Objects Wizard">
+           <topic href="html/unassign_tags_wizard/tag_selection.html" label="Tag Selection">
+           </topic>
+           <topic href="html/unassign_tags_wizard/object_selection.html" label="Object Selection">
+           </topic>
+        </topic>
       </topic>
       <topic href="html/tag_manager.html" label="Tag Manager">
       </topic>
@@ -23,6 +29,8 @@
       </topic>
    </topic>
    <topic href="html/changelog/overview.html" label="What&apos;s New">
+      <topic href="html/changelog/v1_8_0.html" label="Version 1.8.0">
+      </topic>
       <topic href="html/changelog/v1_7_0.html" label="Version 1.7.0">
       </topic>
       <topic href="html/changelog/v1_6_0.html" label="Version 1.6.0">

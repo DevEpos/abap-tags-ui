@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <contexts>
    <context id="tag_wizard">
-      <topic href="html/tag_wizard.html" label="Tag Objects Wizard"/>
+      <topic href="html/tag_wizard/index.html" label="Tag Objects Wizard"/>
+   </context>
+   <context id="unassign_tags_wizard_tag_selection">
+      <description>On this page you select ABAP Tags to find Objects that have those Tags assigned</description>
+      <topic href="html/unassign_tags_wizard/tag_selection.html" label="Select ABAP Tags"/>
+   </context>
+   <context id="unassign_tags_wizard_object_selection">
+      <description>On this page you select the tagged repository objects whose tags shall be removed</description>
+      <topic href="html/unassign_tags_wizard/object_selection.html" label="Select Tagged Objects"/>
+   </context>
+   <context id="unassign_tags_wizard">
+      <topic href="html/unassign_tags_wizard/index.html" label="Remove Tags from Objects Wizard"/>
    </context>
    <context id="tag_wizard_object_selection">
       <description>On this page you select the ADT objects to which you want to assign tags</description>
-      <topic href="html/tag_wizard/object_selection.html" label="Object Selection"/>
+      <topic href="html/tag_wizard/object_selection.html" label="Select Objects"/>
    </context>
    <context id="tag_manager">
       <topic href="html/tag_manager.html" label="Tag Manager"/>
@@ -17,11 +28,11 @@
       <topic href="html/tagged_object_search.html" label="Tagged Object Search"/>
    </context>
    <context id="tag_wizard_tag_selection">
-      <description>On this page you select the tags you want to assign to your ADT object. You can also add entirely new tags on this page</description>
-      <topic href="html/tag_wizard/tag_selection.html" label="Tag Selection"/>
+      <description>On this page you select the tags you want to assign to your repository object. You can also add entirely new tags on this page</description>
+      <topic href="html/tag_wizard/tag_selection.html" label="Select ABAP Tags"/>
    </context>
    <context id="tag_wizard_parent_object_selection">
       <description>On this page you select the parent objects for your chosen hierarchical tags.</description>
-      <topic href="html/tag_wizard/parent_object_selection.html" label="Parent Object Selection"/>
+      <topic href="html/tag_wizard/parent_object_selection.html" label="Select Parent Object"/>
    </context>
 </contexts>

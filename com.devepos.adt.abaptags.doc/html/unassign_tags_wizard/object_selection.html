@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html id="doc-page">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="../../css/main.css" />
+<title>Select Tagged Objects</title>
+</head>
+
+<body id="doc-body">
+	<h2 class="heading">Select Tagged Objects</h2>
+	<p>This page displays all the Tagged Repository Objects that were
+		found for a given list of filter criteria (like e.g. tags)</p>
+
+	<figure>
+		<img src="../../images/unassign_tags_wizard__object_selection.png">
+		<figcaption>Found Tagged Objects</figcaption>
+	</figure>
+
+	<h3 class="heading">Page Layout</h3>
+	<p>The page basically consists of Table with the following columns:</p>
+
+	<ul class="list">
+		<li><strong>Tag</strong><br> <em>The name of the
+				assigned tag of the object</em></li>
+		<li><strong>Object</strong><br> <em>The name of the
+				object/component</em></li>
+		<li><strong>Parent Tag</strong> (if necessary)<br> <em>The
+				name of the parent tag of the assigned parent object</em></li>
+		<li><strong>Parent Object</strong> (if necessary)<br> <em>The
+				name of the assigned parent object</em></li>
+		<li><strong>Issues</strong><br> <em>Potential issues
+				that prevent the removal of the tag</em></li>
+	</ul>
+
+	<h3 class="heading">Keyboard Shortcuts</h3>
+	<table style="width: 500px;">
+		<tr>
+			<th>Shortcut</th>
+			<th>Function</th>
+		</tr>
+		<tr>
+			<td><code class="code">Ctrl</code>+<code class="code">F</code></td>
+			<td>Jump to the filter field if focus is on the objects table</td>
+		</tr>
+	</table>
+
+	<h3 class="heading">Why can a tag not be removed?</h3>
+	<p>
+		There a <strong>persistent</strong> and <strong>transient</strong>
+		issues why a tag may not be removed from an object.
+	</p>
+
+	<p>Let's assume we have the following tag hierarchy</p>
+	<ul class="list">
+		<li>Root
+			<ul>
+				<li>Sub</li>
+			</ul>
+		</li>
+	</ul>
+
+	<p>
+		Now we have an object <em>OBJ1</em> assigned to tag <em>Root</em> and
+		an object <em>OBJ2</em> assigned to tag <em>Sub</em> with parent
+		object <em>OBJ1</em> <br>If we only select objects with the tag <em>Root</em>,
+		the tagged object <em>OBJ1</em> will get a <strong>persistent</strong>
+		issue that there is still a child object usage.
+	</p>
+	<p>
+		On the other hand, if both the tags <em>Root</em> and <em>Sub</em>
+		were selected we would get both tagged objects in the result table.<br>If
+		the object <em>OBJ2</em> with the tag <em>Sub</em> would now be
+		deselected, the object <em>OBJ1</em> with tag <em>Root</em> would be
+		deselected as well and the tagged object <em>OBJ1</em> would get a <strong>transient</strong>
+		issue. Once the object <em>OBJ2</em> is selected again for deletion,
+		the object <em>OBJ1</em> would be deletable once again.
+	</p>
+</body>
+</html>

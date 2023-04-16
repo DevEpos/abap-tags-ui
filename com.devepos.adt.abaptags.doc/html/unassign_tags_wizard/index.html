@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html id="doc-page">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="../../css/main.css" />
+<title>Remove Tags from Objects Wizard</title>
+</head>
+
+<body id="doc-body">
+	<h2 class="heading">Remove Tags from Objects Wizard</h2>
+	<p>
+		This wizard can be used to add Tags to Repository Objects. If it is
+		called from the main Eclipse toolbar the initial page will be the <a
+			class="link" href="./tag_selection.html">Tag Selection</a> Page.<br>However,
+		if the wizard is called from the context menu of the <a class="link"
+			href="../tagged_object_tree.html">Tagged Object Tree</a> or the <a
+			class="link" href="../object_tags.html">Object Tags View</a> the
+		initial page will be skipped and you can directly start on the <a
+			class="link" href="./object_selection.html">Tagged Object
+			Selection</a> Page.
+	</p>
+
+	<div class="alert warning">
+		<div class="alert-info__text"></div>
+		For this feature you have to install at least Version <strong>v2.2</strong>
+		of the ADT Backend <a
+			href="https://github.com/stockbal/abap-tags-backend" target="_blank"
+			class="link">abap-tags-backend</a>
+	</div>
+
+	<h3 class="heading">Pages of the Wizard</h3>
+
+	<ol class="list">
+		<li><a class="link" href="./tag_selection.html">Select ABAP
+				Tags</a></li>
+		<li><a class="link" href="./object_selection.html">Select
+				Tagged Objects</a></li>
+	</ol>
+
+	<h3 class="heading">Related Preferences</h3>
+	<p>
+		If the Wizard is called from the <em>Object Tags View</em> or the <em>Tagged
+			Objects Tree</em>, and you want to quickly select all tagged objects in a
+		hierarchy, you may want to consider to enable the following
+		preference:
+	</p>
+
+	<figure>
+		<img src="../../images/unassign_tags_wizard__preferences.png">
+		<figcaption>Preference for Remove tags from objects
+			wizard</figcaption>
+	</figure>
+</body>
+</html>
