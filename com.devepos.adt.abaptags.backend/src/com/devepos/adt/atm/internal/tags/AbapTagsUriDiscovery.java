@@ -45,7 +45,7 @@ public class AbapTagsUriDiscovery extends AbapTagsUriDiscoveryBase {
 
   /**
    * Retrieves Resource URI for running a deletion check for tags
-   * 
+   *
    * @return resource URI
    */
   public URI getTagDeletionCheckUri() {
@@ -61,7 +61,7 @@ public class AbapTagsUriDiscovery extends AbapTagsUriDiscoveryBase {
   public URI getSharedTagInfoUri(final String tagId) {
     final IAdtUriTemplate template = getTemplate(DISCOVERY_TERM_SHARE_TAGS,
         DISCOVERY_RELATION_SHARED_TAG_INFO);
-    if ((template == null) || !template.containsVariable(TAG_ID)) {
+    if (template == null || !template.containsVariable(TAG_ID)) {
       return null;
     }
     template.set(TAG_ID, tagId);

@@ -26,7 +26,7 @@ public class TagDeletionCheckResultContentHandler extends
   }
 
   @Override
-  protected ITagDeletionCheckResult getRootElement(EObject rootElement) {
+  protected ITagDeletionCheckResult getRootElement(final EObject rootElement) {
     return (ITagDeletionCheckResult) rootElement;
   }
 

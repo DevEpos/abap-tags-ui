@@ -9,7 +9,7 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult;
 
 /**
  * Service for retrieving results for the Tagged Object Tree
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  *
  */

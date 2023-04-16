@@ -141,7 +141,7 @@ public interface IAbapTagsService {
 
   /**
    * Runs a check if the passed list of tags can be safely deleted
-   * 
+   *
    * @param destinationId destination of ABAP Project
    * @param tagList       list of tags to be deleted
    * @return deletion check result
