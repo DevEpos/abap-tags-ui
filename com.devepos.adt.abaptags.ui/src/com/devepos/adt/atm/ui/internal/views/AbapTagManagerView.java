@@ -81,6 +81,7 @@ import com.devepos.adt.atm.ui.internal.preferences.ITagManagerPrefs;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
 import com.devepos.adt.atm.ui.internal.search.TaggedObjectSearchQuery;
 import com.devepos.adt.atm.ui.internal.wizard.tagdeletion.DeleteTagsWizard;
+import com.devepos.adt.atm.ui.internal.wizard.taggedobjectsdeletion.DeleteTaggedObjectsWizard;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.IUser;
@@ -897,35 +898,32 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   }
 
   private void handleRemoveAllTaggedObjects() {
-    final ITaggedObjectList tgobjList = IAbapTagsFactory.eINSTANCE.createTaggedObjectList();
-    final ITaggedObject tgobj = IAbapTagsFactory.eINSTANCE.createTaggedObject();
-    tgobjList.getTaggedObjects().add(tgobj);
-
     final IStructuredSelection sel = treeViewer.getStructuredSelection();
     if (sel == null || sel.isEmpty()) {
       return;
     }
-    for (final Object selectedObj : sel.toList()) {
-      if (selectedObj instanceof ITag) {
-        final IAdtObjectTag objTag = IAbapTagsFactory.eINSTANCE.createAdtObjectTag();
-        objTag.setId(((ITag) selectedObj).getId());
-        tgobj.getTags().add(objTag);
-      }
-    }
-    if (MessageDialog.open(MessageDialog.WARNING, getSite().getShell(),
-        Messages.AbapTagManagerView_unassignTagsMessage_xtit,
-        Messages.AbapTagManagerView_unassignTagsMessage_xmsg, SWT.NONE, new String[] {
-            IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL }) != 0 || !ProjectUtil
-                .ensureLoggedOnToProject(lastProject)
-                .isOK()) {
+
+    var removeTagsFeatureStatus = objTaggingService.testTaggedObjectDeletionFeatureAvailability(
+        lastProject);
+    if (!removeTagsFeatureStatus.isOK()) {
+      MessageDialog.openError(getSite().getShell(),
+          Messages.AbapTagManagerView_ErrorMessageTitle_xtit, removeTagsFeatureStatus.getMessage());
       return;
     }
-    final Job deleteJob = Job.create(Messages.AbapTagManagerView_unassignTagsJob_xtit, monitor -> {
-      objTaggingService.deleteTags(DestinationUtil.getDestinationId(lastProject), tgobjList);
+
+    final var wizard = new DeleteTaggedObjectsWizard();
+    wizard.setProject(lastProject);
+    for (final Object selectedObj : sel.toList()) {
+      if (selectedObj instanceof ITag) {
+        wizard.getTaggedObjectListRequest().getTagIds().add(((ITag) selectedObj).getId());
+      }
+    }
+    final var dialog = new WizardDialog(getSite().getShell(), wizard);
+    dialog.open();
+
+    if (wizard.hasDeletionOccurred()) {
       refreshTags();
-      monitor.done();
-    });
-    deleteJob.schedule();
+    }
   }
 
   private void handleUnshareTag() {
@@ -982,8 +980,8 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
             .getSharedImages()
             .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE), this::handleDeleteTags);
     removeTaggedObjectsAction = ActionFactory.createAction(
-        Messages.AbapTagManagerView_removeAssignedObjectsAction_xmit, null,
-        this::handleRemoveAllTaggedObjects);
+        Messages.AbapTagManagerView_removeAssignedObjectsAction_xmit, AbapTagsUIPlugin.getDefault()
+            .getImageDescriptor(IImages.REMOVE_ASSIGNED_TAGS), this::handleRemoveAllTaggedObjects);
     editTagAction = ActionFactory.createAction(Messages.AbapTagManagerView_EditTagAction_xmit,
         AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.EDIT_ACTION), () -> handleEditTag(
             null));
