@@ -268,7 +268,7 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
     if (parentElement instanceof IProject) {
       var project = (IProject) parentElement;
       if (isTaggedObjectTreesAvailable(project)) {
-        var childNodes = (Object[]) getTaggedObjectTrees(project);
+        var childNodes = getTaggedObjectTrees(project);
         if (childNodes != null) {
           return childNodes;
         }
@@ -387,25 +387,24 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
     }
   }
 
-  private Object[] getTaggedObjectTrees(IProject project) {
+  private Object[] getTaggedObjectTrees(final IProject project) {
     try {
       var sessionProp = project.getSessionProperty(SESSION_PROP_TAGGED_OBJECT_TREE);
-      if (sessionProp != null && sessionProp instanceof Object[]) {
-        return (Object[]) sessionProp;
-      } else {
-        var lazyNode = new RootNode(new TaggedObjectTreeLoader(DestinationUtil.getDestinationId(
-            project)));
-        sessionProp = new Object[] { lazyNode };
-        project.setSessionProperty(SESSION_PROP_TAGGED_OBJECT_TREE, sessionProp);
+      if (sessionProp instanceof Object[]) {
         return (Object[]) sessionProp;
       }
+      var lazyNode = new RootNode(new TaggedObjectTreeLoader(DestinationUtil.getDestinationId(
+          project)));
+      sessionProp = new Object[] { lazyNode };
+      project.setSessionProperty(SESSION_PROP_TAGGED_OBJECT_TREE, sessionProp);
+      return (Object[]) sessionProp;
     } catch (CoreException e) {
       e.printStackTrace();
     }
     return null;
   }
 
-  private boolean isTaggedObjectTreesAvailable(IProject project) {
+  private boolean isTaggedObjectTreesAvailable(final IProject project) {
     if (!ProjectUtil.isLoggedOnToProject(project)) {
       return false;
     }
@@ -413,7 +412,8 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
     return treeService.testTreeFeatureAvailability(project).isOK();
   }
 
-  private void setObjRefNodeText(StyledString text, IAdtObjectReferenceNode objRefNode) {
+  private void setObjRefNodeText(final StyledString text,
+      final IAdtObjectReferenceNode objRefNode) {
     text.append(objRefNode.getName());
     if (showObjectTypes) {
       AdtObjectUtil.appendAdtTypeDescription(objRefNode, text);
