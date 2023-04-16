@@ -50,13 +50,13 @@ public class TagFolders {
    *                          entry is also includes
    * @return array of tag folders
    */
-  public Object[] getFolders(final boolean includeSharedTags) {
-    return includeSharedTags ? folders.values().toArray()
+  public TagFolder[] getFolders(final boolean includeSharedTags) {
+    return includeSharedTags ? folders.values().toArray(new TagFolder[0])
         : folders.keySet()
             .stream()
             .filter(t -> t != TagFolderType.SHARED)
             .map(type -> folders.get(type))
-            .toArray();
+            .toArray(TagFolder[]::new);
   }
 
 }
