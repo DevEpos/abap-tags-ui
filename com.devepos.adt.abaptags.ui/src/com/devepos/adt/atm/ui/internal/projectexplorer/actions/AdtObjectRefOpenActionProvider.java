@@ -6,8 +6,6 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonMenuConstants;
-import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
-import org.eclipse.ui.services.IServiceLocator;
 
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
@@ -18,7 +16,8 @@ public class AdtObjectRefOpenActionProvider extends CommonActionProvider {
 
   private SelectionListenerAction openAction;
 
-  public void fillActionBars(IActionBars actionBars) {
+  @Override
+  public void fillActionBars(final IActionBars actionBars) {
     super.fillActionBars(actionBars);
     IStructuredSelection selection = getSelection();
     if (selection != null) {
@@ -30,14 +29,11 @@ public class AdtObjectRefOpenActionProvider extends CommonActionProvider {
   }
 
   protected IStructuredSelection getSelection() {
-    return (IStructuredSelection) this.getContext().getSelection();
+    return (IStructuredSelection) getContext().getSelection();
   }
 
-  protected IServiceLocator getServiceLocator() {
-    return ((ICommonViewerWorkbenchSite) this.getActionSite().getViewSite()).getSite();
-  }
-
-  public void fillContextMenu(IMenuManager menu) {
+  @Override
+  public void fillContextMenu(final IMenuManager menu) {
     super.fillContextMenu(menu);
 
     IStructuredSelection selection = getSelection();
@@ -49,6 +45,7 @@ public class AdtObjectRefOpenActionProvider extends CommonActionProvider {
   }
 
   private void initOpenAction() {
+
     if (openAction == null) {
       openAction = new SelectionListenerAction(
           Messages.AdtObjectRefOpenActionProvider_OpenAction_xmit) {

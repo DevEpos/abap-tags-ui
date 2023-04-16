@@ -13,7 +13,8 @@ public class AdtObjectPropertyTester extends PropertyTester {
   }
 
   @Override
-  public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
+  public boolean test(final Object receiver, final String property, final Object[] args,
+      final Object expectedValue) {
     if (!(receiver instanceof IAdtObject)) {
       return false;
     }

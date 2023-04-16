@@ -9,7 +9,7 @@ import com.devepos.adt.atm.model.abaptags.ITag;
 
 /**
  * Class for collecting parents of Tags
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  *
  */
@@ -23,7 +23,7 @@ public class TagParentCollector {
       parentTagIds.add(parent.getId());
 
       EObject container = parent.eContainer();
-      if ((container == null) || !(container instanceof ITag)) {
+      if (container == null || !(container instanceof ITag)) {
         break;
       }
       parent = (ITag) container;

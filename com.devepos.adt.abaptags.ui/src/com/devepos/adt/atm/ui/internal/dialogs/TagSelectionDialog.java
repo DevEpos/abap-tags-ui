@@ -31,8 +31,8 @@ import com.devepos.adt.base.ui.IAdtBaseStrings;
  */
 public class TagSelectionDialog extends TrayDialog {
 
-  private TagSelectionTree tagsTree;
-  private List<ITag> tags;
+  private final TagSelectionTree tagsTree;
+  private final List<ITag> tags;
   private ToolBar treeToolBar;
 
   /**
@@ -66,12 +66,13 @@ public class TagSelectionDialog extends TrayDialog {
     final Composite dialogArea = (Composite) super.createDialogArea(parent);
 
     tagsTree.createControl(dialogArea);
+    tagsTree.addKeyListenerForFilterFocus();
     createTagsToolbar(tagsTree.getTreeFilterComposite());
     tagsTree.setTags(tags, false);
     return dialogArea;
   }
 
-  private void createTagsToolbar(Composite parent) {
+  private void createTagsToolbar(final Composite parent) {
     treeToolBar = new ToolBar(parent, SWT.FLAT | SWT.HORIZONTAL);
     GridDataFactory.fillDefaults().align(SWT.END, SWT.END).applyTo(treeToolBar);
 

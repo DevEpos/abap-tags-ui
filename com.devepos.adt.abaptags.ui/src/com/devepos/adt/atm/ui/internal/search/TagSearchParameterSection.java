@@ -69,7 +69,7 @@ public class TagSearchParameterSection implements ISearchPageParameterSection {
   private Set<ITag> selectedTags;
   private IStatus enabledStatus;
   private ToolBar toolBar;
-  private IAbapTagsService tagsService;
+  private final IAbapTagsService tagsService;
   private ScrolledComposite scroller;
 
   public TagSearchParameterSection() {
@@ -77,7 +77,7 @@ public class TagSearchParameterSection implements ISearchPageParameterSection {
   }
 
   private class ClosableTag extends Composite {
-    private CLabel tagContent;
+    private final CLabel tagContent;
 
     public ClosableTag(final Composite parent, final ITag tag) {
       super(parent, SWT.NONE);

@@ -6,7 +6,7 @@ import com.devepos.adt.base.ui.adtobject.IAdtObject;
 
 /**
  * Simple utility class to check capabilities of an ADT object for ABAP Tags specific activities
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  *
  */
@@ -56,7 +56,8 @@ public class AdtObjectCapabilities {
       }
       if (adtType.startsWith(ITadirTypeConstants.TABLE)) {
         return adtType.equals(IAdtObjectTypeConstants.TABLE_DEFINITION_TYPE);
-      } else if (adtType.startsWith(ITadirTypeConstants.FUNCTION_GROUP)) {
+      }
+      if (adtType.startsWith(ITadirTypeConstants.FUNCTION_GROUP)) {
         return adtType.equals(IAdtObjectTypeConstants.FUNCTION_GROUP) || adtType.equals(
             IAdtObjectTypeConstants.FUNCTION_INCLUDE) || adtType.equals(
                 IAdtObjectTypeConstants.FUNCTION_MODULE);
@@ -83,7 +84,8 @@ public class AdtObjectCapabilities {
       }
       if (adtType.startsWith(ITadirTypeConstants.TABLE)) {
         return adtType.equals(IAdtObjectTypeConstants.TABLE_DEFINITION_TYPE);
-      } else if (adtType.startsWith(ITadirTypeConstants.FUNCTION_GROUP)) {
+      }
+      if (adtType.startsWith(ITadirTypeConstants.FUNCTION_GROUP)) {
         return adtType.equals(IAdtObjectTypeConstants.FUNCTION_GROUP) || adtType.equals(
             IAdtObjectTypeConstants.FUNCTION_INCLUDE) || adtType.equals(
                 IAdtObjectTypeConstants.FUNCTION_MODULE);

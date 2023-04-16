@@ -54,10 +54,10 @@ public class TagObjectsWizard extends AbstractWizardBase {
   @Override
   public void addPages() {
     if (!skipObjectSelection) {
-      addObjectSelectionPage();
+      addPage(new TaggableObjectSelectionWizardPage());
     }
-    addTagSelectionPage();
-    addParentObjectSelectionPage();
+    addPage(new TagSelectionWizardPage());
+    addPage(new TagParentObjectSelectionWizardPage());
   }
 
   /**
@@ -101,9 +101,6 @@ public class TagObjectsWizard extends AbstractWizardBase {
         }
       });
     } catch (final InvocationTargetException e) {
-      if (e.getTargetException() instanceof RuntimeException) {
-        throw (RuntimeException) e.getTargetException();
-      }
       Display.getDefault().asyncExec(() -> {
         final String message = e.getCause() == null ? e.getMessage() : e.getCause().getMessage();
         MessageDialog.openError(getShell(), Messages.AbapTagManagerView_ErrorMessageTitle_xtit,
@@ -161,20 +158,5 @@ public class TagObjectsWizard extends AbstractWizardBase {
       selectedTags = new ArrayList<>();
     }
     return selectedTags;
-  }
-
-  private void addTagSelectionPage() {
-    final IWizardPage page = new TagSelectionWizardPage();
-    addPage(page);
-  }
-
-  private void addObjectSelectionPage() {
-    final IWizardPage page = new TaggableObjectSelectionWizardPage();
-    addPage(page);
-  }
-
-  private void addParentObjectSelectionPage() {
-    final IWizardPage page = new TagParentObjectSelectionWizardPage();
-    addPage(page);
   }
 }

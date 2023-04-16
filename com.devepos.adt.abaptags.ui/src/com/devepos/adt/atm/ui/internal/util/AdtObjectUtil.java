@@ -12,12 +12,12 @@ public class AdtObjectUtil {
 
   /**
    * Appends type description to the given styled string
-   * 
+   *
    * @param objRefNode Object reference Node
    * @param text       styled string for display in a Viewer
    */
-  public static void appendAdtTypeDescription(IAdtObjectReferenceNode objRefNode,
-      StyledString text) {
+  public static void appendAdtTypeDescription(final IAdtObjectReferenceNode objRefNode,
+      final StyledString text) {
     var type = objRefNode.getAdtObjectType();
     if (type != null) {
       AdtTypeUtil typeUtil = AdtTypeUtil.getInstance();

@@ -33,8 +33,7 @@ public class DeleteTagsWizard extends AbstractWizardBase {
 
   @Override
   public void addPages() {
-    var deleteTagsPage = new DeleteTagsWizardPage();
-    addPage(deleteTagsPage);
+    addPage(new DeleteTagsWizardPage());
   }
 
   public ITagList getTagsForDeletion() {

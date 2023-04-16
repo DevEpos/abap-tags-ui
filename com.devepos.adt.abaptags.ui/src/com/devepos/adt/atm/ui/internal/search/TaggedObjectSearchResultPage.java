@@ -105,8 +105,8 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     executableObjectTypes = Stream.of("CLAS/OC", "PROG/P", "TRAN/T", "FUGR/FF", "WAPA/WO",
         "WDYA/YY", "WDCA/YA").collect(Collectors.toList());
     colorPropertyChangeListener = event -> {
-      if (IColorConstants.COMP_PARENT_COLOR.equals(event.getProperty()) && (resultTreeViewer != null
-          && !resultTreeViewer.getControl().isDisposed())) {
+      if (IColorConstants.COMP_PARENT_COLOR.equals(event.getProperty()) && resultTreeViewer != null
+          && !resultTreeViewer.getControl().isDisposed()) {
         resultTreeViewer.refresh();
       }
     };

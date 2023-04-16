@@ -8,7 +8,7 @@ import com.devepos.adt.base.ui.wizard.IBaseWizardPage;
 
 /**
  * Base class for wizards
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  *
  */
@@ -17,6 +17,7 @@ public abstract class AbstractWizardBase extends Wizard {
   private IProject project;
   private boolean canFinish;
 
+  @Override
   public boolean canFinish() {
     return canFinish;
   }
@@ -49,7 +50,7 @@ public abstract class AbstractWizardBase extends Wizard {
     this.canFinish = canFinish;
   }
 
-  public void setProject(IProject project) {
+  public void setProject(final IProject project) {
     this.project = project;
   }
 }

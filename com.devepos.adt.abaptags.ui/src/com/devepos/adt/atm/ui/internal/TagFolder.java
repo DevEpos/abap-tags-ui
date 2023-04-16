@@ -15,7 +15,7 @@ import com.devepos.adt.atm.model.abaptags.ITag;
  */
 public class TagFolder {
 
-  private TagFolderType folderType;
+  private final TagFolderType folderType;
   private final List<ITag> tags;
 
   /**

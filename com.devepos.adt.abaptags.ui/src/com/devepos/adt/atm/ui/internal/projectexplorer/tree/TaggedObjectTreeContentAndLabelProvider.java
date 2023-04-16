@@ -64,8 +64,8 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
   private final ITaggedObjectTreeService treeService = TaggedObjectTreeServicesFactory
       .createTaggedObjectTreeService();
 
-  private IPreferenceStore prefStore;
-  private IPropertyChangeListener colorPropertyChangeListener;
+  private final IPreferenceStore prefStore;
+  private final IPropertyChangeListener colorPropertyChangeListener;
   private boolean showDescriptions;
   private boolean showObjectTypes;
 
@@ -97,14 +97,15 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
 
   private class RootNode extends LazyLoadingFolderNode {
 
-    private TaggedObjectTreeLoader treeLoader;
+    private final TaggedObjectTreeLoader treeLoader;
 
-    public RootNode(TaggedObjectTreeLoader tagLoader) {
+    public RootNode(final TaggedObjectTreeLoader tagLoader) {
       super(Messages.TaggedObjectTreeContentAndLabelProvider_TaggedObjectsNodeName_xtit, tagLoader,
           null, AbapTagsUIPlugin.getDefault().getImage(IImages.GLOBAL_TAGS_FOLDER));
-      this.treeLoader = tagLoader;
+      treeLoader = tagLoader;
     }
 
+    @Override
     public String getSizeAsString() {
       if (isLoading() || !isLoaded()) {
         return "?"; //$NON-NLS-1$
@@ -288,7 +289,8 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
       var type = adtObjRef.getType();
       if (IAdtObjectTypeConstants.LOCAL_CLASS.equals(type)) {
         return ImageUtil.getLocalClassImage();
-      } else if (IAdtObjectTypeConstants.LOCAL_INTERFACE.equals(type)) {
+      }
+      if (IAdtObjectTypeConstants.LOCAL_INTERFACE.equals(type)) {
         return ImageUtil.getLocalInterfaceImage();
       } else {
         return adtObjRef != null ? AdtTypeUtil.getInstance().getTypeImage(adtObjRef.getType())

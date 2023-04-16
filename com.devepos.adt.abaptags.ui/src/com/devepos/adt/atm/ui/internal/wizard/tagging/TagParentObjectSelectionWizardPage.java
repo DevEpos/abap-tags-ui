@@ -146,7 +146,8 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
       }
       if (IAdtObjectTypeConstants.LOCAL_CLASS.equals(type)) {
         return ImageUtil.getLocalClassImage();
-      } else if (IAdtObjectTypeConstants.LOCAL_INTERFACE.equals(type)) {
+      }
+      if (IAdtObjectTypeConstants.LOCAL_INTERFACE.equals(type)) {
         return ImageUtil.getLocalInterfaceImage();
       }
       return AdtTypeUtil.getInstance().getTypeImage(type);
