@@ -99,6 +99,7 @@ public class Messages extends NLS {
   public static String EditTagDataDialog_DialogInfoText_xtit;
   public static String EditTagDataDialog_EditGlobalTagTitle_xtit;
   public static String EditTagDataDialog_EditUserTagDialogTitle_xtit;
+  public static String EditTagDataDialog_hierarchyInput_xlbl;
   public static String EditTagDataDialog_MandotoryFieldsNotFilled_xmsg;
   public static String EditTagDataDialog_NameInput_xlbl;
   public static String MainPreferencesPage_InfoLabel_xlbl;

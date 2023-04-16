@@ -1,8 +1,8 @@
 package com.devepos.adt.atm.ui.internal.dialogs;
 
+import java.util.LinkedList;
 import java.util.List;
 
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.IMessageProvider;
@@ -11,7 +11,6 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -49,14 +48,39 @@ public class EditTagDataDialog extends TitleAreaDialog {
   }
 
   @Override
+  protected void cancelPressed() {
+    tag.setName(oldTagName);
+    tag.setDescription(oldTagDescription);
+    super.cancelPressed();
+  }
+
+  @Override
   protected void configureShell(final Shell shell) {
     super.configureShell(shell);
     shell.setText(getTitle());
   }
 
   @Override
-  protected int getDialogBoundsStrategy() {
-    return DIALOG_PERSISTSIZE;
+  protected Control createButtonBar(final Composite parent) {
+    final Control buttonBar = super.createButtonBar(parent);
+    onModifyTagName(null);
+    return buttonBar;
+  }
+
+  @Override
+  protected Control createDialogArea(final Composite parent) {
+    setTitle(getTitle());
+    final var dialogArea = (Composite) super.createDialogArea(parent);
+    mainComposite = new Composite(dialogArea, SWT.NONE);
+    GridLayoutFactory.swtDefaults().numColumns(2).applyTo(mainComposite);
+    GridDataFactory.fillDefaults().grab(true, true).applyTo(mainComposite);
+
+    createHierarchyInput();
+    createNameInput();
+    createDescriptionInput();
+
+    nameInput.setFocus();
+    return dialogArea;
   }
 
   @Override
@@ -65,26 +89,23 @@ public class EditTagDataDialog extends TitleAreaDialog {
   }
 
   @Override
-  protected Control createDialogArea(final Composite parent) {
-    setTitle(getTitle());
-    final Composite dialogArea = (Composite) super.createDialogArea(parent);
-    mainComposite = new Composite(dialogArea, SWT.NONE);
-    GridLayoutFactory.swtDefaults().numColumns(2).applyTo(mainComposite);
-    GridDataFactory.fillDefaults().grab(true, true).applyTo(mainComposite);
+  protected int getDialogBoundsStrategy() {
+    return DIALOG_PERSISTSIZE;
+  }
 
-    final Label nameLabel = new Label(mainComposite, SWT.NONE);
-    nameLabel.setText(Messages.EditTagDataDialog_NameInput_xlbl);
-    AdtSWTUtilFactory.getOrCreateSWTUtil().setMandatory(nameLabel, true);
-
-    nameInput = new Text(mainComposite, SWT.BORDER);
-    GridDataFactory.fillDefaults().grab(true, false).applyTo(nameInput);
-    nameInput.setTextLimit(60);
-    if (tag.getName() != null) {
-      nameInput.setText(tag.getName());
+  @Override
+  protected void okPressed() {
+    final var status = new TagListValidator(tagListForValidation).validate(true, false);
+    if (!status.isOK()) {
+      setErrorMessage(status.getMessage());
+      nameInput.setFocus();
+      return;
     }
-    nameInput.addModifyListener(this::onModifyTagName);
+    super.okPressed();
+  }
 
-    final Label descriptionLabel = new Label(mainComposite, SWT.NONE);
+  private void createDescriptionInput() {
+    final var descriptionLabel = new Label(mainComposite, SWT.NONE);
     descriptionLabel.setText(Messages.EditTagDataDialog_DescriptionInput_xlbl);
 
     descriptionInput = new Text(mainComposite, SWT.BORDER);
@@ -99,33 +120,87 @@ public class EditTagDataDialog extends TitleAreaDialog {
         enableOkButton(isDirty());
       }
     });
-
-    return dialogArea;
   }
 
-  @Override
-  protected Control createButtonBar(final Composite parent) {
-    final Control buttonBar = super.createButtonBar(parent);
-    onModifyTagName(null);
-    return buttonBar;
+  private void createNameInput() {
+    final var nameLabel = new Label(mainComposite, SWT.NONE);
+    nameLabel.setText(Messages.EditTagDataDialog_NameInput_xlbl);
+    AdtSWTUtilFactory.getOrCreateSWTUtil().setMandatory(nameLabel, true);
+
+    nameInput = new Text(mainComposite, SWT.BORDER);
+    GridDataFactory.fillDefaults().grab(true, false).applyTo(nameInput);
+    nameInput.setTextLimit(60);
+    if (tag.getName() != null) {
+      nameInput.setText(tag.getName());
+    }
+    nameInput.addModifyListener(this::onModifyTagName);
   }
 
-  @Override
-  protected void okPressed() {
-    final IStatus status = new TagListValidator(tagListForValidation).validate(true, false);
-    if (!status.isOK()) {
-      setErrorMessage(status.getMessage());
-      nameInput.setFocus();
+  private void createHierarchyInput() {
+    if (!(tag.eContainer() instanceof ITag)) {
       return;
     }
-    super.okPressed();
+
+    var label = new Label(mainComposite, SWT.NONE);
+    label.setText(Messages.EditTagDataDialog_hierarchyInput_xlbl);
+
+    var input = new Text(mainComposite, SWT.READ_ONLY | SWT.BORDER);
+    GridDataFactory.fillDefaults().grab(true, false).applyTo(input);
+    String hierarchyText = getHierarchyAsText();
+    input.setText(hierarchyText);
+    input.setToolTipText(hierarchyText);
   }
 
-  @Override
-  protected void cancelPressed() {
-    tag.setName(oldTagName);
-    tag.setDescription(oldTagDescription);
-    super.cancelPressed();
+  private void enableOkButton(final boolean enable) {
+    final var okButton = getButton(IDialogConstants.OK_ID);
+    if (okButton != null && !okButton.isDisposed()) {
+      okButton.setEnabled(enable);
+    }
+  }
+
+  private String getHierarchyAsText() {
+    var parentTag = (ITag) tag.eContainer();
+    var bottomUpParents = new LinkedList<String>();
+    var hierarchyText = new StringBuffer();
+
+    while (parentTag != null) {
+      bottomUpParents.addFirst(parentTag.getName());
+
+      if (parentTag.eContainer() instanceof ITag) {
+        parentTag = (ITag) parentTag.eContainer();
+      } else {
+        parentTag = null;
+      }
+    }
+
+    for (var parentTagEntry : bottomUpParents) {
+      if (hierarchyText.length() != 0) {
+        hierarchyText.append(" > "); //$NON-NLS-1$
+      }
+      hierarchyText.append(parentTagEntry);
+    }
+    return hierarchyText.toString();
+  }
+
+  private String getTitle() {
+    if (!StringUtil.isEmpty(tag.getId())) {
+      if (isUserTag) {
+        return Messages.EditTagDataDialog_EditUserTagDialogTitle_xtit;
+      }
+      return Messages.EditTagDataDialog_EditGlobalTagTitle_xtit;
+    }
+    if (isUserTag) {
+      return Messages.EditTagDataDialog_CreateUserTagTitle_xtit;
+    }
+    return Messages.EditTagDataDialog_CreateGlobalTagTitle_xtit;
+  }
+
+  private boolean isDirty() {
+    if (!nameInput.getText().equals(oldTagName) || !descriptionInput.getText()
+        .equals(oldTagDescription)) {
+      return true;
+    }
+    return false;
   }
 
   private void onModifyTagName(final ModifyEvent e) {
@@ -143,33 +218,5 @@ public class EditTagDataDialog extends TitleAreaDialog {
         enableOkButton(true);
       }
     }
-  }
-
-  private boolean isDirty() {
-    if (!nameInput.getText().equals(oldTagName) || !descriptionInput.getText()
-        .equals(oldTagDescription)) {
-      return true;
-    }
-    return false;
-  }
-
-  private void enableOkButton(final boolean enable) {
-    final Button okButton = getButton(IDialogConstants.OK_ID);
-    if (okButton != null && !okButton.isDisposed()) {
-      okButton.setEnabled(enable);
-    }
-  }
-
-  private String getTitle() {
-    if (!StringUtil.isEmpty(tag.getId())) {
-      if (isUserTag) {
-        return Messages.EditTagDataDialog_EditUserTagDialogTitle_xtit;
-      }
-      return Messages.EditTagDataDialog_EditGlobalTagTitle_xtit;
-    }
-    if (isUserTag) {
-      return Messages.EditTagDataDialog_CreateUserTagTitle_xtit;
-    }
-    return Messages.EditTagDataDialog_CreateGlobalTagTitle_xtit;
   }
 }
