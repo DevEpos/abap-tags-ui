@@ -20,13 +20,13 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
 
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
@@ -35,6 +35,8 @@ import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.project.ProjectInput;
 import com.devepos.adt.base.ui.search.AdtRisSearchUtil;
 import com.devepos.adt.base.ui.search.IAdtRisSearchResultProxy;
@@ -54,13 +56,15 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
   }
 
   public static final String PAGE_NAME = TaggableObjectSelectionWizardPage.class.getCanonicalName();
-  private ProjectInput projectInput;
   private final List<ObjectToBeTagged> objects = new ArrayList<>();
+
+  private ProjectInput projectInput;
   private TableViewer objectsViewer;
-
   private Button removeObjectsButton;
-
   private Button selectObjectsButton;
+  private ToolBar tableToolbar;
+  private ToolItem selectObjectsTbButton;
+  private ToolItem removeObjectsTbButton;
 
   public TaggableObjectSelectionWizardPage() {
     super(PAGE_NAME);
@@ -108,6 +112,9 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
     if (visible && !isPageComplete()) {
       getWizard().completePreviousPage(this);
     }
+    if (tableToolbar != null) {
+      tableToolbar.setEnabled(getWizard().getProject() != null);
+    }
     super.setVisible(visible);
   }
 
@@ -144,9 +151,10 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
         Messages.TaggableObjectSelectionWizardPage_SelectedObjectsTableTitle_xtit);
     GridDataFactory.fillDefaults()
         .align(SWT.FILL, SWT.CENTER)
-        .span(2, 1)
         .grab(true, false)
         .applyTo(objectsViewerLabel);
+
+    createViewerToolbar(container);
 
     objectsViewer = new TableViewer(container, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.VIRTUAL);
     objectsViewer.setContentProvider(new ArrayContentProvider());
@@ -155,29 +163,30 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 
     GridDataFactory.fillDefaults()
         .align(SWT.FILL, SWT.FILL)
+        .span(2, 1)
         .grab(true, true)
-        .minSize(250, 300)
+        .minSize(150, 300)
         .applyTo(objectsViewer.getControl());
 
-    final Composite buttonComposite = new Composite(container, SWT.NONE);
-    GridLayoutFactory.swtDefaults()
-        .numColumns(1)
-        .margins(0, 0)
-        .extendedMargins(2, 2, 0, 2)
-        .applyTo(buttonComposite);
-    GridDataFactory.fillDefaults()
-        .align(SWT.FILL, SWT.BEGINNING)
-        .grab(false, true)
-        .applyTo(buttonComposite);
+    objectsViewer.setInput(objects);
+    objectsViewer.addSelectionChangedListener(e -> {
+      final ISelection sel = e.getSelection();
+      removeObjectsTbButton.setEnabled(sel != null && !sel.isEmpty());
+    });
+  }
 
-    selectObjectsButton = new Button(buttonComposite, SWT.PUSH);
-    GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).applyTo(selectObjectsButton);
-    selectObjectsButton.setText(Messages.TaggableObjectSelectionWizardPage_SelectObjects_xbut);
-    selectObjectsButton.setEnabled(getWizard().getProject() != null);
-    selectObjectsButton.addSelectionListener(widgetSelectedAdapter(e -> {
+  private void createViewerToolbar(Composite parent) {
+    tableToolbar = new ToolBar(parent, SWT.FLAT | SWT.HORIZONTAL);
+    tableToolbar.setEnabled(false);
+    GridDataFactory.fillDefaults().align(SWT.END, SWT.END).applyTo(tableToolbar);
+
+    selectObjectsTbButton = new ToolItem(tableToolbar, SWT.PUSH);
+    selectObjectsTbButton.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.OPEN_ABAP_REPO_TYPE));
+    selectObjectsTbButton.setToolTipText("Select Objects"); //$NON-NLS-1$
+    selectObjectsTbButton.addSelectionListener(widgetSelectedAdapter(l -> {
       final IAdtRisSearchResultProxy result = AdtRisSearchUtil.searchAdtObjectViaDialog(parent
           .getShell(), Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit,
-          this.getClass().getCanonicalName() + ".dialog", true, null, getWizard().getProject());
+          this.getClass().getCanonicalName() + ".dialog", true, null, getWizard().getProject()); //$NON-NLS-1$
       if (result == null) {
         return;
       }
@@ -188,23 +197,14 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
       validatePage(null, ValidationSource.OBJECTS);
     }));
 
-    removeObjectsButton = new Button(buttonComposite, SWT.PUSH);
-    removeObjectsButton.setText(Messages.TaggableObjectSelectionWizardPage_RemoveSelected_xbut);
-    removeObjectsButton.setEnabled(false);
-    removeObjectsButton.addSelectionListener(new SelectionAdapter() {
-      @Override
-      public void widgetSelected(final SelectionEvent e) {
-        removeSelectedObjects();
-        validatePage(null, ValidationSource.OBJECTS);
-      }
-    });
-    GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).applyTo(removeObjectsButton);
-
-    objectsViewer.setInput(objects);
-    objectsViewer.addSelectionChangedListener(e -> {
-      final ISelection sel = e.getSelection();
-      removeObjectsButton.setEnabled(sel != null && !sel.isEmpty());
-    });
+    removeObjectsTbButton = new ToolItem(tableToolbar, SWT.PUSH);
+    removeObjectsTbButton.setEnabled(false);
+    removeObjectsTbButton.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.DELETE_ROW));
+    removeObjectsTbButton.setToolTipText(Messages.TaggableObjectSelectionWizardPage_RemoveObjectAction_xtol);
+    removeObjectsTbButton.addSelectionListener(widgetSelectedAdapter(l -> {
+      removeSelectedObjects();
+      validatePage(null, ValidationSource.OBJECTS);
+    }));
   }
 
   private void removeSelectedObjects() {
@@ -219,29 +219,6 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
     objectsViewer.refresh();
   }
 
-  private void updatePageStatus(final IStatus pageStatus) {
-    boolean pageComplete = true;
-    if (pageStatus == null || pageStatus.isOK()) {
-      setErrorMessage(null);
-      setMessage(null);
-    } else if (pageStatus.getSeverity() == IStatus.ERROR) {
-      if (pageStatus.getCode() == IStatus.INFO) {
-        setErrorMessage(null);
-        setMessage(pageStatus.getMessage(), INFORMATION);
-      } else {
-        setErrorMessage(pageStatus.getMessage());
-      }
-      pageComplete = false;
-    } else if (pageStatus.getSeverity() == IStatus.WARNING) {
-      setErrorMessage(null);
-      setMessage(pageStatus.getMessage(), WARNING);
-    } else if (pageStatus.getSeverity() == IStatus.INFO) {
-      setErrorMessage(null);
-      setMessage(pageStatus.getMessage(), INFORMATION);
-    }
-    setPageComplete(pageComplete);
-  }
-
   private void validatePage(final IStatus status, final ValidationSource source) {
     setDirty(true);
     IStatus pageStatus = status;
@@ -252,10 +229,12 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
         if (objects != null) {
           objects.clear();
         }
-        objectsViewer.refresh();
+        if (objectsViewer != null) {
+          objectsViewer.refresh();
+        }
       }
-      if (selectObjectsButton != null) {
-        selectObjectsButton.setEnabled(pageStatus.isOK());
+      if (tableToolbar != null) {
+        tableToolbar.setEnabled(pageStatus.isOK());
       }
       // if project validation is successful continue with objects validation
       if (pageStatus.isOK()) {
@@ -272,7 +251,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
         pageStatus = Status.OK_STATUS;
       }
     }
-    updatePageStatus(pageStatus);
+    updatePageCompletedStatus(pageStatus);
   }
 
   class AdtObjectLabelProvider extends LabelProvider implements ILabelProvider,
