@@ -37,6 +37,7 @@ public class Messages extends NLS {
   public static String TagManagerPreferencePage_TreeSettingsGroup_xlbl;
   public static String General_Tags_xlbl;
   public static String General_No_xlbl;
+  public static String General_NoProjectFoundInSelection_xmsg;
   public static String AbapObjectTagsView_AddTagsAction_xtol;
   public static String AbapObjectTagsView_DeleteTagAction_xmit;
   public static String AbapObjectTagsView_DeleteTagsJob_xmsg;

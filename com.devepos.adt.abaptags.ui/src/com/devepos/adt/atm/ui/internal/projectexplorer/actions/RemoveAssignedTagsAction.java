@@ -4,6 +4,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.actions.SelectionListenerAction;
@@ -12,6 +16,7 @@ import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo;
+import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.IImages;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
@@ -26,15 +31,15 @@ import com.sap.adt.project.IProjectProvider;
 /**
  * Action to remove a certain tag from a list of selected Tagged Objects in the Tagged Object Tree
  * in the Project Explorer View
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  *
  */
 class RemoveAssignedTagsAction extends SelectionListenerAction {
   private final StructuredViewer viewer;
-  private ICommonActionExtensionSite actionSite;
+  private final ICommonActionExtensionSite actionSite;
 
-  public RemoveAssignedTagsAction(ICommonActionExtensionSite actionSite) {
+  public RemoveAssignedTagsAction(final ICommonActionExtensionSite actionSite) {
     super(Messages.TaggedObjectTreeNodeActionProvider_RefreshAction_xmit);
     this.actionSite = actionSite;
     viewer = actionSite.getStructuredViewer();
@@ -45,6 +50,13 @@ class RemoveAssignedTagsAction extends SelectionListenerAction {
 
   @Override
   public void run() {
+    var project = getProjectFromSelection();
+    var featureStatus = getTagRemovalFeatureStatus(project);
+    if (!featureStatus.isOK()) {
+      MessageDialog.openError(actionSite.getViewSite().getShell(),
+          Messages.AbapTagManagerView_ErrorMessageTitle_xtit, featureStatus.getMessage());
+      return;
+    }
     var wizard = new DeleteTaggedObjectsWizard();
     var nodesToUpdate = new HashSet<ILazyLoadingNode>();
     var listRequest = wizard.getTaggedObjectListRequest();
@@ -68,6 +80,15 @@ class RemoveAssignedTagsAction extends SelectionListenerAction {
         viewer.refresh(nodeToUpdate);
       }
     }
+  }
+
+  private IProject getProjectFromSelection() {
+    var firstSelectedObj = viewer.getStructuredSelection().getFirstElement();
+    if (firstSelectedObj instanceof IAdtObjectReferenceNode) {
+      return ((IAdtObjectReferenceNode) firstSelectedObj).getAdapter(IProjectProvider.class)
+          .getProject();
+    }
+    return null;
   }
 
   private void addTaggedObjectInfo(final IAdtObjectReferenceNode objRefNode,
@@ -117,6 +138,15 @@ class RemoveAssignedTagsAction extends SelectionListenerAction {
       }
     }
     objectInfos.add(taggedObjectInfo);
+  }
+
+  private IStatus getTagRemovalFeatureStatus(final IProject project) {
+    if (project == null) {
+      return new Status(IStatus.ERROR, AbapTagsUIPlugin.PLUGIN_ID,
+          Messages.General_NoProjectFoundInSelection_xmsg);
+    }
+    return AdtObjTaggingServiceFactory.createTaggingService()
+        .testTaggedObjectDeletionFeatureAvailability(project);
   }
 
   private boolean markNodeForUpdate(final Set<ILazyLoadingNode> nodesToUpdate,
