@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -33,6 +32,7 @@ import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.help.HelpContexts;
 import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
+import com.devepos.adt.atm.ui.internal.tree.SelectTagSubtreeAction;
 import com.devepos.adt.atm.ui.internal.tree.TagLabelProvider;
 import com.devepos.adt.atm.ui.internal.tree.TagSelectionTree;
 import com.devepos.adt.atm.ui.internal.tree.TagTreeContentProvider;
@@ -41,7 +41,6 @@ import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
-import com.devepos.adt.base.ui.action.ActionFactory;
 import com.devepos.adt.base.ui.project.ProjectInput;
 import com.devepos.adt.base.ui.wizard.AbstractBaseWizardPage;
 
@@ -60,7 +59,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
   private ToolBar toolBar;
   private Label selectionInfo;
 
-  private Action selectSubTreeAction;
+  private SelectTagSubtreeAction selectSubTreeAction;
 
   private TagTreeContentProvider treeContentProvider;
   private TreeViewerLabelProvider treeLabelProvider;
@@ -130,6 +129,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
     createTagScopeCombo(treeActionsComposite);
     createTreeToolbar(treeActionsComposite);
+    createActions();
 
     setControl(root);
     setPageComplete(false);
@@ -149,6 +149,11 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
       tagSelectionTree.setFocus();
     }
     super.setVisible(visible);
+  }
+
+  private void createActions() {
+    selectSubTreeAction = new SelectTagSubtreeAction(tagSelectionTree);
+    selectSubTreeAction.setPostRunHandler(() -> validatePage(null, ValidationSource.TAGS));
   }
 
   private void createProjectInput(final Composite parent) {
@@ -296,28 +301,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
   }
 
   private void fillContextMenu(final IMenuManager menu) {
-    var selection = tagSelectionTree.getViewerSelection();
-    if (selection == null || selection.isEmpty()) {
-      return;
-    }
-
-    if (Stream.of(selection.toArray()).anyMatch(selObj -> {
-      if (selObj instanceof ITag) {
-        return !((ITag) selObj).getChildTags().isEmpty();
-      }
-      return false;
-    })) {
-      if (selectSubTreeAction == null) {
-        selectSubTreeAction = ActionFactory.createAction(
-            Messages.TagSelectionWizardPage_SelectSubTreeAction_xmit, AdtBaseUIResources
-                .getImageDescriptor(IAdtBaseImages.CHECK), () -> {
-                  var selectedTags = tagSelectionTree.getViewerSelection();
-                  for (var selObj : selectedTags.toArray()) {
-                    tagSelectionTree.setTagChecked((ITag) selObj, true, true);
-                  }
-                  validatePage(null, ValidationSource.TAGS);
-                });
-      }
+    if (selectSubTreeAction.hasTreeValidSelectionForAction()) {
       menu.add(selectSubTreeAction);
     }
   }
@@ -387,6 +371,9 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         validateTags = true;
       }
     } else if (source == ValidationSource.TAGS) {
+      if (projectInvalid) {
+        return;
+      }
       validateTags = true;
     }
 
@@ -399,6 +386,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         pageStatus = Status.OK_STATUS;
       }
     }
+
     updateCheckedLabel();
     updatePageCompletedStatus(pageStatus);
   }

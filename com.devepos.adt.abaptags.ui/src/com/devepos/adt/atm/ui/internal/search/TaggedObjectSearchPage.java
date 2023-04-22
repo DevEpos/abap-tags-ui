@@ -5,6 +5,8 @@ import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -31,6 +33,7 @@ import com.devepos.adt.atm.ui.internal.help.HelpContexts;
 import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
+import com.devepos.adt.atm.ui.internal.tree.SelectTagSubtreeAction;
 import com.devepos.adt.atm.ui.internal.tree.TagSelectionTree;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.project.IAbapProjectProvider;
@@ -63,6 +66,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
   private final IPreferenceStore prefStore;
   private Job loadTagsJob;
   private IProject currentProject;
+  private SelectTagSubtreeAction selectSubTreeAction;
 
   public TaggedObjectSearchPage() {
     prefStore = AbapTagsUIPlugin.getDefault().getPreferenceStore();
@@ -99,6 +103,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
     setControl(mainComposite);
 
     createTagsTree(mainComposite);
+    createViewerContextMenu();
     createTreeToolbar();
 
     final Label separator = new Label(mainComposite, SWT.SEPARATOR | SWT.HORIZONTAL);
@@ -108,12 +113,19 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
     createProjectInput(mainComposite);
     createStatusArea(mainComposite);
 
+    createActions();
+
     setInitialData();
 
     updateOKStatus();
 
     tagsTree.setFocus();
     SearchPageUtil.notifySearchPageListeners(this);
+  }
+
+  private void createActions() {
+    selectSubTreeAction = new SelectTagSubtreeAction(tagsTree);
+    selectSubTreeAction.setPostRunHandler(() -> updateOKStatus());
   }
 
   @Override
@@ -249,6 +261,22 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
       tagsTree.setCheckedTags(null);
       updateOKStatus();
     }));
+  }
+
+  private void createViewerContextMenu() {
+    final var menuMgr = new MenuManager();
+    menuMgr.setRemoveAllWhenShown(true);
+
+    menuMgr.addMenuListener(menu -> {
+      fillContextMenu(menu);
+    });
+    tagsTree.hookContextMenu(menuMgr);
+  }
+
+  private void fillContextMenu(final IMenuManager menu) {
+    if (selectSubTreeAction.hasTreeValidSelectionForAction()) {
+      menu.add(selectSubTreeAction);
+    }
   }
 
   private void loadTags(final IProject project) {

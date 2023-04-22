@@ -5,6 +5,8 @@ import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.TrayDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
@@ -16,6 +18,7 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
+import com.devepos.adt.atm.ui.internal.tree.SelectTagSubtreeAction;
 import com.devepos.adt.atm.ui.internal.tree.TagSelectionTree;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
@@ -32,6 +35,7 @@ import com.devepos.adt.base.ui.IAdtBaseStrings;
 public class TagSelectionDialog extends TrayDialog {
 
   private final TagSelectionTree tagsTree;
+  private SelectTagSubtreeAction selectSubTreeAction;
   private final List<ITag> tags;
   private ToolBar treeToolBar;
 
@@ -50,15 +54,19 @@ public class TagSelectionDialog extends TrayDialog {
     this.tags = tags;
   }
 
+  /**
+   * Retrieves a set of all selected (checked) tags
+   *
+   * @return a set of all selected (checked) tags
+   */
+  public Set<ITag> getSelectedTags() {
+    return tagsTree.getCheckedTags();
+  }
+
   @Override
   protected void configureShell(final Shell shell) {
     super.configureShell(shell);
     shell.setText(Messages.TagSearchParameterSection_selectTags_xbtn);
-  }
-
-  @Override
-  protected boolean isResizable() {
-    return true;
   }
 
   @Override
@@ -67,9 +75,22 @@ public class TagSelectionDialog extends TrayDialog {
 
     tagsTree.createControl(dialogArea);
     tagsTree.addKeyListenerForFilterFocus();
-    createTagsToolbar(tagsTree.getTreeFilterComposite());
     tagsTree.setTags(tags, false);
+
+    createTagsToolbar(tagsTree.getTreeFilterComposite());
+    createViewerContextMenu();
+    createActions();
+
     return dialogArea;
+  }
+
+  @Override
+  protected boolean isResizable() {
+    return true;
+  }
+
+  private void createActions() {
+    selectSubTreeAction = new SelectTagSubtreeAction(tagsTree);
   }
 
   private void createTagsToolbar(final Composite parent) {
@@ -102,13 +123,20 @@ public class TagSelectionDialog extends TrayDialog {
     }));
   }
 
-  /**
-   * Retrieves a set of all selected (checked) tags
-   *
-   * @return a set of all selected (checked) tags
-   */
-  public Set<ITag> getSelectedTags() {
-    return tagsTree.getCheckedTags();
+  private void createViewerContextMenu() {
+    final var menuMgr = new MenuManager();
+    menuMgr.setRemoveAllWhenShown(true);
+
+    menuMgr.addMenuListener(menu -> {
+      fillContextMenu(menu);
+    });
+    tagsTree.hookContextMenu(menuMgr);
+  }
+
+  private void fillContextMenu(final IMenuManager menu) {
+    if (selectSubTreeAction.hasTreeValidSelectionForAction()) {
+      menu.add(selectSubTreeAction);
+    }
   }
 
 }
