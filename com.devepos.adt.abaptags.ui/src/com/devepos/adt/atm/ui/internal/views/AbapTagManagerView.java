@@ -490,7 +490,10 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   @Override
   public void toggleInlineFilter() {
     if (treeViewer.getInput() != null) {
+      // CHECK: better to set this in the FilterableComposite class?
+      tree.setRedraw(false);
       tree.toggleFilterVisiblity();
+      tree.setRedraw(true);
     }
   }
 
