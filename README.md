@@ -9,4 +9,4 @@ ABAP Tags eclipse plugin
 ## Preconditions
 
 - The ABAP Development Tools Plugin is installed [ADT Plugin](https://tools.hana.ondemand.com/)
-- The ADT Backend for the _ABAP Tags_ is installed [abap-tags](https://github.com/stockbal/abap-tags-backend)
+- The ADT Backend for the _ABAP Tags_ is installed [abap-tags](https://github.com/DevEpos/abap-tags-backend)
