@@ -2,8 +2,9 @@ package com.devepos.adt.atm.ui.internal.wizard.tagging;
 
 import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
@@ -22,7 +23,6 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ToolBar;
@@ -56,12 +56,10 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
   }
 
   public static final String PAGE_NAME = TaggableObjectSelectionWizardPage.class.getCanonicalName();
-  private final List<ObjectToBeTagged> objects = new ArrayList<>();
+  private final Set<ObjectToBeTagged> objects = new HashSet<>();
 
   private ProjectInput projectInput;
   private TableViewer objectsViewer;
-  private Button removeObjectsButton;
-  private Button selectObjectsButton;
   private ToolBar tableToolbar;
   private ToolItem selectObjectsTbButton;
   private ToolItem removeObjectsTbButton;
@@ -175,7 +173,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
     });
   }
 
-  private void createViewerToolbar(Composite parent) {
+  private void createViewerToolbar(final Composite parent) {
     tableToolbar = new ToolBar(parent, SWT.FLAT | SWT.HORIZONTAL);
     tableToolbar.setEnabled(false);
     GridDataFactory.fillDefaults().align(SWT.END, SWT.END).applyTo(tableToolbar);
@@ -200,7 +198,8 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
     removeObjectsTbButton = new ToolItem(tableToolbar, SWT.PUSH);
     removeObjectsTbButton.setEnabled(false);
     removeObjectsTbButton.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.DELETE_ROW));
-    removeObjectsTbButton.setToolTipText(Messages.TaggableObjectSelectionWizardPage_RemoveObjectAction_xtol);
+    removeObjectsTbButton.setToolTipText(
+        Messages.TaggableObjectSelectionWizardPage_RemoveObjectAction_xtol);
     removeObjectsTbButton.addSelectionListener(widgetSelectedAdapter(l -> {
       removeSelectedObjects();
       validatePage(null, ValidationSource.OBJECTS);
@@ -304,6 +303,11 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
         return ((ObjectToBeTagged) obj).ref.getUri().equals(ref.getUri());
       }
       return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+      return ref.getUri().hashCode();
     }
 
     /**
