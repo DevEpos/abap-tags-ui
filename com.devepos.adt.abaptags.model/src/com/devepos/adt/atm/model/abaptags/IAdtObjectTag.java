@@ -15,6 +15,8 @@ import org.eclipse.swt.graphics.Image;
  * <ul>
  * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectName <em>Parent Object
  * Name</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectAltName <em>Parent
+ * Object Alt Name</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectType <em>Parent Object
  * Type</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectUri <em>Parent Object
@@ -60,6 +62,33 @@ public interface IAdtObjectTag extends ITagBase {
    * @generated
    */
   void setParentObjectName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Parent Object Alt Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Parent Object Alt Name</em>' attribute.
+   * @see #setParentObjectAltName(String)
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getAdtObjectTag_ParentObjectAltName()
+   * @model extendedMetaData="kind='attribute' name='parentObjectAltName'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  String getParentObjectAltName();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectAltName <em>Parent
+   * Object Alt Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Parent Object Alt Name</em>' attribute.
+   * @see #getParentObjectAltName()
+   * @generated
+   */
+  void setParentObjectAltName(String value);
 
   /**
    * Returns the value of the '<em><b>Parent Object Type</b></em>' attribute. <!--
@@ -222,5 +251,14 @@ public interface IAdtObjectTag extends ITagBase {
    * @generated
    */
   void setCorrectParentTag(ITag value);
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @model kind="operation" dataType="org.eclipse.emf.ecore.xml.type.String"
+   * @generated
+   */
+  String getParentObjectDisplayName();
 
 } // IAdtObjectTag

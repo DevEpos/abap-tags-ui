@@ -19,7 +19,6 @@ import com.devepos.adt.atm.ui.internal.util.IColorConstants;
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.model.adtbase.MessageType;
 import com.devepos.adt.base.ui.StylerFactory;
-import com.devepos.adt.base.ui.util.AdtTypeUtil;
 
 class TaggedObjectColumnLabelProvider extends CellLabelProvider implements
     DelegatingStyledCellLabelProvider.IStyledLabelProvider, IColorProvider {
@@ -77,7 +76,7 @@ class TaggedObjectColumnLabelProvider extends CellLabelProvider implements
       }
       break;
     case PARENT_OBJECT:
-      image = AdtTypeUtil.getInstance().getTypeImage(taggedObject.getParentObjectType());
+      image = ImageUtil.getAdtTypeImage(taggedObject.getParentObjectType());
       break;
     case ISSUES:
       image = getMessageImage(taggedObject.getMessageType());
@@ -145,10 +144,7 @@ class TaggedObjectColumnLabelProvider extends CellLabelProvider implements
       return taggedObject.getComponentType().equals(IAdtObjectTypeConstants.LOCAL_CLASS) ? ImageUtil
           .getLocalClassImage() : ImageUtil.getLocalInterfaceImage();
     }
-    if (taggedObject.getObjectType() != null) {
-      return AdtTypeUtil.getInstance().getTypeImage(taggedObject.getObjectType());
-    }
-    return null;
+    return ImageUtil.getAdtTypeImage(taggedObject.getObjectType());
   }
 
   private Image getTagImage(final DeletableTaggedObject element) {

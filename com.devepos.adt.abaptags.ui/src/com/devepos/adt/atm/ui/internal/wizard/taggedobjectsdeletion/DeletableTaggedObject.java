@@ -77,7 +77,7 @@ public class DeletableTaggedObject {
   }
 
   public String getObjectName() {
-    return objectInfo.getObjectName();
+    return objectInfo.getObjectDisplayName();
   }
 
   public String getObjectType() {
@@ -89,7 +89,7 @@ public class DeletableTaggedObject {
   }
 
   public String getParentObjectName() {
-    return objectInfo.getParentObjectName();
+    return objectInfo.getParentObjectDisplayName();
   }
 
   public String getParentObjectType() {

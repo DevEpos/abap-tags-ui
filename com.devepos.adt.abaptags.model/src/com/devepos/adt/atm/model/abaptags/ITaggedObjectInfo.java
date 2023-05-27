@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.EObject;
  * Type</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getObjectName <em>Object
  * Name</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getObjectAltName <em>Object Alt
+ * Name</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getObjectType <em>Object
  * Type</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getComponentName <em>Component
@@ -33,6 +35,8 @@ import org.eclipse.emf.ecore.EObject;
  * Name</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentObjectName <em>Parent
  * Object Name</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentObjectAltName <em>Parent
+ * Object Alt Name</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentObjectType <em>Parent
  * Object Type</em>}</li>
  * </ul>
@@ -171,6 +175,32 @@ public interface ITaggedObjectInfo extends EObject {
    * @generated
    */
   void setObjectName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Object Alt Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Object Alt Name</em>' attribute.
+   * @see #setObjectAltName(String)
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectInfo_ObjectAltName()
+   * @model extendedMetaData="kind='attribute' name='objectAltName' namespace='##targetNamespace'"
+   * @generated
+   */
+  String getObjectAltName();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getObjectAltName <em>Object Alt
+   * Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Object Alt Name</em>' attribute.
+   * @see #getObjectAltName()
+   * @generated
+   */
+  void setObjectAltName(String value);
 
   /**
    * Returns the value of the '<em><b>Object Type</b></em>' attribute.
@@ -330,6 +360,33 @@ public interface ITaggedObjectInfo extends EObject {
   void setParentObjectName(String value);
 
   /**
+   * Returns the value of the '<em><b>Parent Object Alt Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Parent Object Alt Name</em>' attribute.
+   * @see #setParentObjectAltName(String)
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectInfo_ParentObjectAltName()
+   * @model extendedMetaData="kind='attribute' name='parentObjectAltName'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  String getParentObjectAltName();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentObjectAltName <em>Parent
+   * Object Alt Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Parent Object Alt Name</em>' attribute.
+   * @see #getParentObjectAltName()
+   * @generated
+   */
+  void setParentObjectAltName(String value);
+
+  /**
    * Returns the value of the '<em><b>Parent Object Type</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -355,5 +412,29 @@ public interface ITaggedObjectInfo extends EObject {
    * @generated
    */
   void setParentObjectType(String value);
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * <!-- begin-model-doc -->
+   * Retrieves display name of object
+   * <!-- end-model-doc -->
+   *
+   * @model kind="operation" dataType="org.eclipse.emf.ecore.xml.type.String"
+   * @generated
+   */
+  String getObjectDisplayName();
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * <!-- begin-model-doc -->
+   * Retrieves display name of parent object
+   * <!-- end-model-doc -->
+   *
+   * @model kind="operation" dataType="org.eclipse.emf.ecore.xml.type.String"
+   * @generated
+   */
+  String getParentObjectDisplayName();
 
 } // ITaggedObjectInfo

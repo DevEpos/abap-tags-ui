@@ -31,8 +31,7 @@ public interface ITagBase extends EObject {
    * @return the value of the '<em>Id</em>' attribute.
    * @see #setId(String)
    * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTagBase_Id()
-   * @model id="true"
-   *        extendedMetaData="kind='attribute' name='id' namespace='##targetNamespace'"
+   * @model extendedMetaData="kind='attribute' name='id' namespace='##targetNamespace'"
    * @generated
    */
   String getId();

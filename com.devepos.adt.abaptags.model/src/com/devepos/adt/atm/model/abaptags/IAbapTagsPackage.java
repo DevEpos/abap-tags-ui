@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -375,13 +376,23 @@ public interface IAbapTagsPackage extends EPackage {
   int ADT_OBJECT_TAG__PARENT_OBJECT_NAME = TAG_BASE_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Parent Object Alt Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_OBJECT_TAG__PARENT_OBJECT_ALT_NAME = TAG_BASE_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Parent Object Type</b></em>' attribute. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int ADT_OBJECT_TAG__PARENT_OBJECT_TYPE = TAG_BASE_FEATURE_COUNT + 1;
+  int ADT_OBJECT_TAG__PARENT_OBJECT_TYPE = TAG_BASE_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Parent Object Uri</b></em>' attribute. <!--
@@ -390,7 +401,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJECT_TAG__PARENT_OBJECT_URI = TAG_BASE_FEATURE_COUNT + 2;
+  int ADT_OBJECT_TAG__PARENT_OBJECT_URI = TAG_BASE_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Parent Tag Id</b></em>' attribute. <!--
@@ -399,7 +410,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJECT_TAG__PARENT_TAG_ID = TAG_BASE_FEATURE_COUNT + 3;
+  int ADT_OBJECT_TAG__PARENT_TAG_ID = TAG_BASE_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Parent Tag Name</b></em>' attribute. <!--
@@ -408,7 +419,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJECT_TAG__PARENT_TAG_NAME = TAG_BASE_FEATURE_COUNT + 4;
+  int ADT_OBJECT_TAG__PARENT_TAG_NAME = TAG_BASE_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Image</b></em>' attribute.
@@ -418,7 +429,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJECT_TAG__IMAGE = TAG_BASE_FEATURE_COUNT + 5;
+  int ADT_OBJECT_TAG__IMAGE = TAG_BASE_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Possible Parent Tags</b></em>' attribute list.
@@ -428,7 +439,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJECT_TAG__POSSIBLE_PARENT_TAGS = TAG_BASE_FEATURE_COUNT + 6;
+  int ADT_OBJECT_TAG__POSSIBLE_PARENT_TAGS = TAG_BASE_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Correct Parent Tag</b></em>' reference.
@@ -438,7 +449,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJECT_TAG__CORRECT_PARENT_TAG = TAG_BASE_FEATURE_COUNT + 7;
+  int ADT_OBJECT_TAG__CORRECT_PARENT_TAG = TAG_BASE_FEATURE_COUNT + 8;
 
   /**
    * The number of structural features of the '<em>Adt Object Tag</em>' class.
@@ -447,7 +458,17 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJECT_TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 8;
+  int ADT_OBJECT_TAG_FEATURE_COUNT = TAG_BASE_FEATURE_COUNT + 9;
+
+  /**
+   * The operation id for the '<em>Get Parent Object Display Name</em>' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_OBJECT_TAG___GET_PARENT_OBJECT_DISPLAY_NAME = TAG_BASE_OPERATION_COUNT + 0;
 
   /**
    * The number of operations of the '<em>Adt Object Tag</em>' class. <!--
@@ -456,7 +477,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJECT_TAG_OPERATION_COUNT = TAG_BASE_OPERATION_COUNT + 0;
+  int ADT_OBJECT_TAG_OPERATION_COUNT = TAG_BASE_OPERATION_COUNT + 1;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.impl.TagPreviewInfo
@@ -1174,6 +1195,16 @@ public interface IAbapTagsPackage extends EPackage {
   int TAGGED_OBJECT_INFO__OBJECT_NAME = 4;
 
   /**
+   * The feature id for the '<em><b>Object Alt Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO__OBJECT_ALT_NAME = 5;
+
+  /**
    * The feature id for the '<em><b>Object Type</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1181,7 +1212,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TAGGED_OBJECT_INFO__OBJECT_TYPE = 5;
+  int TAGGED_OBJECT_INFO__OBJECT_TYPE = 6;
 
   /**
    * The feature id for the '<em><b>Component Name</b></em>' attribute.
@@ -1191,7 +1222,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TAGGED_OBJECT_INFO__COMPONENT_NAME = 6;
+  int TAGGED_OBJECT_INFO__COMPONENT_NAME = 7;
 
   /**
    * The feature id for the '<em><b>Component Type</b></em>' attribute.
@@ -1201,7 +1232,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TAGGED_OBJECT_INFO__COMPONENT_TYPE = 7;
+  int TAGGED_OBJECT_INFO__COMPONENT_TYPE = 8;
 
   /**
    * The feature id for the '<em><b>Parent Tag Id</b></em>' attribute.
@@ -1211,7 +1242,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TAGGED_OBJECT_INFO__PARENT_TAG_ID = 8;
+  int TAGGED_OBJECT_INFO__PARENT_TAG_ID = 9;
 
   /**
    * The feature id for the '<em><b>Parent Tag Name</b></em>' attribute.
@@ -1221,7 +1252,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TAGGED_OBJECT_INFO__PARENT_TAG_NAME = 9;
+  int TAGGED_OBJECT_INFO__PARENT_TAG_NAME = 10;
 
   /**
    * The feature id for the '<em><b>Parent Object Name</b></em>' attribute.
@@ -1231,7 +1262,17 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TAGGED_OBJECT_INFO__PARENT_OBJECT_NAME = 10;
+  int TAGGED_OBJECT_INFO__PARENT_OBJECT_NAME = 11;
+
+  /**
+   * The feature id for the '<em><b>Parent Object Alt Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO__PARENT_OBJECT_ALT_NAME = 12;
 
   /**
    * The feature id for the '<em><b>Parent Object Type</b></em>' attribute.
@@ -1241,7 +1282,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TAGGED_OBJECT_INFO__PARENT_OBJECT_TYPE = 11;
+  int TAGGED_OBJECT_INFO__PARENT_OBJECT_TYPE = 13;
 
   /**
    * The number of structural features of the '<em>Tagged Object Info</em>' class.
@@ -1251,7 +1292,27 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TAGGED_OBJECT_INFO_FEATURE_COUNT = 12;
+  int TAGGED_OBJECT_INFO_FEATURE_COUNT = 14;
+
+  /**
+   * The operation id for the '<em>Get Object Display Name</em>' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO___GET_OBJECT_DISPLAY_NAME = 0;
+
+  /**
+   * The operation id for the '<em>Get Parent Object Display Name</em>' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_INFO___GET_PARENT_OBJECT_DISPLAY_NAME = 1;
 
   /**
    * The number of operations of the '<em>Tagged Object Info</em>' class.
@@ -1261,7 +1322,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TAGGED_OBJECT_INFO_OPERATION_COUNT = 0;
+  int TAGGED_OBJECT_INFO_OPERATION_COUNT = 2;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectInfoList
@@ -1827,6 +1888,20 @@ public interface IAbapTagsPackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectAltName <em>Parent
+   * Object Alt Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Parent Object Alt Name</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectAltName()
+   * @see #getAdtObjectTag()
+   * @generated
+   */
+  EAttribute getAdtObjectTag_ParentObjectAltName();
+
+  /**
+   * Returns the meta object for the attribute
    * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectType <em>Parent Object
    * Type</em>}'.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1916,6 +1991,19 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    */
   EReference getAdtObjectTag_CorrectParentTag();
+
+  /**
+   * Returns the meta object for the
+   * '{@link com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectDisplayName() <em>Get
+   * Parent Object Display Name</em>}' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the '<em>Get Parent Object Display Name</em>' operation.
+   * @see com.devepos.adt.atm.model.abaptags.IAdtObjectTag#getParentObjectDisplayName()
+   * @generated
+   */
+  EOperation getAdtObjectTag__GetParentObjectDisplayName();
 
   /**
    * Returns the meta object for class
@@ -2613,6 +2701,20 @@ public interface IAbapTagsPackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getObjectAltName <em>Object Alt
+   * Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Object Alt Name</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getObjectAltName()
+   * @see #getTaggedObjectInfo()
+   * @generated
+   */
+  EAttribute getTaggedObjectInfo_ObjectAltName();
+
+  /**
+   * Returns the meta object for the attribute
    * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getObjectType <em>Object
    * Type</em>}'.
    * <!-- begin-user-doc -->
@@ -2697,6 +2799,20 @@ public interface IAbapTagsPackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentObjectAltName <em>Parent
+   * Object Alt Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Parent Object Alt Name</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentObjectAltName()
+   * @see #getTaggedObjectInfo()
+   * @generated
+   */
+  EAttribute getTaggedObjectInfo_ParentObjectAltName();
+
+  /**
+   * Returns the meta object for the attribute
    * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentObjectType <em>Parent
    * Object Type</em>}'.
    * <!-- begin-user-doc -->
@@ -2708,6 +2824,32 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    */
   EAttribute getTaggedObjectInfo_ParentObjectType();
+
+  /**
+   * Returns the meta object for the
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getObjectDisplayName() <em>Get
+   * Object Display Name</em>}' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the '<em>Get Object Display Name</em>' operation.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getObjectDisplayName()
+   * @generated
+   */
+  EOperation getTaggedObjectInfo__GetObjectDisplayName();
+
+  /**
+   * Returns the meta object for the
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentObjectDisplayName()
+   * <em>Get Parent Object Display Name</em>}' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the '<em>Get Parent Object Display Name</em>' operation.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo#getParentObjectDisplayName()
+   * @generated
+   */
+  EOperation getTaggedObjectInfo__GetParentObjectDisplayName();
 
   /**
    * Returns the meta object for class
@@ -3166,6 +3308,16 @@ public interface IAbapTagsPackage extends EPackage {
     EAttribute ADT_OBJECT_TAG__PARENT_OBJECT_NAME = eINSTANCE.getAdtObjectTag_ParentObjectName();
 
     /**
+     * The meta object literal for the '<em><b>Parent Object Alt Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ADT_OBJECT_TAG__PARENT_OBJECT_ALT_NAME = eINSTANCE
+        .getAdtObjectTag_ParentObjectAltName();
+
+    /**
      * The meta object literal for the '<em><b>Parent Object Type</b></em>' attribute feature.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
@@ -3224,6 +3376,16 @@ public interface IAbapTagsPackage extends EPackage {
      * @generated
      */
     EReference ADT_OBJECT_TAG__CORRECT_PARENT_TAG = eINSTANCE.getAdtObjectTag_CorrectParentTag();
+
+    /**
+     * The meta object literal for the '<em><b>Get Parent Object Display Name</b></em>' operation.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EOperation ADT_OBJECT_TAG___GET_PARENT_OBJECT_DISPLAY_NAME = eINSTANCE
+        .getAdtObjectTag__GetParentObjectDisplayName();
 
     /**
      * The meta object literal for the '{@link com.devepos.adt.atm.model.abaptags.impl.TagList
@@ -3756,6 +3918,15 @@ public interface IAbapTagsPackage extends EPackage {
     EAttribute TAGGED_OBJECT_INFO__OBJECT_NAME = eINSTANCE.getTaggedObjectInfo_ObjectName();
 
     /**
+     * The meta object literal for the '<em><b>Object Alt Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_INFO__OBJECT_ALT_NAME = eINSTANCE.getTaggedObjectInfo_ObjectAltName();
+
+    /**
      * The meta object literal for the '<em><b>Object Type</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3811,6 +3982,16 @@ public interface IAbapTagsPackage extends EPackage {
         .getTaggedObjectInfo_ParentObjectName();
 
     /**
+     * The meta object literal for the '<em><b>Parent Object Alt Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_INFO__PARENT_OBJECT_ALT_NAME = eINSTANCE
+        .getTaggedObjectInfo_ParentObjectAltName();
+
+    /**
      * The meta object literal for the '<em><b>Parent Object Type</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3819,6 +4000,26 @@ public interface IAbapTagsPackage extends EPackage {
      */
     EAttribute TAGGED_OBJECT_INFO__PARENT_OBJECT_TYPE = eINSTANCE
         .getTaggedObjectInfo_ParentObjectType();
+
+    /**
+     * The meta object literal for the '<em><b>Get Object Display Name</b></em>' operation.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EOperation TAGGED_OBJECT_INFO___GET_OBJECT_DISPLAY_NAME = eINSTANCE
+        .getTaggedObjectInfo__GetObjectDisplayName();
+
+    /**
+     * The meta object literal for the '<em><b>Get Parent Object Display Name</b></em>' operation.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EOperation TAGGED_OBJECT_INFO___GET_PARENT_OBJECT_DISPLAY_NAME = eINSTANCE
+        .getTaggedObjectInfo__GetParentObjectDisplayName();
 
     /**
      * The meta object literal for the

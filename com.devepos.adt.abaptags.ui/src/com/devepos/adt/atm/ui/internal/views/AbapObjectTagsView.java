@@ -110,7 +110,6 @@ import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingFolderNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
 import com.devepos.adt.base.ui.tree.LoadingTreeItemsNode;
-import com.devepos.adt.base.ui.util.AdtTypeUtil;
 import com.devepos.adt.base.ui.util.AdtUIUtil;
 import com.devepos.adt.base.ui.util.EditorUtil;
 import com.devepos.adt.base.util.StringUtil;
@@ -255,6 +254,7 @@ public class AbapObjectTagsView extends ViewPart {
         taggedObjInfo.setComponentName(tagOwningObjRefNode.getName());
       } else {
         taggedObjInfo.setObjectName(tagOwningObjRefNode.getName());
+        taggedObjInfo.setObjectAltName(tagOwningObjRefNode.getDisplayName());
         taggedObjInfo.setObjectType(tagOwningObjRefNode.getAdtObjectType());
       }
       taggedObjInfo.setTagId(tag.getId());
@@ -346,13 +346,14 @@ public class AbapObjectTagsView extends ViewPart {
     private void collectParentObject(final String destinationId, final IAdtObjectTag tag,
         final ElementInfoCollection tagElementInfoColl) {
       IAdtObjectReferenceElementInfo parentObjectRef = new AdtObjectReferenceElementInfo(tag
-          .getParentObjectName());
+          .getParentObjectName(), tag.getParentObjectDisplayName(), null);
       parentObjectRef.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
           destinationId, tag.getParentObjectName(), tag.getParentObjectType(), tag
               .getParentObjectUri()));
       tagElementInfoColl.getChildren().add(parentObjectRef);
       // clear the parent object information from the tag
       tag.setParentObjectName(null);
+      tag.setParentObjectAltName(null);
       tag.setParentObjectType(null);
       tag.setParentObjectUri(null);
     }
@@ -388,7 +389,7 @@ public class AbapObjectTagsView extends ViewPart {
 
       var mainObj = taggedObjects.get(0);
       final var adtObjRefElemInfo = new AdtObjectReferenceElementInfo(mainObj.getObjectRef()
-          .getName());
+          .getName(), mainObj.getObjectRef().getDisplayName(), null);
       adtObjRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
           destinationId, mainObj.getObjectRef()));
 
@@ -418,7 +419,7 @@ public class AbapObjectTagsView extends ViewPart {
               .getImage(IImages.LOCAL_OBJECTS_FOLDER));
       for (var childObj : taggedObjects.subList(1, taggedObjects.size())) {
         final var adtObjRefElemInfo = new AdtObjectReferenceElementInfo(childObj.getObjectRef()
-            .getName());
+            .getName(), childObj.getObjectRef().getDisplayName(), null);
         adtObjRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
             destinationId, childObj.getObjectRef()));
         adtObjRefElemInfo.getProperties()
@@ -512,14 +513,7 @@ public class AbapObjectTagsView extends ViewPart {
       if (image == null && element instanceof IAdtObjectReferenceNode) {
         final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) element;
         final IAdtObjectReference objRef = adtObjRefNode.getObjectReference();
-        var type = objRef.getType();
-        if (type.equals(IAdtObjectTypeConstants.LOCAL_CLASS)) {
-          image = ImageUtil.getLocalClassImage();
-        } else if (type.equals(IAdtObjectTypeConstants.LOCAL_INTERFACE)) {
-          image = ImageUtil.getLocalInterfaceImage();
-        } else {
-          image = AdtTypeUtil.getInstance().getTypeImage(type);
-        }
+        image = ImageUtil.getAdtTypeImage(objRef.getType());
       }
       return image;
     }

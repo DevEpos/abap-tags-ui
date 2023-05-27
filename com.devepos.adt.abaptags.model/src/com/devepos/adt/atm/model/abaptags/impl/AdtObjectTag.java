@@ -2,6 +2,7 @@
  */
 package com.devepos.adt.atm.model.abaptags.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -25,6 +26,8 @@ import com.devepos.adt.atm.model.abaptags.ITag;
  * <ul>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getParentObjectName <em>Parent
  * Object Name</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getParentObjectAltName <em>Parent
+ * Object Alt Name</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getParentObjectType <em>Parent
  * Object Type</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.AdtObjectTag#getParentObjectUri <em>Parent
@@ -63,6 +66,30 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
    * @ordered
    */
   protected String parentObjectName = PARENT_OBJECT_NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getParentObjectAltName() <em>Parent Object Alt Name</em>}'
+   * attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getParentObjectAltName()
+   * @generated
+   * @ordered
+   */
+  protected static final String PARENT_OBJECT_ALT_NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getParentObjectAltName() <em>Parent Object Alt Name</em>}'
+   * attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getParentObjectAltName()
+   * @generated
+   * @ordered
+   */
+  protected String parentObjectAltName = PARENT_OBJECT_ALT_NAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getParentObjectType() <em>Parent Object Type</em>}'
@@ -230,6 +257,34 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
       eNotify(new ENotificationImpl(this, Notification.SET,
           IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_NAME, oldParentObjectName,
           parentObjectName));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String getParentObjectAltName() {
+    return parentObjectAltName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setParentObjectAltName(final String newParentObjectAltName) {
+    String oldParentObjectAltName = parentObjectAltName;
+    parentObjectAltName = newParentObjectAltName;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_ALT_NAME, oldParentObjectAltName,
+          parentObjectAltName));
     }
   }
 
@@ -422,6 +477,16 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   */
+  @Override
+  public String getParentObjectDisplayName() {
+    var displayName = getParentObjectAltName();
+    return displayName == null ? getParentObjectName() : displayName;
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -431,6 +496,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
     switch (featureID) {
     case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_NAME:
       return getParentObjectName();
+    case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_ALT_NAME:
+      return getParentObjectAltName();
     case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_TYPE:
       return getParentObjectType();
     case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_URI:
@@ -463,6 +530,9 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
     switch (featureID) {
     case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_NAME:
       setParentObjectName((String) newValue);
+      return;
+    case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_ALT_NAME:
+      setParentObjectAltName((String) newValue);
       return;
     case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_TYPE:
       setParentObjectType((String) newValue);
@@ -501,6 +571,9 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
     case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_NAME:
       setParentObjectName(PARENT_OBJECT_NAME_EDEFAULT);
       return;
+    case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_ALT_NAME:
+      setParentObjectAltName(PARENT_OBJECT_ALT_NAME_EDEFAULT);
+      return;
     case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_TYPE:
       setParentObjectType(PARENT_OBJECT_TYPE_EDEFAULT);
       return;
@@ -537,6 +610,9 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
     case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_NAME:
       return PARENT_OBJECT_NAME_EDEFAULT == null ? parentObjectName != null
           : !PARENT_OBJECT_NAME_EDEFAULT.equals(parentObjectName);
+    case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_ALT_NAME:
+      return PARENT_OBJECT_ALT_NAME_EDEFAULT == null ? parentObjectAltName != null
+          : !PARENT_OBJECT_ALT_NAME_EDEFAULT.equals(parentObjectAltName);
     case IAbapTagsPackage.ADT_OBJECT_TAG__PARENT_OBJECT_TYPE:
       return PARENT_OBJECT_TYPE_EDEFAULT == null ? parentObjectType != null
           : !PARENT_OBJECT_TYPE_EDEFAULT.equals(parentObjectType);
@@ -560,6 +636,22 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Object eInvoke(final int operationID, final EList<?> arguments)
+      throws InvocationTargetException {
+    switch (operationID) {
+    case IAbapTagsPackage.ADT_OBJECT_TAG___GET_PARENT_OBJECT_DISPLAY_NAME:
+      return getParentObjectDisplayName();
+    }
+    return super.eInvoke(operationID, arguments);
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -573,6 +665,8 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
     StringBuilder result = new StringBuilder(super.toString());
     result.append(" (parentObjectName: ");
     result.append(parentObjectName);
+    result.append(", parentObjectAltName: ");
+    result.append(parentObjectAltName);
     result.append(", parentObjectType: ");
     result.append(parentObjectType);
     result.append(", parentObjectUri: ");

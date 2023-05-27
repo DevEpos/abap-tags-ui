@@ -51,7 +51,6 @@ import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
 import com.devepos.adt.atm.ui.internal.util.AdtObjectUtil;
 import com.devepos.adt.atm.ui.internal.util.IColorConstants;
 import com.devepos.adt.atm.ui.internal.util.ITaggedObjectPropertyNameConstants;
-import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.ITadirTypeConstants;
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.ContextHelper;
@@ -73,7 +72,6 @@ import com.devepos.adt.base.ui.tree.IStyledTreeNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
 import com.devepos.adt.base.ui.tree.LoadingTreeItemsNode;
-import com.devepos.adt.base.ui.util.AdtTypeUtil;
 import com.devepos.adt.base.ui.util.WorkbenchUtil;
 import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
@@ -459,16 +457,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
       image = resultNode.getImage();
       if (image == null && element instanceof IAdtObjectReferenceNode) {
         var adtObjRef = ((IAdtObjectReferenceNode) element).getObjectReference();
-        var type = adtObjRef.getType();
-
-        if (IAdtObjectTypeConstants.LOCAL_CLASS.equals(type)) {
-          image = ImageUtil.getLocalClassImage();
-        } else if (IAdtObjectTypeConstants.LOCAL_INTERFACE.equals(type)) {
-          image = ImageUtil.getLocalInterfaceImage();
-        } else {
-          image = adtObjRef != null ? AdtTypeUtil.getInstance().getTypeImage(adtObjRef.getType())
-              : null;
-        }
+        image = ImageUtil.getAdtTypeImage(adtObjRef.getType());
       }
       return image;
     }

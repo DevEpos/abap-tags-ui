@@ -51,7 +51,6 @@ import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingFolderNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
 import com.devepos.adt.base.ui.tree.launchable.ILaunchableNode;
-import com.devepos.adt.base.ui.util.AdtTypeUtil;
 import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
@@ -176,7 +175,7 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
       var adtObjectRefEmf = AdtObjectReferenceModelFactory.createReference(destinationId, objectRef
           .getName(), objectRef.getType(), objectRef.getUri());
       var objectElementInfo = new AdtObjectReferenceElementInfo(objectRef.getName(), objectRef
-          .getName(), objectRef.getDescription());
+          .getDisplayName(), objectRef.getDescription());
       if (!StringUtil.isEmpty(objectRef.getParentName())) {
         objectElementInfo.getProperties()
             .put(ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME, objectRef
@@ -294,16 +293,7 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
   public Image getImage(final Object element) {
     if (element instanceof IAdtObjectReferenceNode) {
       var adtObjRef = ((IAdtObjectReferenceNode) element).getObjectReference();
-      var type = adtObjRef.getType();
-      if (IAdtObjectTypeConstants.LOCAL_CLASS.equals(type)) {
-        return ImageUtil.getLocalClassImage();
-      }
-      if (IAdtObjectTypeConstants.LOCAL_INTERFACE.equals(type)) {
-        return ImageUtil.getLocalInterfaceImage();
-      } else {
-        return adtObjRef != null ? AdtTypeUtil.getInstance().getTypeImage(adtObjRef.getType())
-            : null;
-      }
+      return ImageUtil.getAdtTypeImage(adtObjRef.getType());
     }
     if (element instanceof ITreeNode) {
       var nodeTag = ((ITreeNode) element).getAdapter(ITag.class);
@@ -422,7 +412,7 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
 
   private void setObjRefNodeText(final StyledString text,
       final IAdtObjectReferenceNode objRefNode) {
-    text.append(objRefNode.getName());
+    text.append(objRefNode.getDisplayName());
     if (showObjectTypes) {
       AdtObjectUtil.appendAdtTypeDescription(objRefNode, text);
     }

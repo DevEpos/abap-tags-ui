@@ -16,10 +16,8 @@ import com.devepos.adt.atm.ui.internal.IImages;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.util.ITaggedObjectPropertyNameConstants;
 import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
-import com.devepos.adt.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
-import com.devepos.adt.base.ui.tree.AdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.launchable.LaunchableAdtObjectReferenceNode;
 import com.devepos.adt.base.util.StringUtil;
@@ -139,13 +137,13 @@ public class TaggedObjectSearchResult implements ISearchResult {
   }
 
   private void createResult() {
-    final List<IAdtObjectReferenceNode> nodes = new ArrayList<>();
+    final var nodes = new ArrayList<IAdtObjectReferenceNode>();
 
     for (final ITaggedObject taggedObject : internalSearchResult.getTaggedObjects()) {
-      final IAdtObjRef objectRef = taggedObject.getObjectRef();
-      final AdtObjectReferenceNode objRefNode = new LaunchableAdtObjectReferenceNode(objectRef
-          .getName(), objectRef.getName(), objectRef.getDescription(),
-          AdtObjectReferenceModelFactory.createReference(query.getDestinationId(), objectRef));
+      final var objectRef = taggedObject.getObjectRef();
+      final var objRefNode = new LaunchableAdtObjectReferenceNode(objectRef.getName(), objectRef
+          .getDisplayName(), objectRef.getDescription(), AdtObjectReferenceModelFactory
+              .createReference(query.getDestinationId(), objectRef));
       if (!StringUtil.isEmpty(objectRef.getParentName())) {
         objRefNode.getProperties()
             .put(ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME, objectRef

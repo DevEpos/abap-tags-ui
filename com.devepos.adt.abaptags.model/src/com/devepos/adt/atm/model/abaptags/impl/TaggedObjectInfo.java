@@ -2,7 +2,10 @@
  */
 package com.devepos.adt.atm.model.abaptags.impl;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
@@ -28,6 +31,8 @@ import com.devepos.adt.atm.model.abaptags.TagType;
  * Type</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectInfo#getObjectName <em>Object
  * Name</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectInfo#getObjectAltName <em>Object
+ * Alt Name</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectInfo#getObjectType <em>Object
  * Type</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectInfo#getComponentName
@@ -40,6 +45,8 @@ import com.devepos.adt.atm.model.abaptags.TagType;
  * Tag Name</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectInfo#getParentObjectName
  * <em>Parent Object Name</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectInfo#getParentObjectAltName
+ * <em>Parent Object Alt Name</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectInfo#getParentObjectType
  * <em>Parent Object Type</em>}</li>
  * </ul>
@@ -156,6 +163,28 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    * @ordered
    */
   protected String objectName = OBJECT_NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getObjectAltName() <em>Object Alt Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getObjectAltName()
+   * @generated
+   * @ordered
+   */
+  protected static final String OBJECT_ALT_NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getObjectAltName() <em>Object Alt Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getObjectAltName()
+   * @generated
+   * @ordered
+   */
+  protected String objectAltName = OBJECT_ALT_NAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getObjectType() <em>Object Type</em>}' attribute.
@@ -289,6 +318,30 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    * @ordered
    */
   protected String parentObjectName = PARENT_OBJECT_NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getParentObjectAltName() <em>Parent Object Alt Name</em>}'
+   * attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getParentObjectAltName()
+   * @generated
+   * @ordered
+   */
+  protected static final String PARENT_OBJECT_ALT_NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getParentObjectAltName() <em>Parent Object Alt Name</em>}'
+   * attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getParentObjectAltName()
+   * @generated
+   * @ordered
+   */
+  protected String parentObjectAltName = PARENT_OBJECT_ALT_NAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getParentObjectType() <em>Parent Object Type</em>}'
@@ -476,6 +529,33 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    * @generated
    */
   @Override
+  public String getObjectAltName() {
+    return objectAltName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setObjectAltName(final String newObjectAltName) {
+    String oldObjectAltName = objectAltName;
+    objectAltName = newObjectAltName;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAbapTagsPackage.TAGGED_OBJECT_INFO__OBJECT_ALT_NAME, oldObjectAltName, objectAltName));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public String getObjectType() {
     return objectType;
   }
@@ -639,6 +719,34 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    * @generated
    */
   @Override
+  public String getParentObjectAltName() {
+    return parentObjectAltName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setParentObjectAltName(final String newParentObjectAltName) {
+    String oldParentObjectAltName = parentObjectAltName;
+    parentObjectAltName = newParentObjectAltName;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAbapTagsPackage.TAGGED_OBJECT_INFO__PARENT_OBJECT_ALT_NAME, oldParentObjectAltName,
+          parentObjectAltName));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public String getParentObjectType() {
     return parentObjectType;
   }
@@ -663,6 +771,26 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   */
+  @Override
+  public String getObjectDisplayName() {
+    var displayName = getObjectAltName();
+    return displayName == null ? getObjectName() : displayName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   */
+  @Override
+  public String getParentObjectDisplayName() {
+    var displayName = getParentObjectAltName();
+    return displayName == null ? getParentObjectName() : displayName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -679,6 +807,8 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
       return getTagType();
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__OBJECT_NAME:
       return getObjectName();
+    case IAbapTagsPackage.TAGGED_OBJECT_INFO__OBJECT_ALT_NAME:
+      return getObjectAltName();
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__OBJECT_TYPE:
       return getObjectType();
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__COMPONENT_NAME:
@@ -691,6 +821,8 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
       return getParentTagName();
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__PARENT_OBJECT_NAME:
       return getParentObjectName();
+    case IAbapTagsPackage.TAGGED_OBJECT_INFO__PARENT_OBJECT_ALT_NAME:
+      return getParentObjectAltName();
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__PARENT_OBJECT_TYPE:
       return getParentObjectType();
     }
@@ -721,6 +853,9 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__OBJECT_NAME:
       setObjectName((String) newValue);
       return;
+    case IAbapTagsPackage.TAGGED_OBJECT_INFO__OBJECT_ALT_NAME:
+      setObjectAltName((String) newValue);
+      return;
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__OBJECT_TYPE:
       setObjectType((String) newValue);
       return;
@@ -738,6 +873,9 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
       return;
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__PARENT_OBJECT_NAME:
       setParentObjectName((String) newValue);
+      return;
+    case IAbapTagsPackage.TAGGED_OBJECT_INFO__PARENT_OBJECT_ALT_NAME:
+      setParentObjectAltName((String) newValue);
       return;
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__PARENT_OBJECT_TYPE:
       setParentObjectType((String) newValue);
@@ -770,6 +908,9 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__OBJECT_NAME:
       setObjectName(OBJECT_NAME_EDEFAULT);
       return;
+    case IAbapTagsPackage.TAGGED_OBJECT_INFO__OBJECT_ALT_NAME:
+      setObjectAltName(OBJECT_ALT_NAME_EDEFAULT);
+      return;
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__OBJECT_TYPE:
       setObjectType(OBJECT_TYPE_EDEFAULT);
       return;
@@ -787,6 +928,9 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
       return;
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__PARENT_OBJECT_NAME:
       setParentObjectName(PARENT_OBJECT_NAME_EDEFAULT);
+      return;
+    case IAbapTagsPackage.TAGGED_OBJECT_INFO__PARENT_OBJECT_ALT_NAME:
+      setParentObjectAltName(PARENT_OBJECT_ALT_NAME_EDEFAULT);
       return;
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__PARENT_OBJECT_TYPE:
       setParentObjectType(PARENT_OBJECT_TYPE_EDEFAULT);
@@ -815,6 +959,9 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__OBJECT_NAME:
       return OBJECT_NAME_EDEFAULT == null ? objectName != null
           : !OBJECT_NAME_EDEFAULT.equals(objectName);
+    case IAbapTagsPackage.TAGGED_OBJECT_INFO__OBJECT_ALT_NAME:
+      return OBJECT_ALT_NAME_EDEFAULT == null ? objectAltName != null
+          : !OBJECT_ALT_NAME_EDEFAULT.equals(objectAltName);
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__OBJECT_TYPE:
       return OBJECT_TYPE_EDEFAULT == null ? objectType != null
           : !OBJECT_TYPE_EDEFAULT.equals(objectType);
@@ -833,11 +980,32 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__PARENT_OBJECT_NAME:
       return PARENT_OBJECT_NAME_EDEFAULT == null ? parentObjectName != null
           : !PARENT_OBJECT_NAME_EDEFAULT.equals(parentObjectName);
+    case IAbapTagsPackage.TAGGED_OBJECT_INFO__PARENT_OBJECT_ALT_NAME:
+      return PARENT_OBJECT_ALT_NAME_EDEFAULT == null ? parentObjectAltName != null
+          : !PARENT_OBJECT_ALT_NAME_EDEFAULT.equals(parentObjectAltName);
     case IAbapTagsPackage.TAGGED_OBJECT_INFO__PARENT_OBJECT_TYPE:
       return PARENT_OBJECT_TYPE_EDEFAULT == null ? parentObjectType != null
           : !PARENT_OBJECT_TYPE_EDEFAULT.equals(parentObjectType);
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Object eInvoke(final int operationID, final EList<?> arguments)
+      throws InvocationTargetException {
+    switch (operationID) {
+    case IAbapTagsPackage.TAGGED_OBJECT_INFO___GET_OBJECT_DISPLAY_NAME:
+      return getObjectDisplayName();
+    case IAbapTagsPackage.TAGGED_OBJECT_INFO___GET_PARENT_OBJECT_DISPLAY_NAME:
+      return getParentObjectDisplayName();
+    }
+    return super.eInvoke(operationID, arguments);
   }
 
   /**
@@ -863,6 +1031,8 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
     result.append(tagType);
     result.append(", objectName: ");
     result.append(objectName);
+    result.append(", objectAltName: ");
+    result.append(objectAltName);
     result.append(", objectType: ");
     result.append(objectType);
     result.append(", componentName: ");
@@ -875,6 +1045,8 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
     result.append(parentTagName);
     result.append(", parentObjectName: ");
     result.append(parentObjectName);
+    result.append(", parentObjectAltName: ");
+    result.append(parentObjectAltName);
     result.append(", parentObjectType: ");
     result.append(parentObjectType);
     result.append(')');

@@ -40,7 +40,6 @@ import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.dialogs.SearchSelectionDialog;
-import com.devepos.adt.base.ui.util.AdtTypeUtil;
 import com.devepos.adt.base.util.StringUtil;
 
 public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObject, String> {
@@ -142,18 +141,10 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
     public void update(final ViewerCell cell) {
     }
 
-    private Image getAdtObjectTypeImage(final String type) {
-      if (type == null || type.isEmpty()) {
-        return null;
-      }
-      return AdtTypeUtil.getInstance().getTypeImage(type);
-    }
-
     private Image getObjectNameColImage(final Object element) {
       if (element instanceof ITaggedObject) {
         final ITaggedObject taggedObject = (ITaggedObject) element;
-        final IAdtObjRef objRef = taggedObject.getObjectRef();
-        return getAdtObjectTypeImage(objRef.getType());
+        return ImageUtil.getAdtObjRefImage(taggedObject.getObjectRef());
       }
       return null;
     }
@@ -161,8 +152,10 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
     private void setObjectNameText(final Object element, final StyledString text) {
       if (element instanceof ITaggedObject) {
         final ITaggedObject taggedObject = (ITaggedObject) element;
-        text.append(taggedObject.getObjectRef().getName() == null ? "" //$NON-NLS-1$
-            : taggedObject.getObjectRef().getName());
+        var objectRefName = taggedObject.getObjectRef().getDisplayName();
+        if (!StringUtil.isEmpty(objectRefName)) {
+          text.append(objectRefName);
+        }
       }
     }
   }
@@ -213,7 +206,7 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
     @Override
     public Image getImage(final Object element) {
       final IAdtObjRef ref = getObjectRef(element);
-      return ref != null ? AdtTypeUtil.getInstance().getTypeImage(ref.getType()) : null;
+      return ImageUtil.getAdtObjRefImage(ref);
     }
 
     @Override
@@ -221,8 +214,7 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
       final StyledString text = new StyledString();
       final IAdtObjRef objectRef = getObjectRef(element);
       if (objectRef != null) {
-        text.append(objectRef.getName());
-
+        text.append(objectRef.getDisplayName());
         final String description = objectRef.getDescription();
         if (!StringUtil.isEmpty(description)) {
           text.append(" " + objectRef.getDescription(), //$NON-NLS-1$
@@ -236,7 +228,7 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
     @Override
     public String getText(final Object element) {
       final IAdtObjRef objectRef = getObjectRef(element);
-      return objectRef != null ? objectRef.getName() : null;
+      return objectRef != null ? objectRef.getDisplayName() : null;
     }
 
     private IAdtObjRef getObjectRef(final Object element) {

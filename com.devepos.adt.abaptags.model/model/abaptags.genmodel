@@ -63,6 +63,7 @@
     </genClasses>
     <genClasses ecoreClass="abaptags.ecore#//AdtObjectTag">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/parentObjectName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/parentObjectAltName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/parentObjectType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/parentObjectUri"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/parentTagId"/>
@@ -70,6 +71,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/image"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//AdtObjectTag/possibleParentTags"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference abaptags.ecore#//AdtObjectTag/correctParentTag"/>
+      <genOperations ecoreOperation="abaptags.ecore#//AdtObjectTag/getParentObjectDisplayName"/>
     </genClasses>
     <genClasses ecoreClass="abaptags.ecore#//TagPreviewInfo">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TagPreviewInfo/tags"/>
@@ -132,13 +134,17 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/tagName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/tagType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/objectName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/objectAltName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/objectType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/componentName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/componentType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/parentTagId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/parentTagName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/parentObjectName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/parentObjectAltName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectInfo/parentObjectType"/>
+      <genOperations ecoreOperation="abaptags.ecore#//TaggedObjectInfo/getObjectDisplayName"/>
+      <genOperations ecoreOperation="abaptags.ecore#//TaggedObjectInfo/getParentObjectDisplayName"/>
     </genClasses>
     <genClasses ecoreClass="abaptags.ecore#//TaggedObjectInfoList">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//TaggedObjectInfoList/taggedObjectInfos"/>

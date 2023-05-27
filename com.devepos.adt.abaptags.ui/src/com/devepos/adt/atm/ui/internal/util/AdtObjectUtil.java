@@ -27,6 +27,9 @@ public class AdtObjectUtil {
       } else if (type.equals(IAdtObjectTypeConstants.LOCAL_INTERFACE)) {
         typeLabel = Messages.TypeLabels_LocalInterface_xlbl;
       } else {
+        if (type.equals(IAdtObjectTypeConstants.DATA_DEFINITION)) {
+          type = IAdtObjectTypeConstants.CDS_VIEW;
+        }
         typeLabel = typeUtil.getTypeDescription(type);
         if (typeLabel == null) {
           var projectProvider = objRefNode.getAdapter(IProjectProvider.class);

@@ -194,6 +194,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
       final IAdtObjRef objRefNew = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
       objRefNew.setUri(adtObjRef.getUri());
       objRefNew.setName(adtObjRef.getName());
+      objRefNew.setAlternativeName(adtObjRef.getAlternativeName());
       objRefNew.setType(adtObjRef.getType());
       objRefNew.setParentName(adtObjRef.getParentName());
       taggedObject.setObjectRef(objRefNew);

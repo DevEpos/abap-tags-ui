@@ -43,13 +43,12 @@ import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.tree.TaggedObjectTreeContentProvider;
 import com.devepos.adt.atm.ui.internal.util.TagParentCollector;
-import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.base.ui.action.ActionFactory;
 import com.devepos.adt.base.ui.celleditor.ExtendedDialogCellEditor;
-import com.devepos.adt.base.ui.util.AdtTypeUtil;
 import com.devepos.adt.base.ui.wizard.AbstractBaseWizardPage;
+import com.devepos.adt.base.util.StringUtil;
 
 public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
   public static final String PAGE_NAME = TagParentObjectSelectionWizardPage.class
@@ -91,7 +90,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
           return objectTag.getImage();
         }
         if (column == Column.PARENT_OBJECT) {
-          image = getAdtObjectTypeImage(objectTag.getParentObjectType());
+          image = ImageUtil.getAdtTypeImage(objectTag.getParentObjectType());
         }
       }
       return image;
@@ -108,8 +107,8 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
       case PARENT_OBJECT:
         if (element instanceof IAdtObjectTag) {
           final IAdtObjectTag objectTag = (IAdtObjectTag) element;
-          final String parentObject = objectTag.getParentObjectName();
-          if (parentObject != null && !parentObject.isEmpty()) {
+          final String parentObject = objectTag.getParentObjectDisplayName();
+          if (!StringUtil.isEmpty(parentObject)) {
             text.append(parentObject);
           } else {
             text.append(Messages.TagParentObjectSelectionWizardPage_ParentObjectAssignPrompt_xmsg,
@@ -131,7 +130,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
     public String getText(final Object element) {
       if (element instanceof IAdtObjectTag) {
         final IAdtObjectTag objectTag = (IAdtObjectTag) element;
-        return objectTag.getParentObjectName();
+        return objectTag.getParentObjectDisplayName();
       }
       return null;
     }
@@ -140,24 +139,11 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
     public void update(final ViewerCell cell) {
     }
 
-    private Image getAdtObjectTypeImage(final String type) {
-      if (type == null || type.isEmpty()) {
-        return null;
-      }
-      if (IAdtObjectTypeConstants.LOCAL_CLASS.equals(type)) {
-        return ImageUtil.getLocalClassImage();
-      }
-      if (IAdtObjectTypeConstants.LOCAL_INTERFACE.equals(type)) {
-        return ImageUtil.getLocalInterfaceImage();
-      }
-      return AdtTypeUtil.getInstance().getTypeImage(type);
-    }
-
     private Image getObjectNameColImage(final Object element) {
       if (element instanceof ITaggedObject) {
         final ITaggedObject taggedObject = (ITaggedObject) element;
         final IAdtObjRef objRef = taggedObject.getObjectRef();
-        return getAdtObjectTypeImage(objRef.getType());
+        return ImageUtil.getAdtTypeImage(objRef.getType());
       }
       if (element instanceof IAdtObjectTag) {
         return ((IAdtObjectTag) element).getImage();
@@ -168,8 +154,10 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
     private void setObjectNameText(final Object element, final StyledString text) {
       if (element instanceof ITaggedObject) {
         final ITaggedObject taggedObject = (ITaggedObject) element;
-        text.append(taggedObject.getObjectRef().getName() == null ? "" //$NON-NLS-1$
-            : taggedObject.getObjectRef().getName());
+        var objectName = taggedObject.getObjectRef().getDisplayName();
+        if (!StringUtil.isEmpty(objectName)) {
+          text.append(objectName);
+        }
       } else if (element instanceof IAdtObjectTag) {
         final IAdtObjectTag objectTag = (IAdtObjectTag) element;
         text.append(objectTag.getName() == null ? "" : objectTag.getName()); //$NON-NLS-1$
@@ -256,6 +244,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 
         final IAdtObjRef parentObjRef = taggedParentObject.getObjectRef();
         objectTag.setParentObjectName(parentObjRef.getName());
+        objectTag.setParentObjectAltName(parentObjRef.getAlternativeName());
         objectTag.setParentObjectType(parentObjRef.getType());
         objectTag.setParentObjectUri(parentObjRef.getUri());
 
@@ -283,6 +272,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
             continue;
           }
           tag.setParentObjectName(tagWithParentObject.getParentObjectName());
+          tag.setParentObjectAltName(tagWithParentObject.getParentObjectAltName());
           tag.setParentObjectType(tagWithParentObject.getParentObjectType());
           tag.setParentTagId(tagWithParentObject.getParentTagId());
           tag.setParentObjectUri(tagWithParentObject.getParentObjectUri());
@@ -436,6 +426,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
     objectTag.setParentObjectUri(null);
     objectTag.setParentObjectType(null);
     objectTag.setParentObjectName(null);
+    objectTag.setParentObjectAltName(null);
     objectTag.setParentTagId(objectTag.getCorrectParentTag().getId());
     objectTag.setParentTagName(objectTag.getCorrectParentTag().getName());
   }

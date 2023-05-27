@@ -5,6 +5,9 @@ import org.eclipse.swt.graphics.Image;
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.base.IAdtObjectTypeConstants;
+import com.devepos.adt.base.model.adtbase.IAdtObjRef;
+import com.devepos.adt.base.ui.util.AdtTypeUtil;
 import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.tools.core.ui.AbapCoreUi;
 
@@ -16,6 +19,39 @@ import com.sap.adt.tools.core.ui.AbapCoreUi;
  */
 @SuppressWarnings("restriction")
 public class ImageUtil {
+
+  /**
+   * Retrieves correct image for ADT Object
+   * 
+   * @param objRef adt object reference
+   * @return
+   */
+  public static Image getAdtObjRefImage(IAdtObjRef objRef) {
+    return objRef == null ? null : getAdtTypeImage(objRef.getType());
+  }
+
+  /**
+   * Retrieves correct image for ADT type
+   * 
+   * @param adtType adt type
+   * @return
+   */
+  public static Image getAdtTypeImage(String type) {
+    if (type == null) {
+      return null;
+    }
+    if (IAdtObjectTypeConstants.LOCAL_CLASS.equals(type)) {
+      return ImageUtil.getLocalClassImage();
+    }
+    if (IAdtObjectTypeConstants.LOCAL_INTERFACE.equals(type)) {
+      return ImageUtil.getLocalInterfaceImage();
+    }
+    if (IAdtObjectTypeConstants.DATA_DEFINITION.equals(type)) {
+      type = IAdtObjectTypeConstants.CDS_VIEW;
+    }
+
+    return AdtTypeUtil.getInstance().getTypeImage(type);
+  }
 
   /**
    * Retrieves correct image for the given tag
@@ -43,6 +79,20 @@ public class ImageUtil {
   }
 
   /**
+   * Returns image for a local class
+   */
+  public static Image getLocalClassImage() {
+    return AbapCoreUi.getSharedImages().getClassImage(false, false, false, false, false, true);
+  }
+
+  /**
+   * Returns image for a local interface
+   */
+  public static Image getLocalInterfaceImage() {
+    return AbapCoreUi.getSharedImages().getInterfaceImage(false, false, true);
+  }
+
+  /**
    * Retrieves the image for the given object tag
    *
    * @param tag an object tag
@@ -56,20 +106,5 @@ public class ImageUtil {
       return AbapTagsUIPlugin.getDefault().getImage(IImages.SHARED_TAG);
     }
     return AbapTagsUIPlugin.getDefault().getImage(IImages.USER_TAG);
-  }
-
-  /**
-   * Returns image for a local class
-   */
-  public static Image getLocalClassImage() {
-    return AbapCoreUi.getSharedImages().getClassImage(false, false, false, false, false, true);
-  }
-
-  /**
-   * Returns image for a local interface
-   */
-  public static Image getLocalInterfaceImage() {
-    return AbapCoreUi.getSharedImages().getInterfaceImage(false, false, true);
-
   }
 }
